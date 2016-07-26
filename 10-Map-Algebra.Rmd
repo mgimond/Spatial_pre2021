@@ -1,0 +1,347 @@
+# Map Algebra
+
+Dana Tomlin is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework *map algebra*. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: **local**, **focal**, **zonal** and **global**. Each is explored in the following
+sections.
+
+```{r echo=FALSE}
+library(raster)
+library(rasterVis)
+
+gp <- function(sg, nr=1, sfmt="%02.0f", fnts = 2.1){
+  library(ggplot2)
+  library(scales)
+  library(reshape2) 
+  r.df = as.data.frame(cbind(xyFromCell(sg,1:ncell(sg)),getValues(sg)))
+  plotData = melt(r.df, id=c("x","y"))
+  ggplot(aes(x = x, y = y), data = plotData, environment = environment()) + 
+    geom_tile(aes(fill = value)) + facet_wrap(~ variable, nrow=nr) +
+    scale_colour_brewer(palette="Blues") +  
+    theme(strip.text.x = element_text(size=9, family="mono", face="bold"), 
+          legend.position = "none",
+          axis.text=element_text(size=7),
+          axis.title=element_text(size=8) ) +
+    coord_equal() + geom_text(aes(label=sprintf(fmt=sfmt, value)), colour='white',size=fnts)
+}
+
+r = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
+projection(r) = "+proj=utm +zone=19 +datum=NAD83"
+values(r) = seq(1 : ncell(r))
+```
+
+## Local operations and functions
+
+Local operations and functions are applied to each individual cell and only involve those cells sharing the same location. 
+
+For example, if we start off with an original raster, then multiply it by 2 then add 1, we get a new raster whose cell values reflect the series of operations performed on the original raster cells. This is an example of a **unary** operation where just one single raster is involved in the operation.
+
+```{r echo=FALSE, fig.cap = "Example of a local operation where  `output=(2 * raster + 1)`.", fig.width=5, fig.height=3}
+
+l1 <- r * 2 + 1   # Apply basic operations to r, assign output to l1
+ 
+sg = stack(r,l1) 
+names(sg) = c("raster","output") 
+gp(sg,1)
+
+```
+
+More than one raster can be involved in a local operation. For example, two rasters can be summed (i.e. each overlapping pixels are summed) to generate a new raster.
+
+```{r echo=FALSE, fig.cap = "Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location.", fig.width=7, fig.height=3}
+l2 <- r - r + runif(length(r), 0,10)   # Apply basic operations to r, assign output to l1
+l3 <- r + l2 
+sg = stack(r,l2,l3) 
+names(sg) = c("R1","R2", "output") 
+gp(sg,1)
+```
+
+
+Local operations also include **reclassification** of values. This is where a range of values from the input raster are assigned a new (common) value. For example, we might want to reclassify the input raster values as follows:
+
+Original values | Reclassified values
+----------------|--------------------
+0-25 |  25
+26-50 | 50
+51-75 | 75
+76-100 | 100
+
+```{r echo=FALSE, fig.cap = "Example of a local operation where the output results from the reclassification of input values.", message=FALSE, warning=FALSE, fig.height=2.9, fig.width=5}
+
+m    = c(0, 25, 25,  25, 50, 50,  50, 75,  75, 75, 100, 100)
+m    = matrix(m, ncol=3, byrow = T)
+l4   = reclassify(r, m, right = T)
+
+l1 <- r * 2 + 1   # Apply basic operations to r, assign output to l1
+ 
+sg = stack(r,l4) 
+names(sg) = c("raster","output") 
+gp(sg,1)
+
+```
+
+## Focal operations and functions
+
+> Focal operations are also referred to as *neighborhood* operations.
+
+
+Focal operations assign to the output cells some summary value (such as the mean) of the neighboring cells from the input raster. For example, a cell output value can be the average of all 9 neighboring input cells (including the center cell); this acts as a *smoothing function*.
+
+```{r echo=FALSE, fig.cap = "Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.", message=FALSE, warning=FALSE, fig.height=2.9, fig.width=5}
+
+r2 = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
+set.seed(123)
+values(r2) = round(runif(ncell(r2),1,100))
+f1 = focal(r2, w=matrix(1/9,nrow=3,ncol=3), fun=sum)
+
+sg = stack(r2,f1)
+names(sg) = c("raster","output") 
+gp(sg,1,"%2.1f")
+
+```
+
+Notice how, in the above example, the edge cells from the output raster have been assigned a value of `NA` (No Data). This is because cells outside of the extent have no value. Some GIS applications will ignore the missing surrounding values and just compute the average of the available cells as demonstrated in the next example.
+
+```{r echo=FALSE, fig.cap = "Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored.", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
+
+r2 = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
+set.seed(123)
+values(r2) = round(runif(ncell(r2),1,100))
+f1 = focal(r2, w=matrix(1,nrow=3,ncol=3)  , fun=mean, na.rm=TRUE, pad=TRUE)
+
+sg = stack(r2, f1)
+names(sg) = c("raster","output") 
+gp(sg,1,"%2.1f")
+
+```
+
+Focal (or neighbor) operations require that a window region (a **kernel**) be defined. In the above examples, a simple 3 by 3 kernel (or window) was used in the focal operations. The kernel can take on different dimensions and shape such as a 3 by 3 square where the central pixel is ignored (thus reducing the number of neighbors to 8) or a circular neighbor defined by a radius.
+
+```{r echo=FALSE, fig.cap = "Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. ", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
+
+r2 = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
+set.seed(123)
+values(r2) = round(runif(ncell(r2),1,100))
+m  <- matrix(c(1,1,1,1,0,1,1,1,1),nrow = 3) # This defines the 3x3 moving window 
+f1 = focal(r2, w=m  , fun=mean, na.rm=TRUE, pad=TRUE)
+
+sg = stack(r2,f1)
+names(sg) = c("raster","output") 
+gp(sg,1,"%2.1f")
+
+```
+
+In addition to defining the neighborhood shape and dimension, a kernel also defines the weight each neighboring cell contributes to the summary statistic. For example, all cells in a 3 by 3 neighbor could each contribute 1/9^th^ of their value to the summarized value (i.e. equal weight). But the weight can take on a more complex form defined by a function; such weights are defined by a **kernel function**. One popular function is a **Gaussian** weighted function which assigns greater weight to nearby cells than those further away.
+
+```{r echo=FALSE, fig.cap = "Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight.", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
+
+r2 = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
+set.seed(123)
+values(r2) = round(runif(ncell(r2),1,100))
+m = focalWeight(r2, 4, "Gauss") 
+f1 = focal(r2, w=m  , fun=sum, na.rm=TRUE, pad=TRUE)
+
+sg = stack(r2,f1)
+names(sg) = c("raster","output") 
+gp(sg,1,"%2.1f")
+
+```
+
+## Zonal operations and functions
+
+A zonal operation computes a new summary value (such as the mean) from cells aggregated for some zonal unit. In the following example, the cell values from the raster layer are aggregated into three zones whose boundaries are delineated in red. Each output zone shows the average cell value within that zone.
+
+```{r echo=FALSE, fig.cap = "Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red.", message=FALSE, warning=FALSE, fig.height=3.5, fig.width=6}
+
+library(gridExtra)
+library(broom)
+cds1 <- rbind(c(0,50), c(0,100), c(50,100), c(50,50), c(0,50))
+cds2 <- rbind(c(0,0), c(100,0), c(50,50), c(0,50), c(0,0))
+cds3 <- rbind(c(100,0), c(50,50), c(50,100), c(100,100), c(100,0))
+polys <- SpatialPolygons(list(Polygons(list(Polygon(cds1)), 1), 
+                              Polygons(list(Polygon(cds2)), 2),
+                              Polygons(list(Polygon(cds3)), 3)))
+
+
+v <- extract(r, polys, fun=mean)
+Polys.df <- SpatialPolygonsDataFrame(polys, data.frame(Val=v, row.names=row.names(polys)), match.ID = FALSE)
+Polys.df$id <- as.character(1:nrow(Polys.df))
+s.df <- tidy(Polys.df)
+#s.df <- fortify(Polys.df,  region = "Val")
+
+cnames <- aggregate(cbind(long, lat) ~ group, data=s.df, FUN=function(x)mean(range(x)))
+cnames <- cbind(cnames, v)
+
+p1 <- gplot(r) + geom_tile(aes(fill = value)) +  
+  scale_colour_brewer(palette="Blues") + 
+  coord_equal() +   
+  geom_text(aes(label=sprintf("%2.1f", value)),colour='white',size=2.1) +
+  geom_polygon(data=s.df, aes(long,lat, group=group, alpha=0),colour='red', fill=NA ) +
+  theme(strip.text.x = element_text(size=9, family="mono", face="bold"), 
+      legend.position = "none",
+      axis.text=element_blank(),
+      axis.title=element_blank() )
+
+p2 <- gplot(r) + 
+  geom_polygon(data=s.df, aes(long,lat, group=group, fill=as.numeric(id),alpha=.5),colour='white' ) +
+  scale_colour_brewer(palette="Blues") + 
+  coord_equal() +   
+  geom_text(data=cnames,aes(long,lat,label=sprintf("%2.1f", v)),colour='white',size=4.1) +
+  theme(strip.text.x = element_text(size=9, family="mono", face="bold"), 
+      legend.position = "none",
+      axis.text=element_blank(),
+      axis.title=element_blank() )
+grid.arrange(p1, p2, ncol=2)
+
+```
+
+This technique is often used with rasters derived from remotely sensed imagery (e.g. NDVI) where areal units (such as counties or states) are used to compute the average cell values from the raster.
+
+## Global operations and functions
+
+Global operations and functions may make use of some or all input cells when computing an output cell value. An example of a global function is the *Euclidean Distance* tool which computes the shortest distance between a pixel and a source (or destination) location. In the following example, a new raster assigns to each cell a distance value to the closest cell having a value of 1 (there are just two such cells in the input raster).
+
+```{r echo=FALSE, fig.cap = "Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer).", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
+
+p           = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100) # Create an empty raster
+p[]         = NA  # Assign NoData values to all pixels
+p[c(20,85)] = 1   # Change the pixels 20 and 85  to 1
+p.d = distance(p) # Compute the shortest distance between each output pixel in the 
+                  # output raster and pixels 20 and 85
+sg = stack(p, p.d)
+names(sg) = c("Input","Output") 
+gp(sg,1,"%2.0f")
+
+```
+
+Global operations and functions can also generate single value outputs such as the overall pixel mean or standard deviation.
+
+Another popular use of global functions is in the mapping of least-cost paths where a cost surface raster is used to identify the shortest path between two locations which minimizes cost (in time or money).
+
+## Operators and functions
+
+Operations and functions applied to gridded data can be broken down into three groups: **mathematical**, **logical comparison** and **Boolean**.
+
+### Mathematical operators and functions
+
+Two mathematical operators have already been demonstrated in earlier sections: the *multiplier* and the *addition* operators. Other operators include division and the modulo (aka the modulus) which is the remainder of a division. Mathematical *functions* can also be applied to gridded data manipulation. Examples are square root and sine functions. The following tables showcases a few examples with ArcGIS syntax.
+
+Operation |	Syntax | Example
+----------|--------|--------
+Addition | `+`     | `R1 + R2`		
+Subtraction | `-`  | `R1 - R2`		
+Division		| `/`  | `R1 / R2`
+Modulo		  | `Mod()` | `Mod(R1, 100)`
+Square root		| `SquareRoot()` | `SquareRoot(R1)`
+
+### Logical comparison
+
+The logical comparison operators evaluate a condition then output a value of `1` if the condition is true and `0` if the condition is false. Logical comparison operators consist of *greater than*, *less than*, *equal* and *not equal*. 
+
+Logical comparison | Syntax
+-------------------|-------
+Greater than	     | `>`
+Less than	         | `<`
+Equal	             | `==`
+Not equal	         | `!=`
+
+For example, the following figure shows the output of the comparison between two rasters where we are assessing if cells in `R1` are *greater than* those in `R2` (on a cell-by-cell basis).
+
+```{r echo=FALSE, fig.cap = "Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.", fig.height=2, fig.width=5}
+
+ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=100, ymx=9)
+ras2 <- ras1
+ras.out <- ras1
+projection(r) <- "+proj=utm +zone=19 +datum=NAD83"
+set.seed(32)
+values(ras1) <- round(runif(length(ras1),-5,5))
+set.seed(5)
+values(ras2) <- round(runif(length(ras2),-5,5))
+ras.out <- (ras1 > ras2)
+sg = stack(ras1,ras2,ras.out) 
+names(sg) <- c("R1","R2", "output") 
+gp(sg,1, sfmt="%2.0f", fnts=4)
+
+```
+
+When assessing whether two cells are equal, some programming environments such as R and ArcMap's *Raster Calculator* require the use of the *double equality* syntax, `==`, as in `R1 == R2`. In these programming environments, the single equality syntax is usually interpreted as an *assignment operator* so `R1 = R2` would instruct the computer to assign the cell values in R2 to R1 (which is not what we want to do here). 
+
+Some applications make use of special functions to test a condition. For example, ArcMap has a function called `Con(condition, out1, out2)` which assigns the value `out1` if the condition is met and a value of `out2` if it's not. For example, ArcMap's raster calculator expression 
+
+```
+Con( R1 > R2, 1, 0)
+```
+outputs a value of `1` if `R1` is greater than `R2` and `0` if not. It generates the same output as the one shown in the above figure. Note that in most programming environments (including ArcMap), the expression `R1 > R2` produces the same output because the value `1` is the numeric representation of  `TRUE` and `0` of `FALSE`. 
+
+
+### Boolean (or Logical) operators
+ 
+In map algebra, *Boolean* operators are used to compare conditional states of a cell (i.e. TRUE or FALSE). The three Boolean operators are **AND**, **OR** and **NOT**. 
+
+Boolean | ArcGIS | R |	Example
+--------|--------|----|------
+AND     |	&      |	&	| `R1 & R2`
+OR	    |	`|`    |	`|` | `R1 | R2`, `R1 or R2`
+NOT	    | `~`	   | `!` | `~R2`
+
+> A "TRUE" state is usually encoded as a `1` or any *non-zero* integer while a "FALSE" state is usually encoded as a `0`.
+
+For example, if `cell1=0` and `cell2=1`, the Boolean operation `cell1 AND cell2` results in a `FALSE` (or 0) output cell value. This Boolean operation can be translated into plain English as "are the cells 1 and 2 both TRUE?" to which we answer "No they are not" (cell1 is FALSE). The **OR** operator can be interpreted as "is x *or* y TRUE?" so that `cell1 OR cell2` would return `TRUE`. The **NOT** interpreter can be interpreted as "is x not TRUE?" so that `NOT cell1` would return `TRUE`. 
+
+
+```{r echo=FALSE, fig.cap = "Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. ", fig.height=2, fig.width=5}
+ 
+ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=100, ymx=9)
+ras2 <- ras1
+ras.out <- ras1
+projection(r) <- "+proj=utm +zone=19 +datum=NAD83"
+set.seed(32)
+values(ras1) <- round(runif(length(ras1),-5,5))
+set.seed(5)
+values(ras2) <- round(runif(length(ras2),-5,5))
+ras.out <- (ras1 & ras2)
+sg = stack(ras1,ras2,ras.out) 
+names(sg) <- c("R1","R2", "output") 
+gp(sg,1, sfmt="%2.0f", fnts=4)
+ 
+```
+
+```{r echo=FALSE, fig.cap = "Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0).", fig.height=2, fig.width=5}
+ 
+ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=100, ymx=9)
+ras2 <- ras1
+ras.out <- ras1
+projection(r) <- "+proj=utm +zone=19 +datum=NAD83"
+set.seed(32)
+values(ras1) <- round(runif(length(ras1),-5,5))
+set.seed(5)
+values(ras2) <- round(runif(length(ras2),-5,5))
+ras.out <- (! ras2)
+sg = stack(ras2,ras.out) 
+names(sg) <- c("R2", "output") 
+gp(sg,1, sfmt="%2.0f", fnts=4)
+ 
+```
+
+### Combining operations
+
+> Note that most software environments assign the AND Boolean operator the ampersand character, `&`.
+
+
+Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: $0<R1<4$  and $R2>0$. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a 0 (FALSE) or a 1(TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses if R2>0 is TRUE or FALSE. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
+  
+```{r echo=FALSE, fig.height=2, fig.width=5, fig.cap = "Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false."}
+
+ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=100, ymx=9)
+ras2 <- ras1
+ras.out <- ras1
+projection(r) <- "+proj=utm +zone=19 +datum=NAD83"
+set.seed(32)
+values(ras1) <- round(runif(length(ras1),-5,5))
+set.seed(5)
+values(ras2) <- round(runif(length(ras2),-5,5))
+ras.out <- ((ras1 > 0) & (ras1 <4)) & (ras2 > 0) 
+sg <- stack(ras1,ras2,ras.out) 
+names(sg) <- c("R1","R2", "output") 
+gp(sg,1, sfmt="%2.0f", fnts=4)
+
+```
+ 

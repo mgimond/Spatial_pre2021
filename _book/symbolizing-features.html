@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Intro to GIS and Spatial Analysis</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
+  <meta name="generator" content="bookdown 0.1.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="github-repo" content="mgimond/private-test" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
+  
+  <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  
+
+<meta name="author" content="Manuel Gimond">
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="gis-data-management.html">
+<link rel="next" href="pitfalls-to-avoid.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.6/htmlwidgets.js"></script>
+<link href="libs/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-0.7.3/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-1.0.1/leaflet.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introGIS.html"><a href="introGIS.html"><i class="fa fa-check"></i><b>1</b> Introduction to GIS</a><ul>
+<li class="chapter" data-level="1.1" data-path="introGIS.html"><a href="introGIS.html#what-is-a-gis"><i class="fa fa-check"></i><b>1.1</b> What is a GIS?</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introGIS.html"><a href="introGIS.html#gis-software"><i class="fa fa-check"></i><b>1.1.1</b> GIS software</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introGIS.html"><a href="introGIS.html#qgis"><i class="fa fa-check"></i><b>1.1.2</b> QGIS</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introGIS.html"><a href="introGIS.html#what-is-spatial-analysis"><i class="fa fa-check"></i><b>1.2</b> What is Spatial Analysis?</a></li>
+<li class="chapter" data-level="1.3" data-path="introGIS.html"><a href="introGIS.html#whats-in-an-acronym"><i class="fa fa-check"></i><b>1.3</b> What’s in an Acronym?</a></li>
+</ul></li>
+<li class="part"><span><b>Working with spatial data</b></span></li>
+<li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
+<li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
+<li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="feature-representation.html"><a href="feature-representation.html#scale"><i class="fa fa-check"></i><b>2.3</b> Scale</a></li>
+<li class="chapter" data-level="2.4" data-path="feature-representation.html"><a href="feature-representation.html#attribute-tables"><i class="fa fa-check"></i><b>2.4</b> Attribute Tables</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="feature-representation.html"><a href="feature-representation.html#measurement-levels"><i class="fa fa-check"></i><b>2.4.1</b> Measurement Levels</a></li>
+<li class="chapter" data-level="2.4.2" data-path="feature-representation.html"><a href="feature-representation.html#data-type"><i class="fa fa-check"></i><b>2.4.2</b> Data type</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="gis-data-management.html"><a href="gis-data-management.html"><i class="fa fa-check"></i><b>3</b> GIS Data Management</a><ul>
+<li class="chapter" data-level="3.1" data-path="gis-data-management.html"><a href="gis-data-management.html#gis-file-data-formats"><i class="fa fa-check"></i><b>3.1</b> GIS File Data Formats</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="gis-data-management.html"><a href="gis-data-management.html#vector-data-file-formats"><i class="fa fa-check"></i><b>3.1.1</b> Vector Data File Formats</a></li>
+<li class="chapter" data-level="3.1.2" data-path="gis-data-management.html"><a href="gis-data-management.html#raster-data-file-formats"><i class="fa fa-check"></i><b>3.1.2</b> Raster Data File Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="gis-data-management.html"><a href="gis-data-management.html#managing-gis-files"><i class="fa fa-check"></i><b>3.2</b> Managing GIS Files</a></li>
+<li class="chapter" data-level="3.3" data-path="gis-data-management.html"><a href="gis-data-management.html#managing-a-map-project-in-arcgis"><i class="fa fa-check"></i><b>3.3</b> Managing a Map Project in ArcGIS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="symbolizing-features.html"><a href="symbolizing-features.html"><i class="fa fa-check"></i><b>4</b> Symbolizing features</a><ul>
+<li class="chapter" data-level="4.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#color"><i class="fa fa-check"></i><b>4.1</b> Color</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#hue"><i class="fa fa-check"></i><b>4.1.1</b> Hue</a></li>
+<li class="chapter" data-level="4.1.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#lightness"><i class="fa fa-check"></i><b>4.1.2</b> Lightness</a></li>
+<li class="chapter" data-level="4.1.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#saturation"><i class="fa fa-check"></i><b>4.1.3</b> Saturation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#color-space"><i class="fa fa-check"></i><b>4.2</b> Color Space</a></li>
+<li class="chapter" data-level="4.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification"><i class="fa fa-check"></i><b>4.3</b> Classification</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#qualitative-color-scheme"><i class="fa fa-check"></i><b>4.3.1</b> Qualitative color scheme</a></li>
+<li class="chapter" data-level="4.3.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#sequential-color-scheme"><i class="fa fa-check"></i><b>4.3.2</b> Sequential color scheme</a></li>
+<li class="chapter" data-level="4.3.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#divergent-color-scheme"><i class="fa fa-check"></i><b>4.3.3</b> Divergent color scheme</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="symbolizing-features.html"><a href="symbolizing-features.html#so-how-do-i-find-a-proper-color-scheme-for-my-data"><i class="fa fa-check"></i><b>4.4</b> So how do I find a proper color scheme for my data?</a></li>
+<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html"><i class="fa fa-check"></i><b>5</b> Pitfalls to avoid</a><ul>
+<li class="chapter" data-level="5.1" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#representing-count"><i class="fa fa-check"></i><b>5.1</b> Representing Count</a></li>
+<li class="chapter" data-level="5.2" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#maup"><i class="fa fa-check"></i><b>5.2</b> MAUP</a></li>
+<li class="chapter" data-level="5.3" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#ecological-fallacy"><i class="fa fa-check"></i><b>5.3</b> Ecological Fallacy</a></li>
+<li class="chapter" data-level="5.4" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#mapping-rates"><i class="fa fa-check"></i><b>5.4</b> Mapping rates</a></li>
+<li class="chapter" data-level="5.5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#coping-with-unstable-rates"><i class="fa fa-check"></i><b>5.5</b> Coping with Unstable Rates</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html"><i class="fa fa-check"></i><b>6</b> Good Map Making Tips</a><ul>
+<li class="chapter" data-level="6.1" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#elements-of-a-map"><i class="fa fa-check"></i><b>6.1</b> Elements of a map</a></li>
+<li class="chapter" data-level="6.2" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#how-to-create-a-good-map"><i class="fa fa-check"></i><b>6.2</b> How to create a <em>good</em> map</a></li>
+<li class="chapter" data-level="6.3" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#typefaces-and-fonts"><i class="fa fa-check"></i><b>6.3</b> Typefaces and Fonts</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html"><i class="fa fa-check"></i><b>7</b> Uncertainty in Census Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#mapping-uncertainty"><i class="fa fa-check"></i><b>7.2</b> Mapping uncertainty</a></li>
+<li class="chapter" data-level="7.3" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#problems-in-mapping-uncertainty"><i class="fa fa-check"></i><b>7.3</b> Problems in mapping uncertainty</a></li>
+<li class="chapter" data-level="7.4" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#class-comparison-maps"><i class="fa fa-check"></i><b>7.4</b> Class comparison maps</a></li>
+<li class="chapter" data-level="7.5" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#problem-when-performing-bivariate-analysis"><i class="fa fa-check"></i><b>7.5</b> Problem when performing bivariate analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html"><i class="fa fa-check"></i><b>8</b> Spatial Operations and Vector Overlays</a><ul>
+<li class="chapter" data-level="8.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#selection-by-attribute"><i class="fa fa-check"></i><b>8.1</b> Selection by Attribute</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#set-algebra"><i class="fa fa-check"></i><b>8.1.1</b> Set Algebra</a></li>
+<li class="chapter" data-level="8.1.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#boolean-algebra"><i class="fa fa-check"></i><b>8.1.2</b> Boolean Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#selection-by-location"><i class="fa fa-check"></i><b>8.2</b> Selection by location</a></li>
+<li class="chapter" data-level="8.3" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#vector-overlay"><i class="fa fa-check"></i><b>8.3</b> Vector Overlay</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#clip"><i class="fa fa-check"></i><b>8.3.1</b> Clip</a></li>
+<li class="chapter" data-level="8.3.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#intersect"><i class="fa fa-check"></i><b>8.3.2</b> Intersect</a></li>
+<li class="chapter" data-level="8.3.3" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#union"><i class="fa fa-check"></i><b>8.3.3</b> Union</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="coordinate-systems.html"><a href="coordinate-systems.html"><i class="fa fa-check"></i><b>9</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="9.1" data-path="coordinate-systems.html"><a href="coordinate-systems.html#geographic-coordinate-systems"><i class="fa fa-check"></i><b>9.1</b> Geographic Coordinate Systems</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="coordinate-systems.html"><a href="coordinate-systems.html#sphere-and-ellipsoid"><i class="fa fa-check"></i><b>9.1.1</b> Sphere and Ellipsoid</a></li>
+<li class="chapter" data-level="9.1.2" data-path="coordinate-systems.html"><a href="coordinate-systems.html#geoid"><i class="fa fa-check"></i><b>9.1.2</b> Geoid</a></li>
+<li class="chapter" data-level="9.1.3" data-path="coordinate-systems.html"><a href="coordinate-systems.html#datum"><i class="fa fa-check"></i><b>9.1.3</b> Datum</a></li>
+<li class="chapter" data-level="9.1.4" data-path="coordinate-systems.html"><a href="coordinate-systems.html#building-the-geographic-coordinate-system"><i class="fa fa-check"></i><b>9.1.4</b> Building the Geographic Coordinate System</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="coordinate-systems.html"><a href="coordinate-systems.html#projected-coordinate-systems"><i class="fa fa-check"></i><b>9.2</b> Projected Coordinate Systems</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="coordinate-systems.html"><a href="coordinate-systems.html#planar-projections"><i class="fa fa-check"></i><b>9.2.1</b> Planar Projections</a></li>
+<li class="chapter" data-level="9.2.2" data-path="coordinate-systems.html"><a href="coordinate-systems.html#cylindrical-projection"><i class="fa fa-check"></i><b>9.2.2</b> Cylindrical Projection</a></li>
+<li class="chapter" data-level="9.2.3" data-path="coordinate-systems.html"><a href="coordinate-systems.html#conical-projection"><i class="fa fa-check"></i><b>9.2.3</b> Conical Projection</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="coordinate-systems.html"><a href="coordinate-systems.html#spatial-properties"><i class="fa fa-check"></i><b>9.3</b> Spatial Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="map-algebra.html"><a href="map-algebra.html"><i class="fa fa-check"></i><b>10</b> Map Algebra</a><ul>
+<li class="chapter" data-level="10.1" data-path="map-algebra.html"><a href="map-algebra.html#local-operations-and-functions"><i class="fa fa-check"></i><b>10.1</b> Local operations and functions</a></li>
+<li class="chapter" data-level="10.2" data-path="map-algebra.html"><a href="map-algebra.html#focal-operations-and-functions"><i class="fa fa-check"></i><b>10.2</b> Focal operations and functions</a></li>
+<li class="chapter" data-level="10.3" data-path="map-algebra.html"><a href="map-algebra.html#zonal-operations-and-functions"><i class="fa fa-check"></i><b>10.3</b> Zonal operations and functions</a></li>
+<li class="chapter" data-level="10.4" data-path="map-algebra.html"><a href="map-algebra.html#global-operations-and-functions"><i class="fa fa-check"></i><b>10.4</b> Global operations and functions</a></li>
+<li class="chapter" data-level="10.5" data-path="map-algebra.html"><a href="map-algebra.html#operators-and-functions"><i class="fa fa-check"></i><b>10.5</b> Operators and functions</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="map-algebra.html"><a href="map-algebra.html#mathematical-operators-and-functions"><i class="fa fa-check"></i><b>10.5.1</b> Mathematical operators and functions</a></li>
+<li class="chapter" data-level="10.5.2" data-path="map-algebra.html"><a href="map-algebra.html#logical-comparison"><i class="fa fa-check"></i><b>10.5.2</b> Logical comparison</a></li>
+<li class="chapter" data-level="10.5.3" data-path="map-algebra.html"><a href="map-algebra.html#boolean-or-logical-operators"><i class="fa fa-check"></i><b>10.5.3</b> Boolean (or Logical) operators</a></li>
+<li class="chapter" data-level="10.5.4" data-path="map-algebra.html"><a href="map-algebra.html#combining-operations"><i class="fa fa-check"></i><b>10.5.4</b> Combining operations</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Spatial Analysis</b></span></li>
+<li class="chapter" data-level="11" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
+<li class="chapter" data-level="11.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
+<li class="chapter" data-level="11.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#global-density"><i class="fa fa-check"></i><b>11.2.1</b> Global density</a></li>
+<li class="chapter" data-level="11.2.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#local-density"><i class="fa fa-check"></i><b>11.2.2</b> Local density</a></li>
+<li class="chapter" data-level="11.2.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i><b>11.2.3</b> Modeling intensity as a function of a covariate</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#distance-based-analysis"><i class="fa fa-check"></i><b>11.3</b> Distance based analysis</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#average-nearest-neighbor"><i class="fa fa-check"></i><b>11.3.1</b> Average Nearest Neighbor</a></li>
+<li class="chapter" data-level="11.3.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#k-and-l-functions"><i class="fa fa-check"></i><b>11.3.2</b> K and L functions</a></li>
+<li class="chapter" data-level="11.3.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#the-pair-correlation-function-g"><i class="fa fa-check"></i><b>11.3.3</b> The Pair Correlation Function <span class="math inline">\(g\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#first-and-second-order-effects"><i class="fa fa-check"></i><b>11.4</b> First and second order effects</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>12</b> Hypothesis testing</a><ul>
+<li class="chapter" data-level="12.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#irpcsr"><i class="fa fa-check"></i><b>12.1</b> IRP/CSR</a></li>
+<li class="chapter" data-level="12.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#testing-for-csr-with-the-ann-tool"><i class="fa fa-check"></i><b>12.2</b> Testing for CSR with the ANN tool</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#arcgis-average-nearest-neighbor-tool"><i class="fa fa-check"></i><b>12.2.1</b> ArcGIS’ Average Nearest Neighbor Tool</a></li>
+<li class="chapter" data-level="12.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-better-approach-a-monte-carlo-test"><i class="fa fa-check"></i><b>12.2.2</b> A better approach: a Monte Carlo test</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#alternatives-to-csrirp"><i class="fa fa-check"></i><b>12.3</b> Alternatives to CSR/IRP</a></li>
+<li class="chapter" data-level="12.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#monte-carlo-test-with-k-and-l-functions"><i class="fa fa-check"></i><b>12.4</b> Monte Carlo test with K and L functions</a></li>
+<li class="chapter" data-level="12.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#testing-for-a-covariate-effect"><i class="fa fa-check"></i><b>12.5</b> Testing for a covariate effect</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>13</b> Spatial Autocorrelation</a><ul>
+<li class="chapter" data-level="13.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#global-morans-i"><i class="fa fa-check"></i><b>13.1</b> Global Moran’s I</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#computing-the-morans-i"><i class="fa fa-check"></i><b>13.1.1</b> Computing the Moran’s I</a></li>
+<li class="chapter" data-level="13.1.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#monte-carlo-approach-to-estimating-significance"><i class="fa fa-check"></i><b>13.1.2</b> Monte Carlo approach to estimating significance</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#morans-i-at-different-lags"><i class="fa fa-check"></i><b>13.2</b> Moran’s I at different lags</a></li>
+<li class="chapter" data-level="13.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-morans-i"><i class="fa fa-check"></i><b>13.3</b> Local Moran’s I</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html"><i class="fa fa-check"></i><b>14</b> Spatial Interpolation</a><ul>
+<li class="chapter" data-level="14.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#deterministic-approach-to-interpolation"><i class="fa fa-check"></i><b>14.1</b> Deterministic Approach to Interpolation</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#proximity-interpolation"><i class="fa fa-check"></i><b>14.1.1</b> Proximity interpolation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#inverse-distance-weighted-idw"><i class="fa fa-check"></i><b>14.1.2</b> Inverse Distance Weighted (IDW)</a></li>
+<li class="chapter" data-level="14.1.3" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#fine-tuning-the-interpolation-parameters"><i class="fa fa-check"></i><b>14.1.3</b> Fine tuning the interpolation parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#statistical-approach-to-interpolation"><i class="fa fa-check"></i><b>14.2</b> Statistical Approach to Interpolation</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#trend-surfaces"><i class="fa fa-check"></i><b>14.2.1</b> Trend Surfaces</a></li>
+<li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
+<li class="chapter" data-level="14.2.3" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal"><i class="fa fa-check"></i><b>14.2.3</b> Reading a shapefile with <code>rgdal</code></a></li>
+<li class="chapter" data-level="14.2.4" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-maptools"><i class="fa fa-check"></i><b>14.2.4</b> Reading a shapefile with <code class="unnumbered">maptools</code></a></li>
+<li class="chapter" data-level="14.2.5" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i><b>14.2.5</b> Reading a GeoPackage</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-gis-raster-files"><i class="fa fa-check"></i>Reading GIS raster files</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#dissecting-the-file-summary"><i class="fa fa-check"></i>Dissecting the file summary</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-spatial-data"><i class="fa fa-check"></i>Mapping spatial data</a><ul>
+<li class="chapter" data-level="14.2.6" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-with-spplot"><i class="fa fa-check"></i><b>14.2.6</b> Mapping with <code class="unnumbered">spplot</code></a></li>
+<li class="chapter" data-level="14.2.7" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-with-tmap"><i class="fa fa-check"></i><b>14.2.7</b> Mapping with <code class="unnumbered">tmap</code></a></li>
+<li class="chapter" data-level="14.2.8" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-rasters-with-tmap"><i class="fa fa-check"></i><b>14.2.8</b> Mapping rasters with <code class="unnumbered">tmap</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#joining-tables-to-spatial-features"><i class="fa fa-check"></i>Joining tables to spatial features</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#converting-xy-data-to-point-objects"><i class="fa fa-check"></i>Converting XY data to point objects</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#geocoding-street-addresses"><i class="fa fa-check"></i>Geocoding street addresses</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-shapefile"><i class="fa fa-check"></i>Exporting to a shapefile</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-geopackage"><i class="fa fa-check"></i>Exporting to a GeoPackage</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-raster-file-format"><i class="fa fa-check"></i>Exporting to a raster file format</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-coordinate-syntax"><i class="fa fa-check"></i>Understanding the coordinate syntax</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#modifying-coordinate-systems"><i class="fa fa-check"></i>Modifying coordinate systems</a><ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#example-of-failed-transformations"><i class="fa fa-check"></i>Example of failed transformations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html"><i class="fa fa-check"></i>Vector operations in R</a><ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-contiguous-shape"><i class="fa fa-check"></i>Dissolve by contiguous shape</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-attribute"><i class="fa fa-check"></i>Dissolve by attribute</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#calculate-area"><i class="fa fa-check"></i>Calculate area</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#subsetting"><i class="fa fa-check"></i>Subsetting</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting"><i class="fa fa-check"></i>Intersecting</a><ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting-polygons-with-line-and-point-objects"><i class="fa fa-check"></i>Intersecting polygons with line and point objects</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-raster"><i class="fa fa-check"></i>Unary operations and functions (applied to single raster)</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-layers-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two layers are used)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#global-operations-and-functions-1"><i class="fa fa-check"></i>Global operations and functions</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#computing-cumulative-distances"><i class="fa fa-check"></i>Computing cumulative distances</a><ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#working-example"><i class="fa fa-check"></i>Working example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tesselated-surface"><i class="fa fa-check"></i>Quadrat density on a tesselated surface</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel Density Adjusted for Covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#the-pair-correlation-function-g-1"><i class="fa fa-check"></i>The Pair Correlation Function g</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-clustering"><i class="fa fa-check"></i>Test for clustering</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#computing-a-pseudo-p-value"><i class="fa fa-check"></i>Computing a pseudo p-value</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#testing-for-a-covariate-effect-1"><i class="fa fa-check"></i>Testing for a covariate effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial Autocorrelation in R</a><ul>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#define-neighboring-polygons"><i class="fa fa-check"></i>Define neighboring polygons</a></li>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-the-morans-i-statistic-the-hard-way"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the hard way</a><ul>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-a-pseudo-p-value-from-an-mc-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from an MC simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-the-morans-i-statistic-the-easy-way"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the easy way</a></li>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#morans-i-as-a-function-of-a-distance-band"><i class="fa fa-check"></i>Moran’s I as a function of a distance band</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html"><i class="fa fa-check"></i>Interpolation in R</a><ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#thiessen-polygons"><i class="fa fa-check"></i>Thiessen polygons</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#idw"><i class="fa fa-check"></i>IDW</a><ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#fine-tuning-the-interpolation"><i class="fa fa-check"></i>Fine-tuning the interpolation</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#cross-validation"><i class="fa fa-check"></i>Cross-validation</a></li>
+</ul></li>
+<li><a href="interpolation-in-r.html#st-order-polynomial-fit">1<sup>st</sup> order polynomial fit</a></li>
+<li><a href="interpolation-in-r.html#nd-order-polynomial">2<sup>nd</sup> order polynomial</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#kriging"><i class="fa fa-check"></i>Kriging</a><ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#fit-the-variogram-model"><i class="fa fa-check"></i>Fit the variogram model</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-kriged-surface"><i class="fa fa-check"></i>Generate Kriged surface</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-the-variance-map"><i class="fa fa-check"></i>Generate the variance map</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html"><i class="fa fa-check"></i>Mapping rates in R</a><ul>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#raw-rates"><i class="fa fa-check"></i>Raw Rates</a></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#standardized-mortality-ratios-relative-risk."><i class="fa fa-check"></i>Standardized mortality ratios (relative risk).</a></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#dykes-and-unwins-chi-square-statistic"><i class="fa fa-check"></i>Dykes and Unwin’s chi-square statistic</a></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#unstable-ratios"><i class="fa fa-check"></i>Unstable ratios</a><ul>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#global-empirical-bayes-eb-rate-estimate"><i class="fa fa-check"></i>Global Empirical Bayes (EB) rate estimate</a></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#local-empirical-bayes-eb-rate-estimate"><i class="fa fa-check"></i>Local Empirical Bayes (EB) rate estimate</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Intro to GIS and Spatial Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="symbolizing-features" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Symbolizing features</h1>
+<div id="color" class="section level2">
+<h2><span class="header-section-number">4.1</span> Color</h2>
+<p>Each color is a combination of three perceptual dimensions: <strong>hue</strong>, <strong>lightness</strong> and <strong>saturation</strong>.</p>
+<div id="hue" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Hue</h3>
+<p><strong>Hue</strong> is the perceptual dimension associated with color names.</p>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-2-1.png" alt="An example of eight different hues. Hues are associated with color names such as green, red or blue." width="288" />
+<p class="caption">
+Figure 2.2: An example of eight different hues. Hues are associated with color names such as green, red or blue.
+</p>
+</div>
+<p>Note that magentas and purples are not part of the natural visible light spectrum; instead they are a mix of reds and blues (or violets) from the spectrum’s tail ends. Typically, we use different hues to represent different <em>categories</em> of data.</p>
+</div>
+<div id="lightness" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Lightness</h3>
+<p><strong>Lightness</strong> (sometimes referred to as <em>value</em>) describes how much light reflects (or is emitted) off of a surface. Lightness is an important dimension for representing ordinal/interval/ratio data.</p>
+<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-3-1.png" alt="Eight different hues with decreasing lightness values." width="288" />
+<p class="caption">
+Figure 1.2: Eight different hues with decreasing lightness values.
+</p>
+</div>
+</div>
+<div id="saturation" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Saturation</h3>
+<p><strong>Saturation</strong> (sometimes referred to as <em>chroma</em>) is a measure of a color’s vividness. You can use saturated colors to help distinguish map symbols. But be careful when manipulating saturation, its property should be modified sparingly in most maps.</p>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-4-1.png" alt="Eight different hues with decreasing saturation values." width="288" />
+<p class="caption">
+Figure 1.3: Eight different hues with decreasing saturation values.
+</p>
+</div>
+</div>
+</div>
+<div id="color-space" class="section level2">
+<h2><span class="header-section-number">4.2</span> Color Space</h2>
+<p>The three perceptual dimensions of color can be used to construct a 3D color space. This 3D space need not be a cube (as one would expect given that we are combining three dimensions) but a cone where lightness, saturation and hue are the cone’s height, radius and circumference respectively.</p>
+<div class="figure"><span id="fig:unnamed-chunk-5"></span>
+<img src="img/Color_space_std_small.jpg" alt="This is how the software defines the color space. But does this match our perception of color space?" width="192" />
+<p class="caption">
+Figure 2.3: This is how the software defines the color space. But does this match our perception of color space?
+</p>
+</div>
+<p>The cone shape reflects the fact that as one decreases saturation, the distinction between different hues disappears leading to a grayscale color (the central axis of the cone). So if one sets the saturation value of a color to <code>0</code>, the hue ends up being some shade of grey.</p>
+<p>The color space implemented in most software is symmetrical about the value/lightness axis. However, this is not how we “perceive” color space: our perceptual view of the color space is <em>not</em> perfectly symmetrical.</p>
+<p>Let’s examine a slice of the symmetrical color space along the blue/yellow hue axis at a lightness value of about 90%.</p>
+<div class="figure"><span id="fig:unnamed-chunk-6"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-6-1.png" alt="A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge." width="384" />
+<p class="caption">
+Figure 2.4: A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge.
+</p>
+</div>
+<p>Now, how many distinct yellows can you make out? How many distinct blues can you make out? Do the numbers match? Unless you have incredible color perception, you will probably observe that the number of distinct colors do not match when in fact they do! There are exactly 30 distinct blues and 30 distinct yellows. Let’s add a border to each color to convince ourselves that the software did indeed generate the same number of distinct colors.</p>
+<div class="figure"><span id="fig:unnamed-chunk-7"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-7-1.png" alt="A cross section of the color space with each color distinctly outlined." width="384" />
+<p class="caption">
+Figure 2.5: A cross section of the color space with each color distinctly outlined.
+</p>
+</div>
+<p>It should be clear by now that a symmetrical color space does not reflect the way we “perceive” colors. There are more rigorously designed color spaces such as <strong>CIELAB</strong> and <strong>Munsell</strong> that depict the color space as a non-symmetrical object as perceived by humans. For example, in a Munsell color space, a vertical slice of the cone along the blue/yellow axis looks like this.</p>
+<div class="figure"><span id="fig:unnamed-chunk-8"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-8-1.png" alt="A slice of the Munsell color space." width="384" />
+<p class="caption">
+Figure 2.6: A slice of the Munsell color space.
+</p>
+</div>
+<p>Note that based on the Munsell color space, we can make out fewer yellows than blues across all lightness values. In fact, for these two hues, we can make out only 29 different shades of yellow (we do not include the gray levels where saturation = <code>0</code>) vs 36 shades of blue.</p>
+<p>So how do we leverage our understanding of color spaces when choosing colors for our map features? The next section highlights three different color schemes: <strong>qualitative</strong>, <strong>sequential</strong> and <strong>divergent</strong>.</p>
+</div>
+<div id="classification" class="section level2">
+<h2><span class="header-section-number">4.3</span> Classification</h2>
+<div id="qualitative-color-scheme" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Qualitative color scheme</h3>
+<p>Qualitative schemes are used to symbolize data having no inherent order (i.e. categorical data). Different hues are normally used to distinguish different categorical values. When possible, use commonly associated hues for land features such as vegetation and water.</p>
+<div class="figure"><span id="fig:unnamed-chunk-9"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-9-1.png" alt="Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette." width="384" />
+<p class="caption">
+Figure 2.7: Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette.
+</p>
+</div>
+<p>Election results can be displayed using a qualitative color scheme. But be careful in your choice of hues if a cultural bias exists (i.e. it may not make sense to assign “blue” to republican or “red”&quot; to democratic regions).</p>
+<div class="figure"><span id="fig:unnamed-chunk-10"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-10-1.png" alt="Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation." width="432" />
+<p class="caption">
+Figure 4.1: Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation.
+</p>
+</div>
+</div>
+<div id="sequential-color-scheme" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Sequential color scheme</h3>
+<p>Sequential color schemes are used to highlight ordered data such as income, temperature, elevation or infection rates. A well designed sequential color scheme ranges from a light color (representing low attribute values) to a dark color (representing high attribute values). Such color schemes are typically composed of a single hue, but may include two hues as shown in the last two color schemes of the following figure.</p>
+<div class="figure"><span id="fig:unnamed-chunk-11"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-11-1.png" alt="Example of four different sequential color schemes. Color hex numbers are superimposed on each palette." width="384" />
+<p class="caption">
+Figure 4.2: Example of four different sequential color schemes. Color hex numbers are superimposed on each palette.
+</p>
+</div>
+<p>Distribution of income is a good example of a sequential map. Income values are interval/ratio data which have an implied order.</p>
+<div class="figure"><span id="fig:unnamed-chunk-12"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-12-1.png" alt="Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels." width="432" />
+<p class="caption">
+Figure 4.3: Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels.
+</p>
+</div>
+</div>
+<div id="divergent-color-scheme" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Divergent color scheme</h3>
+<p>Divergent color schemes apply to ordered data as well. However, there is an implied central value about which all values are compared. Typically, a divergent color scheme is composed of two hues–one for each side of the central value. Each hue’s lightness/saturation value is then adjusted symmetrically about the central value. Examples of such a color scheme follows:</p>
+<div class="figure"><span id="fig:unnamed-chunk-13"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-13-1.png" alt="Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette." width="384" />
+<p class="caption">
+Figure 4.4: Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette.
+</p>
+</div>
+<p>Continuing with the last example, we now focus on the divergence of income values about the median value of $36,641. We use a brown hue for income values below the median and a green/blue hue for values above the median.</p>
+<div class="figure"><span id="fig:unnamed-chunk-14"></span>
+<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-14-1.png" alt="This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median." width="432" />
+<p class="caption">
+Figure 4.5: This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median.
+</p>
+</div>
+</div>
+</div>
+<div id="so-how-do-i-find-a-proper-color-scheme-for-my-data" class="section level2">
+<h2><span class="header-section-number">4.4</span> So how do I find a proper color scheme for my data?</h2>
+<p>Fortunately, there is a wonderful online resource that will guide you through the process of picking a proper set of color swatches given the nature of your data (i.e. sequential, diverging, and qualitative) and the number of intervals (aka classes). The website is <a href="http://colorbrewer2.org/" class="uri">http://colorbrewer2.org/</a> and was developed by Cynthia Brewer <em>et. al</em> at the Pennsylvania State University.</p>
+<p><img src="img/ColorBrewer.png" width="414" /></p>
+<p>You’ll note that the ColorBrewer website limits the total number of color swatches to 12 or less. There is a good reason for this in that our eyes can only associate so many different colors with value ranges/bins. Try matching 9 different shades of green in a map to the legend box swatches!</p>
+<p>Additional features available on that website include choosing colorblind safe colors and color schemes that translate well into grayscale colors (useful if your work is to be published in journals that do not offer color prints).</p>
+</div>
+<div id="classification-intervals" class="section level2">
+<h2><span class="header-section-number">4.5</span> Classification Intervals</h2>
+<p>You may have noticed the use of different classification breaks in the last two maps. For the sequential color scheme map, an <em>equal interval</em> classification scheme was used where the full range of values in the map are split equally into 7 intervals so that each color swatch covers an equal range of values. The divergent color scheme map adopts a <em>quantile interval</em> classification where each color swatch is represented an equal number of times across each polygon.</p>
+<p>Using different classification intervals will result in different looking maps. In the following figure, three maps of household income (aggregated at the census tract level) are presented using different classification intervals: <strong>quantile</strong>, <strong>equal</strong> and <strong>Jenks</strong>. Note the different range of values covered by each color swatch.</p>
+<p><img src="img/Three_breaks_compared_2.png" width="720" /></p>
+<p>The <strong>quantile interval</strong> scheme ensures that each color swatch is represented an equal number of times. If we have 20 polygons and 5 classes, the interval breaks will be such that each color is assigned to 4 different polygons.</p>
+<p>The <strong>equal interval</strong> scheme breaks up the range of values into equal interval widths. If the polygon values range from 10,000 to 25,000 and we have 5 classes, the intervals will be [10,000 ; 13,000], [13,000 ; 16,000], …, [22,000 ; 25,000].</p>
+<p>The <strong>Jenks interval</strong> scheme (aka natural breaks) uses an algorithm that identifies clusters in the dataset. The number of clusters is defined by the desired number of intervals.</p>
+<p>It may help to view the breaks when superimposed on top of a distribution of the attribute data. In the following graphics the three classification intervals are superimposed on a histogram of the per-household income data. The histogram shows the distribution of values as “bins” where each bin represents a range of income values. The y-axis shows the frequency (or number of occurrences) for values in each bin.</p>
+<div class="figure"><span id="fig:unnamed-chunk-17"></span>
+<img src="img/Three_hist_intervals.png" alt="Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different)." width="560" />
+<p class="caption">
+Figure 4.6: Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different).
+</p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gis-data-management.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pitfalls-to-avoid.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": false,
+"twitter": false,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+base
+sp
+raster
+tmap
+igraph
+Matrix
+gdistance
+ggplot2
+lattice
+RColorBrewer
+latticeExtra
+rasterVis
+reshape2

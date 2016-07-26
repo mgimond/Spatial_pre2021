@@ -1,0 +1,484 @@
+# Spatial Interpolation 
+
+Given a distribution of point meteorological stations showing precipitation values, how I can I estimate the precipitation values where data were not observed?  
+
+```{r echo=FALSE, results='hide', fig.height=3, fig.cap="Average yearly precipitation (reported in inches) for several meteorological sites in Texas."}
+library(rgdal)
+library(tmap)
+
+# Load precipitation point data
+z <- gzcon(url("http://colby.edu/~mgimond/Spatial/Data/precip.rds"))
+P <- readRDS(z)
+
+# Load extent data
+z <- gzcon(url("http://colby.edu/~mgimond/Spatial/Data/texas.rds"))
+W <- readRDS(z)
+
+# Force the point object extent to that of Texas
+P@bbox <- W@bbox
+
+# Plot the data
+tm_shape(W) +tm_polygons() +tm_shape(P) +
+  tm_bubbles(col="Precip_in", palette = "RdBu", auto.palette.mapping = FALSE) +
+  tm_text("Precip_in", just="left", xmod=.5, size = 0.7) +
+  tm_legend(legend.outside=TRUE)
+```
+
+To help answer this question, we need to clearly define the nature of our point dataset. We've already encountered point data earlier in the course where our interest was in creating point density maps using different kernel windows. However, the point data used represented a complete enumeration of discrete events or observations--i.e. the entity of interest only occurred a discrete locations within a study area and therefore could only be *measured* at those locations. Here, our point data represents **sampled** observations of an entity that can be measured *anywhere* within our study area. So creating a point density raster from this data would only make sense if we were addressing the questions like "*where are the meteorological stations concentrated within the state of Texas?*".
+
+Another class of techniques used with points that represent samples of a **continuous field** are **interpolation** methods. There are many interpolation tools available, but these tools can usually be grouped into two categories: **deterministic** and **statistical** interpolation methods.
+
+## Deterministic Approach to Interpolation
+
+We will explore two deterministic methods: **proximity** (aka **Thiessen**) techniques and **inverse distance weighted** techniques. (**IDW** for short).
+
+### Proximity interpolation
+
+This is probably the simplest (and possibly one of the oldest) interpolation method. It was introduced by Alfred H. Thiessen more than a century ago. The goal is simple: Assign to all unsampled locations the value of the closest sampled location. This generates a *tessellated* surface whereby lines that split the midpoint between each sampled location are connected thus enclosing an area. Each area ends up enclosing a sample point whose value it inherits. 
+
+
+```{r echo=FALSE, message=FALSE, results='hide',  fig.height=3.3, results='hold', fig.cap="Tessellated surface generated from discrete point samples. This is also known as a *Thiessen interpolation*."}
+
+library(spatstat)  # Used for the dirichlet tesselation function
+library(maptools)  # Used for conversion from SPDF to ppp
+library(raster)    # Used to clip out thiessen polygons
+
+
+# Create a tessilated surface
+th    <-   as(dirichlet(as.ppp(P)), "SpatialPolygons")
+proj4string(th) <- proj4string(P)
+th.z  <- over(th, P, fn=mean)
+th.spdf  <-  SpatialPolygonsDataFrame(th, th.z)
+th.clp <- raster::intersect(W,th.spdf)
+
+tm_shape(th.clp) + tm_polygons(col="Precip_in", palette="RdBu", auto.palette.mapping=FALSE) +
+  tm_legend(legend.outside=TRUE)
+```
+
+One problem with this approach is that the surface values change abruptly across the tessellated boundaries. This is not representative of most surfaces in nature.
+
+Thiessen's method was very practical in his days when computers did not exist. But today, computers afford us more advanced methods of interpolation as we will see next.
+
+### Inverse Distance Weighted (IDW)
+
+The IDW technique computes an average value for unsampled locations using values from nearby weighted locations. The weights are proportional to the proximity of the sampled points to the unsampled location and can be specified by the IDW power coefficient. 
+
+In the following figure, the sampled points and values are superimposed on top of the (IDW) interpolated raster for reference.
+
+```{r echo=FALSE, message=FALSE, results='hide',  fig.height=3.3,  cache=FALSE, fig.cap="An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 2 was used in this example."}
+library(gstat) # Use gstat's idw routine
+library(sp)    # Used for the spsample function
+library(raster)
+library(tmap)
+
+# Create an empty grid where n is the total number of cells
+grd              <- as.data.frame(spsample(P, "regular", n=50000))
+names(grd)       <- c("X", "Y")
+coordinates(grd) <- c("X", "Y")
+gridded(grd)     <- TRUE  # Create SpatialPixel object
+fullgrid(grd)    <- TRUE  # Create SpatialGrid object
+proj4string(grd) <- proj4string(P)
+
+# Interpolate the surface using a power value of 2 (idp=2.0)
+P.idw <- gstat::idw(Precip_in ~ 1,P,newdata=grd,idp=2.0)
+
+# Convert to raster object then clip to Texas
+r       <- raster(P.idw)
+r.m     <- mask(r, W)
+
+# Plot
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", auto.palette.mapping=FALSE, title="Predicted precip") +
+  tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+```
+
+IDW interpolation is probably one of the most widely used interpolators because of its simplicity. In many cases, it can do an adequate job. However, the choice of power can be quite subjective. There is another class of interpolators that makes use of the information provided to us by the sample points--more specifically, information pertaining to 1st and 2nd order behavior.
+
+### Fine tuning the interpolation parameters
+
+Finding the best set of input parameters to create an interpolated surface can be a subjective proposition. Other than *eyeballing* the results, how can you quantify the *accuracy* of the estimated values? One option is to split the points into two sets: the points used in the interpolation operation and the points used to validate the results. While this method is easily implemented (even via a pen and paper adoption) it does suffer from significant loss in power--i.e. we are using just half of the information to estimate the unsampled locations.
+
+A better approach (and one easily implemented in a computing environment) is to remove one data point from the dataset and interpolate its value using *all other* points in the dataset then repeating this process for each and every point the dataset (while making sure that the interpolator parameters remain constant across each interpolation). The interpolated values are then compared with the actual values from the omitted point. This method is sometimes referred to as **jackknifing** or **leave-one-out cross-validation**.
+
+The performance of the interpolator can be summarized by computing the root-mean of squared residuals (RMSE) from the errors as follows:
+
+$$
+RMSE = \sqrt{\frac{\sum_{i=1}^n (\hat {Z_{i}} - Z_i)^2}{n}}
+$$
+
+where $\hat {Z_{i}}$ is the interpolated value at the unsampled location *i* (i.e. location where the sample point was removed), $Z_i$ is the true value at location *i* and $n$ is the number of points in the dataset.
+
+We can create a scatterplot of the predicted vs. expected precipitation values from our dataset. The solid diagonal line represents the one-to-one slope (i.e. of the predicted values match the true value exactly, then the points would fall on this line). The red dashed line is a linear fit to the points which is here to help *guide* our eyes along the pattern generated by these points.
+
+```{r echo=FALSE, results='hide',  fig.height=3.3}
+# Leave-one-out validation routine
+IDW.out <- vector(length = length(P))
+for (i in 1:length(P)) {
+  IDW.out[i] <- idw(Precip_in ~ 1, P[-i,], P[i,], idp=2.0)$var1.pred
+}
+
+# Plot differences
+OP <- par(pty="s", mar=c(4,3,0,0))
+  plot(IDW.out ~ P$Precip_in, asp=1, xlab="Observed", ylab="Predicted", pch=16,
+       col=rgb(0,0,0,0.5))
+  abline(lm(IDW.out ~ P$Precip_in), col="red", lw=2,lty=2)
+  abline(0,1)
+```
+
+
+```{r echo=FALSE, message=FALSE, results='hide'}
+# Compute RMSE
+RMSE <- sqrt( sum((IDW.out - P$Precip_in)^2) / length(P))
+```
+
+The computed RMSE from the above working example is `r round(RMSE,3)`. We can extend our exploration of the interpolator's accuracy by creating a map of the confidence intervals. This involves *layering* all $n$ interpolated surfaces from the aforementioned jackknife technique, then computing the confidence interval for each location ( pixel) in the output map (raster). If the range of interpolated values from the jackknife technique for an unsampled location $i$ is high, then this implies that this location is highly sensitive to the presence or absence of a single point from the sample point locations thus producing a large confidence interval (i.e. we can't be very confident of the predicted value). Conversely, if the range of values  estimated for location $i$ is low, then a small confidence interval is producing (providing us with greater confidence in the interpolated value). The following map shows the 95% confidence interval for each unsampled location (pixel) in the study extent.
+
+```{r echo=FALSE,  results='hide',  fig.height=3.3, cache=TRUE, fig.cap="In this example an IDW  power coefficient of 2 was used and the search parameters was confined to a minimum number of points of 10 and a maximum number of points of 15. The search window was isotropic. Each pixel represents the range of precipitation values (in inches) around the expected value given a 95% confidence interval."}
+# #######################################
+# Use the jackknife technique to estimate 
+# a confidence interval at each 
+# unsampled point.
+# #######################################
+img <- gstat::idw(Precip_in~1, P, newdata=grd, idp=2.0, nmin=10,nmax=15)
+n   <- length(P)
+Zi  <- matrix(nrow = length(img$var1.pred), ncol = n)
+
+# Remove a point then interpolate (do this n times for each point)
+st <- stack()
+for (i in 1:n){
+  Z1 <- gstat::idw(Precip_in~1, P[-i,], newdata=grd, idp=2.0,nmax=15)
+  st <- addLayer(st,raster(Z1,layer=1))
+  # Calculated pseudo-value Z at j
+  Zi[,i] <- n * img$var1.pred - (n-1) * Z1$var1.pred
+}
+
+# Jackknife estimator of parameter Z at location j
+Zj <- as.matrix(apply(Zi, 1, sum, na.rm=T) / n )
+
+# Compute (Zi* - Zj)^2
+c1 <- apply(Zi,2,'-',Zj)            # Compute the subtraction
+c1 <- apply(c1^2, 1, sum, na.rm=T ) # sum the square of the subtraction
+
+# Compute the confidence interval
+CI <- sqrt( 1/(n*(n-1)) * c1)
+
+# Create (CI / interpolated value) raster
+img.sig   <- img
+img.sig$v <- CI /img$var1.pred 
+
+# Plot the data
+r <- raster(img.sig, layer="v")
+r.m <- mask(r, W)
+
+tm_shape(r.m) + tm_raster(n=7, title="95% confidence interval (in inches)") +tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+
+```
+
+
+
+## Statistical Approach to Interpolation
+
+The statistical interpolation methods include **surface trend** and **Kriging**.
+
+### Trend Surfaces
+
+It may help to think of trend surface modeling as a regression on spatial coordinates where the coefficients apply to those coordinate values and (for more complicated surface trends) to the interplay of the coordinate values. We will explore a 0th order, 1st order and 2nd order surface trends in the following sub-sections.
+
+#### 0^th^ Order Trend Surface
+
+The first model (and simplest model), is the 0^th^ order model which takes on the following expression: `Z = a` where the intercept `a` is the mean value of all sample points (`r round(mean(P$Precip_in),1)` in our working example). This is simply a level (horizontal) surface whose cell values all equal `r round(mean(P$Precip_in),1)`.
+
+```{r echo=FALSE, results='hide',  fig.height=3.3, cache=TRUE, fig.cap="The simplest model where all interpolated surface values are equal to the mean precipitation.", fig.align='center'}
+# Define the polynomial equation
+f.0  <- as.formula(Precip_in ~ 1)
+
+# Run the regression model
+lm.0 <- lm( f.0 , data=P)
+
+# Use the regression model output to interpolate the surface
+dat.0th <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.0, newdata=grd)))
+
+# Convert to raster object to take advantage of rasterVis' imaging
+# environment
+r   <- raster(dat.0th)
+r.m <- mask(r, W)
+
+tm_shape(r.m) + tm_raster( title="Predicted precip") +tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+ 
+```
+
+This makes for an uninformative map. A more interesting surface trend map is one where the surface trend has a slope other than 0 as highlighted in the next subsection.
+
+#### 1^st^ Order Trend Surface
+
+The first order surface polynomial is a slanted flat plane whose formula is given by: `Z = a + bX + cY` where `X` and `Y` are the coordinate pairs.
+
+```{r echo=FALSE, message=FALSE, results='hide',  fig.height=3.3, cache=TRUE, fig.cap="Result of a first order interpolation.", fig.align='center'}
+# Define the 1st order polynomial equation
+f.1 <- as.formula(Precip_in ~ X + Y) 
+ 
+# Add X and Y to P
+P$X <- coordinates(P)[,1]
+P$Y <- coordinates(P)[,2]
+
+# Run the regression model
+lm.1 <- lm( f.1, data=P)
+
+# Use the regression model output to interpolate the surface
+dat.1st <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.1, newdata=grd))) 
+
+r   <- raster(dat.1st)
+r.m <- mask(r, W)
+
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", auto.palette.mapping=FALSE,title="Predicted precip") +tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+ 
+```
+
+The 1st order surface trend does a good job in highlighting the prominent east-west trend. But is the  trend truly uniform along the X axis? Let's explore a more complicated surface: the quadratic polynomial.
+
+#### 2^nd^ Order Trend Surface
+
+The second order surface polynomial (aka quadratic polynomial) is a parabolic surface whose formula is given by: $Z = a + bX + cY + dX^2 + eY^2 + fXY$
+
+```{r echo=FALSE, results='hide',  fig.height=3.3, cache=TRUE, fig.cap="Result of a second order interpolation", fig.align='center'}
+# Define the 1st order polynomial equation
+f.2 <- as.formula(Precip_in ~ X + Y + I(X*X)+I(Y*Y) + I(X*Y))
+ 
+# Run the regression model
+lm.2 <- lm( f.2, data=P)
+
+# Use the regression model output to interpolate the surface
+dat.2nd <- SpatialGridDataFrame(grd, data.frame(var1.pred = predict(lm.2, newdata=grd))) 
+
+r   <- raster(dat.2nd)
+r.m <- mask(r, W)
+
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", auto.palette.mapping=FALSE, title="Predicted precip") +tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+ 
+```
+
+
+This interpolation picks up a slight curvature in the east-west trend. But it's not a significant improvement on the 1st order trend.
+
+
+### Ordinary Kriging
+
+Several forms of kriging interpolators exist: ordinary, universal and simple just to name a few. This section will focus on **ordinary kriging** (**OK**) interpolation. This form of kriging usually involves four steps:
+
++ Removing any **spatial trend** in the data (if present).
++ Computing the **experimental variogram**, $\gamma$, which is a measure of spatial autocorrelation.
++ Defining an **experimental variogram model** that best characterizes the spatial autocorrelation in the data.
++ Interpolating the surface using the experimental variogram.
++ Adding the kriged interpolated surface to the trend interpolated surface to produce the final output.
+
+These steps our outlined in the following subsections.
+
+#### De-trending the data
+
+One assumption that needs to be met in ordinary kriging is that the mean and the variation in the entity being studied is constant across the study area. In other words, there should be no global trend in the data (the term *drift* is sometimes used to describe the trend in other texts). This assumption is clearly not met with our Texas precipitation dataset where a prominent east-west gradient is observed. This requires that we remove the trend from the data before proceeding with the kriging operations.
+
+Many pieces of software will accept a trend model (usually a first, second or third order polynomial). In the steps that follow, we will use the first order fit computed earlier to de-trend our point values (recall that the second order fit provided very little improvement over the first order fit).
+
+```{r echo=FALSE}
+# Define the 1st order polynomial equation
+f.1 <- as.formula(Precip_in ~ X + Y) 
+ 
+# Run the regression model
+lm.1 <- lm( f.1, data=P) 
+
+# Copy the residuals to the point object
+P$res <- lm.1$residuals
+```
+
+Removing the trend leaves us with the residuals that will be used in kriging interpolation. Note that the modeled trend will be added to the kriged interpolated surface at the end of the workflow.
+
+
+```{r echo=FALSE,  results='hide', fig.height=3.3, cache=TRUE, fig.cap= "Map showing de-trended precipitation values (aka residuals). These detrended values are then passed to the ordinary kriging interpolation operations. You can think of these residuals as representing variability in the data not explained by the global trend. If variability is present in the residuals then it is best characterized as a distance based measure of variability (as opposed to a location based measure)."}
+OP <- par(mar=c(0,0,0,0))
+plot(W, col=rgb(0,0,0,0.05), border="grey")
+plot(P, pch=20, cex=(P$res/61  +0.5), col=rgb(0,0,0,0.5), add=T) 
+text(P, sprintf("%.1f",P$res), pos=4, col="grey40", cex=0.5)
+par(OP)
+```
+
+#### Experimental Variogram
+
+In Kriging interpolation, we focus on the spatial relationship between location attribute values. More specifically, we are interested in how these attribute values (precipitation residuals in our working example) vary as the distance between location point pairs increases. We can compute the difference, $\gamma$, in precipitation values by squaring their differences then dividing by 2. 
+
+For example, if we take two meteorological stations (one whose de-trended precipitation value is -0.3 and the other whose value is -1.6), 
+
+```{r echo=FALSE, results='hide', fig.height=2.5, fig.cap="Locations of two sample sites used to demonstrate the the calculation of *gamma*.", cache=TRUE}
+OP <- par(mar=c(0,0,0,0))
+plot(W, col=rgb(0,0,0,0.05), border="grey")
+plot(P, pch=20,  cex=( (P$res/61  +1)), col=rgb(0,0,0,0.5), add=T) 
+plot(P[c(2,21), ], pch=20, cex=(P$res/61  +3.5), col=rgb(1,0,0), add=T)
+text(P[c(2,21), ], sprintf("%.1f",P$res[c(2,21)]), pos=4, col="grey40", cex=0.8)
+par(OP)
+```
+
+we can compute their difference ($\gamma$) as follows:
+
+$$
+\gamma = \frac{(Z_2 - Z_1)^2}{2} = \frac{(-0.3 - (-1.6))^2}{2} = 0.845
+$$
+
+We can compute $\gamma$ for *all* point pairs then plot these values as a function of the distance that separate these points:
+
+```{r echo=FALSE, fig.show='hold', fig.height=3.3, results='hide', cache=TRUE}
+var.cld  <- variogram(res ~ 1, P, cloud = TRUE, cutoff=1000000)
+var.df  <- as.data.frame(var.cld)
+index1  <- which(with(var.df, left==25 & right==2))
+
+OP <- par( mar=c(4,6,1,1))
+plot(var.cld$dist/1000 , var.cld$gamma, col="grey", 
+     xlab = "Distance between point pairs (km)",
+     ylab = expression( frac((res[2] - res[1])^2 , 2)) )
+points(var.cld$dist[index1]/1000 , var.cld$gamma[index1], col="red", pch=16)
+par(OP)
+```
+
+The red point in the plot is  the value computed in the above example. The distance separating those two points is about `r round(var.df[index1,]$dist/1000)` km. This value is mapped in the above plots as a red dot.
+
+The above plot is called an **experimental semivariogram** cloud plot (also referred to as an experimental **variogram** cloud plot). The terms semivariogram and variogram are often used interchangeably in geostatistics (we'll use the term variogram henceforth since this seems to be the term of choice in current literature). Also note that the word *experimental* is sometimes dropped when describing these plots, but its use in our terminology is an important reminder that the points we are working with are just samples of some continuous field whose spatial variation we are attempting to model.
+
+#### Sample Experimental Variogram
+
+Cloud points can be difficult to interpret due to the sheer number of point pairs (we have 465 point pairs from just 50 sample points, and this just for 1/3 of the maximum distance lag!). A common approach to resolving this issue is to "bin" the cloud points into intervals called **lags** and to summarize the points within each interval. In the following plot, we split the data into 15 bins then compute the average point value for each bin (displayed as red points in the plot). The red points that summarize the cloud are the **sample experimental variogram estimates** for each of the 15 distance bands and the plot is referred to as the **sample experimental variogram** plot.
+
+```{r echo=FALSE, fig.show='hold', fig.height=3.3, results='hide', cache=TRUE}
+# Compute the sample experimental variogram
+var.smpl <- variogram(f.1, P, cloud = FALSE, cutoff=1000000, width=89900)
+
+bins.ct <- c(0, var.smpl$dist , max(var.cld$dist) )
+bins <- vector()
+for (i in 1: (length(bins.ct) - 1) ){
+  bins[i] <- mean(bins.ct[ seq(i,i+1, length.out=2)] ) 
+}
+bins[length(bins)] <- max(var.cld$dist)
+var.bins <- findInterval(var.cld$dist, bins)
+
+# Point data cloud with bin boundaries
+OP <- par( mar = c(5,6,1,1))
+plot(var.cld$gamma ~ eval(var.cld$dist/1000), col=rgb(0,0,0,0.2), pch=16, cex=0.7,
+     xlab = "Distance between point pairs (km)",
+     ylab = expression( gamma ) )
+points( var.smpl$dist/1000, var.smpl$gamma, pch=21, col="black", bg="red", cex=1.3)
+abline(v=bins/1000, col="red", lty=2)
+par(OP)
+```
+
+#### Experimental Variogram Model
+
+The next step is to fit a mathematical model to our *sample experimental variogram*. Different mathematical models can be used; their availability is software dependent. Examples of mathematical models are shown below:
+
+```{r echo=FALSE, fig.height=5,  results='hide'}
+library(stringr)
+library(lattice)
+kk <- str_extract_all(vgm()$long, "\\([^()]+\\)")
+kk <- substring(kk, 2, nchar(kk)-1)
+show.vgms(strip=strip.custom(factor.levels=kk))
+```
+
+The goal is to apply the model that best fits our sample experimental variogram. This requires picking the proper model, then tweaking the **partial sill**, **range**, and **nugget** parameters (where appropriate). The following figure illustrates a nonzero intercept where the *nugget* is the distance between the $0$ variance on the $y$ axis and the variogram's model intercept with the $y$ axis. The *partial sill* is the vertical distance between the nugget and the part of the curve that levels off. If the variogram approaches $0$ on the $y$-axis, then the nugget is $0$ and the *partial sill* is simply referred to as the **sill**. The distance along the $x$ axis where the curve levels off is referred to as the *range*.
+
+```{r echo=FALSE, fig.show='hold', fig.height=3.3, results='hide', cache=TRUE}
+# Following plot is a modified version of Bivand et al.'s fig. 8.6
+library(lattice)
+ccol <- 'blue' 
+data(meuse)
+coordinates(meuse) <- c("x","y")
+v <- variogram(log(zinc) ~ 1, meuse, width = 300)
+v.fit <- fit.variogram(v, vgm(psill=10, "Sph", range=600, nugget=0.5))
+plot(v, v.fit, pch = 16,col="grey", panel = function(x,y,subscripts,...) {
+  	larrows(0,v.fit$psill[1], v.fit$range[2], v.fit$psill[1], 
+			col=ccol, ends = 'both', length=.1, angle=15)
+		larrows(v.fit$range[2],0, v.fit$range[2], v.fit$psill[1], 
+			col=ccol, ends = 'both', length=.1, angle=20)
+		larrows(v.fit$range[2],v.fit$psill[1], v.fit$range[2], 
+			sum(v.fit$psill), 
+			col=ccol, ends = 'both', length=.1, angle=15)
+		ltext(v.fit$rang[2]/2, 1.2*v.fit$psill[1], "range", col=ccol,
+			adj = c(.5, 0), cex=.9)
+		ltext(1.02 * v.fit$rang[2], 0.5 *v.fit$psill[1], "nugget", col=ccol,
+			adj = c(0, 0.5), cex=.9)
+		ltext(1.02 * v.fit$rang[2], v.fit$psill[1] + 0.5 * v.fit$psill[2], 
+			"partial sill", col=ccol, adj = c(0, 0.5), cex=.9)
+		vgm.panel.xyplot(x,y,subscripts,...)
+	}
+)
+```
+
+In our working example, we will try to fit the *Spherical* function to our sample experimental variogram. This is one of three popular models (the other two being *linear* and *gaussian* models.)
+
+```{r echo=FALSE, tidy=FALSE, fig.height=3.0,results='hide', cache=TRUE}
+# Compute the sample variogram, note the f.1 trend model is one of the parameters
+# passed to variogram(). This tells the function to create the variogram on
+# the de-trended data
+var.smpl <- variogram(f.1, P, cloud = FALSE, cutoff=1000000, width=89900)
+
+
+# Compute the variogram model by passing the nugget, sill and range values
+# to fit.variogram() via the vgm() function.
+dat.fit  <- fit.variogram(var.smpl, fit.ranges = FALSE, fit.sills = FALSE,
+                          vgm(psill=18, model="Sph", range=500000, nugget=0))
+
+# The following plot allows us to gauge the fit
+plot(var.smpl, dat.fit, xlim=c(0,1000000))
+```
+
+#### Kriging Interpolation
+
+The variogram model is used by the kriging interpolator to provide *localized* weighting parameters. Recall that with the IDW, the interpolated value at an unsampled site is determined by summarizing weighted neighboring points where the weighting parameter (the power parameter) is defined by the user and is applied uniformly to the entire study extent.  Kriging use the variogram model to compute the weights of neighboring points based on the distribution of those values--in essence, kriging is letting the localized pattern produced by the sample points define the weights (in a systematic way). The exact mathematical implementation will not be covered here (it's quite involved), but the resulting output is shown in the following figure:
+
+```{r echo=FALSE,  results='hide',  fig.height=3.3, cache=TRUE, fig.cap="Krige interpolation of the residual (detrended) precipitation values.", fig.align='center'}
+dat.krg <- krige( res~1, P, grd, dat.fit)
+
+r <- raster(dat.krg)
+r.m <- mask(r, W)
+
+# Plot the raster and the sampled points
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", auto.palette.mapping=FALSE,title="Predicted residual \nprecip") +tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+
+```
+
+Recall that the kriging interpolation was performed on the de-trended data. In essence, we predicted the precipitation values based on localized factors. We now need to combine this interpolated surface with that produced from the trend interpolated surface to produce the following output:
+
+```{r echo=FALSE,  results='hide',  fig.height=3.3, cache=TRUE, fig.cap="The final kriged surface.", fig.align='center'}
+
+# gstat's krige() function allows us to include the trend model thus saving us from
+# having to detrend the data, krige the residuals, then combine the rasters. Instead,
+# all we need to do is pass krige() the trend formula
+
+# Define trend model
+f.1 <- as.formula(Precip_in ~ X + Y) 
+
+# Perform the krige interpolation (note the use of the variogram model
+# created in an earlier step)
+dat.krg <- krige( f.1, P, grd, dat.fit)
+
+# Convert kriged surface to a raster object
+r <- raster(dat.krg)
+r.m <- mask(r, W)
+
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", auto.palette.mapping=FALSE, title="Predicted precip") +tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+```
+
+A valuable by-product of the kriging operation is the variance map which gives us a measure of uncertainty in the interpolated values. The smaller the variance, the better.
+
+```{r echo=FALSE, results='hide',  fig.height=3.3, cache=TRUE, fig.cap="Variance map resulting from the Kriging analysis.", fig.align='center'}
+
+# The dat.krg object stores not just the interpolated values, but the 
+# variance values as well. These can be passed to the raster object
+# instead of the interpolated values as follows
+r <- raster(dat.krg, layer="var1.var")
+r.m <- mask(r, W)
+
+tm_shape(r.m) + tm_raster(n=7, palette ="Reds", ,title="Variance map \n(in inches)") +tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+```

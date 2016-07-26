@@ -1,0 +1,565 @@
+# (PART) Spatial Analysis {-} 
+ 
+# Point Pattern Analysis
+
+## Centrography
+
+A very basic form of point pattern analysis involves summary statistics such as the **mean center**, **standard distance** and **standard deviational ellipse**.
+
+```{r echo=FALSE}
+knitr::include_graphics("img/centrography.svg")
+```
+
+These point pattern analysis techniques were popular before computers were  ubiquitous since hand calculations are not too involved, but these summary statistics are too concise and hide far more valuable information about the observed pattern. More powerful analysis methods can be used to explore point patterns. These methods can be classified into two groups: **density based** approach and **distance based** approach.
+
+## Density based analysis
+
+
+```{block, type="note"}
+A *first order* property of a pattern concerns itself with the variation of the observations' density across a study area. For example, the distribution of oaks will vary across a landscape based on underlying soil characteristics (resulting in areas having dense clusters of oaks and other areas not).
+```
+
+
+Density based techniques characterize the pattern in terms of its distribution *vis-a-vis* the study area--a **first-order** property of the pattern. Here, we make a distinction between the **intensity** of a spatial process and the observed **density** of a pattern under study (which is often used to estimate the process' intensity). A point pattern can be thought of as a "realization" of an underlying process whose intensity $\lambda$ is estimated from the observed point pattern's density (which is sometimes denoted as $\widehat{\lambda}$ where the caret $\verb!^!$  is referring to the fact that the observed density is an *estimate* of the underlying process' intensity) . 
+
+
+### Global density
+
+A basic measure of a pattern's density $\widehat{\lambda}$ is its overall, or **global**, density. This is simply the ratio of observed number of points, $n$, to the study region's surface area, $a$, or:
+
+$$
+\begin{equation}
+\widehat{\lambda} = \frac{n}{a}
+\label{eq:global-density}
+\end{equation}
+$$
+
+```{r fig.cap="An example of a point pattern where n = 20 and the study area (defined by a square boundary) is 10 units squared. The point density is thus 20/100 = 0.2 points per unit area.", fig.height=2.5, fig.width=2.5, echo=FALSE}
+
+library(spatstat) 
+library(ggplot2)
+cell <- 10
+win  <- owin(xrange=c(0,cell),yrange=c(0,cell))
+set.seed(342)
+P    <- rMatClust(0.5, 1, 0.5,win=win)
+ggplot(aes(x = x, y = y), data = as.data.frame(P)) + theme(legend.position = "none") +   
+       geom_point(data = as.data.frame(P), mapping=aes(x=x, y=y), size=1.5, shape=16, colour="grey20") +   
+       coord_equal()+ xlim(0,10) + ylim(0,10) + labs(x="",y="") + theme(axis.text=element_text(size=3))
+```
+
+### Local density
+
+A point pattern's density can be measured at different locations within the study area. Such an approach helps us assess if the density--and, by extension, the underlying process' local intensity $\widehat{\lambda}_i$--is constant across the study area. This can be an important property of the data since it may need to be mitigated for when using distance based analysis tools. Several techniques to measure local density are available, here we will focus on two such methods: *quadrat density* and *kernel density*.
+
+#### Quadrat density
+
+This technique requires that the study area be divided into sub-regions (aka *quadrats*). Then, the point density is computed for each quadrat by dividing the number of points in each quadrat by the quadrat's area. Quadrats can take on many different shapes such as hexagons and triangles, here we use square shaped quadrats to demonstrate the procedure.
+
+```{r fig.cap="An example of a quadrat count where the study area is divided into four equally sized quadrats whose area is 25 square units each. The density in each quadrat can be computed by dividing the number of points in each quadrat by that quadrat's area.", fig.height=2.2, fig.width=2.2, echo=FALSE}
+OP <- par(mar=c(0,0,0,0))
+Q.dim <- 2
+Q  <- quadratcount(P, nx=Q.dim, ny=Q.dim)
+A  <- spatstat::area(P$window) / Q.dim^2 # Area for each quadrat
+plot(Q / A, main="", col="grey20")
+plot(P, add = TRUE, pch=20, col=rgb(0,0,0,0.5))
+par(OP)
+```
+
+
+
+The choice of quadrat numbers and quadrat shape can influence the measure of local density and must be chosen with care. If very small quadrat sizes are used you risk having many quadrats with no points which may prove uninformative. If very large quadrat sizes are used, you risk missing subtle changes in spatial density distributions such as the east-west gradient in density values in the above example.
+
+```{block, type="note"}
+Converting a continuous field into discretized areas is sometimes referred to as **tesselation**. The end product is a **tesselated surface**.
+```
+
+
+Quadrat regions do not have to take on a uniform pattern across the study area, they can also be defined based on a **covariate**. For example, if it's believed that the underlying point pattern process is driven by elevation, quadrats can be defined by sub-regions such as different ranges of elevation values (labeled 1 through 4 on the right-hand plot in the following example). This can result in quadrats having non-uniform shape and area.
+
+```{r fig.cap="Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed.", fig.height=2, fig.width=6.0, echo=FALSE}
+
+elev <- density(P, sigma = 5) *1000
+
+OP <- par(mfrow = c(1,2), mar=c(0,0,0,3))
+plot.im(elev, col=grey(50:0/50), main=NULL, las=2)
+plot(P, col=rgb(0,0,0,.7), add=T, pch=20)
+
+brk  <- c( 150, 175, 200, 220 , 250)
+Zcut <- cut(elev, breaks=brk, labels=1:4) 
+  V  <- tess(image=Zcut)
+plot(V$image, main="", las=2, col=colorRampPalette(c("grey90","grey20"))(V$n))
+plot(P, col=rgb(0,0,0,.7), add=T, pch=20)
+par(OP)
+
+```
+
+
+If the local intensity is the same across all regions of the tessellated covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of `r round(spatstat::tile.areas(V), 2)` respectively. To compute these regions' point densities, we simply divide the number of points by the area.
+
+```{r fig.cap="Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region). The point density is not uniform across the sub-regions suggesting that elevation (as characterized by the sub-regions) may not fully explain the observed pattern.", fig.height=2, fig.width=6.0, echo=FALSE}
+
+cl <-  interp.colours(c("lightyellow", "orange" ,"red"), 40)
+Q2 <- quadratcount(P, tess = V)
+
+OP <- par(mfrow = c(1,2), mar=c(0,0,0,3))
+plot(V$image, main="", las=2, col=colorRampPalette(c("grey90","grey20"))(V$n))
+plot(Q2, show.tiles=FALSE, add=TRUE)
+plot(P, pch=20, add=T)
+Q2i <- intensity(Q2)
+int <- round(data.frame(Q2i)$Freq, 3)
+plot(intensity(Q2, image=TRUE), col = cl, las=2, main=NULL)
+plot(Q2, add=T, show.tiles = FALSE, entries= int)
+par(OP)
+
+```
+
+Note that how one chooses to tessellate a surface can have an influence on the resulting density values. For example, dividing the elevation into equal area sub-regions produces different density values.
+
+```{r fig.cap="Same analysis as last figure using different sub-regions. Note the difference in density values.", fig.height=2, fig.width=6.0, echo=FALSE}
+
+brk  <- quantile(elev, probs=(0:4)/4, type=2)
+Zcut <- cut(elev, breaks=brk, labels=1:4) 
+  V  <- tess(image=Zcut)
+
+OP <- par(mfrow = c(1,2), mar=c(0,0,0,3))
+Q2 <- quadratcount(P, tess = V)
+plot(V$image, main="", las=2, col=colorRampPalette(c("grey90","grey20"))(V$n))
+plot(Q2, show.tiles=FALSE, add=TRUE)
+plot(P, pch=20, add=T)
+Q2i <- intensity(Q2)
+int <- round(data.frame(Q2i)$Freq, 3)
+plot(intensity(Q2, image=TRUE), col = cl, las=2, main=NULL)
+plot(Q2, add=T, show.tiles = FALSE, entries= int)
+par(OP)
+```
+
+
+
+#### Kernel density
+
+The kernel density approach is an extension of the quadrat method: Like the quadrat density, the kernel approach computes a localized density for subsets of the study area, but unlike its quadrat density counterpart, the sub-regions overlap one another providing a *moving* sub-region window. This moving window is defined by a **kernel**. Unlike its quadrat density counterpart, the kernel density approach generates a grid of density values whose cell size is smaller than that of the kernel window. Each cell is assigned the density value computed for the kernel window centered on that cell. Many software applications will usually generate a raster output to store the density values. 
+
+A kernel not only defines the shape and size of the window, but it can also *weight* the points following a well defined kernel function. The simplest of functions is a **basic kernel** where each point in the kernel window is assigned equal weight.
+
+```{r fig.cap="An example of a basic 3x3 kernel density map (ArcGIS calls this a point density map) where each point is assigned an equal weight. For example, the second cell from the top and left (i.e. centered at location x=1.5 and y =8.5) has one point within a 3x3 unit (pixel) region and thus has a local density of 1/9 = 0.11.", fig.height=3.5, echo=FALSE}
+
+library(raster)
+library(maptools)
+library(grid)
+
+gp.text <- function(sg, nr=1, sfmt="%02.0f",x1,x2,y1,y2,src){
+  src       = as.data.frame(src)
+  sg.names  = names(sg)
+  sg        = crop(sg, c(x1,x2,y1,y2))
+  names(sg) = sg.names # Renaming the layers is necessary if the brick object is cropped
+  r.df      = as.data.frame(cbind(xyFromCell(sg,1:ncell(sg)),getValues(sg)))
+  ggplot(aes(x = x, y = y), data = r.df, environment = environment()) + 
+    geom_tile(aes(fill = Point.density)) + 
+    scale_fill_gradient(low = "#F0F9E8",high = "#08589E", name="Basic \nKernel") +
+    theme(strip.text.x = element_text(size=6, family="mono", face="bold"), legend.position = "right",
+          axis.text.x=element_text(size = 3), axis.text.y=element_text(size = 3),
+          plot.margin = unit(c(0, 0, 0, 0), "cm"), legend.key.size = unit(0.2,"cm"), legend.text=element_text(size=6),
+          legend.title=element_text(size=5)) +
+    geom_point(data = src, mapping=aes(x=x, y=y), size=2, shape=16, colour="grey20") +
+    coord_equal() + geom_text(aes(label=sprintf(fmt=sfmt, Point.density)), size=3, colour="#555555")+
+    scale_x_continuous(breaks=seq(0,10,2)) + scale_y_continuous(breaks=seq(0,10,2)) + labs(x="",y="") 
+}
+
+fesri <- function(sigma, n=5) {
+  m   <- matrix(nc=n, nr=n)
+  col <- rep(1:n, n)
+  row <- rep(1:n, each=n)
+  x   <- col - ceiling(n/2)
+  y   <- row - ceiling(n/2)
+  # See http://math.stackexchange.com/a/41191
+  ax  <- (x^2 + y^2) / sigma^2 
+  m[cbind(row, col)] = ifelse(abs(ax) < sigma, 
+                              (1 - ax)^2,
+                              0)
+  # sum of weights should add up to 1  
+  m / sum(m)
+}
+
+P.s = as.SpatialPoints.ppp(P)
+r = raster(nrows=cell,ncols=cell,xmn=0,xmx=cell,ymn=0,ymx=cell)
+r[] = 0
+P.r = rasterize(P.s,r,field=1,fun=sum) # Cell value is assigned number of points
+P.r[is.na(P.r[])] = 0
+
+# Point density
+d.p = focal(P.r, w=matrix(1,nrow=3,ncol=3), fun=sum, na.rm=T, pad=T, padValue=0)
+d.p[] = d.p[] / 9  # Divide by kernel area
+
+sg = brick(d.p)
+names(sg) = c("Point.density")
+gp.text(sg, nr=1, sfmt="%0.2f", x1=0,x2=cell,y1=0,y2=cell,src=P)
+
+```
+
+Some of the most popular **kernel functions** assign weights to points that are inversely proportional to their distances to the kernel window center. A few such kernel functions follow a *gaussian* or *quartic* like distribution function. These functions tend to produce a smoother density map.
+
+```{r fig.cap="An example of a kernel function is the 3x3 quartic kernel function where each point in the kernel window is weighted based on its proximity to the kernel's center cell (typically, closer points are weighted more heavily). Kernel functions, like the quartic, tend to generate smoother surfaces.", fig.height=3.5, echo=FALSE}
+
+library(raster)
+library(maptools)
+library(grid)
+
+gp.text <- function(sg, nr=1, sfmt="%02.0f",x1,x2,y1,y2,src){
+  src       = as.data.frame(src)
+  sg.names  = names(sg)
+  sg        = crop(sg, c(x1,x2,y1,y2))
+  names(sg) = sg.names # Renaming the layers is necessary if the brick object is cropped
+  r.df       = as.data.frame(cbind(xyFromCell(sg,1:ncell(sg)),getValues(sg)))
+  ggplot(aes(x = x, y = y), data = r.df, environment = environment()) + 
+    geom_tile(aes(fill = Kernel.function)) + 
+    scale_fill_gradient(low = "#F0F9E8",high = "#08589E", name="Kernel \nFunction") +
+    theme(strip.text.x = element_text(size=6, family="mono", face="bold"), legend.position = "right",
+          axis.text.x=element_text(size = 3), axis.text.y=element_text(size = 3),
+          plot.margin = unit(c(0, 0, 0, 0), "cm"), legend.key.size = unit(0.2,"cm"), legend.text=element_text(size=6),
+          legend.title=element_text(size=5)) +
+    geom_point(data = src, mapping=aes(x=x, y=y), size=2, shape=16, colour="grey20") +
+    coord_equal() + geom_text(aes(label=sprintf(fmt=sfmt, Kernel.function)), size=3, colour="#555555")+
+    scale_x_continuous(breaks=seq(0,10,2)) + scale_y_continuous(breaks=seq(0,10,2)) + labs(x="",y="") 
+}
+
+fesri <- function(sigma, n=5) {
+  m <- matrix(nc=n, nr=n)
+  col <- rep(1:n, n)
+  row <- rep(1:n, each=n)
+  x <- col - ceiling(n/2)
+  y <- row - ceiling(n/2)
+  # See http://math.stackexchange.com/a/41191
+  ax <- (x^2 + y^2) / sigma^2 
+  m[cbind(row, col)] = ifelse(abs(ax) < sigma, 
+                              (1 - ax)^2,
+                              0)
+  # sum of weights should add up to 1  
+  m / sum(m)
+}
+
+P.s = as.SpatialPoints.ppp(P)
+r = raster(nrows=cell,ncols=cell,xmn=0,xmx=cell,ymn=0,ymx=cell)
+r[] = 0
+P.r = rasterize(P.s,r,field=1,fun=sum) # Cell value is assigned number of points
+P.r[is.na(P.r[])] = 0
+
+# Kernel function
+ff=fesri(1.52,n=5)  # An approximation of ESRI's kernel density function
+d.k = focal(P.r, w=ff, na.rm=T, pad=T, padValue=0)
+
+sg = brick(d.k)
+names(sg) = c("Kernel.function")
+gp.text(sg, nr=1, sfmt="%0.2f", x1=0,x2=cell,y1=0,y2=cell,src=P)
+
+```
+
+
+#### Kernel Density Adjusted for Covariate
+
+In the previous section, we learned that we could use a covariate, like elevation, to define the sub-regions (quadrats) within which densities were computed. In essence a form of *normalization* was applied to the density calculations whereby each sub-region was assumed to represent a unique underlying process (if this were the case, then the density values would have been the same across each sub-region). The idea of *normalizing* the data to some underlying covariate can be extended to kernel density analysis. Here, instead of *dividing* the study region into discrete sub-regions (as was done with quadrat analysis), we normalize the computed density (from our observed point pattern) to a *measure* of density expected from the underlying covariate. This normalized density, which we'll denote as $\rho$, can be estimated in one of three different ways-- by *ratio*, *re-weight* and *transform* methods. We will not delve into the differences between these methods, but note that there is more than one way to estimate $\rho$.
+
+```{r fig.cap="An estimate of $\\rho$ using the ratio method. The figure on the left shows the estimated $\\rho$ as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of $\\rho$.", fig.height=2, fig.width=5, echo=FALSE}
+
+rho  <- rhohat(P, elev, method="ratio")
+pred <- predict(rho)
+cl <-  interp.colours(c("lightyellow", "orange" ,"red"), 100)
+OP <- par(mfrow=c(1,2), mar=c(3,3,0,2), pty="s" )
+plot(rho, main=NULL, legend=FALSE, do.rug=FALSE, cex.lab=0.5, cex.axis=0.5)
+plot(pred, col=cl, las=2, main=NULL, ribargs=list(cex.axis=0.5))
+par(OP)
+```
+
+If the density, $\rho$, can be explained by the elevation, we would expect a constant $\rho$ value across all elevation values (figure on the left) and across the spatial extent (figure on the right). This appears to be the case with our working example except near the upper right-hand corner of the spatial extent where the elevation values are the highest. This can be explained by the small area covered by these high elevation locations which result in fewer observed points and thus higher uncertainty for that corner of the study extent. This is very apparent in the left figure where the 95% confidence interval envelope widens at higher elevation values (indicating the greater uncertainty in our estimated $\rho$ value at the higher elevation).
+
+### Modeling intensity as a function of a covariate
+
+So far, we have learned techniques that *describe* the distribution of points across a region of interest. But it is often more interesting to *model* the relationship between the distribution of points and some underlying covariate by defining that relationship mathematically. This can be done by exploring the *changes* in point density as a function of a covariate, however, unlike techniques explored thus far, this approach makes use of a statistical model. One such model is a *Poisson point process* model which can take on the form of:
+
+$$
+\begin{equation}
+\lambda(i) = e^{\alpha + \beta Z(i)}
+\label{eq:density-covariate}
+\end{equation}
+$$
+
+
+```{block, type="note"}
+The left-hand side of a logisitic regression model is often presented as the *probability*, $P$, of occurance and is related to $\lambda$ as \$\\lambda=P/(1-P)\$ which is the *ratio of probability of occurence*. Solving for $P$ gives us \$P = \\lambda/(1 + \\lambda)\$ which yields the following equation:
+$$
+P(i) = \frac{e^{\alpha + \beta Z(i)}}{1 + e^{\alpha + \beta Z(i)}}
+$$
+```
+
+where $\lambda(i)$ is the modeled intensity at location $i$, $e^{\alpha}$ (the exponent of $\alpha$) is the base intensity when the covariate is *zero* and $e^{\beta}$ is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate. This is a form of the *logistic regression* model--popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a **loglinear** function of the underlying covariate (i.e. one where the process' intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where $\alpha + \beta Z(i)$ is the *linear predictor*.
+
+Let's work with the point distribution of Starbucks cafes in the state of Massachusetts. The point pattern clearly exhibits a non-random distribution. It might be helpful to compare this distribution to some underlying covariate such as the population density distribution.
+
+```{r fig.cap="Location of Starbucks relative to population density. Note that the classification scheme follows a log scale to more easily differentiate population density values.", message=FALSE, fig.height=3, fig.width=7, echo=FALSE, results='hide'}
+library(spatstat)
+library(maptools)
+library(rgdal)
+
+# Load Starbucks point locations
+S  <- readShapePoints("./Data/Starbucks.shp")
+SP <- as(S, "SpatialPoints")
+P2  <- as(SP, "ppp")
+
+# Load population density raster layer
+r   <- readGDAL("./Data/pop_sqmile.img")
+pop <- as.im(r)  # Convert r object to an im object
+
+# Display data
+rasterVis::levelplot(raster::raster(pop), scales=list(draw=FALSE), 
+                     zscaleLog=TRUE, margin=FALSE, border="transparent") +
+  latticeExtra::layer(sp.points(SP, pch=20, col=rgb(0,0,0,0.5),cex=1.3))
+```
+
+We can fit a poisson point process model to these data where the modeled intensity takes on the form:
+
+$$
+\begin{equation}
+Starbucks\ density(i) = e^{\alpha + \beta\ population(i)}
+\label{eq:walmart-model}
+\end{equation}
+$$
+
+
+The parameters $\alpha$ and $\beta$ are estimated from a method called *maximum likelihood*. Its implementation is not covered here but is widely covered in many statistics text books. And the term $(i)$ serves as a reminder that the point density and the population distribution both can vary as a function of location $i$.
+
+```{r echo=FALSE}
+#options(digits=10)
+PPM1 <- ppm(P2 ~ pop)
+a <- round(PPM1$coef[1] , 3)
+b <- round(PPM1$coef[2] , 5)
+```
+
+The estimated value for $\alpha$ is `r a`. This is interpreted as stating that given a population density of *zero*, the base intensity of the point process is e^`r a`^ or `r sprintf("%g",exp(a))`--a number close to zero (as one would expect). The estimated value for $\beta$ is `r sprintf("%g",b)`. This is interpretated as stating that for every unit increase in population density (one person per square mile), the intensity of the point process increases by e^`r sprintf("%g",b)`^ or `r sprintf("%g",exp(b))`.
+
+If one were to plot the relationship between density and population, we would get:
+
+```{r fig.cap="Poisson point process model fitted to the relationship between Starbucks store locations and population density. The model assumes a loglinear relationship. Note that the density is reported in number of stores per map unit area (the map units are in meters).", message=FALSE, fig.height=2, fig.width=3, echo=FALSE, results='hide'}
+PPM1 <- ppm(P2 ~ pop)
+PPM0 <- ppm(P2 ~ 1)
+
+OP <- par(mar=c(4,4,0,0))
+plot(effectfun(PPM1, "pop", se.fit=TRUE), main=NULL, cex.axis=0.6,cex.lab=0.6,
+     legend=FALSE)
+par(OP)
+#anova(PPM0, PPM1, test="LR")
+```
+
+
+
+## Distance based analysis
+
+```{block, type="note"}
+A *second order* property of a pattern concerns itself with the observations' influence on one another. For example, the distribution of oaks will be influenced by the location of parent trees: where parent oaks are present we would expect dense clusters of oaks to emerge.
+```
+
+An alternative to density based methods is **distance based methods** for pattern analysis where the interest lies in how the points are distributed relative to one another--a second-order property of the pattern. 
+
+### Average Nearest Neighbor
+
+An average nearest neighbor (ANN) analysis measures the average distance from each point in the study area to its nearest point. In the following example, the average nearest neighbor for all points is 1.52 units.
+
+```{r fig.cap="Distance between each point and its closest point. For example, the point closest to point 1 is point 9 which is 2.32 units away.", results="asis", echo=FALSE, message=FALSE, warning=FALSE, fig.height=3.0, fig.width=5}
+
+library(gridExtra)
+
+mytheme <- gridExtra::ttheme_default(
+    core = list(fg_params=list(vjust=0, x=0.4, cex=0.5,lineheight = 5)),
+  #  gpar.coretext = gpar(fontsize = 1, lineheight = 0.1, cex = 0.1),
+    colhead = list(fg_params=list(cex = 0.4)),
+    rowhead = list(fg_params=list(cex = 0.4)))
+
+ANN <- nndist(P, k=1)
+NN <- nnwhich(P, k =1)
+ddf <- data.frame(From = 1:length(NN),  To = NN, Distance = round(ANN,2))
+ddf.split <- cbind(ddf[1:10,], ddf[11:20,])
+d <- tableGrob(ddf.split,theme = mytheme, rows=NULL)
+
+PP <- ggplot(aes(x = x, y = y), data = as.data.frame(P)) + theme(legend.position = "none") +
+  geom_point(data = as.data.frame(P), mapping=aes(x=x, y=y), size=1.5, shape=16, colour="grey30") +
+  coord_equal() + labs(x="",y="") +
+  geom_text(aes(label=1:P$n),hjust=-0.4, vjust=-0.4, size=2) +
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"), axis.text=element_text(size = 4) ) +
+          scale_x_continuous(breaks=seq(0,10,2)) + scale_y_continuous(breaks=seq(0,10,2))
+
+grid.arrange(PP,d, ncol=2)
+
+```
+
+An extension of this idea is to plot the ANN values for different order neighbors, that is for the first closest point, then the second closest point, and so forth.
+
+```{r fig.cap="ANN values for different neighbor order numbers. For example, the ANN for the first closest neighbor is 1.52 units; the ANN for the 2nd closest neighbor is 2.14  units; and so forth.", fig.height=1.2, fig.width=2.5, echo=FALSE, message=FALSE, warning=FALSE}
+
+ANN <- apply(nndist(P, k=1:(P$n-1)),2,FUN=mean) # Compute ANN for each order
+d.f <- data.frame(Order=1:(P$n-1), ANN=ANN)
+ggplot( aes(x=Order, y=ANN), data=d.f) +geom_line() + geom_point(size=1.5, shape=16)+
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"), axis.text=element_text(size = 4),
+        axis.title = element_text(size=6 ) )
+
+```
+
+The shape of the ANN curve as a function of neighbor order can provide insight into the spatial arrangement of points relative to one another. In the following example, three different point patterns of 20 points are presented.
+
+```{r fig.cap="Three different point patterns: a single cluster, a dual cluster and a randomly scattered pattern.", fig.height=2, fig.width=4.5, echo=FALSE}
+
+library(spatstat)
+win <- owin(c(0,10),c(0,10))
+
+set.seed(12)
+x <- rnorm(20, 5,0.3)
+set.seed(14)
+y <- rnorm(20,5,0.3)
+P.cl <- ppp(x,y,window=win)
+
+set.seed(6)
+x <- c(rnorm(10, 3,0.5), rnorm(10,6,0.5))
+set.seed(34)
+y <- c(rnorm(10, 3,0.5), rnorm(10,6,0.5))
+P.cl2 <- ppp(x,y,window=win)
+
+set.seed(673)
+P.rnd <- rpoint(20, win=win)
+
+ann.cl <- apply(nndist(P.cl, k=1:(P.cl$n-1)),2,FUN=mean)
+ann.cl2 <- apply(nndist(P.cl2, k=1:(P.cl2$n-1)),2,FUN=mean)
+ann.rnd <- apply(nndist(P.rnd, k=1:(P.rnd$n-1)),2,FUN=mean)
+
+OP <- par(mfrow=c(1,3), mar=c(1,1,1,0))
+ plot(P.cl, pch=20, main="",cols=rgb(0,0,0,.5))
+ plot(P.cl2, pch=20, main="",cols=rgb(0,0,0,.5))
+ plot(P.rnd, pch=20, main="",cols=rgb(0,0,0,.5))
+par(OP)
+
+```
+
+Each point pattern offers different ANN vs. neighbor order plots.
+
+```{r fig.cap="Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern.", fig.height=2, fig.width=4.0, echo=FALSE}
+OP <- par(mar=c(1.4,1.2,1,0) )
+plot(1:19, ann.cl, type="b", ylim=c(0, max(ann.cl,ann.rnd, ann.cl2)), cex=.5, pch=16,xaxt="n",yaxt="n",
+     xlab="", ylab="")
+axis(1, seq(0,20,5),cex.axis=.5,xlab="Neighbor order", cex.lab=.5,padj=-3,tck=-0.02)
+mtext("Neighbor order", 1, cex=.7, line=0.5)
+axis(2, seq(0,round(max(ann.cl,ann.rnd)), length.out=4),cex.axis=.5,xlab="Neighbor order", cex.lab=.5,las=2,
+     hadj=-1.6, ,tck=-0.02)
+mtext("ANN", 3, cex=.7, line=0, at=0)
+ lines(1:19, ann.rnd, type="b", col="red", cex=.5, pch=16)
+ lines(1:19, ann.cl2, type="b", col="blue", cex=.5, pch=16)
+par(OP)
+
+```
+
+The bottom line (black line) indicates that the cluster (left plot) is tight and that the distances between a point and all other points is very short. This is in stark contrast with the top line (red line) which indicates that the distances between points is much greater. Note that the way we describe these patterns is heavily influenced by the size and shape of the study region. If the region was defined as the smallest rectangle encompassing the cluster of points, the cluster of points would no longer look clustered.
+
+```{r fig.cap="The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?", fig.height=2, fig.width=4.0, echo=FALSE}
+set.seed(12)
+x <- rnorm(20, 5,0.3)
+set.seed(14)
+y <- rnorm(20,5,0.3)
+P.cl <- ppp(x,y,window=win)
+win2 <- owin(range(x), range(y))
+P2.cl <- ppp(x,y, window=win2)
+OP <- par(mfrow=c(1,2), mar=c(1,1,1,0))
+ plot(P.cl, pch=20, main="",cols=rgb(0,0,0,.5), cex=0.8)
+ plot(P2.cl, pch=20, main="",cols=rgb(0,0,0,.5), cex=0.8)
+par(OP)
+```
+
+
+### K and L functions
+
+#### K function
+
+The average nearest neighbor (ANN) statistic is one of many point pattern analysis statistics. Another statistic is the K-function which summarizes the distance between points for *all* distances. The calculation of K is fairly simple: it consists of dividing the mean sum of the number of points at different distance lags for each point by the area event density. For example, for point $S1$ we draw circles, each of varying radius $d$, centered on that point. We then count the number of points (events) inside each circle. We repeat this for point $S2$ and all other points $Si$. Next, we compute the average number of points in each circle then divide that number by the overall point density $\hat{\lambda}$ (i.e. total number of events per study area).
+
+<table>
+
+
+<td style="width:30%;">
+<img src="img/K_bands.png" width=300> </img>
+</td>
+
+<td style="width:350px !important">
+ <table style="width:75%;">
+ <tr>
+ <th>Distance <br>band <br>(km) </th><th>	# events <br>from S~1~</th><th>	# events <br> from S~2~ </th><th>	# events<br> from S~i~ </th><th> K </th>
+ </tr>
+ <tr>
+ <td>10 </td><td>	0	</td><td> 1  </td><td>	... </td><td>	0.012 </td>
+ </tr><tr>
+ <td>20 </td><td>	3 </td><td>	5	 </td><td> ...	</td><td> 0.067 </td>
+ </tr><tr>
+ <td>30 </td><td>	9 </td><td>	14 </td><td> ... </td><td> 0.153 </td>
+ </tr><tr>
+ <td>40 </td><td>	17 </td><td> 17 </td><td> ... </td><td>	0.269 </td>
+ </tr><tr>
+ <td>50 </td><td> 25 </td><td> 23 </td><td> ... </td><td> 0.419 </td>
+ </tr>
+ </table>
+</td>
+
+</table><br>
+
+
+We can then plot K and compare that plot to a plot we would expect to get if an IRP/CSR process was at play (K~expected~).
+
+```{block, type="note"}
+K-function calculated from the Walmart stores point distribution in MA (shown in black) compared to$K_{expected}$ under the IRP/CSR assumption (shown in red). 
+```
+
+K values greater than $K_{expected}$ indicates a greater number of points at that distance (more clustered); K values less than $K_{expected}$ indicates fewer number of points at that distance (more dispersed).
+
+Note that like the ANN analysis, the $K$-function assumes stationarity in the underlying point process (i.e. that there is no overall drift or trend in the  process' intensity). 
+
+#### L function
+
+One problem with the $K_{expected}$ is that the shape of the function tends to curve upward making it difficult to see small differences between K and $K_{expected}$. A work-around is to transform the values in such a way that the expected values, $K_{expected}$, lie horizontal. The transformation is calculated as follows:
+
+$$
+\begin{equation}
+L=\sqrt{\dfrac{K(d)}{\pi}}-d
+\label{eq:L-function}
+\end{equation}
+$$
+
+
+The above $\hat{K}$ is transformed to the following plot (note how the $K_{expecetd}$ red line is now perfectly horizontal)
+
+
+```{r echo=FALSE, fig.cap="L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K~expected~ at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km."}
+knitr::include_graphics("img/L_function.svg")
+```
+
+### The Pair Correlation Function $g$
+
+A shortcoming of the $K$ function (and by extension the $L$ function) is its cumulative nature which makes it difficult to know at exactly which distances a point pattern may stray from $K_{expected}$ since *all* points up to distance $r$ can contribute to $K(r)$. The **pair correlation function**, $g$, is a modified version of the $K$ function where instead of summing *all* points within a distance $r$, points falling within a narrow distance *band* are summed instead.  
+
+```{r echo=FALSE, fig.cap="Difference in how the $K$ and $g$ functions aggregate points at distance $r$ ($r$ = 30 km in this example). *All* points *up to* $r$ contribute to $K$ whereas just the points in the *annulus band* at $r$ contribute to $g$."}
+knitr::include_graphics("img/K_vs_g_bands.png")
+```
+
+The plot and interpretation of the $g$ function differs from that of the $K$ and $L$ functions.
+
+```{r echo=FALSE, fig.cap="$g$-function of the Massachusets Walmart point data. Its interpretation is  similar to that of the $K$ and $L$ functions. Here, we observe distances between stores greater than expected under CSR up to about 5 km. Note that this cutoff is less than the 12 km cutoff observed with the $K$ function; this can be explained by the point pattern at the shorter $r$ distances contributing to the $K$ values at higher $r$ values--a problem avoided using the $g$-function.", out.width=400}
+knitr::include_graphics("img/g_function.svg")
+```
+
+If $g(r)$ = 1, then the inter-point distances (at and around distance $r$) are consistant with CSR. If $g(r)$ > 1, then the points are more clustered than expected under CSR. If $g(r)$ < 1, then the points are more dispersed than expected under CSR. Note that $g$ can never be less than 0.
+
+Like its $K$ counterpart, the $g$-function assumes stationarity in the underlying point process (i.e. that there is no overall drift or trend in the  process' intensity). 
+
+## First and second order effects
+
+The concept of 1^st^ order effects and 2^nd^ order effects is an important one. It underlies the basic principles of spatial analysis. 
+
+```{r echo=FALSE, fig.cap="Tree distribution can be influenced by 1^st^ order effects such as elevation gradient of spatial distribution of soil characteristics; this, in turn, changes the  tree density distribution across the study area. Tree distribution can also be influenced by 2^nd^ order effects such as seed dispersal processes where the process is independent of location and, instead, dependent on the presence of other trees."}
+knitr::include_graphics("img/1st_2nd_order_property.png")
+```
+
+Density based measurements such as kernel density estimations look at the *1^st^ order* property of the underlying process. Distance based measurements such as ANN and K-functions focus on the *2^nd^ order* property of the underlying process. 
+
+It's important to note that it is seldom feasible to separate out the two effects when analyzing the data, thus the importance on relying on a priori knowledge of the phenomena being investigated before drawing any conclusions from the analyses results.
+

@@ -1,0 +1,10 @@
+base
+sp
+rgdal
+tmap
+nlme
+rpart
+spatstat
+maptools
+raster
+gstat

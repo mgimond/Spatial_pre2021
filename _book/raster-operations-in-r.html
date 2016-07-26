@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Intro to GIS and Spatial Analysis</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
+  <meta name="generator" content="bookdown 0.1.3 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="github-repo" content="mgimond/private-test" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
+  
+  <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  
+
+<meta name="author" content="Manuel Gimond">
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="vector-operations-in-r.html">
+<link rel="next" href="point-pattern-analysis-in-r.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.6/htmlwidgets.js"></script>
+<link href="libs/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-0.7.3/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-1.0.1/leaflet.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introGIS.html"><a href="introGIS.html"><i class="fa fa-check"></i><b>1</b> Introduction to GIS</a><ul>
+<li class="chapter" data-level="1.1" data-path="introGIS.html"><a href="introGIS.html#what-is-a-gis"><i class="fa fa-check"></i><b>1.1</b> What is a GIS?</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introGIS.html"><a href="introGIS.html#gis-software"><i class="fa fa-check"></i><b>1.1.1</b> GIS software</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introGIS.html"><a href="introGIS.html#qgis"><i class="fa fa-check"></i><b>1.1.2</b> QGIS</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introGIS.html"><a href="introGIS.html#what-is-spatial-analysis"><i class="fa fa-check"></i><b>1.2</b> What is Spatial Analysis?</a></li>
+<li class="chapter" data-level="1.3" data-path="introGIS.html"><a href="introGIS.html#whats-in-an-acronym"><i class="fa fa-check"></i><b>1.3</b> What’s in an Acronym?</a></li>
+</ul></li>
+<li class="part"><span><b>Working with spatial data</b></span></li>
+<li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
+<li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
+<li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="feature-representation.html"><a href="feature-representation.html#scale"><i class="fa fa-check"></i><b>2.3</b> Scale</a></li>
+<li class="chapter" data-level="2.4" data-path="feature-representation.html"><a href="feature-representation.html#attribute-tables"><i class="fa fa-check"></i><b>2.4</b> Attribute Tables</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="feature-representation.html"><a href="feature-representation.html#measurement-levels"><i class="fa fa-check"></i><b>2.4.1</b> Measurement Levels</a></li>
+<li class="chapter" data-level="2.4.2" data-path="feature-representation.html"><a href="feature-representation.html#data-type"><i class="fa fa-check"></i><b>2.4.2</b> Data type</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="gis-data-management.html"><a href="gis-data-management.html"><i class="fa fa-check"></i><b>3</b> GIS Data Management</a><ul>
+<li class="chapter" data-level="3.1" data-path="gis-data-management.html"><a href="gis-data-management.html#gis-file-data-formats"><i class="fa fa-check"></i><b>3.1</b> GIS File Data Formats</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="gis-data-management.html"><a href="gis-data-management.html#vector-data-file-formats"><i class="fa fa-check"></i><b>3.1.1</b> Vector Data File Formats</a></li>
+<li class="chapter" data-level="3.1.2" data-path="gis-data-management.html"><a href="gis-data-management.html#raster-data-file-formats"><i class="fa fa-check"></i><b>3.1.2</b> Raster Data File Formats</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="gis-data-management.html"><a href="gis-data-management.html#managing-gis-files"><i class="fa fa-check"></i><b>3.2</b> Managing GIS Files</a></li>
+<li class="chapter" data-level="3.3" data-path="gis-data-management.html"><a href="gis-data-management.html#managing-a-map-project-in-arcgis"><i class="fa fa-check"></i><b>3.3</b> Managing a Map Project in ArcGIS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="symbolizing-features.html"><a href="symbolizing-features.html"><i class="fa fa-check"></i><b>4</b> Symbolizing features</a><ul>
+<li class="chapter" data-level="4.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#color"><i class="fa fa-check"></i><b>4.1</b> Color</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#hue"><i class="fa fa-check"></i><b>4.1.1</b> Hue</a></li>
+<li class="chapter" data-level="4.1.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#lightness"><i class="fa fa-check"></i><b>4.1.2</b> Lightness</a></li>
+<li class="chapter" data-level="4.1.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#saturation"><i class="fa fa-check"></i><b>4.1.3</b> Saturation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#color-space"><i class="fa fa-check"></i><b>4.2</b> Color Space</a></li>
+<li class="chapter" data-level="4.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification"><i class="fa fa-check"></i><b>4.3</b> Classification</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#qualitative-color-scheme"><i class="fa fa-check"></i><b>4.3.1</b> Qualitative color scheme</a></li>
+<li class="chapter" data-level="4.3.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#sequential-color-scheme"><i class="fa fa-check"></i><b>4.3.2</b> Sequential color scheme</a></li>
+<li class="chapter" data-level="4.3.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#divergent-color-scheme"><i class="fa fa-check"></i><b>4.3.3</b> Divergent color scheme</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="symbolizing-features.html"><a href="symbolizing-features.html#so-how-do-i-find-a-proper-color-scheme-for-my-data"><i class="fa fa-check"></i><b>4.4</b> So how do I find a proper color scheme for my data?</a></li>
+<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html"><i class="fa fa-check"></i><b>5</b> Pitfalls to avoid</a><ul>
+<li class="chapter" data-level="5.1" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#representing-count"><i class="fa fa-check"></i><b>5.1</b> Representing Count</a></li>
+<li class="chapter" data-level="5.2" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#maup"><i class="fa fa-check"></i><b>5.2</b> MAUP</a></li>
+<li class="chapter" data-level="5.3" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#ecological-fallacy"><i class="fa fa-check"></i><b>5.3</b> Ecological Fallacy</a></li>
+<li class="chapter" data-level="5.4" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#mapping-rates"><i class="fa fa-check"></i><b>5.4</b> Mapping rates</a></li>
+<li class="chapter" data-level="5.5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#coping-with-unstable-rates"><i class="fa fa-check"></i><b>5.5</b> Coping with Unstable Rates</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html"><i class="fa fa-check"></i><b>6</b> Good Map Making Tips</a><ul>
+<li class="chapter" data-level="6.1" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#elements-of-a-map"><i class="fa fa-check"></i><b>6.1</b> Elements of a map</a></li>
+<li class="chapter" data-level="6.2" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#how-to-create-a-good-map"><i class="fa fa-check"></i><b>6.2</b> How to create a <em>good</em> map</a></li>
+<li class="chapter" data-level="6.3" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#typefaces-and-fonts"><i class="fa fa-check"></i><b>6.3</b> Typefaces and Fonts</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html"><i class="fa fa-check"></i><b>7</b> Uncertainty in Census Data</a><ul>
+<li class="chapter" data-level="7.1" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#mapping-uncertainty"><i class="fa fa-check"></i><b>7.2</b> Mapping uncertainty</a></li>
+<li class="chapter" data-level="7.3" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#problems-in-mapping-uncertainty"><i class="fa fa-check"></i><b>7.3</b> Problems in mapping uncertainty</a></li>
+<li class="chapter" data-level="7.4" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#class-comparison-maps"><i class="fa fa-check"></i><b>7.4</b> Class comparison maps</a></li>
+<li class="chapter" data-level="7.5" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#problem-when-performing-bivariate-analysis"><i class="fa fa-check"></i><b>7.5</b> Problem when performing bivariate analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html"><i class="fa fa-check"></i><b>8</b> Spatial Operations and Vector Overlays</a><ul>
+<li class="chapter" data-level="8.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#selection-by-attribute"><i class="fa fa-check"></i><b>8.1</b> Selection by Attribute</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#set-algebra"><i class="fa fa-check"></i><b>8.1.1</b> Set Algebra</a></li>
+<li class="chapter" data-level="8.1.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#boolean-algebra"><i class="fa fa-check"></i><b>8.1.2</b> Boolean Algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#selection-by-location"><i class="fa fa-check"></i><b>8.2</b> Selection by location</a></li>
+<li class="chapter" data-level="8.3" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#vector-overlay"><i class="fa fa-check"></i><b>8.3</b> Vector Overlay</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#clip"><i class="fa fa-check"></i><b>8.3.1</b> Clip</a></li>
+<li class="chapter" data-level="8.3.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#intersect"><i class="fa fa-check"></i><b>8.3.2</b> Intersect</a></li>
+<li class="chapter" data-level="8.3.3" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#union"><i class="fa fa-check"></i><b>8.3.3</b> Union</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="coordinate-systems.html"><a href="coordinate-systems.html"><i class="fa fa-check"></i><b>9</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="9.1" data-path="coordinate-systems.html"><a href="coordinate-systems.html#geographic-coordinate-systems"><i class="fa fa-check"></i><b>9.1</b> Geographic Coordinate Systems</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="coordinate-systems.html"><a href="coordinate-systems.html#sphere-and-ellipsoid"><i class="fa fa-check"></i><b>9.1.1</b> Sphere and Ellipsoid</a></li>
+<li class="chapter" data-level="9.1.2" data-path="coordinate-systems.html"><a href="coordinate-systems.html#geoid"><i class="fa fa-check"></i><b>9.1.2</b> Geoid</a></li>
+<li class="chapter" data-level="9.1.3" data-path="coordinate-systems.html"><a href="coordinate-systems.html#datum"><i class="fa fa-check"></i><b>9.1.3</b> Datum</a></li>
+<li class="chapter" data-level="9.1.4" data-path="coordinate-systems.html"><a href="coordinate-systems.html#building-the-geographic-coordinate-system"><i class="fa fa-check"></i><b>9.1.4</b> Building the Geographic Coordinate System</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="coordinate-systems.html"><a href="coordinate-systems.html#projected-coordinate-systems"><i class="fa fa-check"></i><b>9.2</b> Projected Coordinate Systems</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="coordinate-systems.html"><a href="coordinate-systems.html#planar-projections"><i class="fa fa-check"></i><b>9.2.1</b> Planar Projections</a></li>
+<li class="chapter" data-level="9.2.2" data-path="coordinate-systems.html"><a href="coordinate-systems.html#cylindrical-projection"><i class="fa fa-check"></i><b>9.2.2</b> Cylindrical Projection</a></li>
+<li class="chapter" data-level="9.2.3" data-path="coordinate-systems.html"><a href="coordinate-systems.html#conical-projection"><i class="fa fa-check"></i><b>9.2.3</b> Conical Projection</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="coordinate-systems.html"><a href="coordinate-systems.html#spatial-properties"><i class="fa fa-check"></i><b>9.3</b> Spatial Properties</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="map-algebra.html"><a href="map-algebra.html"><i class="fa fa-check"></i><b>10</b> Map Algebra</a><ul>
+<li class="chapter" data-level="10.1" data-path="map-algebra.html"><a href="map-algebra.html#local-operations-and-functions"><i class="fa fa-check"></i><b>10.1</b> Local operations and functions</a></li>
+<li class="chapter" data-level="10.2" data-path="map-algebra.html"><a href="map-algebra.html#focal-operations-and-functions"><i class="fa fa-check"></i><b>10.2</b> Focal operations and functions</a></li>
+<li class="chapter" data-level="10.3" data-path="map-algebra.html"><a href="map-algebra.html#zonal-operations-and-functions"><i class="fa fa-check"></i><b>10.3</b> Zonal operations and functions</a></li>
+<li class="chapter" data-level="10.4" data-path="map-algebra.html"><a href="map-algebra.html#global-operations-and-functions"><i class="fa fa-check"></i><b>10.4</b> Global operations and functions</a></li>
+<li class="chapter" data-level="10.5" data-path="map-algebra.html"><a href="map-algebra.html#operators-and-functions"><i class="fa fa-check"></i><b>10.5</b> Operators and functions</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="map-algebra.html"><a href="map-algebra.html#mathematical-operators-and-functions"><i class="fa fa-check"></i><b>10.5.1</b> Mathematical operators and functions</a></li>
+<li class="chapter" data-level="10.5.2" data-path="map-algebra.html"><a href="map-algebra.html#logical-comparison"><i class="fa fa-check"></i><b>10.5.2</b> Logical comparison</a></li>
+<li class="chapter" data-level="10.5.3" data-path="map-algebra.html"><a href="map-algebra.html#boolean-or-logical-operators"><i class="fa fa-check"></i><b>10.5.3</b> Boolean (or Logical) operators</a></li>
+<li class="chapter" data-level="10.5.4" data-path="map-algebra.html"><a href="map-algebra.html#combining-operations"><i class="fa fa-check"></i><b>10.5.4</b> Combining operations</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Spatial Analysis</b></span></li>
+<li class="chapter" data-level="11" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
+<li class="chapter" data-level="11.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
+<li class="chapter" data-level="11.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#global-density"><i class="fa fa-check"></i><b>11.2.1</b> Global density</a></li>
+<li class="chapter" data-level="11.2.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#local-density"><i class="fa fa-check"></i><b>11.2.2</b> Local density</a></li>
+<li class="chapter" data-level="11.2.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i><b>11.2.3</b> Modeling intensity as a function of a covariate</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#distance-based-analysis"><i class="fa fa-check"></i><b>11.3</b> Distance based analysis</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#average-nearest-neighbor"><i class="fa fa-check"></i><b>11.3.1</b> Average Nearest Neighbor</a></li>
+<li class="chapter" data-level="11.3.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#k-and-l-functions"><i class="fa fa-check"></i><b>11.3.2</b> K and L functions</a></li>
+<li class="chapter" data-level="11.3.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#the-pair-correlation-function-g"><i class="fa fa-check"></i><b>11.3.3</b> The Pair Correlation Function <span class="math inline">\(g\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#first-and-second-order-effects"><i class="fa fa-check"></i><b>11.4</b> First and second order effects</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>12</b> Hypothesis testing</a><ul>
+<li class="chapter" data-level="12.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#irpcsr"><i class="fa fa-check"></i><b>12.1</b> IRP/CSR</a></li>
+<li class="chapter" data-level="12.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#testing-for-csr-with-the-ann-tool"><i class="fa fa-check"></i><b>12.2</b> Testing for CSR with the ANN tool</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#arcgis-average-nearest-neighbor-tool"><i class="fa fa-check"></i><b>12.2.1</b> ArcGIS’ Average Nearest Neighbor Tool</a></li>
+<li class="chapter" data-level="12.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-better-approach-a-monte-carlo-test"><i class="fa fa-check"></i><b>12.2.2</b> A better approach: a Monte Carlo test</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#alternatives-to-csrirp"><i class="fa fa-check"></i><b>12.3</b> Alternatives to CSR/IRP</a></li>
+<li class="chapter" data-level="12.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#monte-carlo-test-with-k-and-l-functions"><i class="fa fa-check"></i><b>12.4</b> Monte Carlo test with K and L functions</a></li>
+<li class="chapter" data-level="12.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#testing-for-a-covariate-effect"><i class="fa fa-check"></i><b>12.5</b> Testing for a covariate effect</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>13</b> Spatial Autocorrelation</a><ul>
+<li class="chapter" data-level="13.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#global-morans-i"><i class="fa fa-check"></i><b>13.1</b> Global Moran’s I</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#computing-the-morans-i"><i class="fa fa-check"></i><b>13.1.1</b> Computing the Moran’s I</a></li>
+<li class="chapter" data-level="13.1.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#monte-carlo-approach-to-estimating-significance"><i class="fa fa-check"></i><b>13.1.2</b> Monte Carlo approach to estimating significance</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#morans-i-at-different-lags"><i class="fa fa-check"></i><b>13.2</b> Moran’s I at different lags</a></li>
+<li class="chapter" data-level="13.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-morans-i"><i class="fa fa-check"></i><b>13.3</b> Local Moran’s I</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html"><i class="fa fa-check"></i><b>14</b> Spatial Interpolation</a><ul>
+<li class="chapter" data-level="14.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#deterministic-approach-to-interpolation"><i class="fa fa-check"></i><b>14.1</b> Deterministic Approach to Interpolation</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#proximity-interpolation"><i class="fa fa-check"></i><b>14.1.1</b> Proximity interpolation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#inverse-distance-weighted-idw"><i class="fa fa-check"></i><b>14.1.2</b> Inverse Distance Weighted (IDW)</a></li>
+<li class="chapter" data-level="14.1.3" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#fine-tuning-the-interpolation-parameters"><i class="fa fa-check"></i><b>14.1.3</b> Fine tuning the interpolation parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#statistical-approach-to-interpolation"><i class="fa fa-check"></i><b>14.2</b> Statistical Approach to Interpolation</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#trend-surfaces"><i class="fa fa-check"></i><b>14.2.1</b> Trend Surfaces</a></li>
+<li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
+<li class="chapter" data-level="14.2.3" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal"><i class="fa fa-check"></i><b>14.2.3</b> Reading a shapefile with <code>rgdal</code></a></li>
+<li class="chapter" data-level="14.2.4" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-maptools"><i class="fa fa-check"></i><b>14.2.4</b> Reading a shapefile with <code class="unnumbered">maptools</code></a></li>
+<li class="chapter" data-level="14.2.5" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i><b>14.2.5</b> Reading a GeoPackage</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-gis-raster-files"><i class="fa fa-check"></i>Reading GIS raster files</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#dissecting-the-file-summary"><i class="fa fa-check"></i>Dissecting the file summary</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-spatial-data"><i class="fa fa-check"></i>Mapping spatial data</a><ul>
+<li class="chapter" data-level="14.2.6" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-with-spplot"><i class="fa fa-check"></i><b>14.2.6</b> Mapping with <code class="unnumbered">spplot</code></a></li>
+<li class="chapter" data-level="14.2.7" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-with-tmap"><i class="fa fa-check"></i><b>14.2.7</b> Mapping with <code class="unnumbered">tmap</code></a></li>
+<li class="chapter" data-level="14.2.8" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-rasters-with-tmap"><i class="fa fa-check"></i><b>14.2.8</b> Mapping rasters with <code class="unnumbered">tmap</code></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#joining-tables-to-spatial-features"><i class="fa fa-check"></i>Joining tables to spatial features</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#converting-xy-data-to-point-objects"><i class="fa fa-check"></i>Converting XY data to point objects</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#geocoding-street-addresses"><i class="fa fa-check"></i>Geocoding street addresses</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-shapefile"><i class="fa fa-check"></i>Exporting to a shapefile</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-geopackage"><i class="fa fa-check"></i>Exporting to a GeoPackage</a></li>
+<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-raster-file-format"><i class="fa fa-check"></i>Exporting to a raster file format</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-coordinate-syntax"><i class="fa fa-check"></i>Understanding the coordinate syntax</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#modifying-coordinate-systems"><i class="fa fa-check"></i>Modifying coordinate systems</a><ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#example-of-failed-transformations"><i class="fa fa-check"></i>Example of failed transformations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html"><i class="fa fa-check"></i>Vector operations in R</a><ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-contiguous-shape"><i class="fa fa-check"></i>Dissolve by contiguous shape</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-attribute"><i class="fa fa-check"></i>Dissolve by attribute</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#calculate-area"><i class="fa fa-check"></i>Calculate area</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#subsetting"><i class="fa fa-check"></i>Subsetting</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting"><i class="fa fa-check"></i>Intersecting</a><ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting-polygons-with-line-and-point-objects"><i class="fa fa-check"></i>Intersecting polygons with line and point objects</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-raster"><i class="fa fa-check"></i>Unary operations and functions (applied to single raster)</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-layers-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two layers are used)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#global-operations-and-functions-1"><i class="fa fa-check"></i>Global operations and functions</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#computing-cumulative-distances"><i class="fa fa-check"></i>Computing cumulative distances</a><ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#working-example"><i class="fa fa-check"></i>Working example</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tesselated-surface"><i class="fa fa-check"></i>Quadrat density on a tesselated surface</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel Density Adjusted for Covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#the-pair-correlation-function-g-1"><i class="fa fa-check"></i>The Pair Correlation Function g</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-clustering"><i class="fa fa-check"></i>Test for clustering</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#computing-a-pseudo-p-value"><i class="fa fa-check"></i>Computing a pseudo p-value</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#testing-for-a-covariate-effect-1"><i class="fa fa-check"></i>Testing for a covariate effect</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial Autocorrelation in R</a><ul>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#define-neighboring-polygons"><i class="fa fa-check"></i>Define neighboring polygons</a></li>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-the-morans-i-statistic-the-hard-way"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the hard way</a><ul>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-a-pseudo-p-value-from-an-mc-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from an MC simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-the-morans-i-statistic-the-easy-way"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the easy way</a></li>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#morans-i-as-a-function-of-a-distance-band"><i class="fa fa-check"></i>Moran’s I as a function of a distance band</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html"><i class="fa fa-check"></i>Interpolation in R</a><ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#thiessen-polygons"><i class="fa fa-check"></i>Thiessen polygons</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#idw"><i class="fa fa-check"></i>IDW</a><ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#fine-tuning-the-interpolation"><i class="fa fa-check"></i>Fine-tuning the interpolation</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#cross-validation"><i class="fa fa-check"></i>Cross-validation</a></li>
+</ul></li>
+<li><a href="interpolation-in-r.html#st-order-polynomial-fit">1<sup>st</sup> order polynomial fit</a></li>
+<li><a href="interpolation-in-r.html#nd-order-polynomial">2<sup>nd</sup> order polynomial</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#kriging"><i class="fa fa-check"></i>Kriging</a><ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#fit-the-variogram-model"><i class="fa fa-check"></i>Fit the variogram model</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-kriged-surface"><i class="fa fa-check"></i>Generate Kriged surface</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-the-variance-map"><i class="fa fa-check"></i>Generate the variance map</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html"><i class="fa fa-check"></i>Mapping rates in R</a><ul>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#raw-rates"><i class="fa fa-check"></i>Raw Rates</a></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#standardized-mortality-ratios-relative-risk."><i class="fa fa-check"></i>Standardized mortality ratios (relative risk).</a></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#dykes-and-unwins-chi-square-statistic"><i class="fa fa-check"></i>Dykes and Unwin’s chi-square statistic</a></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#unstable-ratios"><i class="fa fa-check"></i>Unstable ratios</a><ul>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#global-empirical-bayes-eb-rate-estimate"><i class="fa fa-check"></i>Global Empirical Bayes (EB) rate estimate</a></li>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#local-empirical-bayes-eb-rate-estimate"><i class="fa fa-check"></i>Local Empirical Bayes (EB) rate estimate</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Intro to GIS and Spatial Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="raster-operations-in-r" class="section level1 unnumbered">
+<h1>Raster operations in R</h1>
+<p>We’ll first load spatial objects used in this exercise from a remote website: an elevation raster, a bathymetry raster and a continents polygon vector layer. These objects will be loaded as R spatial objects and will therefore not require conversion.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/elevation.rds&quot;</span>))
+r1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)
+
+z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/bathymetry.rds&quot;</span>))
+r2 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)
+
+z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/continents.rds&quot;</span>))
+s1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</code></pre></div>
+<p>Both rasters cover the entire globe. Elevation below mean sea level are encoded as <code>0</code> in the elevation raster. Likewise, bathymetrty values above mean sea level are encoded as <code>0</code>.</p>
+<p>Note that most of the map algebra operations and functions covered in this tutorial are implemented using the <code>raster</code> package.</p>
+<div id="local-operations-and-functions-1" class="section level2 unnumbered">
+<h2>Local operations and functions</h2>
+<div id="unary-operations-and-functions-applied-to-single-raster" class="section level3 unnumbered">
+<h3>Unary operations and functions (applied to single raster)</h3>
+<p>Most algebreic operations can be applied to rasters as they would with any vector element. For example, to convert all bathymetric values in <code>r2</code> (currently recorded as postive values) to <em>negative</em> values simply multiply the raster by <code>-1</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+r2b &lt;-<span class="st"> </span>r2 *<span class="st"> </span>(-<span class="dv">1</span>)</code></pre></div>
+<p>Another unary operation that can be applied to a raster is reclassification. In the following example, we will assign all values in <code>r2b</code> less than zero <code>1</code> and all zero values will remain unchanged. A simple way to do this is to apply a conditional statement.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r2c &lt;-<span class="st"> </span>r2b &lt;<span class="st"> </span><span class="dv">0</span></code></pre></div>
+<p>Let’s look at the output. Note that all <code>0</code> pixels are coded as <code>FALSE</code> and all <code>1</code> pixels are coded as <code>TRUE</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
+<span class="kw">tm_shape</span>(r2c) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greys&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>If a more elaborate form of reclassification is desired, you can use the <code>reclassify</code> function. In the following example, the raster object <code>r2</code> is reclassified to 4 unique values: 100, 500, 1000 and 11000 as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Original depth values</th>
+<th>Reclassified values</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0 - 100</td>
+<td>100</td>
+</tr>
+<tr class="even">
+<td>101 - 500</td>
+<td>500</td>
+</tr>
+<tr class="odd">
+<td>501 - 1000</td>
+<td>1000</td>
+</tr>
+<tr class="even">
+<td>1001 - 11000</td>
+<td>11000</td>
+</tr>
+</tbody>
+</table>
+<p>The first step is to create a plain matrix where the first and second columns list the starting and ending values of the range of <code>r</code> values that are to be reclassified, and where the third column lists the new raster cell values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">100</span>,  <span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">500</span>,  <span class="dv">500</span>, 
+       <span class="dv">1000</span>,  <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">11000</span>, <span class="dv">11000</span>)
+m &lt;-<span class="st"> </span><span class="kw">matrix</span>(m, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow =</span> T)
+m</code></pre></div>
+<pre><code>     [,1]  [,2]  [,3]
+[1,]    0   100   100
+[2,]  100   500   500
+[3,]  500  1000  1000
+[4,] 1000 11000 11000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r2c &lt;-<span class="st"> </span><span class="kw">reclassify</span>(r2, m, <span class="dt">right =</span> T)</code></pre></div>
+<p>The <code>right=T</code> parameter indicates that the intervals should be closed to the right (i.e. inclusive).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(r2c) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;cat&quot;</span>) +<span class="st"> </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>You can also assign <code>NA</code> (missing) values to pixels. For example, to assign <code>NA</code> values to cells that are equal to 100, type</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r2c[r2c ==<span class="st"> </span><span class="dv">100</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<p>The following chunk of code shows all pixels whose value is <code>NA</code> in a grey color.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(r2c) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">showNA=</span><span class="ot">TRUE</span>, <span class="dt">colorNA=</span><span class="st">&quot;grey&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="binary-operations-and-functions-where-two-layers-are-used" class="section level3 unnumbered">
+<h3>Binary operations and functions (where two layers are used)</h3>
+<p>In the following example, <code>r1</code> (elevation raster) is added to <code>r2</code> (bathymetry raster) to create a single elevation raster for the globe. Note that the bathymetric raster will need to be muliplied by <code>-1</code> to differentiate above mean sea level elevation from bellow mean sea level.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">elev &lt;-<span class="st"> </span>r1 -<span class="st"> </span>r2</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(elev) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+</div>
+<div id="focal-operations-and-functions-1" class="section level2 unnumbered">
+<h2>Focal operations and functions</h2>
+<p>Operations or functions applied focally to rasters involve the cell whose value we are computing and all user defined neighboring cells. For example, a cell output value can be the average of all 121 cells–an 11x11 kernel–centered on the cell whose value is being estimated (this acts as a <em>smoothing function</em>).</p>
+<p>Next, we apply the <code>focal</code> function to <code>r2</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="kw">focal</span>(elev, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">11</span>,<span class="dt">ncol=</span><span class="dv">11</span>)  , <span class="dt">fun=</span>mean)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(f1) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>Notice that the edge cells have been assigned a value of <code>NA</code>. This is because cells outside of the extent have no value. You can remedy this by passing the parameters <code>na.rm=TRUE</code> and <code>pad=TRUE</code> .</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f1 &lt;-<span class="st"> </span><span class="kw">focal</span>(elev, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">11</span>,<span class="dt">ncol=</span><span class="dv">11</span>)  , 
+            <span class="dt">fun=</span>mean, <span class="dt">pad=</span><span class="ot">TRUE</span>,  <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(f1) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>The <em>neighbors</em> matrix (or <em>kernel</em>) that defines the moving window can be customized. For example if we wanted to compute the average of all 8 neighboring cells <em>excluding</em> the central cell we could write the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)/<span class="dv">8</span>,<span class="dt">nrow =</span> <span class="dv">3</span>) 
+f2 &lt;-<span class="st"> </span><span class="kw">focal</span>(elev, <span class="dt">w=</span>m, <span class="dt">fun=</span>sum)</code></pre></div>
+<p>More complicated kernels can be defined. In the following example, a <a href="http://en.wikipedia.org/wiki/Sobel_operator">Sobel</a> filter (used for edge detection in image processing) is defined then applied to the raster layer <code>elev</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Sobel &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,-<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>,-<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>) /<span class="st"> </span><span class="dv">4</span>, <span class="dt">nrow=</span><span class="dv">3</span>) 
+f3    &lt;-<span class="st"> </span><span class="kw">focal</span>(elev, <span class="dt">w=</span>Sobel, <span class="dt">fun=</span>sum) 
+<span class="kw">tm_shape</span>(f3) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;Greys&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.show =</span> <span class="ot">FALSE</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="zonal-operations-and-functions-1" class="section level2 unnumbered">
+<h2>Zonal operations and functions</h2>
+<p>A common zonal operation is the aggregation of cells. In the following example, raster layer <code>elev</code> is aggregated to a 5x5 raster layer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z1 &lt;-<span class="st"> </span><span class="kw">aggregate</span>(elev, <span class="dt">fact=</span><span class="dv">2</span>, <span class="dt">fun=</span>mean, <span class="dt">expand=</span><span class="ot">TRUE</span>)
+
+<span class="kw">tm_shape</span>(z1) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>The image may not look much different from the original, but a look at the image properties will show a difference in pixel sizes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">res</span>(elev)</code></pre></div>
+<pre><code>[1] 0.3333333 0.3333333</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">res</span>(z1)</code></pre></div>
+<pre><code>[1] 0.6666667 0.6666667</code></pre>
+<p><code>z1</code>’s pixel dimensions are half of <code>elev</code>’s dimensions. You can reverse the process by using the <code>disaggregate</code> function which will split a cell into the desired number of subcells while assigning each one the same parent cell value.</p>
+<p>Zonal operations can often involve two layers, one with the values to be aggregated, the other with the defined zones. In the next example, <code>elev</code>’s cell values are averaged by zones defined by the raster layer <code>l4</code>.</p>
+<p>First, we generate a table with summed cell values <code>r</code> for each each zone <code>l4</code>,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elev, s1, <span class="dt">fun=</span>mean, <span class="dt">sp=</span><span class="ot">TRUE</span>) </code></pre></div>
+<p>The <code>sp=TRUE</code> parameter instructs the function to output a <code>SpatialPolygonsDataFrame</code> object (same as the input zonal object) instead of a standalone table (matrix). The output spatial object inherits the original attributes and adds a column called <code>layer</code> with the computed mean elevation values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1.elev@data</code></pre></div>
+<pre><code>      CONTINENT     layer
+0        Africa  630.6979
+1    Antarctica 2370.8633
+2          Asia  790.6696
+3     Australia  276.5497
+4        Europe  262.7611
+5 North America  826.4162
+6 South America  595.6067</code></pre>
+<p>We can map the average elevation by continent.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1.elev) +<span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;layer&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>)</code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Many custom functions can be applied to <code>extract</code>. For example, to extract the maximum elevation value by continent, type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elev, s1, <span class="dt">fun=</span>max, <span class="dt">sp=</span><span class="ot">TRUE</span>) </code></pre></div>
+<p>As another example, we may wish to extract the number of cells in each polygon.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elev, s1, <span class="dt">fun=</span>function(x,...){<span class="kw">length</span>(x)}, <span class="dt">sp=</span><span class="ot">TRUE</span>) </code></pre></div>
+<p>The <code>extract</code> function will also work with lines and points spatial objects. If you wish to compute the zonal statistics of a raster using a another raster as zones instead of a polygon, use the <code>zonal</code> function instead.</p>
+</div>
+<div id="global-operations-and-functions-1" class="section level2 unnumbered">
+<h2>Global operations and functions</h2>
+<p>Global operations and functions may make use of all input cells of a grid in the computation of an output cell value.</p>
+<p>An example of a global function is the Euclidean distance tool, <code>distance</code>, which computes the shortest distance between a pixel and a source (or destination) location. To demonstrate the <code>distance</code> function, we’ll first create a new raster layer with two non-NA pixels.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r1   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol=</span><span class="dv">100</span>, <span class="dt">nrow=</span><span class="dv">100</span>, <span class="dt">xmn=</span><span class="dv">0</span>, <span class="dt">xmx=</span><span class="dv">100</span>, <span class="dt">ymn=</span><span class="dv">0</span>, <span class="dt">ymx=</span><span class="dv">100</span>)
+r1[] &lt;-<span class="st"> </span><span class="ot">NA</span>              <span class="co"># Assign NoData values to all pixels</span>
+r1[<span class="kw">c</span>(<span class="dv">850</span>, <span class="dv">5650</span>)] &lt;-<span class="st"> </span><span class="dv">1</span>   <span class="co"># Change the pixels 20 and 85  to 1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(r1) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;red&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p>Next, we’ll compute a Euclidean distance raster from these two cells. The output extent will default to the input raster extent.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r1.d &lt;-<span class="st"> </span><span class="kw">distance</span>(r1) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(r1.d) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;order&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) +
+<span class="st">  </span><span class="kw">tm_shape</span>(r1) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;red&quot;</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>You can also compute a distance raster using <code>SpatialPoints</code> objects or a simple x,y data table. In the following example, distances to points (25,30) and (87,80) are computed for each output cell. We will first need to create a blank raster (which will define the extent of the Euclidean raster output). We then create a new <code>SpatialPoints</code> object from a basic table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r2 &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol=</span><span class="dv">100</span>, <span class="dt">nrow=</span><span class="dv">100</span>, <span class="dt">xmn=</span><span class="dv">0</span>, <span class="dt">xmx=</span><span class="dv">100</span>, <span class="dt">ymn=</span><span class="dv">0</span>, <span class="dt">ymx=</span><span class="dv">100</span>)
+xy &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">87</span>,<span class="dv">80</span>),<span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span>T) 
+p1 &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(xy)</code></pre></div>
+<p>Now let’s compute the Euclidean distance to these points.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r2.d &lt;-<span class="st"> </span><span class="kw">distanceFromPoints</span>(r2, p1) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(r2.d) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;order&quot;</span>) +<span class="st"> </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) +
+<span class="st">  </span><span class="kw">tm_shape</span>(p1) +<span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) </code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+</div>
+<div id="computing-cumulative-distances" class="section level2 unnumbered">
+<h2>Computing cumulative distances</h2>
+<p>This exercise demonstrates how to use functions from the <code>gdistance</code> package to generate a cumulative distance raster. One objective will be to demonstrate the influence “adjacency cells” wields in the final results.</p>
+<p>Load the <code>gdistance</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gdistance)</code></pre></div>
+<p>First, we’ll create a 100x100 raster and assign a value of <code>1</code> to each cell. If you were to include traveling costs other than distance (e.g. elevation) you would assign <em>those</em> values to each cell instead of a constant value of <code>1</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrows=</span><span class="dv">100</span>,<span class="dt">ncols=</span><span class="dv">100</span>,<span class="dt">xmn=</span><span class="dv">0</span>,<span class="dt">ymn=</span><span class="dv">0</span>,<span class="dt">xmx=</span><span class="dv">100</span>,<span class="dt">ymx=</span><span class="dv">100</span>)
+r[] &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">ncell</span>(r))</code></pre></div>
+<p>A translation matrix allows one to define a ‘traversing’ cost (other than distance) to go from one cell to an adjacent cell. For example, differences in height between two adjacent cell could be defined as a ‘cost’. In our example, we will assume that there are no ‘costs’ (other than distance) in traversing from one cell to any adjacent cell; we therefore assign a value of 1, (<code>function(x){1}</code>), to the translation between a cell and its adjacent cells (i.e. translation cost is uniform in all directions).</p>
+<p>There are four different ways in which ‘adjacency’ can be defined using the <code>transition</code> function. These are showcased in the next four blocks of code.</p>
+<p>In this example, adjacency is defined as a <em>four</em> node (vertical and horizontal) connection (i.e. a “rook” move).</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-37-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">h4   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> function(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">4</span>)</code></pre></div>
+<p>In this example, adjacency is defined as an <em>eight</em> node connection (i.e. a single cell “queen” move).</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-39-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">h8   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> function(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">8</span>)</code></pre></div>
+<p>In this example, adjacency is defined as a <em>sixteen</em> node connection (i.e. a single cell “queen” move combined with a “knight” move).</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-41-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">h16  &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction=</span>function(x){<span class="dv">1</span>},<span class="dv">16</span>,<span class="dt">symm=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>In this example, adjacency is defined as a <em>four</em> node (diagonal) connection (i.e. a single cell “bishop” move).</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hb   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction=</span>function(x){<span class="dv">1</span>},<span class="st">&quot;bishop&quot;</span>,<span class="dt">symm=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>The <code>transition</code> function treats all adjacent cells as being at an equal distance from the source cell across the entire raster. <code>geoCorrection</code> corrects for ‘true’ local distance. In essence, it’s adding an additional cost to traversing from one cell to an adjacent cell (the original cost being defined using the <code>transition</code> function). The importance of applying this correction will be shown later.</p>
+<p>Note: <code>geoCorrection</code> also corrects for distance distortions associated with data in a geographic coordinate system. To take advantage of this correction, make sure to define the raster layer’s coordinate system using the <code>projection</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">h4    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h4,  <span class="dt">scl=</span><span class="ot">FALSE</span>)
+h8    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h8,  <span class="dt">scl=</span><span class="ot">FALSE</span>)
+h16   &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h16, <span class="dt">scl=</span><span class="ot">FALSE</span>)
+hb    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(hb,  <span class="dt">scl=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>In the “queen’s” case, the diagonal neighbors are <span class="math inline">\(\sqrt{2 x (CellWidth)^{2}}\)</span> times the cell width distance from the source cell.</p>
+<p>Next we will map the cumulative distance (<code>accCost</code>) from a central point (A) to all cells in the raster using the four different adjacency definitions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A       &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">50</span>) <span class="co"># Location of source cell</span>
+h4.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h4,A)
+h8.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h8,A)
+h16.acc &lt;-<span class="st"> </span><span class="kw">accCost</span>(h16,A)
+hb.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(hb,A) </code></pre></div>
+<p>If the <code>geoCorrection</code> function had not been applied in the previous steps, the cumulative distance between point location A and its neighboring adjacent cells would have been different. Note the difference in cumulative distance for the 16-direction case as shown in the next two figures.</p>
+<p>Uncorrected (i.e. <code>geoCorrection</code> <em>not</em> applied to h16):</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-48-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Corrected (i.e. <code>geoCorrection</code> applied to h16):</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-49-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<p>The “bishop” case offers a unique problem: only cells in the diagonal direction are identified as being adjacent. This leaves many undefined cells (labeled as <code>Inf</code>). We will change the <code>Inf</code> cells to <code>NA</code> cells.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hb.acc[hb.acc ==<span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<p>Now let’s compare a 7x7 subset (centered on point A) between the four different cumulative distance rasters.</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-51-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
+<p>To highlight the differences between all four rasters, we will assign a red color to all cells that are within 20 cell units of point A.</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-52-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
+<p>It’s obvious that the accuracy of the cumulative distance raster can be greatly influenced by how we define adjacent nodes. The number of red cells (i.e. area identified as being within a 20 units cumulative distance) ranges from 925 to 2749 cells.</p>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<div id="working-example" class="section level3 unnumbered">
+<h3>Working example</h3>
+<p>In the following example, we will generate a raster layer with barriers (defined as <code>NA</code> cell values). The goal will be to identify all cells that fall within a 290 km traveling distance from the upper left-hand corner of the raster layer. Results between an 8-node and 16-node adjacency definition will be compared.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create an empty raster</span>
+r   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrows=</span><span class="dv">300</span>,<span class="dt">ncols=</span><span class="dv">150</span>,<span class="dt">xmn=</span><span class="dv">0</span>,<span class="dt">ymn=</span><span class="dv">0</span>,<span class="dt">xmx=</span><span class="dv">150000</span>, <span class="dt">ymx=</span><span class="dv">300000</span>)
+
+<span class="co"># Define a UTM projection (this sets map units to meters)</span>
+<span class="kw">projection</span>(r) =<span class="st"> &quot;+proj=utm +zone=19 +datum=NAD83&quot;</span> 
+
+<span class="co"># Each cell is assigned a value of 1</span>
+r[] &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">ncell</span>(r)) 
+
+<span class="co"># Generate &#39;baffles&#39; by assigning NA to cells. Cells are identified by</span>
+<span class="co"># their index and not their coordinates.</span>
+<span class="co"># Baffles need to be 2 cells thick to prevent the 16-node</span>
+<span class="co"># case from &quot;jumping&quot; a one pixel thick NA cell.</span>
+a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">3001</span>,<span class="dv">3100</span>,<span class="dv">1</span>),<span class="kw">seq</span>(<span class="dv">3151</span>,<span class="dv">3250</span>,<span class="dv">1</span>))
+a &lt;-<span class="st"> </span><span class="kw">c</span>(a, a<span class="dv">+6000</span>, a<span class="dv">+12000</span>, a<span class="dv">+18000</span>, a<span class="dv">+24000</span>, a<span class="dv">+30000</span>, a<span class="dv">+36000</span>)
+a &lt;-<span class="st"> </span><span class="kw">c</span>(a , a<span class="dv">+3050</span>)
+r[a] &lt;-<span class="st"> </span><span class="ot">NA</span>
+
+<span class="co"># Let&#39;s check that the baffles are properly placed</span>
+<span class="kw">tm_shape</span>(r) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">col=</span><span class="st">&quot;Grey&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.show=</span><span class="ot">FALSE</span>)
+
+<span class="co"># Next, generate a transition matrix for the 8-node case and the 16-node case</span>
+h8   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> function(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">8</span>)
+h16  &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> function(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">16</span>)
+
+<span class="co"># Now assign distance cost to the matrices. </span>
+h8   &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h8)
+h16  &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h16)
+
+<span class="co"># Define a point source. </span>
+A &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw">cbind</span>(<span class="dv">50</span>,<span class="dv">290000</span>))
+
+<span class="co"># Compute the cumulative cost raster</span>
+h8.acc   &lt;-<span class="st"> </span><span class="kw">accCost</span>(h8, A)
+h16.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h16,A)
+
+<span class="co"># Replace Inf with NA</span>
+h8.acc[h8.acc   ==<span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span>
+h16.acc[h16.acc ==<span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p>Let’s plot the results. Yellow cells will identify cumulative distances within 290 km.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(h8.acc) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">2</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">290000</span>,<span class="ot">Inf</span>)) +
+<span class="st">  </span><span class="kw">tm_facets</span>() +<span class="st"> </span><span class="kw">tm_shape</span>(A) +<span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>)
+
+<span class="kw">tm_shape</span>(h16.acc) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">2</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">290000</span>,<span class="ot">Inf</span>)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_facets</span>() +<span class="st"> </span><span class="kw">tm_shape</span>(A) +<span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>)</code></pre></div>
+<p><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto auto auto 0;" /><img src="A4-Raster-Operations_files/figure-html/unnamed-chunk-56-2.png" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<p>We can compute the difference between the 8-node and 16-node cumulative distance rasters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(h8.acc[]  &lt;=<span class="st"> </span><span class="dv">290000</span>) </code></pre></div>
+<pre><code>
+FALSE  TRUE 
+31458 10742 </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(h16.acc[] &lt;=<span class="st"> </span><span class="dv">290000</span>)</code></pre></div>
+<pre><code>
+FALSE  TRUE 
+30842 11358 </code></pre>
+<p>The number of cells identified as being within a 290 km cumulative distance of point A for the 8-node case is 10742 whereas it’s 11358 for the 16-node case, a difference of 5.4%.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="vector-operations-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="point-pattern-analysis-in-r.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
+
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": false,
+"twitter": false,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

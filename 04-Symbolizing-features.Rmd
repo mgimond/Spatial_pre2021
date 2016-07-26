@@ -1,0 +1,340 @@
+# Symbolizing features
+
+
+## Color
+
+Each color is a combination of three perceptual dimensions: **hue**, **lightness** and **saturation**. 
+
+### Hue
+
+**Hue** is the perceptual dimension associated with color names. 
+
+```{r, marginfigure = FALSE, fig.cap = "An example of eight different hues. Hues are associated with color names such as green, red or blue.", echo=FALSE, fig.height=0.2, fig.width = 3}
+
+library(munsell)
+library(colorspace)
+
+# Function
+pal <- function(col, border = "light gray", ...)
+{ n <- length(col)
+  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1),
+       axes = FALSE, xlab = "", ylab = "", ...)
+  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border) }
+
+# Create different hues
+OP <- par( mar=c(0,0,0,0))
+  h <- rainbow(8, s = 1, v = 0.8)
+  pal(h)
+par(OP)
+
+```
+
+Note that magentas and purples are not part of the natural visible light spectrum; instead they are a mix of reds and blues (or violets) from the spectrum's tail ends. Typically, we use different hues to represent different *categories* of data.
+
+### Lightness
+
+**Lightness** (sometimes referred to as *value*) describes how much light reflects (or is emitted) off of a surface. Lightness is an important dimension for representing ordinal/interval/ratio data. 
+
+```{r, marginfigure = FALSE, fig.cap = "Eight different hues with decreasing lightness values.", echo=FALSE, fig.height=0.8, fig.width = 3,warning=FALSE, message=FALSE}
+
+# Function
+pal <- function(col, border = "light gray", ...)
+{ n <- length(col)
+  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1),
+       axes = FALSE, xlab = "", ylab = "", ...)
+  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border) }
+
+# Different lightness values
+h1 <- rainbow(8, s = 1, v = 0.8)
+h2 <- rainbow(8, s = 1, v = 0.6)
+h3 <- rainbow(8, s = 1, v = 0.4)
+h4 <- rainbow(8, s = 1, v = 0.2)
+
+OP <- par( mfrow=c(4,1), mar=c(0,0,0,0))
+pal(h1); pal(h2); pal(h3); pal(h4)
+par(OP)
+
+```
+
+### Saturation
+
+**Saturation** (sometimes referred to as *chroma*) is a measure of a color's vividness. You can use saturated colors to help distinguish map symbols. But be careful when manipulating saturation, its property should be modified sparingly in most maps. 
+
+```{r, marginfigure = FALSE, fig.cap = "Eight different hues with decreasing saturation values.", echo=FALSE, fig.height=0.8, fig.width = 3,warning=FALSE, message=FALSE}
+
+library(munsell)
+library(colorspace)
+
+# Function
+pal <- function(col, border = "light gray", ...)
+{ n <- length(col)
+  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1),
+       axes = FALSE, xlab = "", ylab = "", ...)
+  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border) }
+
+# Different saturation values
+h1 <- rainbow(8, v = 1, s = 0.8)
+h2 <- rainbow(8, v = 1, s = 0.6)
+h3 <- rainbow(8, v = 1, s = 0.4)
+h4 <- rainbow(8, v = 1, s = 0.2)
+
+OP <- par( mfrow=c(4,1), mar=c(0,0,0,0))
+pal(h1); pal(h2); pal(h3); pal(h4)
+par(OP)
+
+```
+
+
+## Color Space
+
+The three perceptual dimensions of color can be used to construct a 3D color space. This 3D space need not be a cube (as one would expect given that we are combining three dimensions) but a cone where lightness, saturation and hue are the cone's height, radius and circumference respectively.
+
+```{r echo=FALSE, fig.cap = "This is how the software defines the color space. But does this match our perception of color space?"}
+
+knitr::include_graphics("img/Color_space_std_small.jpg")
+```
+
+The cone shape reflects the fact that as one decreases saturation, the distinction between different hues disappears leading to a grayscale color (the central axis of the cone). So if one sets the saturation value of a color to `0`, the hue ends up being some shade of grey.
+
+The color space implemented in most software is symmetrical about the value/lightness axis. However, this is not how we "perceive" color space: our perceptual view of the color space is *not* perfectly symmetrical. 
+
+Let's examine a slice of the symmetrical color space along the blue/yellow hue axis at a lightness value of about 90%.
+
+
+```{r, marginfigure = FALSE, fig.cap = "A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge.", echo=FALSE, fig.height=.3, fig.width = 4, warning=FALSE, message=FALSE}
+
+library(munsell)
+library(colorspace)
+
+# Function
+pal <- function(col, border = "light gray", ...)
+{ n <- length(col)
+  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1),
+       axes = FALSE, xlab = "", ylab = "", ...)
+  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border) }
+
+# Create slice from symmetrical HSV colorspace
+h = rep(0.127,12); v = rep(.7,12); s = seq(.0,.8,length.out=30)
+cl1.hex = hsv(h,rev(s),v)
+cl2.hex = hsv(h+0.5,s,v)
+
+OP <- par( mar=c(0,0,0,0))
+pal(c(cl1.hex,cl2.hex), border=NA)
+par(OP)
+
+```
+
+Now, how many distinct yellows can you make out? How many distinct blues can you make out? Do the numbers match? Unless you have incredible color perception, you will probably observe that the number of distinct colors do not match when in fact they do! There are exactly 30 distinct blues and 30 distinct yellows. Let's add a border to each color to convince ourselves that the software did indeed generate the same number of distinct colors.
+
+
+```{r, marginfigure = FALSE, fig.cap = "A cross section of the color space with each color distinctly outlined.", echo=FALSE, fig.height=.3, fig.width = 4, warning=FALSE, message=FALSE}
+
+## Function
+pal <- function(col, border = "light gray", ...)
+{ n <- length(col)
+  plot(0, 0, type="n", xlim = c(0, 1), ylim = c(0, 1),
+       axes = FALSE, xlab = "", ylab = "", ...)
+  rect(0:(n-1)/n, 0, 1:n/n, 1, col = col, border = border) }
+
+# Create slice from symmetrical HSV colorspace
+h = rep(0.127,12); v = rep(.7,12); s = seq(.0,.8,length.out=30)
+cl1.hex = hsv(h,rev(s),v)
+cl2.hex = hsv(h+0.5,s,v)
+
+OP <- par( mar=c(0,0,0,0))
+pal(c(cl1.hex,cl2.hex))
+par(OP)
+
+```
+
+
+It should be clear by now that a symmetrical color space does not reflect the way we "perceive" colors. There are more rigorously designed color spaces such as **CIELAB** and **Munsell** that depict the color space as a non-symmetrical object as perceived by humans. For example, in a Munsell color space, a vertical slice of the cone along the blue/yellow axis looks like this.
+
+```{r, marginfigure = FALSE, fig.cap = "A slice of the Munsell color space.", echo=FALSE, fig.height=2, fig.width = 4, warning=FALSE, message=FALSE}
+library(ggplot2)
+OP <- par( mar=c(0,0,0,0))
+p <- complement_slice("5Y")
+p$layers[[2]] <- NULL # remove text layer
+p + theme(axis.text.x = element_text(angle = 90, hjust = 1),
+         axis.text.y = element_text(),
+         strip.text = element_text(size = rel(0.5)))
+par(OP)
+
+```
+
+Note that based on the Munsell color space, we can make out fewer yellows than blues across all lightness values. In fact, for these two hues, we can make out only 29 different shades of yellow (we do not include the gray levels where saturation = `0`) vs 36 shades of blue.
+
+So how do we leverage our understanding of color spaces when choosing colors for our map features? The next section highlights three different color schemes: **qualitative**, **sequential** and **divergent**.
+
+## Classification
+
+### Qualitative color scheme
+
+Qualitative schemes are used to symbolize data having no inherent order (i.e. categorical data). Different hues are normally used to distinguish different categorical values. When possible, use commonly associated hues for land features such as vegetation and water. 
+
+```{r, marginfigure = FALSE, fig.cap = "Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette.", echo=FALSE, fig.height=1, fig.width = 4}
+
+library(RColorBrewer)
+n <- 6
+OP <- par( mfrow=c(4,1), mar=c(0.5,0,0,0))
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"Set1"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab=" ")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"Set1"),col="grey20",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"Set2"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"Set2"),col="grey50",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"Paired"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"Paired"),col="grey30",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"Pastel1"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"Pastel1"),col="grey40",cex=0.7)
+par(OP)
+
+```
+
+Election results can be displayed using a qualitative color scheme. But be careful in your choice of hues if a cultural bias exists (i.e. it may not make sense to assign "blue" to republican or "red"" to democratic regions).
+
+```{r, marginfigure = FALSE, fig.cap = "Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation.", echo=FALSE, fig.width = 4.5,fig.height=4}
+
+library(classInt)
+library(maptools)
+library(RColorBrewer)
+# Read in map data and compute a rate for mapping
+S <- readShapeSpatial("img/Data/ME_elections_2012.shp")
+n <- 7 # number of classes
+
+# Using spplot
+OP <- par(mar=c(0,0,0,0))
+spplot(S, "W", col.regions =c("blue","#dddddd","red"), col="transparent", colorkey=list(labels=list(at=c(1,2,3), labels=c("D","N/A","R"), cex=0.5)))
+par(OP)
+
+```
+
+
+### Sequential color scheme
+
+Sequential color schemes are used to highlight ordered data such as income, temperature, elevation or infection rates. A well designed sequential color scheme ranges from a light color (representing low attribute values) to a dark color (representing high attribute values). Such color schemes are typically composed of a single hue, but may include two hues as shown in the last two color schemes of the following figure.
+
+```{r, marginfigure = FALSE, fig.cap = "Example of four different sequential color schemes. Color hex numbers are superimposed on each palette.", echo=FALSE, fig.height=1, fig.width = 4, warning=FALSE, message=FALSE}
+n <- 6
+OP <- par( mfrow=c(4,1), mar=c(0.5,0,0,0))
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"Blues"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab=" ")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"Blues"),col="grey20",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"Oranges"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"Oranges"),col="grey50",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"YlGn"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"YlGn"),col="grey50",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"YlOrBr"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"YlOrBr"),col="grey40",cex=0.7)
+par(OP)
+```
+
+Distribution of income is a good example of a sequential map. Income values are interval/ratio data which have an implied order. 
+
+```{r, marginfigure = FALSE, fig.cap = "Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels.", echo=FALSE, fig.width = 4.5, fig.height=4}
+
+library(classInt)
+library(maptools)
+library(RColorBrewer)
+S <- readShapeSpatial("img/Data/Maine_income_ed.shp")
+n <- 7 # number of classes
+# Using spplot
+OP <- par(mar=c(0,0,0,0))
+brk = classIntervals(S$Household_,n,style="equal")
+spplot(S, "Household_", at=brk$brks,col.regions = brewer.pal(n, "Greens"), col="transparent",
+       colorkey = list(
+         labels=list(at=brk$brks,labels = sprintf("$%0.0f",brk$brks), cex=0.5))
+)
+par(OP)
+
+```
+
+### Divergent color scheme
+
+Divergent color schemes apply to ordered data as well. However, there is an implied central value about which all values are compared. Typically, a divergent color scheme is composed of two hues--one for each side of the central value. Each hue's lightness/saturation value is then adjusted symmetrically about the central value. Examples of such a color scheme follows:
+
+```{r, marginfigure = FALSE, fig.cap = "Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette.", echo=FALSE, fig.height=1, fig.width = 4}
+n <- 6
+OP <- par( mfrow=c(4,1), mar=c(0.5,0,0,0))
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"BrBG"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab=" ")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"BrBG"),col="grey20",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"RdBu"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"RdBu"),col="grey50",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"PuOr"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"PuOr"),col="grey50",cex=0.7)
+
+image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"RdYlGn"), ylab = "", xaxt = "n", yaxt = "n", 
+      bty = "n",xlab="")
+text(x=seq(1,n, length.out=n), y=0.75, brewer.pal(n,"RdYlGn"),col="grey40",cex=0.7)
+par(OP)
+
+```
+
+Continuing with the last example, we now focus on the divergence of income values about the median value of $36,641. We use a brown hue for income values below the median and a green/blue hue for values above the median.
+
+```{r, marginfigure = FALSE, fig.cap = "This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median.", echo=FALSE, fig.height=4, fig.width = 4.5, warning=FALSE, message=FALSE}
+
+n = 6
+brk <- classIntervals(S$Household_,n,style="quantile")
+spplot(S, "Household_", at=brk$brks,col.regions = brewer.pal(n, "BrBG"), col="transparent",
+       colorkey = list(
+         labels=list(at=brk$brks,labels = sprintf("$%0.0f",brk$brks), cex=0.5))
+)
+
+```
+
+## So how do I find a proper color scheme for my data?
+
+Fortunately, there is a wonderful online resource that will guide you through the process of picking a proper set of color swatches given the nature of your data (i.e. sequential, diverging, and qualitative) and the number of intervals (aka classes). The website is [http://colorbrewer2.org/](http://colorbrewer2.org/) and was developed by Cynthia Brewer *et. al* at the Pennsylvania State University.
+
+```{r echo=FALSE, fig.width=4, dpi=60}
+
+knitr::include_graphics("img/ColorBrewer.png")
+```
+
+You'll note that the ColorBrewer website limits the total number of color swatches to 12 or less. There is a good reason for this in that our eyes can only associate so many different colors with value ranges/bins. Try matching 9 different shades of green in a map to the legend box swatches!
+
+Additional features available on that website include choosing colorblind safe colors and color schemes that translate well into grayscale colors (useful if your work is to be published in journals that do not offer color prints).
+
+## Classification Intervals
+
+You may have noticed the use of different classification breaks in the last two maps. For the sequential color scheme map, an *equal interval* classification scheme was used where the full range of values in the map are split equally into 7 intervals so that each color swatch covers an equal range of values. The divergent color scheme map adopts a *quantile interval* classification where each color swatch is represented an equal number of times across each polygon. 
+
+Using different classification intervals will result in different looking maps. In the following figure, three maps of household income (aggregated at the census tract level) are presented using different classification intervals: **quantile**, **equal** and **Jenks**. Note the different range of values covered by each color swatch.
+
+
+```{r echo=FALSE,  dpi=60}
+
+knitr::include_graphics("img/Three_breaks_compared_2.png")
+```
+
+The **quantile interval** scheme ensures that each color swatch is represented an equal number of times. If we have 20 polygons and 5 classes, the interval breaks will be such that each color is assigned to 4 different polygons.
+
+The **equal interval** scheme breaks up the range of values into equal interval widths. If the polygon values range from 10,000 to 25,000 and we have 5 classes, the intervals will be [10,000 ; 13,000], [13,000 ; 16,000], ..., [22,000 ; 25,000].
+
+The **Jenks interval** scheme (aka natural breaks) uses an algorithm that identifies clusters in the dataset. The number of clusters is defined by the desired number of intervals.
+
+It may help to view the breaks when superimposed on top of a distribution of the attribute data. In the following graphics the three classification intervals are superimposed on a histogram of the per-household income data. The histogram shows the distribution of values as “bins” where each bin represents a range of income values. The y-axis shows the frequency (or number of occurrences) for values in each bin.
+
+
+```{r echo=FALSE, fig.cap = "Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different).", dpi=60}
+
+knitr::include_graphics("img/Three_hist_intervals.png")
+```
+

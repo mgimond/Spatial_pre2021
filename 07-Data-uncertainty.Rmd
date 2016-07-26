@@ -1,0 +1,284 @@
+# Uncertainty in Census Data
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE}
+library(maptools)
+
+# Download and unzip the shapefile into the current working directory
+tmpdir <- getwd()
+url <- 'http://colby.edu/~mgimond/Spatial/Data/Income_schooling.zip'
+file <- basename(url)
+download.file(url, file)
+unzip(file, exdir = tmpdir )
+
+# Read the shapefile into the object S
+shapeFile <- paste(tmpdir,"/Income_schooling", sep="")
+S <- readShapeSpatial(shapeFile)
+```
+
+## Introduction
+
+Many census datasets such as the U.S. Census Bureau's American Community Survey (ACS) data^[The official website is http://www.census.gov/acs/www/, but the data can also be accessed via http://www.socialexplorer.com/] are based on surveys from small samples. This entails that the variables provided by the Census Bureau are only estimates with a level of uncertainty often provided as a margin of error (MoE)  or a standard error (SE). Note that the Bureau's MoE encompasses a 90% confidence interval^[The Bureau's MoE can be computed from the SE as follows: $MoE = 1.645 \times SE$] (i.e. there is a 90% chance that the MoE range covers the true value being estimated). This poses a challenge to both the visual exploration of the data as well as any statistical analyses of that data.
+
+## Mapping uncertainty
+
+One approach to mapping both estimates *and* SE's is to display both as side-by-side maps.
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 7, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "Maps of income estimates (left) and associated standard errors (right)."}
+library(RColorBrewer)
+brks1 <- quantile(S$Income, seq(0,1,0.2))
+brks1[length(brks1)] <- brks1[length(brks1)] + 1
+brks2 <- quantile(S$IncomeSE, seq(0,1,0.2))
+brks2[length(brks2)] <- brks2[length(brks2)] + 1
+P1 <- spplot(S, "Income", at=brks1, col.regions=brewer.pal(7,"Greens"))
+P2 <- spplot(S, "IncomeSE", at=brks2, col.regions=brewer.pal(7,"Reds"))
+
+print(P1, split=c(1, 1, 2, 1), more=TRUE) 
+print(P2, split=c(2, 1, 2, 1), more=FALSE) 
+```
+
+While there is nothing inherently wrong in doing this, it can prove to be difficult to mentally process the two maps, particularly if the data consists of hundreds or thousands of small polygons.
+
+Another approach is to overlay the measure of uncertainty (SE or MoE) as a textured layer on top of the income layer.
+
+```{r echo=FALSE, fig.cap = "Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE.", out.width=400}
+
+knitr::include_graphics("img/Income_and_uncertainty.jpg")
+```
+
+Or, one could map both ends of the MoE range side by side.
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 7, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right)."}
+library(RColorBrewer)
+S$IncMax <- S$Income + 1.645 * S$IncomeSE
+S$IncMin <- S$Income - 1.645 * S$IncomeSE
+brks <- quantile(c(S$IncMax, S$IncMin), seq(0,1,0.2))
+brks[length(brks)] <- brks[length(brks)] + 1
+P1 <- spplot(S, "IncMax", at=brks, col.regions=brewer.pal(7,"Greens"))
+P2 <- spplot(S, "IncMin", at=brks, col.regions=brewer.pal(7,"Greens"))
+
+print(P1, split=c(1, 1, 2, 1), more=TRUE) 
+print(P2, split=c(2, 1, 2, 1), more=FALSE) 
+```
+
+
+## Problems in mapping uncertainty
+
+Attempting to convey uncertainty using the aforementioned maps fails to highlight the reason one chooses to map values in the first place: that is to compare values across a spatial domain. More specifically, we are interested in identifying spatial patterns of high or low values. What is implied in the above maps is that the estimates will always maintain their order across the polygons. In other words, if one polygon's estimate is greater than all neighboring estimates, this order will always hold true if another sample was surveyed. But this assumption is incorrect. Each polygon (or county in the above example) can derive different estimates independently from its neighboring polygon. 
+Let's look at a bar plot of our estimates.
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 5, fig.height = 3.0, fig.fullwidth = FALSE, fig.cap = "Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges."}
+library(gplots)
+# Sort data by INCOME
+Y   = S$Income[order(S$Income)]  # per capita income
+YSE = S$IncomeSE[order(S$Income)] # SE
+lbs = S$NAME[order(S$Income)]
+
+# Plot the estimate along with the MoE
+OP <- par(mar=c(3,7,0,1))
+plotCI(Y,1:16, ui= Y+(1.645*YSE), li=(Y-1.645*YSE),pch=16, lwd=2, barcol="red",sfrac=.005, err="x", col="grey50",
+       ylab = "", xlab="", axes=FALSE, gap=0.5)
+axis(1, cex.axis=0.8)
+axis(2, at=1:16, labels=lbs,las=2,cex.axis=0.8)
+mtext("Income ($)", side= 1,line=2)
+par(OP)
+```
+
+Note, for example, how Piscataquis county's income estimate (grey point in the graphic) is lower than that of Oxford county. If another sample of the population was surveyed in each county, the new estimates could place Piscataquis *above* Oxford county in income rankings as shown in the following example:
+
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 5, fig.height = 3.0, fig.fullwidth = FALSE, fig.cap = "Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot."}
+
+# ===================================================================
+# =====   Custom Normal distribution ================================
+# ===================================================================
+#
+# This function creates a normal distribution that is capped
+# at the lower limit by 0 or X - SE * number of SE and at the
+# upper limit by X + SE * number of SE
+rnorml <- function(x,se,numse) {  # numse is the number of SEs
+  rx = rep(-1,length(x))          # Initialize rx
+  ri = rx < 0 | rx < x - (numse * se) | rx > x + (numse * se)
+  # Recalculate rnorm for all rx values outside of the limit
+  while( length(ri[ri==TRUE]) > 0){
+    rx[ri] = rnorm(length(ri[ri==TRUE]),x[ri],se[ri])
+    ri = rx < 0 | rx < x - (numse * se) | rx > x + (numse * se)
+  } 
+  return(rx)
+}
+
+library(gplots)
+# Sort data by INCOME
+set.seed(31)
+Yrnd = rnorml(Y, YSE, 1.645)
+
+# Plot the estimate along with the MoE
+OP <- par(mar=c(3,6,0,1))
+plotCI(Yrnd,1:16, ui= Yrnd+(1.645*YSE), li=(Yrnd-1.645*YSE),pch=16, lwd=2, barcol="white",sfrac=.005, err="x", col="grey50",
+       ylab = "", xlab="", axes=FALSE, gap=0.5)
+axis(1, cex.axis=0.8)
+axis(2, at=1:16, labels=lbs,las=2, cex.axis=0.8)
+mtext("Income ($)", side= 1,line=2)
+par(OP)
+```
+
+Note how, in this sample, Oxford's income drops in ranking below that of Piscataquis. A similar change in ranking could occur for York county which drops down *two* counties (Hancock and Lincoln).
+
+How does the *estimated income* map compare with the *simulated income* map?
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 9, fig.height = 5.0, fig.fullwidth = TRUE, fig.cap = "Original income estimate (left) and realization of a simulated sample (right)."}
+library(RColorBrewer)
+S$R1 <- Yrnd
+brks <- quantile(c(S$Income, S$R1), seq(0,1,0.2))
+brks[length(brks)] <- brks[length(brks)] + 1
+P1 <- spplot(S, "Income", at=brks, col.regions=brewer.pal(7,"Greens"))
+P2 <- spplot(S, "R1", at=brks, col.regions=brewer.pal(7,"Greens"))
+
+print(P1, split=c(1, 1, 2, 1), more=TRUE) 
+print(P2, split=c(2, 1, 2, 1), more=FALSE) 
+```
+
+A few more simulated samples (using the 90% confidence interval) are shown below:
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 10, fig.height = 3.1, fig.fullwidth = TRUE, fig.cap = "Original income estimate (left) and realizations from simulated samples (R1 through R5)."}
+
+set.seed(421); S$R2 <- rnorml(Y, YSE, 1.645)
+set.seed(1231); S$R3 <- rnorml(Y, YSE, 1.645)
+set.seed(326); S$R4 <- rnorml(Y, YSE, 1.645)
+set.seed(5441); S$R5 <- rnorml(Y, YSE, 1.645)
+brks <- quantile(c(S$R1,S$R2,S$R3,S$R4,S$R5), seq(0,1,0.2))
+brks[length(brks)] <- brks[length(brks)] + 1
+spplot(S, c("R1","R2","R3","R4","R5"),at=brks, col.regions=brewer.pal(7,"Greens"))
+```
+
+## Class comparison maps 
+
+```{r echo=FALSE}
+brks <- c(0,20600, 22800,25000,27000,34000)
+```
+
+There is no single solution to effectively convey both estimates *and* associated uncertainty in a map. Sun and Wong [@DataQuality2010] offer several suggestions dependent on the context of the problem. One approach adopts a class comparison method whereby a map displays both the estimate and a measure of whether the MoE surrounding that estimate extends beyond the assigned class. For example, if we adopt the classification breaks [`r sprintf("%i ",brks)`], we will find that many of the estimates' MoE extend beyond the classification breaks assigned to those estimates.
+
+```{r compInt, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 5, fig.height = 3.0, fig.fullwidth = FALSE, fig.cap = "Income estimates by county with 90 percent confidence interval. Note that many of the counties' MoE have ranges that cross into an adjacent class."}
+
+# Plot the estimate along with the MoE
+OP <- par(mar=c(3,6,0,1))
+plotCI(Y,1:16, ui= Y+(1.645*YSE), li=(Y-1.645*YSE),pch=16, lwd=2, barcol="red",
+       sfrac=.005, err="x", col="grey50", ylab = "", xlab="", axes=FALSE, gap=0.5)
+axis(1, cex.axis=0.8)
+axis(2, at=1:16, labels=lbs,las=2,cex.axis=0.8)
+mtext("Income ($)", side= 1,line=2)
+abline(v=brks, col=rgb(0,.6,0))
+par(OP)
+```
+
+Take Piscataquis county, for example. Its estimate is assigned the second classification break (`r sprintf("%i",brks[2])` to `r sprintf("%i ",brks[3])`), yet its lower confidence interval stretches into the first classification break indicating that we cannot be 90% confident that the estimate is assigned the proper class (i.e. its true value could fall into the first class). Other counties such as Cumberland and Penobscot don't have that problem since their 90% confidence intervals fall inside the classification breaks. 
+
+This information can be mapped as a hatch mark overlay. For example, income could be plotted using varying shades of green with hatch symbols indicating if the lower interval crosses into a lower class (135&deg; hatch), if the upper interval crosses into an upper class (45&deg; hatch), if both interval ends cross into a different class (90&deg;-vertical-hatch) or if both interval ends remain inside the estimate's class (no hatch).
+
+```{r ComPlot, message=FALSE, warning=FALSE, echo=FALSE, fig.height = 3.5, fig.margin = TRUE, fig.cap = "Plot of income with class comparison hatches."}
+
+IncInt <- findInterval(S$Income, brks)
+LowInt <- findInterval(S$Income - 1.645 * S$IncomeSE, brks )
+HiInt <- findInterval(S$Income + 1.645 * S$IncomeSE, brks )
+S$Comp <- 1 # Both MoE ends are in the same class as estimate
+S$Comp[IncInt > LowInt] <- 2 # lower  MoE end is in a class below that of the estimate
+S$Comp[IncInt > LowInt & IncInt < HiInt] <- 3 # lower  MoE end is in a class below that of the estimate
+S$Comp[IncInt < HiInt]  <- 4 # upper  MoE end is in a class above that of the estimate
+
+color <- brewer.pal(7,"Greens")
+ang <- (0:3) * 45
+dens <- c(0,10,10, 10)
+OP <- par(mar=c(0,0,0,0))
+plot(S, col = color[findInterval(S$Income, brks)])
+plot(S, density = dens[S$Comp], angle = ang[S$Comp], add=TRUE)
+par(OP)
+```
+
+
+## Problem when performing bivariate analysis
+
+Data uncertainty issues do not only affect choropleth map presentations but also affect bivariate or multivariate analyses where two or more variables are statistically compared. One popular method in comparing variables is the regression analysis where a line is best fit to a bivariate scatterplot. For example, one can regress "percent not schooled"" to "income"" as follows:
+
+```{r, echo=FALSE}
+M1  <- lm(S$NoSchool * 100 ~ S$Income)
+SM1 <- summary(M1)
+AM1 <- anova(M1)
+```
+
+```{r, echo=FALSE}
+SDplot = function(X,Y,x.lab,y.lab) {
+  sdX = sd(X,na.rm=T)   # Compute x SD
+  sdY = sd(Y, na.rm=T)  # Compute y SD
+  muX = mean(X,na.rm=T)
+  muY = mean(Y,na.rm=T)
+  a   = muY - sdY/sdX * muX  # Get y-intercept for SD line
+  #
+  OP <- par(pty="s")
+  plot(Y ~ X, asp = (sdX/sdY),pch=16,cex=0.7,col="grey",ylab=NA, las=1,xlab=NA,axes=F)
+  box()
+  axis(1,cex.axis=.7, labels=TRUE,padj=-2)
+  axis(2, cex.axis=.7, las=1)
+  mtext(y.lab, side=3, adj= -1 ,cex=0.8)
+  mtext(x.lab,side=1, line = 1.2, cex=0.8)
+  abline(v = muX,lty = 3, col="grey")   # Plot SDx = 0
+  abline(h = muY,lty = 3, col="grey")   # Plot SDy = 0
+ par(OP)
+}
+```
+
+
+```{r, fig.height=2.5, echo=FALSE, fig.cap="Regression between percent not having completed any school grade and median per capita income for each county."}
+OP <- par(mar=c(2,2,1,1))
+SDplot(S$Income,S$NoSchool * 100,x.lab="Income",y.lab="% No school")
+abline( M1, col="red" )
+par(OP)
+```
+
+The $R^2$ value associated with this regression analysis is `r round(SM1$r.squared,2)` and the p-value is `r round(AM1$Pr[1],3)`.
+
+But another realization of the survey could produce the following output:
+
+```{r, echo=FALSE}
+set.seed(7); S$S1 <- rnorml(S$NoSchool , S$NoSchoolSE, 1.645) # Generate new % not schooled
+M  <- lm(S$S1 * 100 ~ S$R1)
+SM <- summary(M)
+AM <- anova(M)
+```
+
+```{r, fig.height=2.5, echo=FALSE, fig.cap="Example of what a regression line could look like had another sample been surveyed for each county."}
+OP <- par(mar=c(2,2,1,1))
+#plot(S$S1 ~ S$R1, pch=20, xlab="Income", ylab="% not schooled")
+SDplot(S$R1,S$S1 * 100,x.lab="Income",y.lab="% No school")
+abline( M, col="red" )
+abline(M1, col="black", lty=2)
+par(OP)
+```
+
+With this new (simulated) sample, the $R^2$ value dropped to `r round(SM$r.squared,2)` and the p-value is now `r round(AM$Pr[1],3)`--a much less significant relationship then computed with the original estimate! In fact, if we were to survey  1000 different samples within each county we would get the following range of regression lines:
+
+```{r, fig.height=2.5, echo=FALSE, fig.cap = "A range of regression lines computed from different samples from each county."}
+OP <- par(mar=c(2,2,1,1))
+SDplot(S$Income,S$NoSchool * 100,x.lab="Income",y.lab="% No school")
+
+# Run lm model with randomly sampled data
+for (i in 1:1000){
+  Xi = rnorml(S$Income, S$IncomeSE, 1.645)
+  Yi = rnorml(S$NoSchool, S$NoSchoolSE, 1.645)
+  Mi = lm(Yi * 100 ~ Xi)
+  abline(Mi,col=rgb(0,0,0,0.05))
+}
+
+# Plot regression line
+M1 = lm(S$NoSchool * 100 ~ S$Income)
+abline(M1,col="red")
+par(OP)
+```
+
+These overlapping lines define a *type* of confidence interval (aka confidence envelope). In other words, the true regression line between both variables lies somewhere within the dark region delineated by this interval.
+
+
+
+
+
+
+

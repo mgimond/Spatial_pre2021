@@ -1,0 +1,57 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  display: block !important; /* to override html5 line space default */
+  line-height: 140% !important;
+  white-space: inherit;
+}
+
+div.summary{
+  color:#227;
+  background-color:#EEF;
+  border: 1px solid #88F;
+  padding-top: 4px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+}
+
+div.warning{
+  color:#722;
+  background-color:#FEE;
+  padding-top: 6px;
+  padding-right: 3px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+}
+
+div.note{
+  background-color:#eee;
+  padding-top: 6px;
+  padding-right: 3px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+}
+
+
+.date{
+  color: #777;
+  font-size: 1em !important;
+}
+
+
+.book .book-summary ul.summary li span {
+    cursor: not-allowed;
+    opacity: .8;
+    color: #5d8df0;
+    font-size-adjust:0.7;
+}

@@ -1,0 +1,11 @@
+base
+sp
+rgdal
+maptools
+raster
+classInt
+RColorBrewer
+tmap
+dplyr
+ggplot2
+ggmap

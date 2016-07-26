@@ -1,0 +1,25 @@
+bookdown::gitbook:
+  highlight: haddock
+  css: style.css
+  config:
+    toc:
+      collapse: section
+      scroll_highlight: true
+    sharing:
+      facebook: no
+      twitter: no
+      google: no
+      weibo: no
+      instapper: no
+      all: no
+    download: null
+    search: true
+    fontsettings:
+      theme: white
+      family: sans
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+bookdown::epub_book: default
