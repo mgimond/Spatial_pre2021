@@ -355,6 +355,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#local-empirical-bayes-eb-rate-estimate"><i class="fa fa-check"></i>Local Empirical Bayes (EB) rate estimate</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -377,9 +378,6 @@ code > span.in { color: #008000; } /* Information */
 <div id="what-is-a-gis" class="section level2">
 <h2><span class="header-section-number">1.1</span> What is a GIS?</h2>
 <p>A Geographic Information System is a multi-component environment used to create, manage, visualize and analyze data and its spatial counterpart. It’s important to note that most datasets you will encounter in your lifetime can all be assigned a spatial location whether on the earth’s surface or within some arbitrary coordinate system (such as a soccer field or a gridded petri dish). So in essence, any dataset can be represented in a GIS: the question then becomes “does it need to be analyzed in a GIS environment?” The answer to this question depends on the purpose of the analysis. If, for example, we are interested in identifying the ten African countries with the highest conflict index score for the 1966-78 period, a simple table listing those scores by country is all that is needed.</p>
-<aside>
-<em>Data source: Anselin, L. and John O’Loughlin. 1992. Geography of international conflict and cooperation: spatial dependence and regional context in Africa. In The New Geopolitics, ed. M. Ward, pp. 39-75.</em>
-</aside>
 <table>
 <caption><span id="tab:01-Africa-conflict">Table 1.1: </span>Index of total African conflict for the 1966-78 period <span class="citation">(Anselin and O’Loughlin <a href="#ref-Anselin1992a">1992</a>)</span>.</caption>
 <thead>
@@ -519,6 +517,7 @@ code > span.in { color: #008000; } /* Information */
 </tr>
 </tbody>
 </table>
+<p><em>Data source: Anselin, L. and John O’Loughlin. 1992. Geography of international conflict and cooperation: spatial dependence and regional context in Africa. In The New Geopolitics, ed. M. Ward, pp. 39-75.</em></p>
 <p>A simple sort on the Conflict column reveals that EGYPT, SUDAN, UGANDA, ZAIRE, TANZANIA, LIBYA, KENYA, SOMALIA, ETHIOPIA, SOUTH AFRICA are the top ten countries.</p>
 <p>What if we are interested in knowing whether countries with a high conflict index score are geographically clustered, does the above table provide us with enough information to help answer this question? The answer, of course, is no. We need additional data pertaining to the geographic location and shape of each country. A map of the countries would be helpful.</p>
 <div class="figure"><span id="fig:map-africa"></span>
@@ -533,7 +532,7 @@ Figure 1.1: Choropleth representation of African conflict index scores. Countrie
 <p>Many GIS software applications are available–both commercial and open source. Two popular applications are <strong>ArcGIS</strong> and <strong>QGIS</strong>.</p>
 <div id="arcgis" class="section level4">
 <h4><span class="header-section-number">1.1.1.1</span> ArcGIS</h4>
-<p>A popular commercial GIS software is <a href="http://desktop.arcgis.com/en/"><strong>ArcGIS</strong></a> developed by ESRI (<a href="https://en.wikipedia.org/wiki/Esri">ESRI</a>, pronounced <em>ez-ree</em>),was once a small land-use consulting firm which did not start developing GIS software until the mid 1970s). The ArcGIS desktop environment encompasses a suite of applications which include ArcMap, ArcCatalog, ArcScene and ArcGlobe. ArcGIS comes in three different license levels (basic, standard and advanced) and can be purchased with additional <em>add-on</em> packages. As such, a single license can range from a few thousand dollars to well over ten thousand dollars. In addition to software licensing costs, ArcGIS is only available for Windows operating systems; so if your workplace is a Mac only environment, the purchase of a Windows PC would add to the expense.</p>
+<p>A popular commercial GIS software is <a href="http://desktop.arcgis.com/en/"><strong>ArcGIS</strong></a> developed by ESRI (<a href="https://en.wikipedia.org/wiki/Esri">ESRI</a>, pronounced <em>ez-ree</em>),was once a small land-use consulting firm which did not start developing GIS software until the mid 1970s. The ArcGIS desktop environment encompasses a suite of applications which include ArcMap, ArcCatalog, ArcScene and ArcGlobe. ArcGIS comes in three different license levels (basic, standard and advanced) and can be purchased with additional <em>add-on</em> packages. As such, a single license can range from a few thousand dollars to well over ten thousand dollars. In addition to software licensing costs, ArcGIS is only available for Windows operating systems; so if your workplace is a Mac only environment, the purchase of a Windows PC would add to the expense.</p>
 </div>
 </div>
 <div id="qgis" class="section level3">
@@ -543,9 +542,6 @@ Figure 1.1: Choropleth representation of African conflict index scores. Countrie
 </div>
 <div id="what-is-spatial-analysis" class="section level2">
 <h2><span class="header-section-number">1.2</span> What is Spatial Analysis?</h2>
-<aside>
-A <strong>GIS</strong> allows us to create, edit, visualize and manipulate spatial data, but <strong>spatial analysis</strong> provides us with the framework needed to “quantify”&quot; the pattern and identify the process or processes that may have generated the observed pattern.
-</aside>
 <p>A distinction is made in this course between GIS and spatial analysis. In the context of mainstream GIS software, the term <em>analysis</em> refers to data manipulation and basic data description. In the context of <strong>spatial analysis</strong>, the <em>analysis</em> focuses on the <em>statistical analysis</em> of patterns and underlying processes or more generally, spatial analysis addresses the question “what could have been the genesis of the observed spatial pattern?” It’s an <strong>exploratory process</strong> whereby we attempt to quantify the observed pattern then explore the processes that may have generated the pattern.</p>
 <p>For example, you record the location of each tree in a well defined study area. You then map the location of each tree (a GIS task). At this point, you might be inclined to make inferences about the observed pattern. Are the trees clustered or dispersed? Is the tree density constant across the study area? Could soil type or slope have led to the observed pattern? Those are questions that are addressed in spatial analysis using quantitative and statistical techniques.</p>
 <div class="figure"><span id="fig:unnamed-chunk-3"></span>
@@ -554,11 +550,9 @@ A <strong>GIS</strong> allows us to create, edit, visualize and manipulate spati
 Figure 1.2: Distribution of Maple trees in a 1,000 x 1,000 ft study area.
 </p>
 </div>
-<aside>
-<a href="http://www.r-project.org/">R</a> can be installed on both Windows and Mac operating systems. Another related piece of software that you might find useful is <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a> which offers a nice interface to R. To learn more about data analysis in R, visit the <a href="http://mgimond.github.io/ES218/">ES218 course website</a>.
-</aside>
 <p>What you will learn in this course is that popular GIS software like ArcGIS are great tools to create and manipulate spatial data, but if one wishes to go beyond the data manipulation and analyze patterns and processes that may have led to these patterns, other quantitative tools are needed. One such tool we will use in this class is <strong>R</strong>: an open source (freeware) data analysis environment.</p>
 <p>R has one, if not the <em>richest</em> set of spatial data analysis and statistics tools available today. Learning the R programming environment will prove to be quite beneficial given that many of the operations learnt are transferable across many other (non-spatial) quantitative analysis projects.</p>
+<p><a href="http://www.r-project.org/">R</a> can be installed on both Windows and Mac operating systems. Another related piece of software that you might find useful is <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a> which offers a nice interface to R. To learn more about data analysis in R, visit the <a href="http://mgimond.github.io/ES218/">ES218 course website</a>.</p>
 </div>
 <div id="whats-in-an-acronym" class="section level2">
 <h2><span class="header-section-number">1.3</span> What’s in an Acronym?</h2>

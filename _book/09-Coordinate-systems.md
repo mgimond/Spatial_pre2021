@@ -16,7 +16,7 @@ A latitude measures the angle from the equatorial plane to the location on the e
 
 <img src="img/Colby_location_sphere.jpg" width="162" />
 
-A GCS is defined by an **ellipsoid**, **geod** and **datum**. These elements are presented next.
+A GCS is defined by an **ellipsoid**, **geoid** and **datum**. These elements are presented next.
 
 ### Sphere and Ellipsoid
 
@@ -81,14 +81,13 @@ World Geodetic System 1984 | WGS84 | Global | Developed by the Department of Def
 
 ### Building the Geographic Coordinate System
 
-A Geographic Coordinate System (GCS) is therefore defined by the ellipsoid model and by the way this ellipsoid is aligned with the geoid (defining the datum). It is important to know which GCS is associated with a GIS file or map document reference system. This is particularly true when overlapping layers are tied to different datums (and therefore GCS'). This is because a location on the earth's surface can take on different coordinate values. For example, a location recorded in an NAD 1927 GCS having a coordinate pair of 44.56698&deg; north and 69.65939&deg; west will register a coordinate value of 44.56704&deg; north and 69.65888&deg; west in a NAD83 GCS and a coordinate value of 44.37465&deg; north and -69.65888&deg; west in a sphere based WGS84 GCS. If the coordinate systems for these point coordinate values were not properly defined, then they could be misplaced on a map.  This is analogous to recording a same temperature using different units of measure: degrees Celsius, Fahrenheit and Kelvin. Each unit of measure will produce a different numeric value. 
+A Geographic Coordinate System (GCS) is therefore defined by the ellipsoid model and by the way this ellipsoid is aligned with the geoid (defining the datum). It is important to know which GCS is associated with a GIS file or map document reference system. This is particularly true when overlapping layers are tied to different datums (and therefore GCS'). This is because a location on the earth's surface can take on different coordinate values. For example, a location recorded in an NAD 1927 GCS having a coordinate pair of 44.56698&deg; north and 69.65939&deg; west will register a coordinate value of 44.56704&deg; north and 69.65888&deg; west in a NAD83 GCS and a coordinate value of 44.37465&deg; north and -69.65888&deg; west in a sphere based WGS84 GCS. If the coordinate systems for these point coordinate values were not properly defined, then they could be misplaced on a map.  This is analogous to recording temperature using different units of measure (degrees Celsius, Fahrenheit and Kelvin)--each unit of measure will produce a different numeric value. 
 
 <div class="figure">
 <img src="img/GCS_diff_coord_values.png" alt="Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems." width="400" />
 <p class="caption">(\#fig:unnamed-chunk-10)Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems.</p>
 </div>
 
-This is analagous to many
 
 ## Projected Coordinate Systems
 

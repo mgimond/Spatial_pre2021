@@ -7,8 +7,6 @@
 
 A Geographic Information System is a multi-component environment used to create, manage, visualize and analyze data and its spatial counterpart. It's important to note that most datasets you will encounter in your lifetime can all be assigned a spatial location whether on the earth's surface or within some arbitrary coordinate system (such as a soccer field or a gridded petri dish). So in essence, any dataset can be represented in a GIS: the question then becomes "does it need to be analyzed in a GIS environment?" The answer to this question depends on the purpose of the analysis. If, for example, we are interested in identifying the ten African countries with the highest conflict index score for the 1966-78 period, a simple table listing those scores by country is all that is needed. 
 
-<aside>*Data source: Anselin, L. and John O'Loughlin. 1992. Geography of international conflict and cooperation: spatial dependence and regional context in Africa. In The New Geopolitics, ed. M. Ward, pp. 39-75.*</aside>
-
 
 Table: (\#tab:01-Africa-conflict)Index of total African conflict for the 1966-78 period [@Anselin1992a].
 
@@ -36,6 +34,8 @@ GHANA                1090  MALI                              299
 GUINEA               1015  THE GAMBIA                        241
 BENIN                 998  SWAZILAND                         147
 
+*Data source: Anselin, L. and John O'Loughlin. 1992. Geography of international conflict and cooperation: spatial dependence and regional context in Africa. In The New Geopolitics, ed. M. Ward, pp. 39-75.*
+
 
 A simple sort on the Conflict column reveals that EGYPT, SUDAN, UGANDA, ZAIRE, TANZANIA, LIBYA, KENYA, SOMALIA, ETHIOPIA, SOUTH AFRICA are the top ten countries.
 
@@ -55,16 +55,13 @@ Many GIS software applications are available--both commercial and open source. T
 
 #### ArcGIS
 
-A popular commercial GIS software is [**ArcGIS**](http://desktop.arcgis.com/en/) developed by ESRI ([ESRI](https://en.wikipedia.org/wiki/Esri), pronounced *ez-ree*),was once a small land-use consulting firm which did not start developing GIS software until the mid 1970s). The ArcGIS desktop environment encompasses a suite of applications which include ArcMap, ArcCatalog, ArcScene and ArcGlobe. ArcGIS comes in three different license levels (basic, standard and advanced) and can be purchased with additional *add-on* packages. As such, a single license can range from a few thousand dollars to well over ten thousand dollars. In addition to software licensing costs, ArcGIS is only available for Windows operating systems; so if your workplace is a Mac only environment, the purchase of a Windows PC would add to the expense.
+A popular commercial GIS software is [**ArcGIS**](http://desktop.arcgis.com/en/) developed by ESRI ([ESRI](https://en.wikipedia.org/wiki/Esri), pronounced *ez-ree*),was once a small land-use consulting firm which did not start developing GIS software until the mid 1970s. The ArcGIS desktop environment encompasses a suite of applications which include ArcMap, ArcCatalog, ArcScene and ArcGlobe. ArcGIS comes in three different license levels (basic, standard and advanced) and can be purchased with additional *add-on* packages. As such, a single license can range from a few thousand dollars to well over ten thousand dollars. In addition to software licensing costs, ArcGIS is only available for Windows operating systems; so if your workplace is a Mac only environment, the purchase of a Windows PC would add to the expense.
 
 ### QGIS 
 
 A very capable open source (free) GIS software is [**QGIS**](http://qgis.org). It encompasses most of the functionality included in ArcGIS. If you are looking for a GIS application for your Mac or Linux environment, QGIS is a wonderful choice given its multi-platform support. Built into the current versions of QGIS are functions from another open source software: **GRASS**. GRASS has been around since the 1980's and has many advanced GIS data manipulation functions however, its use is not as intuitive as that of QGIS or ArcGIS (hence the preferred QGIS alternative).
 
 ## What is Spatial Analysis?
-
-<aside>A **GIS** allows us to create, edit, visualize and manipulate spatial data, but **spatial analysis** provides us with the framework needed to "quantify"" the pattern and identify the process or processes that may have generated the observed pattern.</aside>
-
 
 A distinction is made in this course between GIS and spatial analysis.
 In the context of mainstream GIS software, the term *analysis*
@@ -90,12 +87,11 @@ in spatial analysis using quantitative and statistical techniques.
 <p class="caption">(\#fig:unnamed-chunk-3)Distribution of Maple trees in a 1,000 x 1,000 ft study area.</p>
 </div>
 
-<aside>[R](http://www.r-project.org/) can be installed on both Windows and Mac operating systems. Another related piece of software that you might find useful is [RStudio](https://www.rstudio.com/products/rstudio/download/) which offers a nice interface to R. To learn more about data analysis in R, visit the [ES218 course website](http://mgimond.github.io/ES218/).</aside> 
-
 What you will learn in this course is that popular GIS software like ArcGIS are great tools to create and manipulate spatial data, but if one wishes to go beyond the data manipulation and analyze patterns and processes that may have led to these patterns, other quantitative tools are needed. One such tool we will use in this class is **R**: an open source (freeware) data analysis environment. 
 
 R has one, if not the *richest* set of spatial data analysis and statistics tools available today. Learning the R programming environment will prove to be quite beneficial given that many of the operations learnt are transferable across many other (non-spatial) quantitative analysis projects.
 
+[R](http://www.r-project.org/) can be installed on both Windows and Mac operating systems. Another related piece of software that you might find useful is [RStudio](https://www.rstudio.com/products/rstudio/download/) which offers a nice interface to R. To learn more about data analysis in R, visit the [ES218 course website](http://mgimond.github.io/ES218/).
 
 ## What's in an Acronym?
 
