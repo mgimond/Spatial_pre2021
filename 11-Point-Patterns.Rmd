@@ -69,12 +69,11 @@ par(OP)
 
 The choice of quadrat numbers and quadrat shape can influence the measure of local density and must be chosen with care. If very small quadrat sizes are used you risk having many quadrats with no points which may prove uninformative. If very large quadrat sizes are used, you risk missing subtle changes in spatial density distributions such as the east-west gradient in density values in the above example.
 
+Quadrat regions do not have to take on a uniform pattern across the study area, they can also be defined based on a **covariate**. For example, if it's believed that the underlying point pattern process is driven by elevation, quadrats can be defined by sub-regions such as different ranges of elevation values (labeled 1 through 4 on the right-hand plot in the following example). This can result in quadrats having non-uniform shape and area.
+
 ```{block, type="note"}
 Converting a continuous field into discretized areas is sometimes referred to as **tesselation**. The end product is a **tesselated surface**.
 ```
-
-
-Quadrat regions do not have to take on a uniform pattern across the study area, they can also be defined based on a **covariate**. For example, if it's believed that the underlying point pattern process is driven by elevation, quadrats can be defined by sub-regions such as different ranges of elevation values (labeled 1 through 4 on the right-hand plot in the following example). This can result in quadrats having non-uniform shape and area.
 
 ```{r fig.cap="Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed.", fig.height=2, fig.width=6.0, echo=FALSE}
 
@@ -94,9 +93,9 @@ par(OP)
 ```
 
 
-If the local intensity is the same across all regions of the tessellated covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of `r round(spatstat::tile.areas(V), 2)` respectively. To compute these regions' point densities, we simply divide the number of points by the area.
+If the local intensity changes across all regions of the tessellated covariate as a function of the covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of `r round(spatstat::tile.areas(V), 2)` respectively. To compute these regions' point densities, we simply divide the number of points by the area.
 
-```{r fig.cap="Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region). The point density is not uniform across the sub-regions suggesting that elevation (as characterized by the sub-regions) may not fully explain the observed pattern.", fig.height=2, fig.width=6.0, echo=FALSE}
+```{r fig.cap="Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region).", fig.height=2, fig.width=6.0, echo=FALSE}
 
 cl <-  interp.colours(c("lightyellow", "orange" ,"red"), 40)
 Q2 <- quadratcount(P, tess = V)
@@ -113,7 +112,16 @@ par(OP)
 
 ```
 
-Note that how one chooses to tessellate a surface can have an influence on the resulting density values. For example, dividing the elevation into equal area sub-regions produces different density values.
+We can plot the relationship between point density and elevation regions to help assess any dependence between the variables.
+
+```{r fig.cap="Plot of point density vs elevation regions.", fig.height=2, echo=FALSE, }
+ggplot() + aes(y=as.numeric(Q2i), x=1:4)  + geom_point() + geom_line() +xlab("Elevation regions") + ylab("Point density")
+
+```
+
+Though there is a steep increase in density at the highest elevation range, this increase is not monotonic across all ranges of increasing elevation suggesting that density may not be explained by elevation alone.
+
+Note that how one chooses to tessellate a surface can have an influence on the resulting density values. For example, dividing the elevation into *equal area* sub-regions produces different density values.
 
 ```{r fig.cap="Same analysis as last figure using different sub-regions. Note the difference in density values.", fig.height=2, fig.width=6.0, echo=FALSE}
 

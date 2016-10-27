@@ -8,7 +8,7 @@
   <title>Intro to GIS and Spatial Analysis</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.1.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -391,7 +391,7 @@ code > span.in { color: #008000; } /* Information */
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
 <img src="img/Maine_income.png" alt="2010 median per capita income aggregated at the county level." width="300" />
 <p class="caption">
-Figure 1.3: 2010 median per capita income aggregated at the county level.
+Figure 13.1: 2010 median per capita income aggregated at the county level.
 </p>
 </div>
 <p>It may seem apparent that, when aggregated at the county level, the income distribution follows a north-south trend (i.e. high values appear clustered near the southern end of the state and low values seem clustered near the north and east). But a qualitative description may not be sufficient; we might want to quantify the degree to which similar (or dissimilar) counties are clustered. One measure of this type or relationship is the Moran’s I statistic.</p>
@@ -399,14 +399,14 @@ Figure 1.3: 2010 median per capita income aggregated at the county level.
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
 <img src="img/Diff_neighbors.png" alt="Maps show the links between each polygon and their respective neighbor(s) based on the neighborhood definition. A contiguous neighbor is defined as one that shares a boundary or a vertex with the polygon of interest.  Orange numbers indicate the number of neighbors for each polygon. Note that the top most county has no neighbors when a neighborhood definition of a 100 km distance band is used (i.e. no centroids are within a 100 km search radius)" width="600" />
 <p class="caption">
-Figure 2.3: Maps show the links between each polygon and their respective neighbor(s) based on the neighborhood definition. A contiguous neighbor is defined as one that shares a boundary or a vertex with the polygon of interest. Orange numbers indicate the number of neighbors for each polygon. Note that the top most county has no neighbors when a neighborhood definition of a 100 km distance band is used (i.e. no centroids are within a 100 km search radius)
+Figure 13.2: Maps show the links between each polygon and their respective neighbor(s) based on the neighborhood definition. A contiguous neighbor is defined as one that shares a boundary or a vertex with the polygon of interest. Orange numbers indicate the number of neighbors for each polygon. Note that the top most county has no neighbors when a neighborhood definition of a 100 km distance band is used (i.e. no centroids are within a 100 km search radius)
 </p>
 </div>
 <p>Once we define a neighborhood for our analysis we identify the neighbors for each polygon in our dataset then summaries the values for each neighborhood cluster (by computing their mean values, for example). This summarized neighbor value is sometimes referred to as a lagging value (<em>X<sub>lag</sub></em>). In our working example, we adopt a contiguity neighborhood and compute the average neighboring income value (<em>Income<sub>lag</sub></em>) for each county in our dataset. We then plot <em>Income<sub>lag</sub></em> vs. <em>Income</em> for each county. The Moran’s I coefficient between <em>Income<sub>lag</sub></em> and <em>Income</em> is nothing more than the slope of the least squares regression line that best fits the points <em>after</em> having equalized the spread between both sets of data.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
 <img src="img/MoranI_scatter_plot.png" alt="Scatter plot of *Income~lag~* vs. *Income*. If we equalize the spread between both axes (i.e. convert to a z-score) the slope of the regression line represents the Moran's I statistic." width="400" />
 <p class="caption">
-Figure 2.4: Scatter plot of <em>Income<sub>lag</sub></em> vs. <em>Income</em>. If we equalize the spread between both axes (i.e. convert to a z-score) the slope of the regression line represents the Moran’s I statistic.
+Figure 13.3: Scatter plot of <em>Income<sub>lag</sub></em> vs. <em>Income</em>. If we equalize the spread between both axes (i.e. convert to a z-score) the slope of the regression line represents the Moran’s I statistic.
 </p>
 </div>
 <p>If there is no relationship between <em>Income</em> and <em>Income<sub>lag</sub></em>, the slope will be close to flat (resulting in a Moran’s I value near 0). In our working example, the Moran’s I value is 0.377. So this begs the question, how significant is this Moran’s I value (i.e. is the computed slope significantly different from 0)? There are two approaches to estimating the significance: an analytical solution and a Monte Carlo solution. The analytical solution makes some restrictive assumptions about the data and thus cannot always be reliable. Another approach (and the one favored here) is a Monte Carlo test which makes <em>no</em> assumptions about the dataset including the shape and layout of each polygon.</p>
@@ -417,7 +417,7 @@ Figure 2.4: Scatter plot of <em>Income<sub>lag</sub></em> vs. <em>Income</em>. I
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
 <img src="img/MC_sim_1.png" alt="Results from 199 permutations. Left plot shows Moran's I slopes (in gray) from each random permutation of income values superimposed with the observed Moran's I slope. Right plot shows the distribution of Moran's I values for all 199 permutations; red vertical line shows our observed Moran's I value of 0.377." width="400" />
 <p class="caption">
-Figure 2.5: Results from 199 permutations. Left plot shows Moran’s I slopes (in gray) from each random permutation of income values superimposed with the observed Moran’s I slope. Right plot shows the distribution of Moran’s I values for all 199 permutations; red vertical line shows our observed Moran’s I value of 0.377.
+Figure 13.4: Results from 199 permutations. Left plot shows Moran’s I slopes (in gray) from each random permutation of income values superimposed with the observed Moran’s I slope. Right plot shows the distribution of Moran’s I values for all 199 permutations; red vertical line shows our observed Moran’s I value of 0.377.
 </p>
 </div>
 <p>In our working example, 199 simulations indicate that out observed Moran’s I value of 0.377 is not a value we would expect to compute if the income values were randomly distributed across each county. A (pseudo) <em>P-value</em> can easily be computed from the simulation results:</p>
@@ -439,7 +439,7 @@ Figure 2.5: Results from 199 permutations. Left plot shows Moran’s I slopes (i
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
 <img src="img/MoranI_distance_band.png" alt="Moran's I at different spatial lags defined by a 5 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less." width="400" />
 <p class="caption">
-Figure 2.6: Moran’s I at different spatial lags defined by a 5 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less.
+Figure 13.5: Moran’s I at different spatial lags defined by a 5 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less.
 </p>
 </div>
 <p>The plot suggests that there is significant spatial autocorrelation between counties within 25 km of one another, but as the distances between counties increases, autocorrelation shifts from being positive to being negative meaning that at greater distances, counties tend to be more dissimilar.</p>
@@ -450,14 +450,14 @@ Figure 2.6: Moran’s I at different spatial lags defined by a 5 km width annulu
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-9"></span>
 <img src="img/HH_LL_noP.png" alt="Red points and polygons highlight counties with high income values surrounded by high income counties. Blue points and polygons highlight counties with low income values surrounded by low income counties." width="300" height="300" /><img src="img/HH_LL_noP_map.png" alt="Red points and polygons highlight counties with high income values surrounded by high income counties. Blue points and polygons highlight counties with low income values surrounded by low income counties." width="300" height="300" />
 <p class="caption">
-Figure 2.7: Red points and polygons highlight counties with high income values surrounded by high income counties. Blue points and polygons highlight counties with low income values surrounded by low income counties.
+Figure 13.6: Red points and polygons highlight counties with high income values surrounded by high income counties. Blue points and polygons highlight counties with low income values surrounded by low income counties.
 </p>
 </div>
 <p>Next, we can use Monte Carlo techniques to assess whether or not the High-High values and Low-Low values are significant at a confidence level of 0.05 (i.e. for P-value= 0.05).</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-10"></span>
 <img src="img/HH_LL_P.png" alt="Significantly High-High and Low-Low clusters with P-values less than or equal to 0.5." width="300" height="300" /><img src="img/HH_LL_P_map.png" alt="Significantly High-High and Low-Low clusters with P-values less than or equal to 0.5." width="300" height="300" />
 <p class="caption">
-Figure 4.1: Significantly High-High and Low-Low clusters with P-values less than or equal to 0.5.
+Figure 13.7: Significantly High-High and Low-Low clusters with P-values less than or equal to 0.5.
 </p>
 </div>
 
