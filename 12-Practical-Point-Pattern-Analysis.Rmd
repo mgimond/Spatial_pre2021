@@ -224,13 +224,13 @@ PPM0 <- ppm(P ~ 1)
 
 A Poisson point process model implemented in a statisitcal software such as R produces the following output for the null model (using the Walmart data),
 
-```{r}
+```{r echo=FALSE}
 PPM0
 ```
 
 and the following output for the alternate model.
 
-```{r}
+```{r echo=FALSE}
 PPM1
 ```
 

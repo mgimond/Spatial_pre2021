@@ -541,13 +541,11 @@ Figure 12.12: Simulation results for an inhomogeneous hypothesized process. When
 <p>Any Poisson point process model can be fit to an observed point pattern, but just because we can <em>fit</em> a model does not imply that the model does a good job in explaining the observed pattern. To test how well a model can explain the observed point pattern, we need to compare it to a base model (such as one where we assume that the points are randomly distributed across the study area–i.e. IRP). The latter is defined as the null hypothesis and the former is defined as the alternate hypothesis.</p>
 <p>For example, we may want to assess if the Poisson point process model that pits the placement of Walmarts as a function of population distribution (the alternate hypothesis) does a better job than the null model that assumes homogeneous intensity (i.e. a Walmart has no preference as to where it is to be placed). This requires that we first derive estimates for both models.</p>
 <p>A Poisson point process model implemented in a statisitcal software such as R produces the following output for the null model (using the Walmart data),</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PPM0</code></pre></div>
 <pre><code>Stationary Poisson process
 Intensity: 2.1276e-09
              Estimate      S.E.   CI95.lo  CI95.hi Ztest      Zval
 log(lambda) -19.96827 0.1507557 -20.26375 -19.6728   *** -132.4545</code></pre>
 <p>and the following output for the alternate model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PPM1</code></pre></div>
 <pre><code>Nonstationary Poisson process
 
 Log intensity:  ~pop

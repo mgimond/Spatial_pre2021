@@ -203,10 +203,6 @@ For example, we may want to assess if the Poisson point process model that pits 
 A Poisson point process model implemented in a statisitcal software such as R produces the following output for the null model (using the Walmart data),
 
 
-```r
-PPM0
-```
-
 ```
 Stationary Poisson process
 Intensity: 2.1276e-09
@@ -216,10 +212,6 @@ log(lambda) -19.96827 0.1507557 -20.26375 -19.6728   *** -132.4545
 
 and the following output for the alternate model.
 
-
-```r
-PPM1
-```
 
 ```
 Nonstationary Poisson process
