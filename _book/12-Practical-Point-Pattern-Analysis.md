@@ -193,7 +193,7 @@ It may be tempting to scan across the plot looking for distances $r$ for which d
 
 ## Testing for a covariate effect
 
-Any Poisson point process model can be fit to an observed point pattern, but just because we can *fit* a model does not imply that the model does a good job in explaining the observed pattern. To test how well a model can explain the observed point pattern, we need to compare it to a base model (such as one where we assume that the points are uniformly distributed across the study area--i.e. IRP). The latter is defined as the null hypothesis and the former is defined as the alternate hypothesis. 
+Any Poisson point process model can be fit to an observed point pattern, but just because we can *fit* a model does not imply that the model does a good job in explaining the observed pattern. To test how well a model can explain the observed point pattern, we need to compare it to a base model (such as one where we assume that the points are randomly distributed across the study area--i.e. IRP). The latter is defined as the null hypothesis and the former is defined as the alternate hypothesis. 
 
 For example, we may want to assess if the Poisson point process model that pits the placement of Walmarts as a function of population distribution (the alternate hypothesis) does a better job than the null model that assumes homogeneous intensity (i.e. a Walmart has no preference as to where it is to be placed). This requires that we first derive estimates for both models.
 
