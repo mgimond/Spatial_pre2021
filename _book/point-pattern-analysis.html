@@ -8,7 +8,7 @@
   <title>Intro to GIS and Spatial Analysis</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -26,11 +26,6 @@
 <meta name="author" content="Manuel Gimond">
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -114,7 +109,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="1.2" data-path="introGIS.html"><a href="introGIS.html#what-is-spatial-analysis"><i class="fa fa-check"></i><b>1.2</b> What is Spatial Analysis?</a></li>
 <li class="chapter" data-level="1.3" data-path="introGIS.html"><a href="introGIS.html#whats-in-an-acronym"><i class="fa fa-check"></i><b>1.3</b> What’s in an Acronym?</a></li>
 </ul></li>
-<li class="part"><span><b>Working with spatial data</b></span></li>
+<li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
 <li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
@@ -210,7 +205,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="10.5.4" data-path="map-algebra.html"><a href="map-algebra.html#combining-operations"><i class="fa fa-check"></i><b>10.5.4</b> Combining operations</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Spatial Analysis</b></span></li>
+<li class="part"><span><b>II Spatial Analysis</b></span></li>
 <li class="chapter" data-level="11" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
 <li class="chapter" data-level="11.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
 <li class="chapter" data-level="11.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
@@ -254,7 +249,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Appendix</b></span></li>
+<li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
 <li class="chapter" data-level="14.2.3" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal"><i class="fa fa-check"></i><b>14.2.3</b> Reading a shapefile with <code>rgdal</code></a></li>
@@ -401,7 +396,7 @@ A <em>first order</em> property of a pattern concerns itself with the variation 
 <div class="figure"><span id="fig:unnamed-chunk-4"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-4-1.png" alt="An example of a point pattern where n = 20 and the study area (defined by a square boundary) is 10 units squared. The point density is thus 20/100 = 0.2 points per unit area." width="240" />
 <p class="caption">
-Figure 11.1: An example of a point pattern where n = 20 and the study area (defined by a square boundary) is 10 units squared. The point density is thus 20/100 = 0.2 points per unit area.
+Figure 1.3: An example of a point pattern where n = 20 and the study area (defined by a square boundary) is 10 units squared. The point density is thus 20/100 = 0.2 points per unit area.
 </p>
 </div>
 </div>
@@ -414,7 +409,7 @@ Figure 11.1: An example of a point pattern where n = 20 and the study area (defi
 <div class="figure"><span id="fig:unnamed-chunk-5"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-5-1.png" alt="An example of a quadrat count where the study area is divided into four equally sized quadrats whose area is 25 square units each. The density in each quadrat can be computed by dividing the number of points in each quadrat by that quadrat's area." width="211.2" />
 <p class="caption">
-Figure 11.2: An example of a quadrat count where the study area is divided into four equally sized quadrats whose area is 25 square units each. The density in each quadrat can be computed by dividing the number of points in each quadrat by that quadrat’s area.
+Figure 2.3: An example of a quadrat count where the study area is divided into four equally sized quadrats whose area is 25 square units each. The density in each quadrat can be computed by dividing the number of points in each quadrat by that quadrat’s area.
 </p>
 </div>
 <p>The choice of quadrat numbers and quadrat shape can influence the measure of local density and must be chosen with care. If very small quadrat sizes are used you risk having many quadrats with no points which may prove uninformative. If very large quadrat sizes are used, you risk missing subtle changes in spatial density distributions such as the east-west gradient in density values in the above example.</p>
@@ -427,21 +422,21 @@ Converting a continuous field into discretized areas is sometimes referred to as
 <div class="figure"><span id="fig:unnamed-chunk-7"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-7-1.png" alt="Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed." width="576" />
 <p class="caption">
-Figure 11.3: Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed.
+Figure 2.5: Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed.
 </p>
 </div>
 <p>If the local intensity changes across all regions of the tessellated covariate as a function of the covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of 17.08, 50.45, 26.76, 5.71 respectively. To compute these regions’ point densities, we simply divide the number of points by the area.</p>
 <div class="figure"><span id="fig:unnamed-chunk-8"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-8-1.png" alt="Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region)." width="576" />
 <p class="caption">
-Figure 11.4: Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region).
+Figure 2.6: Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region).
 </p>
 </div>
 <p>We can plot the relationship between point density and elevation regions to help assess any dependence between the variables.</p>
 <div class="figure"><span id="fig:unnamed-chunk-9"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-9-1.png" alt="Plot of point density vs elevation regions." width="672" />
 <p class="caption">
-Figure 11.5: Plot of point density vs elevation regions.
+Figure 2.7: Plot of point density vs elevation regions.
 </p>
 </div>
 <p>Though there is a steep increase in density at the highest elevation range, this increase is not monotonic across all ranges of increasing elevation suggesting that density may not be explained by elevation alone.</p>
@@ -449,7 +444,7 @@ Figure 11.5: Plot of point density vs elevation regions.
 <div class="figure"><span id="fig:unnamed-chunk-10"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-10-1.png" alt="Same analysis as last figure using different sub-regions. Note the difference in density values." width="576" />
 <p class="caption">
-Figure 11.6: Same analysis as last figure using different sub-regions. Note the difference in density values.
+Figure 4.1: Same analysis as last figure using different sub-regions. Note the difference in density values.
 </p>
 </div>
 </div>
@@ -460,14 +455,14 @@ Figure 11.6: Same analysis as last figure using different sub-regions. Note the 
 <div class="figure"><span id="fig:unnamed-chunk-11"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-11-1.png" alt="An example of a basic 3x3 kernel density map (ArcGIS calls this a point density map) where each point is assigned an equal weight. For example, the second cell from the top and left (i.e. centered at location x=1.5 and y =8.5) has one point within a 3x3 unit (pixel) region and thus has a local density of 1/9 = 0.11." width="672" />
 <p class="caption">
-Figure 11.7: An example of a basic 3x3 kernel density map (ArcGIS calls this a point density map) where each point is assigned an equal weight. For example, the second cell from the top and left (i.e. centered at location x=1.5 and y =8.5) has one point within a 3x3 unit (pixel) region and thus has a local density of 1/9 = 0.11.
+Figure 4.2: An example of a basic 3x3 kernel density map (ArcGIS calls this a point density map) where each point is assigned an equal weight. For example, the second cell from the top and left (i.e. centered at location x=1.5 and y =8.5) has one point within a 3x3 unit (pixel) region and thus has a local density of 1/9 = 0.11.
 </p>
 </div>
 <p>Some of the most popular <strong>kernel functions</strong> assign weights to points that are inversely proportional to their distances to the kernel window center. A few such kernel functions follow a <em>gaussian</em> or <em>quartic</em> like distribution function. These functions tend to produce a smoother density map.</p>
 <div class="figure"><span id="fig:unnamed-chunk-12"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-12-1.png" alt="An example of a kernel function is the 3x3 quartic kernel function where each point in the kernel window is weighted based on its proximity to the kernel's center cell (typically, closer points are weighted more heavily). Kernel functions, like the quartic, tend to generate smoother surfaces." width="672" />
 <p class="caption">
-Figure 11.8: An example of a kernel function is the 3x3 quartic kernel function where each point in the kernel window is weighted based on its proximity to the kernel’s center cell (typically, closer points are weighted more heavily). Kernel functions, like the quartic, tend to generate smoother surfaces.
+Figure 4.3: An example of a kernel function is the 3x3 quartic kernel function where each point in the kernel window is weighted based on its proximity to the kernel’s center cell (typically, closer points are weighted more heavily). Kernel functions, like the quartic, tend to generate smoother surfaces.
 </p>
 </div>
 </div>
@@ -477,7 +472,7 @@ Figure 11.8: An example of a kernel function is the 3x3 quartic kernel function 
 <div class="figure"><span id="fig:unnamed-chunk-13"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-13-1.png" alt="An estimate of $\rho$ using the ratio method. The figure on the left shows the estimated $\rho$ as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of $\rho$." width="480" />
 <p class="caption">
-Figure 11.9: An estimate of <span class="math inline">\(\rho\)</span> using the ratio method. The figure on the left shows the estimated <span class="math inline">\(\rho\)</span> as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of <span class="math inline">\(\rho\)</span>.
+Figure 4.4: An estimate of <span class="math inline">\(\rho\)</span> using the ratio method. The figure on the left shows the estimated <span class="math inline">\(\rho\)</span> as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of <span class="math inline">\(\rho\)</span>.
 </p>
 </div>
 <p>If the density, <span class="math inline">\(\rho\)</span>, can be explained by the elevation, we would expect a constant <span class="math inline">\(\rho\)</span> value across all elevation values (figure on the left) and across the spatial extent (figure on the right). This appears to be the case with our working example except near the upper right-hand corner of the spatial extent where the elevation values are the highest. This can be explained by the small area covered by these high elevation locations which result in fewer observed points and thus higher uncertainty for that corner of the study extent. This is very apparent in the left figure where the 95% confidence interval envelope widens at higher elevation values (indicating the greater uncertainty in our estimated <span class="math inline">\(\rho\)</span> value at the higher elevation).</p>
@@ -504,7 +499,7 @@ P(i) = \frac{e^{\alpha + \beta Z(i)}}{1 + e^{\alpha + \beta Z(i)}}
 <div class="figure"><span id="fig:unnamed-chunk-15"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-15-1.png" alt="Location of Starbucks relative to population density. Note that the classification scheme follows a log scale to more easily differentiate population density values." width="672" />
 <p class="caption">
-Figure 11.10: Location of Starbucks relative to population density. Note that the classification scheme follows a log scale to more easily differentiate population density values.
+Figure 7.3: Location of Starbucks relative to population density. Note that the classification scheme follows a log scale to more easily differentiate population density values.
 </p>
 </div>
 <p>We can fit a poisson point process model to these data where the modeled intensity takes on the form:</p>
@@ -520,7 +515,7 @@ Starbucks\ density(i) = e^{\alpha + \beta\ population(i)}
 <div class="figure"><span id="fig:unnamed-chunk-17"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-17-1.png" alt="Poisson point process model fitted to the relationship between Starbucks store locations and population density. The model assumes a loglinear relationship. Note that the density is reported in number of stores per map unit area (the map units are in meters)." width="288" />
 <p class="caption">
-Figure 11.11: Poisson point process model fitted to the relationship between Starbucks store locations and population density. The model assumes a loglinear relationship. Note that the density is reported in number of stores per map unit area (the map units are in meters).
+Figure 4.6: Poisson point process model fitted to the relationship between Starbucks store locations and population density. The model assumes a loglinear relationship. Note that the density is reported in number of stores per map unit area (the map units are in meters).
 </p>
 </div>
 </div>
@@ -539,35 +534,35 @@ A <em>second order</em> property of a pattern concerns itself with the observati
 <div class="figure"><span id="fig:unnamed-chunk-19"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-19-1.png" alt="Distance between each point and its closest point. For example, the point closest to point 1 is point 9 which is 2.32 units away." width="480" />
 <p class="caption">
-Figure 11.12: Distance between each point and its closest point. For example, the point closest to point 1 is point 9 which is 2.32 units away.
+Figure 9.1: Distance between each point and its closest point. For example, the point closest to point 1 is point 9 which is 2.32 units away.
 </p>
 </div>
 <p>An extension of this idea is to plot the ANN values for different order neighbors, that is for the first closest point, then the second closest point, and so forth.</p>
 <div class="figure"><span id="fig:unnamed-chunk-20"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-20-1.png" alt="ANN values for different neighbor order numbers. For example, the ANN for the first closest neighbor is 1.52 units; the ANN for the 2nd closest neighbor is 2.14  units; and so forth." width="240" />
 <p class="caption">
-Figure 11.13: ANN values for different neighbor order numbers. For example, the ANN for the first closest neighbor is 1.52 units; the ANN for the 2nd closest neighbor is 2.14 units; and so forth.
+Figure 11.1: ANN values for different neighbor order numbers. For example, the ANN for the first closest neighbor is 1.52 units; the ANN for the 2nd closest neighbor is 2.14 units; and so forth.
 </p>
 </div>
 <p>The shape of the ANN curve as a function of neighbor order can provide insight into the spatial arrangement of points relative to one another. In the following example, three different point patterns of 20 points are presented.</p>
 <div class="figure"><span id="fig:unnamed-chunk-21"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-21-1.png" alt="Three different point patterns: a single cluster, a dual cluster and a randomly scattered pattern." width="432" />
 <p class="caption">
-Figure 11.14: Three different point patterns: a single cluster, a dual cluster and a randomly scattered pattern.
+Figure 11.2: Three different point patterns: a single cluster, a dual cluster and a randomly scattered pattern.
 </p>
 </div>
 <p>Each point pattern offers different ANN vs. neighbor order plots.</p>
 <div class="figure"><span id="fig:unnamed-chunk-22"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-22-1.png" alt="Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern." width="384" />
 <p class="caption">
-Figure 11.15: Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern.
+Figure 11.3: Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern.
 </p>
 </div>
 <p>The bottom line (black line) indicates that the cluster (left plot) is tight and that the distances between a point and all other points is very short. This is in stark contrast with the top line (red line) which indicates that the distances between points is much greater. Note that the way we describe these patterns is heavily influenced by the size and shape of the study region. If the region was defined as the smallest rectangle encompassing the cluster of points, the cluster of points would no longer look clustered.</p>
 <div class="figure"><span id="fig:unnamed-chunk-23"></span>
 <img src="11-Point-Patterns_files/figure-html/unnamed-chunk-23-1.png" alt="The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?" width="384" />
 <p class="caption">
-Figure 11.16: The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?
+Figure 11.4: The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?
 </p>
 </div>
 </div>
@@ -710,7 +705,7 @@ L=\sqrt{\dfrac{K(d)}{\pi}}-d
 <div class="figure"><span id="fig:unnamed-chunk-25"></span>
 <img src="img/L_function.svg" alt="L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K~expected~ at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km."  />
 <p class="caption">
-Figure 11.17: L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K<sub>expected</sub> at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km.
+Figure 11.5: L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K<sub>expected</sub> at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km.
 </p>
 </div>
 </div>
@@ -721,14 +716,14 @@ Figure 11.17: L-function (a simple transformation of the K-function). This graph
 <div class="figure"><span id="fig:unnamed-chunk-26"></span>
 <img src="img/K_vs_g_bands.png" alt="Difference in how the $K$ and $g$ functions aggregate points at distance $r$ ($r$ = 30 km in this example). *All* points *up to* $r$ contribute to $K$ whereas just the points in the *annulus band* at $r$ contribute to $g$." width="632" />
 <p class="caption">
-Figure 11.18: Difference in how the <span class="math inline">\(K\)</span> and <span class="math inline">\(g\)</span> functions aggregate points at distance <span class="math inline">\(r\)</span> (<span class="math inline">\(r\)</span> = 30 km in this example). <em>All</em> points <em>up to</em> <span class="math inline">\(r\)</span> contribute to <span class="math inline">\(K\)</span> whereas just the points in the <em>annulus band</em> at <span class="math inline">\(r\)</span> contribute to <span class="math inline">\(g\)</span>.
+Figure 11.6: Difference in how the <span class="math inline">\(K\)</span> and <span class="math inline">\(g\)</span> functions aggregate points at distance <span class="math inline">\(r\)</span> (<span class="math inline">\(r\)</span> = 30 km in this example). <em>All</em> points <em>up to</em> <span class="math inline">\(r\)</span> contribute to <span class="math inline">\(K\)</span> whereas just the points in the <em>annulus band</em> at <span class="math inline">\(r\)</span> contribute to <span class="math inline">\(g\)</span>.
 </p>
 </div>
 <p>The plot and interpretation of the <span class="math inline">\(g\)</span> function differs from that of the <span class="math inline">\(K\)</span> and <span class="math inline">\(L\)</span> functions.</p>
 <div class="figure"><span id="fig:unnamed-chunk-27"></span>
 <img src="img/g_function.svg" alt="$g$-function of the Massachusets Walmart point data. Its interpretation is  similar to that of the $K$ and $L$ functions. Here, we observe distances between stores greater than expected under CSR up to about 5 km. Note that this cutoff is less than the 12 km cutoff observed with the $K$ function; this can be explained by the point pattern at the shorter $r$ distances contributing to the $K$ values at higher $r$ values--a problem avoided using the $g$-function." width="400" />
 <p class="caption">
-Figure 11.19: <span class="math inline">\(g\)</span>-function of the Massachusets Walmart point data. Its interpretation is similar to that of the <span class="math inline">\(K\)</span> and <span class="math inline">\(L\)</span> functions. Here, we observe distances between stores greater than expected under CSR up to about 5 km. Note that this cutoff is less than the 12 km cutoff observed with the <span class="math inline">\(K\)</span> function; this can be explained by the point pattern at the shorter <span class="math inline">\(r\)</span> distances contributing to the <span class="math inline">\(K\)</span> values at higher <span class="math inline">\(r\)</span> values–a problem avoided using the <span class="math inline">\(g\)</span>-function.
+Figure 11.7: <span class="math inline">\(g\)</span>-function of the Massachusets Walmart point data. Its interpretation is similar to that of the <span class="math inline">\(K\)</span> and <span class="math inline">\(L\)</span> functions. Here, we observe distances between stores greater than expected under CSR up to about 5 km. Note that this cutoff is less than the 12 km cutoff observed with the <span class="math inline">\(K\)</span> function; this can be explained by the point pattern at the shorter <span class="math inline">\(r\)</span> distances contributing to the <span class="math inline">\(K\)</span> values at higher <span class="math inline">\(r\)</span> values–a problem avoided using the <span class="math inline">\(g\)</span>-function.
 </p>
 </div>
 <p>If <span class="math inline">\(g(r)\)</span> = 1, then the inter-point distances (at and around distance <span class="math inline">\(r\)</span>) are consistant with CSR. If <span class="math inline">\(g(r)\)</span> &gt; 1, then the points are more clustered than expected under CSR. If <span class="math inline">\(g(r)\)</span> &lt; 1, then the points are more dispersed than expected under CSR. Note that <span class="math inline">\(g\)</span> can never be less than 0.</p>
@@ -741,7 +736,7 @@ Figure 11.19: <span class="math inline">\(g\)</span>-function of the Massachuset
 <div class="figure"><span id="fig:unnamed-chunk-28"></span>
 <img src="img/1st_2nd_order_property.png" alt="Tree distribution can be influenced by 1^st^ order effects such as elevation gradient of spatial distribution of soil characteristics; this, in turn, changes the  tree density distribution across the study area. Tree distribution can also be influenced by 2^nd^ order effects such as seed dispersal processes where the process is independent of location and, instead, dependent on the presence of other trees." width="750" />
 <p class="caption">
-Figure 11.20: Tree distribution can be influenced by 1<sup>st</sup> order effects such as elevation gradient of spatial distribution of soil characteristics; this, in turn, changes the tree density distribution across the study area. Tree distribution can also be influenced by 2<sup>nd</sup> order effects such as seed dispersal processes where the process is independent of location and, instead, dependent on the presence of other trees.
+Figure 11.8: Tree distribution can be influenced by 1<sup>st</sup> order effects such as elevation gradient of spatial distribution of soil characteristics; this, in turn, changes the tree density distribution across the study area. Tree distribution can also be influenced by 2<sup>nd</sup> order effects such as seed dispersal processes where the process is independent of location and, instead, dependent on the presence of other trees.
 </p>
 </div>
 <p>Density based measurements such as kernel density estimations look at the <em>1<sup>st</sup> order</em> property of the underlying process. Distance based measurements such as ANN and K-functions focus on the <em>2<sup>nd</sup> order</em> property of the underlying process.</p>
@@ -768,6 +763,7 @@ Figure 11.20: Tree distribution can be influenced by 1<sup>st</sup> order effect
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": false,
 "twitter": false,
 "google": false,

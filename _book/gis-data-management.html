@@ -8,7 +8,7 @@
   <title>Intro to GIS and Spatial Analysis</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -26,11 +26,6 @@
 <meta name="author" content="Manuel Gimond">
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -114,7 +109,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="1.2" data-path="introGIS.html"><a href="introGIS.html#what-is-spatial-analysis"><i class="fa fa-check"></i><b>1.2</b> What is Spatial Analysis?</a></li>
 <li class="chapter" data-level="1.3" data-path="introGIS.html"><a href="introGIS.html#whats-in-an-acronym"><i class="fa fa-check"></i><b>1.3</b> What’s in an Acronym?</a></li>
 </ul></li>
-<li class="part"><span><b>Working with spatial data</b></span></li>
+<li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
 <li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
@@ -210,7 +205,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="10.5.4" data-path="map-algebra.html"><a href="map-algebra.html#combining-operations"><i class="fa fa-check"></i><b>10.5.4</b> Combining operations</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Spatial Analysis</b></span></li>
+<li class="part"><span><b>II Spatial Analysis</b></span></li>
 <li class="chapter" data-level="11" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
 <li class="chapter" data-level="11.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
 <li class="chapter" data-level="11.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
@@ -254,7 +249,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Appendix</b></span></li>
+<li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
 <li class="chapter" data-level="14.2.3" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal"><i class="fa fa-check"></i><b>14.2.3</b> Reading a shapefile with <code>rgdal</code></a></li>
@@ -434,7 +429,7 @@ code > span.in { color: #008000; } /* Information */
 <div class="figure"><span id="fig:unnamed-chunk-2"></span>
 <img src="img/geodatabase.jpg" alt="Sample content of an ArcGIS file geodatabase." width="500" />
 <p class="caption">
-Figure 3.1: Sample content of an ArcGIS file geodatabase.
+Figure 2.2: Sample content of an ArcGIS file geodatabase.
 </p>
 </div>
 </div>
@@ -467,7 +462,7 @@ Figure 3.1: Sample content of an ArcGIS file geodatabase.
 <div class="figure"><span id="fig:unnamed-chunk-4"></span>
 <img src="img/ArcCatalog.jpg" alt="Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment)." width="300" />
 <p class="caption">
-Figure 3.2: Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment).
+Figure 1.3: Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment).
 </p>
 </div>
 </div>
@@ -509,6 +504,7 @@ Exclamation marks in your map document indicate that the GIS files are missing o
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": false,
 "twitter": false,
 "google": false,

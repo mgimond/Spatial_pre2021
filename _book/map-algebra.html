@@ -8,7 +8,7 @@
   <title>Intro to GIS and Spatial Analysis</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -26,11 +26,6 @@
 <meta name="author" content="Manuel Gimond">
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -114,7 +109,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="1.2" data-path="introGIS.html"><a href="introGIS.html#what-is-spatial-analysis"><i class="fa fa-check"></i><b>1.2</b> What is Spatial Analysis?</a></li>
 <li class="chapter" data-level="1.3" data-path="introGIS.html"><a href="introGIS.html#whats-in-an-acronym"><i class="fa fa-check"></i><b>1.3</b> What’s in an Acronym?</a></li>
 </ul></li>
-<li class="part"><span><b>Working with spatial data</b></span></li>
+<li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
 <li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
@@ -210,7 +205,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="10.5.4" data-path="map-algebra.html"><a href="map-algebra.html#combining-operations"><i class="fa fa-check"></i><b>10.5.4</b> Combining operations</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Spatial Analysis</b></span></li>
+<li class="part"><span><b>II Spatial Analysis</b></span></li>
 <li class="chapter" data-level="11" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
 <li class="chapter" data-level="11.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
 <li class="chapter" data-level="11.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
@@ -254,7 +249,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Appendix</b></span></li>
+<li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
 <li class="chapter" data-level="14.2.3" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal"><i class="fa fa-check"></i><b>14.2.3</b> Reading a shapefile with <code>rgdal</code></a></li>
@@ -383,14 +378,14 @@ code > span.in { color: #008000; } /* Information */
 <div class="figure"><span id="fig:unnamed-chunk-3"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-3-1.png" alt="Example of a local operation where  `output=(2 * raster + 1)`." width="480" />
 <p class="caption">
-Figure 10.1: Example of a local operation where <code>output=(2 * raster + 1)</code>.
+Figure 1.2: Example of a local operation where <code>output=(2 * raster + 1)</code>.
 </p>
 </div>
 <p>More than one raster can be involved in a local operation. For example, two rasters can be summed (i.e. each overlapping pixels are summed) to generate a new raster.</p>
 <div class="figure"><span id="fig:unnamed-chunk-4"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-4-1.png" alt="Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location." width="672" />
 <p class="caption">
-Figure 10.2: Example of a local operation where <code>output=(raster1+raster2)</code>. Note how each cell output only involves input raster cells that share the same exact location.
+Figure 1.3: Example of a local operation where <code>output=(raster1+raster2)</code>. Note how each cell output only involves input raster cells that share the same exact location.
 </p>
 </div>
 <p>Local operations also include <strong>reclassification</strong> of values. This is where a range of values from the input raster are assigned a new (common) value. For example, we might want to reclassify the input raster values as follows:</p>
@@ -423,7 +418,7 @@ Figure 10.2: Example of a local operation where <code>output=(raster1+raster2)</
 <div class="figure"><span id="fig:unnamed-chunk-5"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-5-1.png" alt="Example of a local operation where the output results from the reclassification of input values." width="480" />
 <p class="caption">
-Figure 10.3: Example of a local operation where the output results from the reclassification of input values.
+Figure 2.3: Example of a local operation where the output results from the reclassification of input values.
 </p>
 </div>
 </div>
@@ -436,28 +431,28 @@ Figure 10.3: Example of a local operation where the output results from the recl
 <div class="figure"><span id="fig:unnamed-chunk-6"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-6-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA." width="480" />
 <p class="caption">
-Figure 10.4: Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.
+Figure 2.4: Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.
 </p>
 </div>
 <p>Notice how, in the above example, the edge cells from the output raster have been assigned a value of <code>NA</code> (No Data). This is because cells outside of the extent have no value. Some GIS applications will ignore the missing surrounding values and just compute the average of the available cells as demonstrated in the next example.</p>
 <div class="figure"><span id="fig:unnamed-chunk-7"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-7-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored." width="480" />
 <p class="caption">
-Figure 10.5: Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored.
+Figure 2.5: Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored.
 </p>
 </div>
 <p>Focal (or neighbor) operations require that a window region (a <strong>kernel</strong>) be defined. In the above examples, a simple 3 by 3 kernel (or window) was used in the focal operations. The kernel can take on different dimensions and shape such as a 3 by 3 square where the central pixel is ignored (thus reducing the number of neighbors to 8) or a circular neighbor defined by a radius.</p>
 <div class="figure"><span id="fig:unnamed-chunk-8"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-8-1.png" alt="Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. " width="480" />
 <p class="caption">
-Figure 10.6: Example of a focal operation where the kernel is defined by a 3 by 3 cell <em>without</em> the center cell and whose output cell takes on the average value of those neighboring cells.
+Figure 2.6: Example of a focal operation where the kernel is defined by a 3 by 3 cell <em>without</em> the center cell and whose output cell takes on the average value of those neighboring cells.
 </p>
 </div>
 <p>In addition to defining the neighborhood shape and dimension, a kernel also defines the weight each neighboring cell contributes to the summary statistic. For example, all cells in a 3 by 3 neighbor could each contribute 1/9<sup>th</sup> of their value to the summarized value (i.e. equal weight). But the weight can take on a more complex form defined by a function; such weights are defined by a <strong>kernel function</strong>. One popular function is a <strong>Gaussian</strong> weighted function which assigns greater weight to nearby cells than those further away.</p>
 <div class="figure"><span id="fig:unnamed-chunk-9"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-9-1.png" alt="Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight." width="480" />
 <p class="caption">
-Figure 10.7: Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight.
+Figure 2.7: Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight.
 </p>
 </div>
 </div>
@@ -467,7 +462,7 @@ Figure 10.7: Example of a focal operation where the kernel is defined by a Gauss
 <div class="figure"><span id="fig:unnamed-chunk-10"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-10-1.png" alt="Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red." width="576" />
 <p class="caption">
-Figure 10.8: Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red.
+Figure 4.1: Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red.
 </p>
 </div>
 <p>This technique is often used with rasters derived from remotely sensed imagery (e.g. NDVI) where areal units (such as counties or states) are used to compute the average cell values from the raster.</p>
@@ -478,7 +473,7 @@ Figure 10.8: Example of a zonal operation where the cell values are averaged for
 <div class="figure"><span id="fig:unnamed-chunk-11"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-11-1.png" alt="Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer)." width="480" />
 <p class="caption">
-Figure 10.9: Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer).
+Figure 4.2: Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer).
 </p>
 </div>
 <p>Global operations and functions can also generate single value outputs such as the overall pixel mean or standard deviation.</p>
@@ -560,7 +555,7 @@ Figure 10.9: Example of a global function: the Euclidean distance. Each pixel is
 <div class="figure"><span id="fig:unnamed-chunk-12"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-12-1.png" alt="Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
 <p class="caption">
-Figure 10.10: Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
+Figure 4.3: Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
 </p>
 </div>
 <p>When assessing whether two cells are equal, some programming environments such as R and ArcMap’s <em>Raster Calculator</em> require the use of the <em>double equality</em> syntax, <code>==</code>, as in <code>R1 == R2</code>. In these programming environments, the single equality syntax is usually interpreted as an <em>assignment operator</em> so <code>R1 = R2</code> would instruct the computer to assign the cell values in R2 to R1 (which is not what we want to do here).</p>
@@ -608,13 +603,13 @@ Figure 10.10: Output of the operation R1&amp;R2. A value of 1 in the output rast
 <div class="figure"><span id="fig:unnamed-chunk-13"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-13-1.png" alt="Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. " width="480" />
 <p class="caption">
-Figure 10.11: Output of the operation <code>R1 AND R2</code>. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
+Figure 4.4: Output of the operation <code>R1 AND R2</code>. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
 </p>
 </div>
 <div class="figure"><span id="fig:unnamed-chunk-14"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-14-1.png" alt="Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0)." width="480" />
 <p class="caption">
-Figure 10.12: Output of the operation <code>NOT R2</code>. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0).
+Figure 4.5: Output of the operation <code>NOT R2</code>. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0).
 </p>
 </div>
 </div>
@@ -627,7 +622,7 @@ Figure 10.12: Output of the operation <code>NOT R2</code>. A value of 1 in the o
 <div class="figure"><span id="fig:unnamed-chunk-15"></span>
 <img src="10-Map-Algebra_files/figure-html/unnamed-chunk-15-1.png" alt="Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
 <p class="caption">
-Figure 10.13: Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
+Figure 7.3: Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
 </p>
 </div>
 
@@ -656,6 +651,7 @@ Figure 10.13: Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": false,
 "twitter": false,
 "google": false,

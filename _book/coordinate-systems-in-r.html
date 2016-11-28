@@ -8,7 +8,7 @@
   <title>Intro to GIS and Spatial Analysis</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -26,11 +26,6 @@
 <meta name="author" content="Manuel Gimond">
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -114,7 +109,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="1.2" data-path="introGIS.html"><a href="introGIS.html#what-is-spatial-analysis"><i class="fa fa-check"></i><b>1.2</b> What is Spatial Analysis?</a></li>
 <li class="chapter" data-level="1.3" data-path="introGIS.html"><a href="introGIS.html#whats-in-an-acronym"><i class="fa fa-check"></i><b>1.3</b> What’s in an Acronym?</a></li>
 </ul></li>
-<li class="part"><span><b>Working with spatial data</b></span></li>
+<li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
 <li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
@@ -210,7 +205,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="10.5.4" data-path="map-algebra.html"><a href="map-algebra.html#combining-operations"><i class="fa fa-check"></i><b>10.5.4</b> Combining operations</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Spatial Analysis</b></span></li>
+<li class="part"><span><b>II Spatial Analysis</b></span></li>
 <li class="chapter" data-level="11" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
 <li class="chapter" data-level="11.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
 <li class="chapter" data-level="11.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
@@ -254,7 +249,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Appendix</b></span></li>
+<li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
 <li class="chapter" data-level="14.2.3" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal"><i class="fa fa-check"></i><b>14.2.3</b> Reading a shapefile with <code>rgdal</code></a></li>
@@ -425,14 +420,14 @@ It has 5 fields</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
 <img src="img/ArcGIS_UTMNAD83.jpg" alt="An ArcGIS dataframe coordinate system properties window. Note the WKID/EPSG code of 26919 (highlighted in red) associated with the NAD 1983 UTM Zone 19 N CS." width="471" />
 <p class="caption">
-Figure 14.13: An ArcGIS dataframe coordinate system properties window. Note the WKID/EPSG code of 26919 (highlighted in red) associated with the NAD 1983 UTM Zone 19 N CS.
+Figure 2.5: An ArcGIS dataframe coordinate system properties window. Note the WKID/EPSG code of 26919 (highlighted in red) associated with the NAD 1983 UTM Zone 19 N CS.
 </p>
 </div>
 <p>That number can then be entered in <a href="http://spatialreference.org/ref/" class="uri">http://spatialreference.org/ref/</a>’s search box to pull the Proj4 parameters (note that you must select <strong>Proj4</strong> from the list of syntax options).</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
 <img src="img/EPSG_search.jpg" alt="Example of a search result for EPSG **26919** at [http://spatialreference.org/ref/](http://spatialreference.org/ref/). Note that after clicking the `EPSG:269191` link, you must then select the Proj4 syntax from a list of available syntaxes to view the projection parameters" width="420" />
 <p class="caption">
-Figure 14.14: Example of a search result for EPSG <strong>26919</strong> at <a href="http://spatialreference.org/ref/" class="uri">http://spatialreference.org/ref/</a>. Note that after clicking the <code>EPSG:269191</code> link, you must then select the Proj4 syntax from a list of available syntaxes to view the projection parameters
+Figure 2.6: Example of a search result for EPSG <strong>26919</strong> at <a href="http://spatialreference.org/ref/" class="uri">http://spatialreference.org/ref/</a>. Note that after clicking the <code>EPSG:269191</code> link, you must then select the Proj4 syntax from a list of available syntaxes to view the projection parameters
 </p>
 </div>
 <p>Here are examples of a few common projections:</p>
@@ -609,6 +604,7 @@ In .spTransform_Polygon(input[[i]], to_args = to_args, from_args = from_args,  :
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": false,
 "twitter": false,
 "google": false,

@@ -8,7 +8,7 @@
   <title>Intro to GIS and Spatial Analysis</title>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.1 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -26,11 +26,6 @@
 <meta name="author" content="Manuel Gimond">
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -114,7 +109,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="1.2" data-path="introGIS.html"><a href="introGIS.html#what-is-spatial-analysis"><i class="fa fa-check"></i><b>1.2</b> What is Spatial Analysis?</a></li>
 <li class="chapter" data-level="1.3" data-path="introGIS.html"><a href="introGIS.html#whats-in-an-acronym"><i class="fa fa-check"></i><b>1.3</b> What’s in an Acronym?</a></li>
 </ul></li>
-<li class="part"><span><b>Working with spatial data</b></span></li>
+<li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
 <li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
@@ -210,7 +205,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="10.5.4" data-path="map-algebra.html"><a href="map-algebra.html#combining-operations"><i class="fa fa-check"></i><b>10.5.4</b> Combining operations</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Spatial Analysis</b></span></li>
+<li class="part"><span><b>II Spatial Analysis</b></span></li>
 <li class="chapter" data-level="11" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
 <li class="chapter" data-level="11.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
 <li class="chapter" data-level="11.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
@@ -254,7 +249,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>Appendix</b></span></li>
+<li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
 <li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
 <li class="chapter" data-level="14.2.3" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal"><i class="fa fa-check"></i><b>14.2.3</b> Reading a shapefile with <code>rgdal</code></a></li>
@@ -382,7 +377,7 @@ code > span.in { color: #008000; } /* Information */
 <div class="figure"><span id="fig:unnamed-chunk-2"></span>
 <img src="img/lat_vs_lon.png" alt="Examples of latitudinal lines are shown on the left and examples of longitudinal lines are shown on the right. The 0&deg; degree reference lines for each are shown in red (equator for latitudinal measurements and prime meridian for longitudinal measurements)." width="314" />
 <p class="caption">
-Figure 9.1: Examples of latitudinal lines are shown on the left and examples of longitudinal lines are shown on the right. The 0° degree reference lines for each are shown in red (equator for latitudinal measurements and prime meridian for longitudinal measurements).
+Figure 2.2: Examples of latitudinal lines are shown on the left and examples of longitudinal lines are shown on the right. The 0° degree reference lines for each are shown in red (equator for latitudinal measurements and prime meridian for longitudinal measurements).
 </p>
 </div>
 <p>A latitude measures the angle from the equatorial plane to the location on the earth’s surface. A longitude measurement measures the angle between the prime meridian plane to the location of the earth’s surface. For example Colby College is located at around 45.56° North and 69.66° West. In a GIS system, the North-South and East-West directions are encoded as signs. North and East are assigned a positive (<span class="math inline">\(+\)</span>) sign and South and West are assigned a negative (<span class="math inline">\(-\)</span>) sign. Colby College’s location is therefore encoded as +45.56° and -69.66°.</p>
@@ -396,7 +391,7 @@ Figure 9.1: Examples of latitudinal lines are shown on the left and examples of 
 <div class="figure"><span id="fig:unnamed-chunk-5"></span>
 <img src="img/globe_0_0_center.svg" alt="The earth can be mathematically modeled as a simple sphere (left) or an ellipsoid (right)."  /><img src="img/globe_0_0_center_wide.svg" alt="The earth can be mathematically modeled as a simple sphere (left) or an ellipsoid (right)."  />
 <p class="caption">
-Figure 9.2: The earth can be mathematically modeled as a simple sphere (left) or an ellipsoid (right).
+Figure 2.3: The earth can be mathematically modeled as a simple sphere (left) or an ellipsoid (right).
 </p>
 </div>
 <p>Our estimate of these radii is quite precise thanks to satellite and computational capabilities. The semi-major axis is 6,378,137 meters and the semi-minor axis 6,356,752 meters.</p>
@@ -404,7 +399,7 @@ Figure 9.2: The earth can be mathematically modeled as a simple sphere (left) or
 <div class="figure"><span id="fig:unnamed-chunk-6"></span>
 <img src="img/Ellipsoid_vs_sphere_distances.svg" alt="Differences in surface distance measurements between a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0&deg; meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90&deg; north (along the prime meridian) to a range of latitudinal locations along the 45&deg; meridian."  />
 <p class="caption">
-Figure 9.3: Differences in surface distance measurements between a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0° meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90° north (along the prime meridian) to a range of latitudinal locations along the 45° meridian.
+Figure 2.4: Differences in surface distance measurements between a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0° meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90° north (along the prime meridian) to a range of latitudinal locations along the 45° meridian.
 </p>
 </div>
 </div>
@@ -414,7 +409,7 @@ Figure 9.3: Differences in surface distance measurements between a sphere and an
 <div class="figure"><span id="fig:unnamed-chunk-7"></span>
 <img src="img/Geoids_sm_NASA.jpg" alt="Earth's geoid with gravitational field shown in rainbow colors. The ondulations depicted in the graphics are exaggerated for visual effects. (source: NASA)" width="300" />
 <p class="caption">
-Figure 9.4: Earth’s geoid with gravitational field shown in rainbow colors. The ondulations depicted in the graphics are exaggerated for visual effects. (source: NASA)
+Figure 2.5: Earth’s geoid with gravitational field shown in rainbow colors. The ondulations depicted in the graphics are exaggerated for visual effects. (source: NASA)
 </p>
 </div>
 <p>The earth’s gravitational field is dynamic and is tied to the flow of the earth’s hot and fluid core. Hence its geoid is constantly changing, albeit at a large temporal scale.The measurement and representation of the earth’s shape is at the heart of geodesy–a branch of applied mathematics.</p>
@@ -511,7 +506,7 @@ Figure 9.4: Earth’s geoid with gravitational field shown in rainbow colors. Th
 <div class="figure"><span id="fig:unnamed-chunk-10"></span>
 <img src="img/GCS_diff_coord_values.png" alt="Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems." width="400" />
 <p class="caption">
-Figure 9.5: Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems.
+Figure 4.1: Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems.
 </p>
 </div>
 </div>
@@ -529,7 +524,7 @@ Figure 9.5: Three points, each representing the same location but recorded in th
 <div class="figure"><span id="fig:unnamed-chunk-13"></span>
 <img src="img/Planar_Examples.svg" alt="Examples of three planar projections: orthographic (left), gnomonic (center) and equidistant (right). Each covers a different spatial range (with the latter covering both northern and southern hemispheres) and each preserves a unique set of spatial properties." width="600" />
 <p class="caption">
-Figure 9.6: Examples of three planar projections: orthographic (left), gnomonic (center) and equidistant (right). Each covers a different spatial range (with the latter covering both northern and southern hemispheres) and each preserves a unique set of spatial properties.
+Figure 4.4: Examples of three planar projections: orthographic (left), gnomonic (center) and equidistant (right). Each covers a different spatial range (with the latter covering both northern and southern hemispheres) and each preserves a unique set of spatial properties.
 </p>
 </div>
 </div>
@@ -544,7 +539,7 @@ Figure 9.6: Examples of three planar projections: orthographic (left), gnomonic 
 <div class="figure"><span id="fig:unnamed-chunk-16"></span>
 <img src="img/Cylindrical_Examples.svg" alt="Examples of two cylindrical projections: Mercator (preserves shape but distortes area and distance) and equa-area (preserves area but distorts shape)." width="600" />
 <p class="caption">
-Figure 9.7: Examples of two cylindrical projections: Mercator (preserves shape but distortes area and distance) and equa-area (preserves area but distorts shape).
+Figure 7.4: Examples of two cylindrical projections: Mercator (preserves shape but distortes area and distance) and equa-area (preserves area but distorts shape).
 </p>
 </div>
 </div>
@@ -559,7 +554,7 @@ Figure 9.7: Examples of two cylindrical projections: Mercator (preserves shape b
 <div class="figure"><span id="fig:unnamed-chunk-19"></span>
 <img src="img/Conical_Examples.svg" alt="Examples of three conical projections: Albers equal area (preserves area), equidistant (preserves distance) and conformal (preserves shape)." width="600" />
 <p class="caption">
-Figure 9.8: Examples of three conical projections: Albers equal area (preserves area), equidistant (preserves distance) and conformal (preserves shape).
+Figure 9.1: Examples of three conical projections: Albers equal area (preserves area), equidistant (preserves distance) and conformal (preserves shape).
 </p>
 </div>
 </div>
@@ -603,6 +598,7 @@ Figure 9.8: Examples of three conical projections: Albers equal area (preserves 
 require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": false,
 "twitter": false,
 "google": false,

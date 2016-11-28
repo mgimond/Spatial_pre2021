@@ -61,9 +61,15 @@ Thiessen's method was very practical in his days when computers did not exist. B
 
 ### Inverse Distance Weighted (IDW)
 
-The IDW technique computes an average value for unsampled locations using values from nearby weighted locations. The weights are proportional to the proximity of the sampled points to the unsampled location and can be specified by the IDW power coefficient. 
+The IDW technique computes an average value for unsampled locations using values from nearby weighted locations. The weights are proportional to the proximity of the sampled points to the unsampled location and can be specified by the IDW power coefficient. The larger the power coefficient, the stronger the weight of nearby points as can be gleaned from the following equation that estimates the value $z$ at an unsampled location $j$:
 
-In the following figure, the sampled points and values are superimposed on top of the (IDW) interpolated raster for reference.
+
+$$
+\hat{Z_j} = \frac{\sum_i{Z_i/d^n_{ij}}}{\sum_i{1/d^n_{ij}}}
+$$
+The carat $\hat{}$ above the variable $z$ reminds us that we are estimating the value at $j$. The parameter $n$ is the weight parameter that is applied as an exponent to the distance thus amplifying the irrelevance of a point at location $i$ as distance to $j$ increases. So a large $n$ results in nearby points wielding a much greater influence on the unsampled location than a point further away resulting in an interpolated output looking like a Thiessen interpolation. On the other hand, a very small value of $n$ will give all points within the search radius equal weight such that all unsampled locations will represent nothing more than the mean values of all sampled points within the search radius. 
+
+In the following figure, the sampled points and values are superimposed on top of an (IDW) interpolated raster generated with a $n$ value of `2`.
 
 ```{r echo=FALSE, message=FALSE, results='hide',  fig.height=3.3,  cache=FALSE, fig.cap="An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 2 was used in this example."}
 library(gstat) # Use gstat's idw routine
@@ -92,7 +98,31 @@ tm_shape(r.m) + tm_raster(n=10, palette="RdBu", auto.palette.mapping=FALSE, titl
   tm_legend(legend.outside=TRUE)
 ```
 
-IDW interpolation is probably one of the most widely used interpolators because of its simplicity. In many cases, it can do an adequate job. However, the choice of power can be quite subjective. There is another class of interpolators that makes use of the information provided to us by the sample points--more specifically, information pertaining to 1st and 2nd order behavior.
+In the following example, an $n$ value of `15` is used to interpolate precipitation. This results in nearby points having greater influence on the unsampled locations. Note the similarity in output to the proximity (Thiessen) interpolation.
+
+```{r echo=FALSE, message=FALSE, results='hide',  fig.height=3.3,  cache=FALSE, fig.cap="An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 15 was used in this example."}
+
+# Create an empty grid where n is the total number of cells
+grd              <- as.data.frame(spsample(P, "regular", n=50000))
+names(grd)       <- c("X", "Y")
+coordinates(grd) <- c("X", "Y")
+gridded(grd)     <- TRUE  # Create SpatialPixel object
+fullgrid(grd)    <- TRUE  # Create SpatialGrid object
+proj4string(grd) <- proj4string(P)
+
+# Interpolate the surface using a power value of 15 (idp=15)
+P.idw <- gstat::idw(Precip_in ~ 1,P,newdata=grd,idp=15)
+
+# Convert to raster object then clip to Texas
+r       <- raster(P.idw)
+r.m     <- mask(r, W)
+
+# Plot
+tm_shape(r.m) + tm_raster(n=10, palette="RdBu", auto.palette.mapping=FALSE, title="Predicted precip") +
+  tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+```
+
 
 ### Fine tuning the interpolation parameters
 
@@ -114,7 +144,7 @@ We can create a scatterplot of the predicted vs. expected precipitation values f
 # Leave-one-out validation routine
 IDW.out <- vector(length = length(P))
 for (i in 1:length(P)) {
-  IDW.out[i] <- idw(Precip_in ~ 1, P[-i,], P[i,], idp=2.0)$var1.pred
+  IDW.out[i] <- gstat::idw(Precip_in ~ 1, P[-i,], P[i,], idp=2.0)$var1.pred
 }
 
 # Plot differences
@@ -175,6 +205,7 @@ tm_shape(r.m) + tm_raster(n=7, title="95% confidence interval (in inches)") +tm_
 
 ```
 
+IDW interpolation is probably one of the most widely used interpolators because of its simplicity. In many cases, it can do an adequate job. However, the choice of power remains subjective. There is another class of interpolators that makes use of the information provided to us by the sample points--more specifically, information pertaining to 1st and 2nd order behavior. These interpolators are covered next.
 
 
 ## Statistical Approach to Interpolation
