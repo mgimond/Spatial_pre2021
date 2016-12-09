@@ -22,13 +22,13 @@ Note that in some programming environments (such as R and Python), the equality 
 
 For example, if you have a GIS layer of major cities and you want to identify all census tracts having a population count greater than 50000, you would write the expression as `"POP" > 50000` (of course, this assumes that the attribute field name for population count is `POP`).
 
-```{r echo=FALSE, fig.cap = "An example of *selection by attributes* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.", out.width=358}
+```{r f08-sel1, echo=FALSE, fig.cap = "An example of *selection by attributes* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.", out.width=358}
 
 knitr::include_graphics("img/Select_attribute_1.jpg")
 ```
 
 
-```{r echo=FALSE, fig.cap = "Selected cities meeting the criterion are shown in cyan color."}
+```{r f08-sel1-result, echo=FALSE, fig.cap = "Selected cities meeting the criterion are shown in cyan color."}
 knitr::include_graphics("img/Select_cities.svg")
 ```
 
@@ -46,7 +46,7 @@ You can combine conditions from set algebra operations using the following Boole
 Following up with the last example, let's now select cities having a population greater than 50000 and that are in the US (and not Canada or Mexico). Assuming that the country field is labeled `FIPS_CNTRY` we could setup the expression as `"POP" > 50000 AND "FIPS_CNTRY" = US`. Note that a value need not be numeric. In this example we are asking that an attribute value equal a specific string value (i.e. that it equal the string `'US'`).
 
 
-```{r echo=FALSE, fig.cap = "Selected cities meeting *both* criteria are shown in cyan color."}
+```{r f08-sel2, echo=FALSE, fig.cap = "Selected cities meeting `POP > 50000` AND `FIPS_CNTRY == US` criteria are shown in cyan color."}
 knitr::include_graphics("img/Select_cities_2.svg")
 ```
 
@@ -56,13 +56,13 @@ We can also select features from *one* GIS layer based on their spatial associat
 
 Continuing with our working example, we might be interested in cities that are within 100 miles of recent earthquakes. The earthquake points are from another GIS layer called `Earthquakes (Sep 2013)`. 
 
-```{r echo=FALSE, fig.cap = "An example of a *selection by location* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.", out.width=420}
+```{r f08-loc1, echo=FALSE, fig.cap = "An example of a *selection by location* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.", out.width=420}
 
 knitr::include_graphics("img/Select_location_1.jpg")
 ```
 
 
-```{r echo=FALSE, fig.cap = "Selected cities meeting the criterion are shown in cyan color.", out.width=300}
+```{r f08-loc1-map, echo=FALSE, fig.cap = "Selected cities meeting the criterion are shown in cyan color.", out.width=300}
 knitr::include_graphics("img/Cities_earthquakes.svg")
 ```
 

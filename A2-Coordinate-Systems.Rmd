@@ -70,14 +70,14 @@ Note that we do not need to define all of the parameters so long as we know that
 
 To recreate a CS defined in a piece of software such as ArcGIS, it is best to extract the CS' **WKID/EPSG** code then use that number to lookup the PROJ4 syntax on [http://spatialreference.org/ref/](http://spatialreference.org/ref/). For example, in ArcGIS, the WKID number can be extracted from the coordinate system properties output. 
 
-```{r echo=FALSE, fig.cap = "An ArcGIS dataframe coordinate system properties window. Note the WKID/EPSG code of 26919 (highlighted in red) associated with the NAD 1983 UTM Zone 19 N CS.", fig.align='center', out.width=471}
+```{r fA2-arcgis, echo=FALSE, fig.cap = "An ArcGIS dataframe coordinate system properties window. Note the WKID/EPSG code of 26919 (highlighted in red) associated with the NAD 1983 UTM Zone 19 N CS.", fig.align='center', out.width=471}
 
 knitr::include_graphics("img/ArcGIS_UTMNAD83.jpg")
 ```
 
 That number can then be entered in [http://spatialreference.org/ref/](http://spatialreference.org/ref/)'s search box to pull the Proj4 parameters (note that you must select **Proj4** from the list of syntax options).
 
-```{r echo=FALSE, fig.cap = "Example of a search result for EPSG **26919** at [http://spatialreference.org/ref/](http://spatialreference.org/ref/). Note that after clicking the `EPSG:269191` link, you must then select the Proj4 syntax from a list of available syntaxes to view the projection parameters", fig.align='center', out.width=420}
+```{r fA2-epsg, echo=FALSE, fig.cap = "Example of a search result for EPSG **26919** at [http://spatialreference.org/ref/](http://spatialreference.org/ref/). Note that after clicking the `EPSG:269191` link, you must then select the Proj4 syntax from a list of available syntaxes to view the projection parameters", fig.align='center', out.width=420}
 
 knitr::include_graphics("img/EPSG_search.jpg")
 ```

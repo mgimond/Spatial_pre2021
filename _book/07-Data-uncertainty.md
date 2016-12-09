@@ -12,8 +12,8 @@ Many census datasets such as the U.S. Census Bureau's American Community Survey 
 One approach to mapping both estimates *and* SE's is to display both as side-by-side maps.
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-3-1.png" alt="Maps of income estimates (left) and associated standard errors (right)." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-3)Maps of income estimates (left) and associated standard errors (right).</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-map1-1.png" alt="Maps of income estimates (left) and associated standard errors (right)." width="672" />
+<p class="caption">(\#fig:f07-map1)Maps of income estimates (left) and associated standard errors (right).</p>
 </div>
 
 While there is nothing inherently wrong in doing this, it can prove to be difficult to mentally process the two maps, particularly if the data consists of hundreds or thousands of small polygons.
@@ -22,14 +22,14 @@ Another approach is to overlay the measure of uncertainty (SE or MoE) as a textu
 
 <div class="figure">
 <img src="img/Income_and_uncertainty.jpg" alt="Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE." width="400" />
-<p class="caption">(\#fig:unnamed-chunk-4)Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE.</p>
+<p class="caption">(\#fig:f07-map2)Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE.</p>
 </div>
 
 Or, one could map both ends of the MoE range side by side.
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-5-1.png" alt="Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right)." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-5)Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right).</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-map-MoE-1.png" alt="Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right)." width="672" />
+<p class="caption">(\#fig:f07-map-MoE)Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right).</p>
 </div>
 
 
@@ -39,16 +39,16 @@ Attempting to convey uncertainty using the aforementioned maps fails to highligh
 Let's look at a bar plot of our estimates.
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-6-1.png" alt="Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-6)Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges.</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-MoE-plot1-1.png" alt="Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges." width="480" />
+<p class="caption">(\#fig:f07-MoE-plot1)Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges.</p>
 </div>
 
 Note, for example, how Piscataquis county's income estimate (grey point in the graphic) is lower than that of Oxford county. If another sample of the population was surveyed in each county, the new estimates could place Piscataquis *above* Oxford county in income rankings as shown in the following example:
 
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-7-1.png" alt="Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-7)Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot.</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-sim-values-1.png" alt="Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot." width="480" />
+<p class="caption">(\#fig:f07-sim-values)Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot.</p>
 </div>
 
 Note how, in this sample, Oxford's income drops in ranking below that of Piscataquis. A similar change in ranking could occur for York county which drops down *two* counties (Hancock and Lincoln).
@@ -56,15 +56,15 @@ Note how, in this sample, Oxford's income drops in ranking below that of Piscata
 How does the *estimated income* map compare with the *simulated income* map?
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-8-1.png" alt="Original income estimate (left) and realization of a simulated sample (right)." width="864" />
-<p class="caption">(\#fig:unnamed-chunk-8)Original income estimate (left) and realization of a simulated sample (right).</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-sim-map-1.png" alt="Original income estimate (left) and realization of a simulated sample (right)." width="864" />
+<p class="caption">(\#fig:f07-sim-map)Original income estimate (left) and realization of a simulated sample (right).</p>
 </div>
 
 A few more simulated samples (using the 90% confidence interval) are shown below:
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-9-1.png" alt="Original income estimate (left) and realizations from simulated samples (R1 through R5)." width="960" />
-<p class="caption">(\#fig:unnamed-chunk-9)Original income estimate (left) and realizations from simulated samples (R1 through R5).</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-5sim-maps-1.png" alt="Original income estimate (left) and realizations from simulated samples (R1 through R5)." width="960" />
+<p class="caption">(\#fig:f07-5sim-maps)Original income estimate (left) and realizations from simulated samples (R1 through R5).</p>
 </div>
 
 ## Class comparison maps 
@@ -98,8 +98,8 @@ Data uncertainty issues do not only affect choropleth map presentations but also
 
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-13-1.png" alt="Regression between percent not having completed any school grade and median per capita income for each county." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-13)Regression between percent not having completed any school grade and median per capita income for each county.</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-regression1-1.png" alt="Regression between percent not having completed any school grade and median per capita income for each county." width="672" />
+<p class="caption">(\#fig:f07-regression1)Regression between percent not having completed any school grade and median per capita income for each county.</p>
 </div>
 
 The $R^2$ value associated with this regression analysis is 0.2 and the p-value is 0.081.
@@ -109,15 +109,15 @@ But another realization of the survey could produce the following output:
 
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-15-1.png" alt="Example of what a regression line could look like had another sample been surveyed for each county." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-15)Example of what a regression line could look like had another sample been surveyed for each county.</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-regression2-1.png" alt="Example of what a regression line could look like had another sample been surveyed for each county." width="672" />
+<p class="caption">(\#fig:f07-regression2)Example of what a regression line could look like had another sample been surveyed for each county.</p>
 </div>
 
 With this new (simulated) sample, the $R^2$ value dropped to 0.07 and the p-value is now 0.322--a much less significant relationship then computed with the original estimate! In fact, if we were to survey  1000 different samples within each county we would get the following range of regression lines:
 
 <div class="figure">
-<img src="07-Data-uncertainty_files/figure-html/unnamed-chunk-16-1.png" alt="A range of regression lines computed from different samples from each county." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-16)A range of regression lines computed from different samples from each county.</p>
+<img src="07-Data-uncertainty_files/figure-html/f07-regression-envelope-1.png" alt="A range of regression lines computed from different samples from each county." width="672" />
+<p class="caption">(\#fig:f07-regression-envelope)A range of regression lines computed from different samples from each county.</p>
 </div>
 
 These overlapping lines define a *type* of confidence interval (aka confidence envelope). In other words, the true regression line between both variables lies somewhere within the dark region delineated by this interval.

@@ -13,15 +13,15 @@ Local operations and functions are applied to each individual cell and only invo
 For example, if we start off with an original raster, then multiply it by 2 then add 1, we get a new raster whose cell values reflect the series of operations performed on the original raster cells. This is an example of a **unary** operation where just one single raster is involved in the operation.
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-3-1.png" alt="Example of a local operation where  `output=(2 * raster + 1)`." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-3)Example of a local operation where  `output=(2 * raster + 1)`.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-local01-1.png" alt="Example of a local operation where  `output=(2 * raster + 1)`." width="480" />
+<p class="caption">(\#fig:f10-local01)Example of a local operation where  `output=(2 * raster + 1)`.</p>
 </div>
 
 More than one raster can be involved in a local operation. For example, two rasters can be summed (i.e. each overlapping pixels are summed) to generate a new raster.
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-4-1.png" alt="Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-4)Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-local02-1.png" alt="Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location." width="672" />
+<p class="caption">(\#fig:f10-local02)Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location.</p>
 </div>
 
 
@@ -35,8 +35,8 @@ Original values | Reclassified values
 76-100 | 100
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-5-1.png" alt="Example of a local operation where the output results from the reclassification of input values." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-5)Example of a local operation where the output results from the reclassification of input values.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-local03-1.png" alt="Example of a local operation where the output results from the reclassification of input values." width="480" />
+<p class="caption">(\#fig:f10-local03)Example of a local operation where the output results from the reclassification of input values.</p>
 </div>
 
 ## Focal operations and functions
@@ -47,29 +47,29 @@ Original values | Reclassified values
 Focal operations assign to the output cells some summary value (such as the mean) of the neighboring cells from the input raster. For example, a cell output value can be the average of all 9 neighboring input cells (including the center cell); this acts as a *smoothing function*.
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-6-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-6)Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-focal01-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA." width="480" />
+<p class="caption">(\#fig:f10-focal01)Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.</p>
 </div>
 
 Notice how, in the above example, the edge cells from the output raster have been assigned a value of `NA` (No Data). This is because cells outside of the extent have no value. Some GIS applications will ignore the missing surrounding values and just compute the average of the available cells as demonstrated in the next example.
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-7-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-7)Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-focal02-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored." width="480" />
+<p class="caption">(\#fig:f10-focal02)Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored.</p>
 </div>
 
 Focal (or neighbor) operations require that a window region (a **kernel**) be defined. In the above examples, a simple 3 by 3 kernel (or window) was used in the focal operations. The kernel can take on different dimensions and shape such as a 3 by 3 square where the central pixel is ignored (thus reducing the number of neighbors to 8) or a circular neighbor defined by a radius.
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-8-1.png" alt="Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. " width="480" />
-<p class="caption">(\#fig:unnamed-chunk-8)Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. </p>
+<img src="10-Map-Algebra_files/figure-html/f10-focal03-1.png" alt="Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. " width="480" />
+<p class="caption">(\#fig:f10-focal03)Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. </p>
 </div>
 
 In addition to defining the neighborhood shape and dimension, a kernel also defines the weight each neighboring cell contributes to the summary statistic. For example, all cells in a 3 by 3 neighbor could each contribute 1/9^th^ of their value to the summarized value (i.e. equal weight). But the weight can take on a more complex form defined by a function; such weights are defined by a **kernel function**. One popular function is a **Gaussian** weighted function which assigns greater weight to nearby cells than those further away.
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-9-1.png" alt="Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-9)Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-focal04-1.png" alt="Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight." width="480" />
+<p class="caption">(\#fig:f10-focal04)Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight.</p>
 </div>
 
 ## Zonal operations and functions
@@ -77,8 +77,8 @@ In addition to defining the neighborhood shape and dimension, a kernel also defi
 A zonal operation computes a new summary value (such as the mean) from cells aggregated for some zonal unit. In the following example, the cell values from the raster layer are aggregated into three zones whose boundaries are delineated in red. Each output zone shows the average cell value within that zone.
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-10-1.png" alt="Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red." width="576" />
-<p class="caption">(\#fig:unnamed-chunk-10)Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-zonal01-1.png" alt="Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red." width="576" />
+<p class="caption">(\#fig:f10-zonal01)Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red.</p>
 </div>
 
 This technique is often used with rasters derived from remotely sensed imagery (e.g. NDVI) where areal units (such as counties or states) are used to compute the average cell values from the raster.
@@ -88,8 +88,8 @@ This technique is often used with rasters derived from remotely sensed imagery (
 Global operations and functions may make use of some or all input cells when computing an output cell value. An example of a global function is the *Euclidean Distance* tool which computes the shortest distance between a pixel and a source (or destination) location. In the following example, a new raster assigns to each cell a distance value to the closest cell having a value of 1 (there are just two such cells in the input raster).
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-11-1.png" alt="Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer)." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-11)Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer).</p>
+<img src="10-Map-Algebra_files/figure-html/f10-global01-1.png" alt="Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer)." width="480" />
+<p class="caption">(\#fig:f10-global01)Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer).</p>
 </div>
 
 Global operations and functions can also generate single value outputs such as the overall pixel mean or standard deviation.
@@ -126,8 +126,8 @@ Not equal	         | `!=`
 For example, the following figure shows the output of the comparison between two rasters where we are assessing if cells in `R1` are *greater than* those in `R2` (on a cell-by-cell basis).
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-12-1.png" alt="Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-12)Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-logical01-1.png" alt="Output of the operation R1&amp;amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
+<p class="caption">(\#fig:f10-logical01)Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.</p>
 </div>
 
 When assessing whether two cells are equal, some programming environments such as R and ArcMap's *Raster Calculator* require the use of the *double equality* syntax, `==`, as in `R1 == R2`. In these programming environments, the single equality syntax is usually interpreted as an *assignment operator* so `R1 = R2` would instruct the computer to assign the cell values in R2 to R1 (which is not what we want to do here). 
@@ -156,13 +156,13 @@ For example, if `cell1=0` and `cell2=1`, the Boolean operation `cell1 AND cell2`
 
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-13-1.png" alt="Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. " width="480" />
-<p class="caption">(\#fig:unnamed-chunk-13)Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. </p>
+<img src="10-Map-Algebra_files/figure-html/f10-boolean01-1.png" alt="Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. " width="480" />
+<p class="caption">(\#fig:f10-boolean01)Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. </p>
 </div>
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-14-1.png" alt="Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0)." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-14)Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0).</p>
+<img src="10-Map-Algebra_files/figure-html/f10-boolean02-1.png" alt="Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0)." width="480" />
+<p class="caption">(\#fig:f10-boolean02)Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0).</p>
 </div>
 
 ### Combining operations
@@ -170,10 +170,10 @@ For example, if `cell1=0` and `cell2=1`, the Boolean operation `cell1 AND cell2`
 > Note that most software environments assign the AND Boolean operator the ampersand character, `&`.
 
 
-Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: $0<R1<4$  and $R2>0$. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a 0 (FALSE) or a 1(TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses if R2>0 is TRUE or FALSE. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
+Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: $0<R1<4$  and $R2>0$. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a `0` (FALSE) or a `1` (TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses if R2>0 is TRUE or FALSE. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
   
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/unnamed-chunk-15-1.png" alt="Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-15)Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-combining01-1.png" alt="Output of the operation ((R1&amp;gt;0) &amp;amp; (R1&amp;lt;4)) &amp;amp; (R2&amp;gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
+<p class="caption">(\#fig:f10-combining01)Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.</p>
 </div>
  

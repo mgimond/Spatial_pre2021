@@ -34,7 +34,7 @@ Local operations and functions are applied to each individual cell and only invo
 
 For example, if we start off with an original raster, then multiply it by 2 then add 1, we get a new raster whose cell values reflect the series of operations performed on the original raster cells. This is an example of a **unary** operation where just one single raster is involved in the operation.
 
-```{r echo=FALSE, fig.cap = "Example of a local operation where  `output=(2 * raster + 1)`.", fig.width=5, fig.height=3}
+```{r f10-local01, echo=FALSE, fig.cap = "Example of a local operation where  `output=(2 * raster + 1)`.", fig.width=5, fig.height=3}
 
 l1 <- r * 2 + 1   # Apply basic operations to r, assign output to l1
  
@@ -46,7 +46,7 @@ gp(sg,1)
 
 More than one raster can be involved in a local operation. For example, two rasters can be summed (i.e. each overlapping pixels are summed) to generate a new raster.
 
-```{r echo=FALSE, fig.cap = "Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location.", fig.width=7, fig.height=3}
+```{r f10-local02, echo=FALSE, fig.cap = "Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location.", fig.width=7, fig.height=3}
 l2 <- r - r + runif(length(r), 0,10)   # Apply basic operations to r, assign output to l1
 l3 <- r + l2 
 sg = stack(r,l2,l3) 
@@ -64,7 +64,7 @@ Original values | Reclassified values
 51-75 | 75
 76-100 | 100
 
-```{r echo=FALSE, fig.cap = "Example of a local operation where the output results from the reclassification of input values.", message=FALSE, warning=FALSE, fig.height=2.9, fig.width=5}
+```{r f10-local03, echo=FALSE, fig.cap = "Example of a local operation where the output results from the reclassification of input values.", message=FALSE, warning=FALSE, fig.height=2.9, fig.width=5}
 
 m    = c(0, 25, 25,  25, 50, 50,  50, 75,  75, 75, 100, 100)
 m    = matrix(m, ncol=3, byrow = T)
@@ -85,7 +85,7 @@ gp(sg,1)
 
 Focal operations assign to the output cells some summary value (such as the mean) of the neighboring cells from the input raster. For example, a cell output value can be the average of all 9 neighboring input cells (including the center cell); this acts as a *smoothing function*.
 
-```{r echo=FALSE, fig.cap = "Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.", message=FALSE, warning=FALSE, fig.height=2.9, fig.width=5}
+```{r f10-focal01, echo=FALSE, fig.cap = "Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.", message=FALSE, warning=FALSE, fig.height=2.9, fig.width=5}
 
 r2 = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
 set.seed(123)
@@ -100,7 +100,7 @@ gp(sg,1,"%2.1f")
 
 Notice how, in the above example, the edge cells from the output raster have been assigned a value of `NA` (No Data). This is because cells outside of the extent have no value. Some GIS applications will ignore the missing surrounding values and just compute the average of the available cells as demonstrated in the next example.
 
-```{r echo=FALSE, fig.cap = "Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored.", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
+```{r f10-focal02, echo=FALSE, fig.cap = "Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored.", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
 
 r2 = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
 set.seed(123)
@@ -115,7 +115,7 @@ gp(sg,1,"%2.1f")
 
 Focal (or neighbor) operations require that a window region (a **kernel**) be defined. In the above examples, a simple 3 by 3 kernel (or window) was used in the focal operations. The kernel can take on different dimensions and shape such as a 3 by 3 square where the central pixel is ignored (thus reducing the number of neighbors to 8) or a circular neighbor defined by a radius.
 
-```{r echo=FALSE, fig.cap = "Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. ", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
+```{r f10-focal03, echo=FALSE, fig.cap = "Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. ", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
 
 r2 = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
 set.seed(123)
@@ -131,7 +131,7 @@ gp(sg,1,"%2.1f")
 
 In addition to defining the neighborhood shape and dimension, a kernel also defines the weight each neighboring cell contributes to the summary statistic. For example, all cells in a 3 by 3 neighbor could each contribute 1/9^th^ of their value to the summarized value (i.e. equal weight). But the weight can take on a more complex form defined by a function; such weights are defined by a **kernel function**. One popular function is a **Gaussian** weighted function which assigns greater weight to nearby cells than those further away.
 
-```{r echo=FALSE, fig.cap = "Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight.", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
+```{r f10-focal04, echo=FALSE, fig.cap = "Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight.", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
 
 r2 = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100)
 set.seed(123)
@@ -149,7 +149,7 @@ gp(sg,1,"%2.1f")
 
 A zonal operation computes a new summary value (such as the mean) from cells aggregated for some zonal unit. In the following example, the cell values from the raster layer are aggregated into three zones whose boundaries are delineated in red. Each output zone shows the average cell value within that zone.
 
-```{r echo=FALSE, fig.cap = "Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red.", message=FALSE, warning=FALSE, fig.height=3.5, fig.width=6}
+```{r f10-zonal01, echo=FALSE, fig.cap = "Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red.", message=FALSE, warning=FALSE, fig.height=3.5, fig.width=6}
 
 library(gridExtra)
 library(broom)
@@ -199,7 +199,7 @@ This technique is often used with rasters derived from remotely sensed imagery (
 
 Global operations and functions may make use of some or all input cells when computing an output cell value. An example of a global function is the *Euclidean Distance* tool which computes the shortest distance between a pixel and a source (or destination) location. In the following example, a new raster assigns to each cell a distance value to the closest cell having a value of 1 (there are just two such cells in the input raster).
 
-```{r echo=FALSE, fig.cap = "Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer).", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
+```{r f10-global01, echo=FALSE, fig.cap = "Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer).", message=FALSE, warning=FALSE, fig.height=3, fig.width=5}
 
 p           = raster(ncol=10, nrow=10, xmn=0, xmx=100, ymn=0, ymx=100) # Create an empty raster
 p[]         = NA  # Assign NoData values to all pixels
@@ -245,7 +245,7 @@ Not equal	         | `!=`
 
 For example, the following figure shows the output of the comparison between two rasters where we are assessing if cells in `R1` are *greater than* those in `R2` (on a cell-by-cell basis).
 
-```{r echo=FALSE, fig.cap = "Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.", fig.height=2, fig.width=5}
+```{r f10-logical01, echo=FALSE, fig.cap = "Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.", fig.height=2, fig.width=5}
 
 ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=100, ymx=9)
 ras2 <- ras1
@@ -287,7 +287,7 @@ NOT	    | `~`	   | `!` | `~R2`
 For example, if `cell1=0` and `cell2=1`, the Boolean operation `cell1 AND cell2` results in a `FALSE` (or 0) output cell value. This Boolean operation can be translated into plain English as "are the cells 1 and 2 both TRUE?" to which we answer "No they are not" (cell1 is FALSE). The **OR** operator can be interpreted as "is x *or* y TRUE?" so that `cell1 OR cell2` would return `TRUE`. The **NOT** interpreter can be interpreted as "is x not TRUE?" so that `NOT cell1` would return `TRUE`. 
 
 
-```{r echo=FALSE, fig.cap = "Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. ", fig.height=2, fig.width=5}
+```{r f10-boolean01, echo=FALSE, fig.cap = "Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. ", fig.height=2, fig.width=5}
  
 ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=100, ymx=9)
 ras2 <- ras1
@@ -304,7 +304,7 @@ gp(sg,1, sfmt="%2.0f", fnts=4)
  
 ```
 
-```{r echo=FALSE, fig.cap = "Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0).", fig.height=2, fig.width=5}
+```{r f10-boolean02, echo=FALSE, fig.cap = "Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0).", fig.height=2, fig.width=5}
  
 ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=100, ymx=9)
 ras2 <- ras1
@@ -326,9 +326,9 @@ gp(sg,1, sfmt="%2.0f", fnts=4)
 > Note that most software environments assign the AND Boolean operator the ampersand character, `&`.
 
 
-Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: $0<R1<4$  and $R2>0$. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a 0 (FALSE) or a 1(TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses if R2>0 is TRUE or FALSE. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
+Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: $0<R1<4$  and $R2>0$. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a `0` (FALSE) or a `1` (TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses if R2>0 is TRUE or FALSE. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
   
-```{r echo=FALSE, fig.height=2, fig.width=5, fig.cap = "Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false."}
+```{r f10-combining01, echo=FALSE, fig.height=2, fig.width=5, fig.cap = "Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false."}
 
 ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=100, ymx=9)
 ras2 <- ras1

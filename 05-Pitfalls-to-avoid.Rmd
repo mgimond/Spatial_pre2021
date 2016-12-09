@@ -70,14 +70,14 @@ knitr::include_graphics("img/raw_rates.png")
 
 Now let's look at the top 10% of counties with the highest death rates.
 
-```{r , echo=FALSE, fig.cap = "Top 10% of counties with the highest kidney cancer death rates.", out.width=466}
+```{r f05-kidney1, echo=FALSE, fig.cap = "Top 10% of counties with the highest kidney cancer death rates.", out.width=466}
 
 knitr::include_graphics("img/top10.png")
 ```
 
 And now let's look at the bottom 10% of counties with the lowest death rates.
 
-```{r , echo=FALSE, fig.cap = "Bottom 10% of counties with the lowest kidney cancer death rates.", out.width=451}
+```{r f05-kidney2, echo=FALSE, fig.cap = "Bottom 10% of counties with the lowest kidney cancer death rates.", out.width=451}
 
 knitr::include_graphics("img/bottom10.png")
 ```
@@ -86,21 +86,21 @@ A quick glance of these maps suggests clustering of high and low rates around th
 
 Let's first look at a population count map (note that we are purposely not normalizing the count data).
 
-```{r , echo=FALSE, fig.cap = "Population count for each county. Note that a quantile classification scheme is adopted force a large range of values to be assigned a single color swatch", out.width=504}
+```{r f05-kidney3, echo=FALSE, fig.cap = "Population count for each county. Note that a quantile classification scheme is adopted force a large range of values to be assigned a single color swatch", out.width=504}
 
 knitr::include_graphics("img/Population.png")
 ```
 
 The central part of the states where we are observing both very high and very low cancer death rates seem to have low population counts. Could population count have something to do with this odd congruence of high and low cancer rates? Let's explore the relationship between death rates and population counts outside of a GIS environment and focus solely on the two batches of numbers. The following plot is a scatterplot of death rates and population counts.
 
-```{r , echo=FALSE, fig.cap = "Plot of rates vs population counts. Note the skewed nature of both data batches.", out.width=300}
+```{r f05-kidney-plot, echo=FALSE, fig.cap = "Plot of rates vs population counts. Note the skewed nature of both data batches.", out.width=300}
 
 knitr::include_graphics("img/Rate_vs_pop.png")
 ```
 
 Transforming both variables reveals much more about the relationship between them. 
 
-```{r , echo=FALSE, fig.cap = "Plot of rates vs population counts on log scales.", out.width=300}
+```{r f05-kidney-plot-trans, echo=FALSE, fig.cap = "Plot of rates vs population counts on log scales.", out.width=300}
 knitr::include_graphics("img/Rate_vs_pop_log.png")
 ```
 
@@ -124,11 +124,11 @@ The variability in rates for smaller counties has decreased. The range of rate v
 
 Maps of the top 10% and bottom 10% EB smoothed rates are shown in the next two figures.
 
-```{r , echo=FALSE, fig.cap = "Top 10% of counties with the highest kidney cancer death rates using EB smoothing techniques.", out.width=466}
+```{r f05-top10-EB, echo=FALSE, fig.cap = "Top 10% of counties with the highest kidney cancer death rates using EB smoothing techniques.", out.width=466}
 knitr::include_graphics("img/top10EB.png")
 ```
 
-```{r , echo=FALSE, fig.cap = "Bottom 10% of counties with the lowest kidney cancer death rates using EB smoothing technique.", out.width=451}
+```{r f05-bottom10-EB, echo=FALSE, fig.cap = "Bottom 10% of counties with the lowest kidney cancer death rates using EB smoothing technique.", out.width=451}
 knitr::include_graphics("img/bottom10EB.png")
 ```
 

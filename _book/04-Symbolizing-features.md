@@ -11,8 +11,8 @@ Each color is a combination of three perceptual dimensions: **hue**, **lightness
 **Hue** is the perceptual dimension associated with color names. 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-2-1.png" alt="An example of eight different hues. Hues are associated with color names such as green, red or blue." width="288" />
-<p class="caption">(\#fig:unnamed-chunk-2)An example of eight different hues. Hues are associated with color names such as green, red or blue.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-hue-1.png" alt="An example of eight different hues. Hues are associated with color names such as green, red or blue." width="288" />
+<p class="caption">(\#fig:f04-hue)An example of eight different hues. Hues are associated with color names such as green, red or blue.</p>
 </div>
 
 Note that magentas and purples are not part of the natural visible light spectrum; instead they are a mix of reds and blues (or violets) from the spectrum's tail ends. Typically, we use different hues to represent different *categories* of data.
@@ -22,8 +22,8 @@ Note that magentas and purples are not part of the natural visible light spectru
 **Lightness** (sometimes referred to as *value*) describes how much light reflects (or is emitted) off of a surface. Lightness is an important dimension for representing ordinal/interval/ratio data. 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-3-1.png" alt="Eight different hues with decreasing lightness values." width="288" />
-<p class="caption">(\#fig:unnamed-chunk-3)Eight different hues with decreasing lightness values.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-lightness-1.png" alt="Eight different hues with decreasing lightness values." width="288" />
+<p class="caption">(\#fig:f04-lightness)Eight different hues with decreasing lightness values.</p>
 </div>
 
 ### Saturation
@@ -31,8 +31,8 @@ Note that magentas and purples are not part of the natural visible light spectru
 **Saturation** (sometimes referred to as *chroma*) is a measure of a color's vividness. You can use saturated colors to help distinguish map symbols. But be careful when manipulating saturation, its property should be modified sparingly in most maps. 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-4-1.png" alt="Eight different hues with decreasing saturation values." width="288" />
-<p class="caption">(\#fig:unnamed-chunk-4)Eight different hues with decreasing saturation values.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-saturation-1.png" alt="Eight different hues with decreasing saturation values." width="288" />
+<p class="caption">(\#fig:f04-saturation)Eight different hues with decreasing saturation values.</p>
 </div>
 
 
@@ -42,7 +42,7 @@ The three perceptual dimensions of color can be used to construct a 3D color spa
 
 <div class="figure">
 <img src="img/Color_space_std_small.jpg" alt="This is how the software defines the color space. But does this match our perception of color space?" width="192" />
-<p class="caption">(\#fig:unnamed-chunk-5)This is how the software defines the color space. But does this match our perception of color space?</p>
+<p class="caption">(\#fig:f04-color-space)This is how the software defines the color space. But does this match our perception of color space?</p>
 </div>
 
 The cone shape reflects the fact that as one decreases saturation, the distinction between different hues disappears leading to a grayscale color (the central axis of the cone). So if one sets the saturation value of a color to `0`, the hue ends up being some shade of grey.
@@ -53,24 +53,24 @@ Let's examine a slice of the symmetrical color space along the blue/yellow hue a
 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-6-1.png" alt="A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge." width="384" />
-<p class="caption">(\#fig:unnamed-chunk-6)A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-munsell-1.png" alt="A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge." width="384" />
+<p class="caption">(\#fig:f04-munsell)A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge.</p>
 </div>
 
 Now, how many distinct yellows can you make out? How many distinct blues can you make out? Do the numbers match? Unless you have incredible color perception, you will probably observe that the number of distinct colors do not match when in fact they do! There are exactly 30 distinct blues and 30 distinct yellows. Let's add a border to each color to convince ourselves that the software did indeed generate the same number of distinct colors.
 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-7-1.png" alt="A cross section of the color space with each color distinctly outlined." width="384" />
-<p class="caption">(\#fig:unnamed-chunk-7)A cross section of the color space with each color distinctly outlined.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-munsell-bis-1.png" alt="A cross section of the color space with each color distinctly outlined." width="384" />
+<p class="caption">(\#fig:f04-munsell-bis)A cross section of the color space with each color distinctly outlined.</p>
 </div>
 
 
 It should be clear by now that a symmetrical color space does not reflect the way we "perceive" colors. There are more rigorously designed color spaces such as **CIELAB** and **Munsell** that depict the color space as a non-symmetrical object as perceived by humans. For example, in a Munsell color space, a vertical slice of the cone along the blue/yellow axis looks like this.
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-8-1.png" alt="A slice of the Munsell color space." width="384" />
-<p class="caption">(\#fig:unnamed-chunk-8)A slice of the Munsell color space.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-munsell-slice-1.png" alt="A slice of the Munsell color space." width="384" />
+<p class="caption">(\#fig:f04-munsell-slice)A slice of the Munsell color space.</p>
 </div>
 
 Note that based on the Munsell color space, we can make out fewer yellows than blues across all lightness values. In fact, for these two hues, we can make out only 29 different shades of yellow (we do not include the gray levels where saturation = `0`) vs 36 shades of blue.
@@ -84,15 +84,15 @@ So how do we leverage our understanding of color spaces when choosing colors for
 Qualitative schemes are used to symbolize data having no inherent order (i.e. categorical data). Different hues are normally used to distinguish different categorical values. When possible, use commonly associated hues for land features such as vegetation and water. 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-9-1.png" alt="Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette." width="384" />
-<p class="caption">(\#fig:unnamed-chunk-9)Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-qualitative-1.png" alt="Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette." width="384" />
+<p class="caption">(\#fig:f04-qualitative)Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette.</p>
 </div>
 
 Election results can be displayed using a qualitative color scheme. But be careful in your choice of hues if a cultural bias exists (i.e. it may not make sense to assign "blue" to republican or "red"" to democratic regions).
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-10-1.png" alt="Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation." width="432" />
-<p class="caption">(\#fig:unnamed-chunk-10)Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-qualitative-map-1.png" alt="Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation." width="432" />
+<p class="caption">(\#fig:f04-qualitative-map)Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation.</p>
 </div>
 
 
@@ -101,15 +101,15 @@ Election results can be displayed using a qualitative color scheme. But be caref
 Sequential color schemes are used to highlight ordered data such as income, temperature, elevation or infection rates. A well designed sequential color scheme ranges from a light color (representing low attribute values) to a dark color (representing high attribute values). Such color schemes are typically composed of a single hue, but may include two hues as shown in the last two color schemes of the following figure.
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-11-1.png" alt="Example of four different sequential color schemes. Color hex numbers are superimposed on each palette." width="384" />
-<p class="caption">(\#fig:unnamed-chunk-11)Example of four different sequential color schemes. Color hex numbers are superimposed on each palette.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-sequential-1.png" alt="Example of four different sequential color schemes. Color hex numbers are superimposed on each palette." width="384" />
+<p class="caption">(\#fig:f04-sequential)Example of four different sequential color schemes. Color hex numbers are superimposed on each palette.</p>
 </div>
 
 Distribution of income is a good example of a sequential map. Income values are interval/ratio data which have an implied order. 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-12-1.png" alt="Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels." width="432" />
-<p class="caption">(\#fig:unnamed-chunk-12)Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-sequential-map-1.png" alt="Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels." width="432" />
+<p class="caption">(\#fig:f04-sequential-map)Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels.</p>
 </div>
 
 ### Divergent color scheme
@@ -117,15 +117,15 @@ Distribution of income is a good example of a sequential map. Income values are 
 Divergent color schemes apply to ordered data as well. However, there is an implied central value about which all values are compared. Typically, a divergent color scheme is composed of two hues--one for each side of the central value. Each hue's lightness/saturation value is then adjusted symmetrically about the central value. Examples of such a color scheme follows:
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-13-1.png" alt="Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette." width="384" />
-<p class="caption">(\#fig:unnamed-chunk-13)Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-divergent-1.png" alt="Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette." width="384" />
+<p class="caption">(\#fig:f04-divergent)Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette.</p>
 </div>
 
 Continuing with the last example, we now focus on the divergence of income values about the median value of $36,641. We use a brown hue for income values below the median and a green/blue hue for values above the median.
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/unnamed-chunk-14-1.png" alt="This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median." width="432" />
-<p class="caption">(\#fig:unnamed-chunk-14)This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-divergent-map-1.png" alt="This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median." width="432" />
+<p class="caption">(\#fig:f04-divergent-map)This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median.</p>
 </div>
 
 ## So how do I find a proper color scheme for my data?
@@ -158,6 +158,6 @@ It may help to view the breaks when superimposed on top of a distribution of the
 
 <div class="figure">
 <img src="img/Three_hist_intervals.png" alt="Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different)." width="560" />
-<p class="caption">(\#fig:unnamed-chunk-17)Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different).</p>
+<p class="caption">(\#fig:f04-three-breaks)Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different).</p>
 </div>
 

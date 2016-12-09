@@ -73,14 +73,14 @@ Now let's look at the top 10% of counties with the highest death rates.
 
 <div class="figure">
 <img src="img/top10.png" alt="Top 10% of counties with the highest kidney cancer death rates." width="466" />
-<p class="caption">(\#fig:unnamed-chunk-3)Top 10% of counties with the highest kidney cancer death rates.</p>
+<p class="caption">(\#fig:f05-kidney1)Top 10% of counties with the highest kidney cancer death rates.</p>
 </div>
 
 And now let's look at the bottom 10% of counties with the lowest death rates.
 
 <div class="figure">
 <img src="img/bottom10.png" alt="Bottom 10% of counties with the lowest kidney cancer death rates." width="451" />
-<p class="caption">(\#fig:unnamed-chunk-4)Bottom 10% of counties with the lowest kidney cancer death rates.</p>
+<p class="caption">(\#fig:f05-kidney2)Bottom 10% of counties with the lowest kidney cancer death rates.</p>
 </div>
 
 A quick glance of these maps suggests clustering of high and low rates around the same parts of the country. In fact, if you were to explore these maps in a GIS, you would note that many of the bottom 10% counties are adjacent to the top 10% counties! If local environmental factors are to blame for kidney cancer deaths, why would they be present in one county and not in an adjacent county? Could differences in regulations between counties be the reason? These are hypotheses that one would probably want to explore, but before pursuing these hypotheses, it would behoove us to look a bit more closely at the batch of numbers we are working with.
@@ -89,21 +89,21 @@ Let's first look at a population count map (note that we are purposely not norma
 
 <div class="figure">
 <img src="img/Population.png" alt="Population count for each county. Note that a quantile classification scheme is adopted force a large range of values to be assigned a single color swatch" width="504" />
-<p class="caption">(\#fig:unnamed-chunk-5)Population count for each county. Note that a quantile classification scheme is adopted force a large range of values to be assigned a single color swatch</p>
+<p class="caption">(\#fig:f05-kidney3)Population count for each county. Note that a quantile classification scheme is adopted force a large range of values to be assigned a single color swatch</p>
 </div>
 
 The central part of the states where we are observing both very high and very low cancer death rates seem to have low population counts. Could population count have something to do with this odd congruence of high and low cancer rates? Let's explore the relationship between death rates and population counts outside of a GIS environment and focus solely on the two batches of numbers. The following plot is a scatterplot of death rates and population counts.
 
 <div class="figure">
 <img src="img/Rate_vs_pop.png" alt="Plot of rates vs population counts. Note the skewed nature of both data batches." width="300" />
-<p class="caption">(\#fig:unnamed-chunk-6)Plot of rates vs population counts. Note the skewed nature of both data batches.</p>
+<p class="caption">(\#fig:f05-kidney-plot)Plot of rates vs population counts. Note the skewed nature of both data batches.</p>
 </div>
 
 Transforming both variables reveals much more about the relationship between them. 
 
 <div class="figure">
 <img src="img/Rate_vs_pop_log.png" alt="Plot of rates vs population counts on log scales." width="300" />
-<p class="caption">(\#fig:unnamed-chunk-7)Plot of rates vs population counts on log scales.</p>
+<p class="caption">(\#fig:f05-kidney-plot-trans)Plot of rates vs population counts on log scales.</p>
 </div>
 
 One quickly notices a steady decrease in death rate variability about some central value of ~0.000045 (or 4.5e-5) as the population count increases. This is because lower population counts tend to generate the very high and very low rates observed in our data. This begs the question: does low population count cause very high and low cancer death rates, or is this simply a numerical artifact? To answer this question, let's simulate some data. Let's assume that the real death rate is 5 per 100,000 people . If a county has a population of 1000, then $1000 \times 5e-5 = 0.05$ persons would die of kidney cancer; when rounded to the next whole person, that translates to $0$ deaths in that county. Now, there is still the possibility that a county of a 1000 could have one person succumb to the disease in which case the death rate for that county would be $1/1000=0.001$ or 1 in a 1000, a rate much greater than the expected rate of 5 in 100,000! 
@@ -129,12 +129,12 @@ Maps of the top 10% and bottom 10% EB smoothed rates are shown in the next two f
 
 <div class="figure">
 <img src="img/top10EB.png" alt="Top 10% of counties with the highest kidney cancer death rates using EB smoothing techniques." width="466" />
-<p class="caption">(\#fig:unnamed-chunk-8)Top 10% of counties with the highest kidney cancer death rates using EB smoothing techniques.</p>
+<p class="caption">(\#fig:f05-top10-EB)Top 10% of counties with the highest kidney cancer death rates using EB smoothing techniques.</p>
 </div>
 
 <div class="figure">
 <img src="img/bottom10EB.png" alt="Bottom 10% of counties with the lowest kidney cancer death rates using EB smoothing technique." width="451" />
-<p class="caption">(\#fig:unnamed-chunk-9)Bottom 10% of counties with the lowest kidney cancer death rates using EB smoothing technique.</p>
+<p class="caption">(\#fig:f05-bottom10-EB)Bottom 10% of counties with the lowest kidney cancer death rates using EB smoothing technique.</p>
 </div>
 
 Note the differences in rate distribution. For example, higher rates now show up in Florida which would be expected given the large retirement population, and clusters are now contiguous which could suggest local effects. But it's important to remember that EB smoothing does not reveal the true underlying rate; it only masks those that are unreliable. Also, EB smoothing does not completely eliminate unstable rates--note the slighlty higher rates for low population counts in Figure \@ref(fig:EBRate-vs-pop-log). 

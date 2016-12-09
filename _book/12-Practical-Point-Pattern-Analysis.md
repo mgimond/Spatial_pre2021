@@ -6,7 +6,7 @@
 
 <div class="figure">
 <img src="img/MA.png" alt="Could the distribution of Walmart stores in MA have been the result of a CSR/IRP process?" width="300" />
-<p class="caption">(\#fig:unnamed-chunk-2)Could the distribution of Walmart stores in MA have been the result of a CSR/IRP process?</p>
+<p class="caption">(\#fig:f12-walmart)Could the distribution of Walmart stores in MA have been the result of a CSR/IRP process?</p>
 </div>
 
 Popular spatial analysis techniques compare observed point patterns
@@ -30,7 +30,7 @@ ArcMap offers a tool (ANN) that tests whether or not the observed first order ne
 
 <div class="figure">
 <img src="img/ANN_graphic1.jpg" alt="ArcGIS' ANN tool. The size of the study area **is not** defined in this example." width="300" />
-<p class="caption">(\#fig:unnamed-chunk-4)ArcGIS' ANN tool. The size of the study area **is not** defined in this example.</p>
+<p class="caption">(\#fig:f12-arcgis-ann01)ArcGIS' ANN tool. The size of the study area **is not** defined in this example.</p>
 </div>
 
 ArcGIS' average nearest neighbor (ANN) tool computes the 1^st^ nearest neighbor mean distance for all points. It also computes an expected mean distance (ANN~expected~) under the assumption that the process that lead to the observed pattern is completely random.
@@ -45,7 +45,7 @@ $$
 
 <div class="figure">
 <img src="img/ANN_graphic2.jpg" alt="ANN results indicating that the pattern is consistent with a random process. Note the size of the study area which defaults to the point layer extent." width="293" />
-<p class="caption">(\#fig:unnamed-chunk-5)ANN results indicating that the pattern is consistent with a random process. Note the size of the study area which defaults to the point layer extent.</p>
+<p class="caption">(\#fig:f12-arcgis-ann02)ANN results indicating that the pattern is consistent with a random process. Note the size of the study area which defaults to the point layer extent.</p>
 </div>
 
 If ANN~ratio~ is 1, the pattern results from a random process. If it's greater than 1, it's dispersed. If it's less than 1, it's clustered. In essence, ArcGIS is comparing the observed ANN value to ANN~expected~ one would compute if a complete spatial randomness (CSR) process was at play. 
@@ -60,14 +60,14 @@ But is it prudent to let the software define the study area for us? How does it 
 
 <div class="figure">
 <img src="img/ANN_graphic3.jpg" alt="ArcGIS' ANN tool. The size of the study **is** defined in this example." width="300" />
-<p class="caption">(\#fig:unnamed-chunk-6)ArcGIS' ANN tool. The size of the study **is** defined in this example.</p>
+<p class="caption">(\#fig:f12-arcgis-ann03)ArcGIS' ANN tool. The size of the study **is** defined in this example.</p>
 </div>
 
 Here, we *explicitly* tell ArcGIS that the study area (Massachusetts) covers 21,089,917,382 m² (note that this is the MA shapefile's surface area and not necessarily representative of MA's actual surface area). ArcGIS’ ANN tool now returns a different output with a completely different conclusion. This time, the analysis suggests that the points are strongly dispersed across the state of Massachusetts and the very small p-value (p = 0.006) tells us that there is less than a 0.6% chance that an ANN value from a CSR point pattern would have been more extreme than the one we observed with the Walmart point pattern.
 
 <div class="figure">
 <img src="img/ANN_graphic4.jpg" alt="ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP." width="262" />
-<p class="caption">(\#fig:unnamed-chunk-7)ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP.</p>
+<p class="caption">(\#fig:f12-arcgis-ann04)ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP.</p>
 </div>
 
 So how does ArcGIS estimate the ANN~expected~ value under CSR? It does so by taking the inverse of the square root of the number of points divided by the area, and multiplying this quotient by 0.5. 
@@ -94,14 +94,14 @@ Following our working example, we randomly re-position the location of our Walma
 
 <div class="figure">
 <img src="img/Sample_rnd_pts.png" alt="Three different outcomes from simulated patterns following a CSR point process. These maps help answer the question *how would Walmart stores be distributed if their locations were not influenced by the location of other stores and by any local factors (such as population density, population income, road locations, etc...)*" width="407" />
-<p class="caption">(\#fig:unnamed-chunk-8)Three different outcomes from simulated patterns following a CSR point process. These maps help answer the question *how would Walmart stores be distributed if their locations were not influenced by the location of other stores and by any local factors (such as population density, population income, road locations, etc...)*</p>
+<p class="caption">(\#fig:f12-sim-points-example)Three different outcomes from simulated patterns following a CSR point process. These maps help answer the question *how would Walmart stores be distributed if their locations were not influenced by the location of other stores and by any local factors (such as population density, population income, road locations, etc...)*</p>
 </div>
 
 For each realization of our process, we compute an ANN value. Each simulated pattern results in a different ANN~expected~ value. We plot all ANN~expected~ values using a histogram (this is our $Ho$ sample distribution), then compare our observed ANN value of 13,294 m to this distribution.
 
 <div class="figure">
 <img src="img/ANN_hist.png" alt="Histogram of simulated ANN values (from 1000 simulations). This is the sample distribution of the null hypothesis, ANN~expected~ (under CSR). The red line shows our observed (Walmart) ANN value. About 32% of the simulated values are greater (more extreme) than our observed ANN value." width="407" />
-<p class="caption">(\#fig:unnamed-chunk-9)Histogram of simulated ANN values (from 1000 simulations). This is the sample distribution of the null hypothesis, ANN~expected~ (under CSR). The red line shows our observed (Walmart) ANN value. About 32% of the simulated values are greater (more extreme) than our observed ANN value.</p>
+<p class="caption">(\#fig:f12-walmart-MC-hist)Histogram of simulated ANN values (from 1000 simulations). This is the sample distribution of the null hypothesis, ANN~expected~ (under CSR). The red line shows our observed (Walmart) ANN value. About 32% of the simulated values are greater (more extreme) than our observed ANN value.</p>
 </div>
 
 Note that by using the same study region (the state of Massachusetts) in the simulations we take care of problems like study area boundary and shape issues since each simulated point pattern is confined to the exact same study area each and every time.
@@ -125,7 +125,7 @@ $$
 
 where $min(N_{greater}+1 , N + 1 - N_{greater})$ is the smallest of the two values $N_{greater}+1$ and $N + 1 - N_{greater}$, and $N_{greater}$ is the number of simulated values greater than the observed value. It's best to implement this form of the equation in a scripting program thus avoiding the need to *visually* seek the side of the distribution closest to our observed statistic.
 
-For example, if we ran 1000 simulations in our ANN analysis and found that 319 of those were more extreme (on the right side of the simulated ANN distribution) than our observed ANN value, our p-value would be (319 + 1) / (1000 + 1) or **p = 0.32**. This is interpreted as “there is a 32% probability that we would be wrong in rejecting the null hypothesis H~o~.” This suggests that we would be remiss in rejecting the null hypothesis that a CSR process could have generated our observed Walmart point distribution. But this is not to say that the Walmart stores were in fact placed across the state of Massachusetts randomly (it's doubtful that Walmart executives make such an important decision purely by chance), all we are saying is that a CSR process *could* have been one of *many* processes that generated the observed point pattern.
+For example, if we ran 1000 simulations in our ANN analysis and found that 319 of those were more extreme (on the right side of the simulated ANN distribution) than our observed ANN value, our p-value would be (319 + 1) / (1000 + 1) or **p = 0.32**. This is interpreted as *"there is a 32% probability that we would be wrong in rejecting the null hypothesis H~o~."* This suggests that we would be remiss in rejecting the null hypothesis that a CSR process could have generated our observed Walmart point distribution. But this is not to say that the Walmart stores were in fact placed across the state of Massachusetts randomly (it's doubtful that Walmart executives make such an important decision purely by chance), all we are saying is that a CSR process *could* have been one of *many* processes that generated the observed point pattern.
 
 If a two-sided test is desired, then the equation for the $p$ value takes on the following form:
 
@@ -140,19 +140,22 @@ where we are simply multiplying the one-sided p-value by two.
 
 <div class="figure">
 <img src="img/Pop_dens.png" alt="Walmart store distribution shown on top of a population density layer." width="492" />
-<p class="caption">(\#fig:unnamed-chunk-10)Walmart store distribution shown on top of a population density layer.</p>
+<p class="caption">(\#fig:f12-walmart-pop)Walmart store distribution shown on top of a population density layer.</p>
 </div>
 
 The assumption of CSR is a good starting point, but it's often unrealistic. Most real-world processes exhibit 1^st^ and/or 2^nd^ order effects.
 
 <div class="figure">
 <img src="img/Non_hom_2.png" alt="Examples of two randomly generated point patterns using population density as the underlying process." width="267" />
-<p class="caption">(\#fig:unnamed-chunk-11)Examples of two randomly generated point patterns using population density as the underlying process.</p>
+<p class="caption">(\#fig:f12-walmart-pop-sim)Examples of two randomly generated point patterns using population density as the underlying process.</p>
 </div>
 
 We can simulate the placement of Walmart stores using the population density layer as our inhomogeneous point process. We can test this hypothesis by generating random points that follow the population density distribution. Note that even though we are not referring to a CSR/IRP point process, we are still treating this as a random point process since the points are randomly located *following* the underlying population density distribution. Using the same Monte Carlo (MC) techniques used with IRP/CSR processes, we can simulate thousands of point patterns (following the population density) and compare our observed ANN value to those computed from our MC simulations. 
 
-<img src="img/ANN_pop_dens.png" width="438" />
+<div class="figure">
+<img src="img/ANN_pop_dens.png" alt="Histogram showing the distribution of ANN values one would expect to get if population density distribution were to influence the placement of Walmart stores." width="438" />
+<p class="caption">(\#fig:f12-ann-hetero-hist)Histogram showing the distribution of ANN values one would expect to get if population density distribution were to influence the placement of Walmart stores.</p>
+</div>
 
 In this example, our observed ANN value falls far to the right of our simulated ANN values indicating that our points are more dispersed than would be expected had population density distribution been the sole driving process. The percentage of simulated values more extreme than our observed value is 0% (i.e. a p-value $\backsimeq$ 0.0). 
 
@@ -160,16 +163,19 @@ Another plausible hypothesis is that median household income could have been the
 
 <div class="figure">
 <img src="img/Median_income_map.png" alt="Walmart store distribution shown on top of a median income distribution layer." width="450" />
-<p class="caption">(\#fig:unnamed-chunk-13)Walmart store distribution shown on top of a median income distribution layer.</p>
+<p class="caption">(\#fig:f12-ann-income)Walmart store distribution shown on top of a median income distribution layer.</p>
 </div>
 
 Running a MC simulation using median income distribution as the underlying density layer yields an ANN distribution where about 16% of the simulated values are more extreme than our observed ANN value (i.e. p-value = 0.16):
 
-<img src="img/Median_income_results.png" width="466" />
+<div class="figure">
+<img src="img/Median_income_results.png" alt="Histogram showing the distribution of ANN values one would expect to get if income  distribution were to influence the placement of Walmart stores." width="466" />
+<p class="caption">(\#fig:f12-ann-income-hist)Histogram showing the distribution of ANN values one would expect to get if income  distribution were to influence the placement of Walmart stores.</p>
+</div>
 
 Note that we now have two competing hypotheses: a CSR/IRP process and median income distribution. Both cannot be rejected. This serves as a reminder that a hypothesis test cannot tell us if a *particular* process is *the* process involved in the generation of our observed point pattern; instead, it tells us that the hypothesis is one of *many* plausible processes.
 
-It's important to remember that the ANN tool is a distance based approach to point pattern analysis. Though we are randomly generating points following some underlying probability distribution map (think of this map as representing the *intensity* of the underlying process) we are still concerning ourselves with the *repulsive*/*attractive* forces that might dictate the placement of Walmarts *relative* to one another. 
+It's important to remember that the ANN tool is a *distance* based approach to point pattern analysis. Even though we are randomly generating points following some underlying probability distribution map we are still concerning ourselves with the *repulsive*/*attractive* forces that might dictate the placement of Walmarts *relative* to one another--i.e. we are *not* addressing the question "can some underlying process explain the X and Y placement of the stores". The latter is addressed in section \@ref(PPM). 
 
 ## Monte Carlo test with K and L functions
 
@@ -177,7 +183,7 @@ MC techniques are not unique to average nearest neighbor analysis. In fact, they
 
 <div class="figure">
 <img src="img/K_MC_sim_results_CSR.png" alt="Simulation results for the IRP/CSR hypothesized process. The gray envelope in the plot covers the 95% significance level. If the observed L lies outside of this envelope at distance $r$, then there is less than a 5% chance that our observed point pattern resulted from the simulated process at that distance." width="664" />
-<p class="caption">(\#fig:unnamed-chunk-15)Simulation results for the IRP/CSR hypothesized process. The gray envelope in the plot covers the 95% significance level. If the observed L lies outside of this envelope at distance $r$, then there is less than a 5% chance that our observed point pattern resulted from the simulated process at that distance.</p>
+<p class="caption">(\#fig:f12-k-l-MC-IRP)Simulation results for the IRP/CSR hypothesized process. The gray envelope in the plot covers the 95% significance level. If the observed L lies outside of this envelope at distance $r$, then there is less than a 5% chance that our observed point pattern resulted from the simulated process at that distance.</p>
 </div>
 
 The interpretation of these plots is straight forward: if $\hat K$ or $\hat L$ lies outside of the envelope at some distance $r$, then this suggests that the point pattern may not be consistent with $H_o$ (the hypothesized process) at distance $r$ at the significance level defined for that envelope (0.05 in this example).
@@ -186,12 +192,12 @@ One important assumption underlying the K and L functions is that the process is
 
 <div class="figure">
 <img src="img/K_MC_sim_results_inhomogeneous.png" alt="Simulation results for an inhomogeneous hypothesized process. When controlled for population density, the significance test suggests that the inter-distance of Walmarts is more dispersed than expected under the null up to a distance of 30 km." width="682" />
-<p class="caption">(\#fig:unnamed-chunk-16)Simulation results for an inhomogeneous hypothesized process. When controlled for population density, the significance test suggests that the inter-distance of Walmarts is more dispersed than expected under the null up to a distance of 30 km.</p>
+<p class="caption">(\#fig:f12-k-l-MC-inhom)Simulation results for an inhomogeneous hypothesized process. When controlled for population density, the significance test suggests that the inter-distance of Walmarts is more dispersed than expected under the null up to a distance of 30 km.</p>
 </div>
 
 It may be tempting to scan across the plot looking for distances $r$ for which deviation from the null is significant for a given significance value then report these findings as such. For example, given the results in the last figure, we might not be justified in stating that the patterns between $r$ distances of 5 and 30 are more dispersed than expected *at the 5% significance level* but at a *higher significance level* instead. This problem is referred to as the [multiple comparison problem](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)--details of which are not covered here.
 
-## Testing for a covariate effect
+## Testing for a covariate effect {#PPM}
 
 Any Poisson point process model can be fit to an observed point pattern, but just because we can *fit* a model does not imply that the model does a good job in explaining the observed pattern. To test how well a model can explain the observed point pattern, we need to compare it to a base model (such as one where we assume that the points are randomly distributed across the study area--i.e. IRP). The latter is defined as the null hypothesis and the former is defined as the alternate hypothesis. 
 

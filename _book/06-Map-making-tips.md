@@ -13,13 +13,12 @@ Knowing why and for whom a map is being made will dictate its layout. If it's to
 
 Knowing the intended audience should also dictate what you will convey and how. If it's a general audience with little technical expertise then a simpler presentation may be in order. If the audience is well versed in the topic, then the map may be more complex. 
 
+<div class="figure">
+<img src="img/Map_elements.png" alt="Map elements. Note that not all elements are needed, nor are they appropriate in some cases. Can you identify at least one element that does not belong in the map (hint, note the orientation of the longitudinal lines; are they parallel to one another? What implication does this have on the North direction and the placement of the North arrow?)"  />
+<p class="caption">(\#fig:f06-map)Map elements. Note that not all elements are needed, nor are they appropriate in some cases. Can you identify at least one element that does not belong in the map (hint, note the orientation of the longitudinal lines; are they parallel to one another? What implication does this have on the North direction and the placement of the North arrow?)</p>
+</div>
 
-<img src="img/Map_elements.png"> </img>
-<aside>
-<p class="caption">
-Map elements. Note that not all elements are needed, nor are they appropriate in some cases. Can you identify at least one element that does not belong in the map (hint, note the orientation of the longitudinal lines; are they parallel to one another? What implication does this have on the North direction and the placement of the North arrow?) 
-</p>
-</aside>
+
 
 ## How to create a *good* map
 
@@ -34,7 +33,7 @@ Here's an example of a map layout that showcases several bad practices.
 
 + When showcasing Choropleth maps, it's best to limit the **color swatches** to less than a dozen--it becomes difficult for the viewer to tie too many different colors in a map to a color swatch element in the legend. Also, classification breaks should not be chosen at random but should be chosen carefully; for example adopting a quantile classifications scheme to maximize the inclusion of the different color swatches in the map; or a classification system designed based on logical breaks (or easy to interpret breaks) when dictated by theory or cultural predisposition.
 
-+ **Scale bars** and **north arrows** should be used judiciously and need not be present in *every* map. These elements are used to measure orientation and distances. Such elements are critical in reference maps such as USGS Topo maps and navigation maps but serve little purpose in a thematic map where the goal is to highlight *differences* between aerial units. If, however, these elements are to be placed in a thematic map, reduce their visual prominence (see Figure \@ref(fig:ScaleBar for examples of scale bars). The same principle applies to the selection of an orientation indicator (north arrow) element. Use a small north arrow design if it is to be placed low in the hierarchy, larger if it is to be used as a reference (such as a nautical chart).
++ **Scale bars** and **north arrows** should be used judiciously and need not be present in *every* map. These elements are used to measure orientation and distances. Such elements are critical in reference maps such as USGS Topo maps and navigation maps but serve little purpose in a thematic map where the goal is to highlight *differences* between aerial units. If, however, these elements are to be placed in a thematic map, reduce their visual prominence (see Figure \@ref(fig:ScaleBar) for examples of scale bars). The same principle applies to the selection of an orientation indicator (north arrow) element. Use a small north arrow design if it is to be placed low in the hierarchy, larger if it is to be used as a reference (such as a nautical chart).
 
 
 <div class="figure" style="text-align: center">
@@ -57,7 +56,7 @@ Maps may include text elements such as labels and ancillary text blocks. The cho
 
 <div class="figure">
 <img src="img/Fonts.svg" alt="Serif fonts are characterized by brush strokes at the letter tips (highlighted in red in accompanying figure). Sans Serif fonts are devoid of brush strokes."  />
-<p class="caption">(\#fig:unnamed-chunk-2)Serif fonts are characterized by brush strokes at the letter tips (highlighted in red in accompanying figure). Sans Serif fonts are devoid of brush strokes.</p>
+<p class="caption">(\#fig:f06-serif)Serif fonts are characterized by brush strokes at the letter tips (highlighted in red in accompanying figure). Sans Serif fonts are devoid of brush strokes.</p>
 </div>
 
 
@@ -67,5 +66,5 @@ Varying the typeset size across the map should be avoided unless a visual hierar
 
 <div class="figure">
 <img src="img/labels.svg" alt="The lack of typeset differences makes the map on the left difficult to differentiate county names from lake/river names. The judicious use of font colors and style on the right facilitate the separation of features." width="600" />
-<p class="caption">(\#fig:unnamed-chunk-3)The lack of typeset differences makes the map on the left difficult to differentiate county names from lake/river names. The judicious use of font colors and style on the right facilitate the separation of features.</p>
+<p class="caption">(\#fig:f06-typeset)The lack of typeset differences makes the map on the left difficult to differentiate county names from lake/river names. The judicious use of font colors and style on the right facilitate the separation of features.</p>
 </div>

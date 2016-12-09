@@ -76,7 +76,7 @@ Note how our perception of the distribution of infant deaths changes when lookin
 ##  Standardized mortality ratios (relative risk).  {-}
 
 Another way to re-express the data is to map the Standardized Mortality Ratios (SMR)-a very popular form of representation in the field of epidemiology. Such maps map the ratios of the number of deaths to an *expected* death count.  There are many ways to define an expected death count, many of which can be externally specified.  In the following example, the expected death count $E_i$ is estimated by multiplying the under 5 population count for  each area by the overall death rate for Auckland:
-$$E_i = \frac{n_i}{mortality_{Auckland} } $$
+$$E_i = {n_i}\times{mortality_{Auckland} } $$
 where $n_i$ is the population count within census unit area $i$ and $mortality_{Auckland}$ is the overall death rate computed from $mortality_{Auckland} = \sum_{i=1}^j O_i / \sum_{i=1}^j n_i$ where $O_i$ is the observed death count for census unit $i$.
 
 This chunk of code replicates Bailey and Gatrell's figure 8.1 with the one exception that the color scheme is reversed (Bailey and Gatrell assign lighter hues to higher numbers).

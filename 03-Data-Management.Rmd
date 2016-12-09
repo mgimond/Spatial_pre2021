@@ -31,7 +31,7 @@ File extension |	Content
 
 A **file geodatabase** is a relational database storage format. It's a far more complex data structure than the shapefile and consists of a **.gdb** folder housing dozens of files. Its complexity renders it more versatile allowing it to store multiple feature classes and enabling topological definitions (i.e. allowing the user to define rules that govern the way different feature classes relate to one another). An example of the contents of a geodatabase is shown in the following figure.
 
-```{r echo=FALSE, fig.cap = "Sample content of an ArcGIS file geodatabase.", out.width=500}
+```{r f02-gdb, echo=FALSE, fig.cap = "Sample content of an ArcGIS file geodatabase.", out.width=500}
 
 knitr::include_graphics("img/geodatabase.jpg")
 ```
@@ -100,7 +100,7 @@ A raster file can also be stored in a file geodatabase alongside vector files. G
 
 Unless you are intimately familiar with the file structure of a GIS file, it is best to copy/move/delete GIS files from within the software environment. **ArcCatalog** (part of the ArcGIS suite) acts like a Windows file management environment with the added benefit that it recognizes GIS files. 
 
-```{r echo=FALSE, fig.cap = "Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment).", out.width=300}
+```{r f02-catalog, echo=FALSE, fig.cap = "Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment).", out.width=300}
 
 knitr::include_graphics("img/ArcCatalog.jpg")
 ```

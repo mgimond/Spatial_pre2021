@@ -34,7 +34,7 @@ A **file geodatabase** is a relational database storage format. It's a far more 
 
 <div class="figure">
 <img src="img/geodatabase.jpg" alt="Sample content of an ArcGIS file geodatabase." width="500" />
-<p class="caption">(\#fig:unnamed-chunk-2)Sample content of an ArcGIS file geodatabase.</p>
+<p class="caption">(\#fig:f02-gdb)Sample content of an ArcGIS file geodatabase.</p>
 </div>
 
 #### GeoPackage
@@ -46,7 +46,7 @@ This is a relatively new data format that follows (open format standards)[https:
 
 Rasters are in part defined by their pixel depth. Pixel depth defines the range of distinct values the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1.
 
-<img src="03-Data-Management_files/figure-html/unnamed-chunk-3-1.png" width="288" />
+<img src="03-Data-Management_files/figure-html/unnamed-chunk-2-1.png" width="288" />
 
 #### Imagine
 
@@ -66,7 +66,7 @@ Unless you are intimately familiar with the file structure of a GIS file, it is 
 
 <div class="figure">
 <img src="img/ArcCatalog.jpg" alt="Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment)." width="300" />
-<p class="caption">(\#fig:unnamed-chunk-4)Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment).</p>
+<p class="caption">(\#fig:f02-catalog)Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment).</p>
 </div>
 
 

@@ -3,7 +3,7 @@
 ## IRP/CSR
 
 
-```{r echo=FALSE, fig.cap = "Could the distribution of Walmart stores in MA have been the result of a CSR/IRP process?", out.width=300}
+```{r f12-walmart, echo=FALSE, fig.cap = "Could the distribution of Walmart stores in MA have been the result of a CSR/IRP process?", out.width=300}
 knitr::include_graphics("img/MA.png")
 ```
 
@@ -28,7 +28,7 @@ ArcMap offers a tool (ANN) that tests whether or not the observed first order ne
 
 #### A first attempt
 
-```{r echo=FALSE, fig.cap = "ArcGIS' ANN tool. The size of the study area **is not** defined in this example.", out.width=300}
+```{r f12-arcgis-ann01, echo=FALSE, fig.cap = "ArcGIS' ANN tool. The size of the study area **is not** defined in this example.", out.width=300}
 knitr::include_graphics("img/ANN_graphic1.jpg")
 ```
 
@@ -42,7 +42,7 @@ $$
 ANN_{ratio}=\dfrac{ANN}{ANN_{expected}}
 $$
 
-```{r echo=FALSE, fig.cap = "ANN results indicating that the pattern is consistent with a random process. Note the size of the study area which defaults to the point layer extent."}
+```{r f12-arcgis-ann02, echo=FALSE, fig.cap = "ANN results indicating that the pattern is consistent with a random process. Note the size of the study area which defaults to the point layer extent."}
 knitr::include_graphics("img/ANN_graphic2.jpg")
 ```
 
@@ -56,13 +56,13 @@ But is it prudent to let the software define the study area for us? How does it 
 
 #### A second attempt
 
-```{r echo=FALSE, fig.cap = "ArcGIS' ANN tool. The size of the study **is** defined in this example.", out.width=300}
+```{r f12-arcgis-ann03, echo=FALSE, fig.cap = "ArcGIS' ANN tool. The size of the study **is** defined in this example.", out.width=300}
 knitr::include_graphics("img/ANN_graphic3.jpg")
 ```
 
 Here, we *explicitly* tell ArcGIS that the study area (Massachusetts) covers 21,089,917,382 m² (note that this is the MA shapefile's surface area and not necessarily representative of MA's actual surface area). ArcGIS’ ANN tool now returns a different output with a completely different conclusion. This time, the analysis suggests that the points are strongly dispersed across the state of Massachusetts and the very small p-value (p = 0.006) tells us that there is less than a 0.6% chance that an ANN value from a CSR point pattern would have been more extreme than the one we observed with the Walmart point pattern.
 
-```{r echo=FALSE, fig.cap = "ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP."}
+```{r f12-arcgis-ann04, echo=FALSE, fig.cap = "ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP."}
 knitr::include_graphics("img/ANN_graphic4.jpg")
 ```
 
@@ -88,13 +88,13 @@ The Monte Carlo technique involves three steps:
  
 Following our working example, we randomly re-position the location of our Walmart points 1000 times (or as many times computationally practical) following a completely random process--our *hypothesized* process, $Ho$--while making sure to keep the points confined to the study extent (the state of Massachusetts).
 
-```{r echo=FALSE, fig.cap = "Three different outcomes from simulated patterns following a CSR point process. These maps help answer the question *how would Walmart stores be distributed if their locations were not influenced by the location of other stores and by any local factors (such as population density, population income, road locations, etc...)*"}
+```{r f12-sim-points-example, echo=FALSE, fig.cap = "Three different outcomes from simulated patterns following a CSR point process. These maps help answer the question *how would Walmart stores be distributed if their locations were not influenced by the location of other stores and by any local factors (such as population density, population income, road locations, etc...)*"}
 knitr::include_graphics("img/Sample_rnd_pts.png")
 ```
 
 For each realization of our process, we compute an ANN value. Each simulated pattern results in a different ANN~expected~ value. We plot all ANN~expected~ values using a histogram (this is our $Ho$ sample distribution), then compare our observed ANN value of 13,294 m to this distribution.
 
-```{r echo=FALSE, fig.cap = "Histogram of simulated ANN values (from 1000 simulations). This is the sample distribution of the null hypothesis, ANN~expected~ (under CSR). The red line shows our observed (Walmart) ANN value. About 32% of the simulated values are greater (more extreme) than our observed ANN value."}
+```{r f12-walmart-MC-hist, echo=FALSE, fig.cap = "Histogram of simulated ANN values (from 1000 simulations). This is the sample distribution of the null hypothesis, ANN~expected~ (under CSR). The red line shows our observed (Walmart) ANN value. About 32% of the simulated values are greater (more extreme) than our observed ANN value."}
 knitr::include_graphics("img/ANN_hist.png")
 ```
 
@@ -119,7 +119,7 @@ $$
 
 where $min(N_{greater}+1 , N + 1 - N_{greater})$ is the smallest of the two values $N_{greater}+1$ and $N + 1 - N_{greater}$, and $N_{greater}$ is the number of simulated values greater than the observed value. It's best to implement this form of the equation in a scripting program thus avoiding the need to *visually* seek the side of the distribution closest to our observed statistic.
 
-For example, if we ran 1000 simulations in our ANN analysis and found that 319 of those were more extreme (on the right side of the simulated ANN distribution) than our observed ANN value, our p-value would be (319 + 1) / (1000 + 1) or **p = 0.32**. This is interpreted as “there is a 32% probability that we would be wrong in rejecting the null hypothesis H~o~.” This suggests that we would be remiss in rejecting the null hypothesis that a CSR process could have generated our observed Walmart point distribution. But this is not to say that the Walmart stores were in fact placed across the state of Massachusetts randomly (it's doubtful that Walmart executives make such an important decision purely by chance), all we are saying is that a CSR process *could* have been one of *many* processes that generated the observed point pattern.
+For example, if we ran 1000 simulations in our ANN analysis and found that 319 of those were more extreme (on the right side of the simulated ANN distribution) than our observed ANN value, our p-value would be (319 + 1) / (1000 + 1) or **p = 0.32**. This is interpreted as *"there is a 32% probability that we would be wrong in rejecting the null hypothesis H~o~."* This suggests that we would be remiss in rejecting the null hypothesis that a CSR process could have generated our observed Walmart point distribution. But this is not to say that the Walmart stores were in fact placed across the state of Massachusetts randomly (it's doubtful that Walmart executives make such an important decision purely by chance), all we are saying is that a CSR process *could* have been one of *many* processes that generated the observed point pattern.
 
 If a two-sided test is desired, then the equation for the $p$ value takes on the following form:
 
@@ -132,20 +132,20 @@ where we are simply multiplying the one-sided p-value by two.
 
 ## Alternatives to CSR/IRP
 
-```{r echo=FALSE, fig.cap="Walmart store distribution shown on top of a population density layer."}
+```{r f12-walmart-pop, echo=FALSE, fig.cap="Walmart store distribution shown on top of a population density layer."}
 knitr::include_graphics("img/Pop_dens.png")
 ```
 
 The assumption of CSR is a good starting point, but it's often unrealistic. Most real-world processes exhibit 1^st^ and/or 2^nd^ order effects.
 
-```{r echo=FALSE, fig.cap = "Examples of two randomly generated point patterns using population density as the underlying process."}
+```{r f12-walmart-pop-sim, echo=FALSE, fig.cap = "Examples of two randomly generated point patterns using population density as the underlying process."}
 
 knitr::include_graphics("img/Non_hom_2.png")
 ```
 
 We can simulate the placement of Walmart stores using the population density layer as our inhomogeneous point process. We can test this hypothesis by generating random points that follow the population density distribution. Note that even though we are not referring to a CSR/IRP point process, we are still treating this as a random point process since the points are randomly located *following* the underlying population density distribution. Using the same Monte Carlo (MC) techniques used with IRP/CSR processes, we can simulate thousands of point patterns (following the population density) and compare our observed ANN value to those computed from our MC simulations. 
 
-```{r echo=FALSE}
+```{r f12-ann-hetero-hist, echo=FALSE, fig.cap="Histogram showing the distribution of ANN values one would expect to get if population density distribution were to influence the placement of Walmart stores."}
 knitr::include_graphics("img/ANN_pop_dens.png")
 ```
 
@@ -153,25 +153,25 @@ In this example, our observed ANN value falls far to the right of our simulated 
 
 Another plausible hypothesis is that median household income could have been the sole factor in deciding where to place the Walmart stores.
 
-```{r echo=FALSE, fig.cap="Walmart store distribution shown on top of a median income distribution layer.", out.width=450}
+```{r f12-ann-income, echo=FALSE, fig.cap="Walmart store distribution shown on top of a median income distribution layer.", out.width=450}
 knitr::include_graphics("img/Median_income_map.png")
 ```
 
 Running a MC simulation using median income distribution as the underlying density layer yields an ANN distribution where about 16% of the simulated values are more extreme than our observed ANN value (i.e. p-value = 0.16):
 
-```{r echo=FALSE}
+```{r f12-ann-income-hist, echo=FALSE, fig.cap="Histogram showing the distribution of ANN values one would expect to get if income  distribution were to influence the placement of Walmart stores."}
 knitr::include_graphics("img/Median_income_results.png")
 ```
 
 Note that we now have two competing hypotheses: a CSR/IRP process and median income distribution. Both cannot be rejected. This serves as a reminder that a hypothesis test cannot tell us if a *particular* process is *the* process involved in the generation of our observed point pattern; instead, it tells us that the hypothesis is one of *many* plausible processes.
 
-It's important to remember that the ANN tool is a distance based approach to point pattern analysis. Though we are randomly generating points following some underlying probability distribution map (think of this map as representing the *intensity* of the underlying process) we are still concerning ourselves with the *repulsive*/*attractive* forces that might dictate the placement of Walmarts *relative* to one another. 
+It's important to remember that the ANN tool is a *distance* based approach to point pattern analysis. Even though we are randomly generating points following some underlying probability distribution map we are still concerning ourselves with the *repulsive*/*attractive* forces that might dictate the placement of Walmarts *relative* to one another--i.e. we are *not* addressing the question "can some underlying process explain the X and Y placement of the stores". The latter is addressed in section \@ref(PPM). 
 
 ## Monte Carlo test with K and L functions
 
 MC techniques are not unique to average nearest neighbor analysis. In fact, they can be implemented with many other statistical measure as with the K and L functions. However, unlike the ANN analysis, the K and L functions consist of multiple test statistics (one for each distance $r$). This results in not one but $r$ number of simulated distributions. Typically, these distributions are presented as *envelopes* superimposed on the estimated $K$ or $L$ functions. However, since we cannot easily display the full distribution at each $r$ interval, we usually limit the envelope to a pre-defined acceptance interval. For example, if we choose a two-sided significance level of 0.05, then we eliminate the smallest and largest 2.5% of the simulated K values computed for **for each $r$ intervals** (hence the reason you might sometimes see such envelopes referred to as **pointwise** envelopes). This tends to generate a saw-tooth like envelope. 
 
-```{r echo=FALSE, fig.cap="Simulation results for the IRP/CSR hypothesized process. The gray envelope in the plot covers the 95% significance level. If the observed L lies outside of this envelope at distance $r$, then there is less than a 5% chance that our observed point pattern resulted from the simulated process at that distance."}
+```{r f12-k-l-MC-IRP, echo=FALSE, fig.cap="Simulation results for the IRP/CSR hypothesized process. The gray envelope in the plot covers the 95% significance level. If the observed L lies outside of this envelope at distance $r$, then there is less than a 5% chance that our observed point pattern resulted from the simulated process at that distance."}
 knitr::include_graphics("img/K_MC_sim_results_CSR.png")
 ```
 
@@ -179,13 +179,13 @@ The interpretation of these plots is straight forward: if $\hat K$ or $\hat L$ l
 
 One important assumption underlying the K and L functions is that the process is uniform across the region. If there is reason to believe this not to be the case, then the K function analysis needs to be controlled for inhomogeneity in the process. For example, we might hypothesize that population density dictates the density distribution of the Walmart stores across the region. We therefore run an MC test by randomly re-assigning Walmart point locations using the population distribution map as the underlying point density distribution (in other words, we expect the MC simulation to locate a greater proportion of the points where population density is the greatest).
 
-```{r echo=FALSE, fig.cap="Simulation results for an inhomogeneous hypothesized process. When controlled for population density, the significance test suggests that the inter-distance of Walmarts is more dispersed than expected under the null up to a distance of 30 km."}
+```{r f12-k-l-MC-inhom, echo=FALSE, fig.cap="Simulation results for an inhomogeneous hypothesized process. When controlled for population density, the significance test suggests that the inter-distance of Walmarts is more dispersed than expected under the null up to a distance of 30 km."}
 knitr::include_graphics("img/K_MC_sim_results_inhomogeneous.png")
 ```
 
 It may be tempting to scan across the plot looking for distances $r$ for which deviation from the null is significant for a given significance value then report these findings as such. For example, given the results in the last figure, we might not be justified in stating that the patterns between $r$ distances of 5 and 30 are more dispersed than expected *at the 5% significance level* but at a *higher significance level* instead. This problem is referred to as the [multiple comparison problem](https://en.wikipedia.org/wiki/Multiple_comparisons_problem)--details of which are not covered here.
 
-## Testing for a covariate effect
+## Testing for a covariate effect {#PPM}
 
 Any Poisson point process model can be fit to an observed point pattern, but just because we can *fit* a model does not imply that the model does a good job in explaining the observed pattern. To test how well a model can explain the observed point pattern, we need to compare it to a base model (such as one where we assume that the points are randomly distributed across the study area--i.e. IRP). The latter is defined as the null hypothesis and the former is defined as the alternate hypothesis. 
 

@@ -6,15 +6,15 @@ Implicit with any GIS data is a spatial reference system. It can consist of a si
 
 A geographic coordinate system is a reference system for identifying locations on the curved surface of the earth. Locations on the earth's surface are measured in angular units from the center of the earth relative to two planes: the plane defined by the equator and the plane defined by the prime meridian (which crosses Greenwich England). A location is therefore defined by two values: a latitudinal value and a longitudinal value.
 
-```{r echo=FALSE, fig.cap = "Examples of latitudinal lines are shown on the left and examples of longitudinal lines are shown on the right. The 0&deg; degree reference lines for each are shown in red (equator for latitudinal measurements and prime meridian for longitudinal measurements)."}
+```{r f09-latlong, echo=FALSE, fig.cap = "Examples of latitudinal lines are shown on the left and examples of longitudinal lines are shown on the right. The 0&deg; degree reference lines for each are shown in red (equator for latitudinal measurements and prime meridian for longitudinal measurements)."}
 
 knitr::include_graphics("img/lat_vs_lon.png")
 ```
 
-A latitude measures the angle from the equatorial plane to the location on the earth's surface. A longitude measurement measures the angle between the prime meridian plane to the location of the earth's surface. For example Colby College is located at around 45.56&deg; North and 69.66&deg; West. In a GIS system, the North-South and East-West directions are encoded as signs. North and East are assigned a positive ($+$) sign and South and West are assigned a negative ($-$) sign. Colby College's location is therefore encoded as +45.56&deg; and -69.66&deg;.
+A latitude measures the angle from the equatorial plane to the location on the earth's surface. A longitude measures the angle between the prime meridian plane and the north-south plane that intersects the location of interest. For example Colby College is located at around 45.56&deg; North and 69.66&deg; West. In a GIS system, the North-South and East-West directions are encoded as signs. North and East are assigned a positive (`+`) sign and South and West are assigned a negative (`-`) sign. Colby College's location is therefore encoded as +45.56&deg; and -69.66&deg;.
 
-```{r echo=FALSE}
-knitr::include_graphics("img/Colby_location_sphere.jpg")
+```{r f09-sphere-slice, echo=FALSE, fig.cap="A slice of earth showing the latitude and longitude measurements."}
+knitr::include_graphics("img/Colby_location_sphere.jpg", dpi=NA)
 ```
 
 A GCS is defined by an **ellipsoid**, **geoid** and **datum**. These elements are presented next.
@@ -23,21 +23,21 @@ A GCS is defined by an **ellipsoid**, **geoid** and **datum**. These elements ar
 
 Assuming that the earth is a perfect sphere greatly simplifies mathematical calculations and works well for small-scale maps (maps that show a *large* area of the earth). However, when working at larger scales, an ellipsoid representation of earth may be desired if accurate measurements are needed. An ellipsoid is defined by two radii: the semi-major axis (the polar radius) and the semi-minor axis (the equatorial radius). 
 
-```{r echo=FALSE}
+```{r f09-ellipse-axes, echo=FALSE}
 knitr::include_graphics("img/Ellipsoid.svg")
 ```
 
 The reason the earth has a slightly ellipsoidal shape has to do with its rotation which induces a centripetal force along the equator. This results in an equatorial axis that is roughly 21 km longer than the polar axis.
 
-```{r echo=FALSE, fig.cap = "The earth can be mathematically modeled as a simple sphere (left) or an ellipsoid (right)."}
+```{r f09-sphere-ellipse, echo=FALSE, fig.cap = "The earth can be mathematically modeled as a simple sphere (left) or an ellipsoid (right)."}
 knitr::include_graphics(c("img/globe_0_0_center.svg","img/globe_0_0_center_wide.svg" ))
 ```
 
-Our estimate of these radii is quite precise thanks to satellite and computational capabilities. The semi-major axis is 6,378,137 meters and the semi-minor axis 6,356,752 meters.
+Our estimate of these radii is quite precise thanks to satellite and computational capabilities. The semi-major axis is 6,378,137 meters and the semi-minor axis is 6,356,752 meters.
 
-Differences in distance measurements on an ellipsoid vs. a sphere are small but measurable (the difference can be as high as 20 km) as illustrated in the following lattice plots.
+Differences in distance measurements along the surfaces of ellipsoid vs. a sphere are small but measurable (the difference can be as high as 20 km) as illustrated in the following lattice plots.
 
-```{r echo=FALSE, fig.cap = "Differences in surface distance measurements between a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0&deg; meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90&deg; north (along the prime meridian) to a range of latitudinal locations along the 45&deg; meridian."}
+```{r f09-dist-diff, echo=FALSE, fig.cap = "Differences in distance measurements along the surface of a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0&deg; meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90&deg; north (along the prime meridian) to a range of latitudinal locations along the 45&deg; meridian."}
 knitr::include_graphics(c("img/Ellipsoid_vs_sphere_distances.svg"))
 ```
 
@@ -45,7 +45,7 @@ knitr::include_graphics(c("img/Ellipsoid_vs_sphere_distances.svg"))
 
 Representing the earth's surface as a mathematical model is crucial for a GIS environment. However, the earth's shape is not a perfectly smooth surface. It has undulations resulting from changes in gravitational pull across its surface. These undulations may not be visible with the naked eye, but it is measurable and can influence locational measurements. Note that we are not including mountains and ocean bottoms in our discussion, instead we are focusing solely on the earth's gravitational potential which can be best visualized by imagining the earth's surface completely immersed in water and measuring the sea surface level over the entire earth surface.
 
-```{r echo=FALSE, fig.cap = "Earth's geoid with gravitational field shown in rainbow colors. The ondulations depicted in the graphics are exaggerated for visual effects. (source: NASA)", out.width=300}
+```{r f09-geoid, echo=FALSE, fig.cap = "Earth's geoid with gravitational field shown in rainbow colors. The ondulations depicted in the graphics are exaggerated for visual effects. (source: NASA)", out.width=300}
 knitr::include_graphics("img/Geoids_sm_NASA.jpg" )
 ```
 
@@ -57,7 +57,7 @@ So how are we to reconcile our need to work with a (simple) mathematical model o
 
 #### Local Datum
 
-```{r echo=FALSE, out.width=250}
+```{r f09-datum-local, echo=FALSE, out.width=250, fig.cap="A local datum couples a geoid with the ellipsoid at a location on each element's surface."}
 knitr::include_graphics("img/Datum_local.svg" )
 ```
 
@@ -71,7 +71,7 @@ World Geodetic System 1972	| WGS72 |	Global |	Developed by the Department of Def
 
 #### Geocentric Datum
 
-```{r echo=FALSE, out.width=250}
+```{r f09-datum-geocentric, echo=FALSE, out.width=250, fig.cap="A geocentric  datum couples a geoid with the ellipsoid at each element's center of mass."}
 knitr::include_graphics("img/Datum_geocentric.svg" )
 ```
 
@@ -87,14 +87,14 @@ World Geodetic System 1984 | WGS84 | Global | Developed by the Department of Def
 
 A Geographic Coordinate System (GCS) is therefore defined by the ellipsoid model and by the way this ellipsoid is aligned with the geoid (defining the datum). It is important to know which GCS is associated with a GIS file or map document reference system. This is particularly true when overlapping layers are tied to different datums (and therefore GCS'). This is because a location on the earth's surface can take on different coordinate values. For example, a location recorded in an NAD 1927 GCS having a coordinate pair of 44.56698&deg; north and 69.65939&deg; west will register a coordinate value of 44.56704&deg; north and 69.65888&deg; west in a NAD83 GCS and a coordinate value of 44.37465&deg; north and -69.65888&deg; west in a sphere based WGS84 GCS. If the coordinate systems for these point coordinate values were not properly defined, then they could be misplaced on a map.  This is analogous to recording temperature using different units of measure (degrees Celsius, Fahrenheit and Kelvin)--each unit of measure will produce a different numeric value. 
 
-```{r echo=FALSE, fig.cap="Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems.",  out.width=400}
+```{r f09-GCS-offsets, echo=FALSE, fig.cap="Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems.",  out.width=400}
 knitr::include_graphics("img/GCS_diff_coord_values.png" )
 ```
 
 
 ## Projected Coordinate Systems
 
-The surface of the earth is curved but maps are flat. A projected coordinate system (PCS) is a reference system for identifying locations and measuring features on a flat (map) surface. It consists of lines that intersect at right angles, forming a grid. Projected coordinate systems (which are based on Cartesian coordinates) have: an origin, a x and y axis, and a linear unit of measure. Going from a GCS to a PCS requires mathematical transformations. The myriad of projection types can be aggregated into three groups: planar, cylindrical and conical.
+The surface of the earth is curved but maps are flat. A projected coordinate system (PCS) is a reference system for identifying locations and measuring features on a flat (map) surface. It consists of lines that intersect at right angles, forming a grid. Projected coordinate systems (which are based on Cartesian coordinates) have an origin, an *x* axis, a *y* axis, and a linear unit of measure. Going from a GCS to a PCS requires mathematical transformations. The myriad of projection types can be aggregated into three groups: **planar**, **cylindrical** and **conical**.
 
 ### Planar Projections
 
@@ -113,7 +113,7 @@ knitr::include_graphics("img/Planar_projection_secant.svg" )
 
 This projection is often used in mapping polar regions but can be used for any location on the earth's surface (in which case they are called oblique planar projections). 
 
-```{r echo=FALSE, fig.cap="Examples of three planar projections: orthographic (left), gnomonic (center) and equidistant (right). Each covers a different spatial range (with the latter covering both northern and southern hemispheres) and each preserves a unique set of spatial properties.", out.width=600}
+```{r f09-planar-examples, echo=FALSE, fig.cap="Examples of three planar projections: orthographic (left), gnomonic (center) and equidistant (right). Each covers a different spatial range (with the latter covering both northern and southern hemispheres) and each preserves a unique set of spatial properties.", out.width=600}
 knitr::include_graphics("img/Planar_Examples.svg" )
 ```
 
@@ -136,7 +136,7 @@ The cylinder can be tangent to the equator or it can be oblique. A special case 
 
 Distortion is minimized along the tangent or secant lines and increases as the distance from these lines increases. 
 
-```{r echo=FALSE, fig.cap="Examples of two cylindrical projections: Mercator (preserves shape but distortes area and distance) and equa-area (preserves area but distorts shape).", out.width=600}
+```{r f09-cylindrical-examples, echo=FALSE, fig.cap="Examples of two cylindrical projections: Mercator (preserves shape but distortes area and distance) and equa-area (preserves area but distorts shape).", out.width=600}
 knitr::include_graphics("img/Cylindrical_Examples.svg" )
 ```
 
@@ -158,7 +158,7 @@ Distortion is minimized along the tangent or secant lines and increases as the d
 
 Conical projections are also popular PCS' in European maps such as Europe Albers Equal Area Conic and Europe Lambert Conformal Conic.
 
-```{r echo=FALSE,fig.cap="Examples of three conical projections: Albers equal area (preserves area), equidistant (preserves distance) and conformal (preserves shape).", out.width=600}
+```{r f09-conical-examples, echo=FALSE, fig.cap="Examples of three conical projections: Albers equal area (preserves area), equidistant (preserves distance) and conformal (preserves shape).", out.width=600}
 knitr::include_graphics("img/Conical_Examples.svg" )
 ```
 
@@ -190,4 +190,4 @@ Projections can distort scale, but this does not necessarily mean that area is d
 
 The north-south dashed line in the graphic shows the orientation of the meridian. The east-west dotted line shows the orientation of the parallel.
 
-> It's important to recall that these distortions occur at the point where the TI is centered and not across the region covered by the TI plot.
+> It's important to recall that these distortions occur at the point where the TI is centered and not across the region covered by the TI circle.

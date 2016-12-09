@@ -27,7 +27,7 @@ download.file("http://colby.edu/~mgimond/Spatial/Data/TX.gpkg", destfile = "./TX
 
 ```
 
-### Reading a shapefile with `rgdal`
+### Reading a shapefile with `rgdal` &#x200b; {-}
 
 There are two different ways one can load a shapefile into R: using the `rgdal` package and using the `maptools` package. The difference between both methods is that the `rgdal`  option loads the coordinate system (CS) information (if present in the shapefile) while `maptools` does not. 
 
@@ -50,7 +50,7 @@ summary(s1)
 Note the coordinate information under the  `proj4string :` heading. It suggests that the CS is a UTM projection for zone 19 (north) and an NAD83 datum.
 
 
-### Reading a shapefile with `maptools` {-}
+### Reading a shapefile with `maptools` &#x200b; {-}
 
 Here, we'll use `readShapeSpatial()` from `maptools` to load the shapefile.
 
@@ -72,7 +72,7 @@ summary(s2)
 file.remove(list.files(".", pattern="Income_schooling.*"))
 ```
 
-### Reading a GeoPackage
+### Reading a GeoPackage {-}
 
 A GeoPackage can be read with the `rgdal` package. A GeoPackage is a spatial database that can store more than one layer. This requires knowledge of the layer name which may be different from database filename. You can extract the layer name(s) from a GeoPackage as follows:
 
@@ -147,7 +147,7 @@ proj4string :
 [+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0]
 ```
 
-What remains of the output is a summary of each column in the attributes table. There are 5 columns named `r names(s1)`. 
+What remains of the output is a summary of each column in the attributes table.
 
 You can also extract the column names via the `names` function:
 
@@ -166,7 +166,7 @@ data.frame(s1)
 There are many ways one can plot spatial features in R. We'll explore two approaches: one using `sp`'s `spplot`, the second using the `tmap` package.
 
 
-### Mapping with `spplot`  {-}
+### Mapping with `spplot` &#x200b; {-}
 
 `spplot` is a base plotting function that is part of the `sp` package. Note that `sp` underlies many other packages including `maptools` and `rgdal`.
 
@@ -201,7 +201,7 @@ Note how we are able to extract the `Income` column via `s1$Income` which is pas
 
 A nice feature of `spplot` is its legend: instead of generating discrete color swatches (with associated value ranges) `ssplot` generates contiguous color swatches along a scale which provides us with not only information on the ranges covered by the colors but a visual on the distribution of these bins.
 
-### Mapping with `tmap`  {-}
+### Mapping with `tmap` &#x200b; {-}
 
 The `tmap` package is designed to map thematic data. The following chunk recreates the map generated with `spplot`.
 
@@ -237,7 +237,7 @@ tm_shape(s1) +
 
 Here, we move the legend element to the right of the map data frame and we suppress the drawing of the map border.
 
-### Mapping rasters with `tmap`  {-}
+### Mapping rasters with `tmap` &#x200b; {-}
 
 To generate a quick map, simply use the `qtm` function.
 

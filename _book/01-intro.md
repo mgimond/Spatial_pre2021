@@ -83,8 +83,8 @@ in spatial analysis using quantitative and statistical techniques.
 
 
 <div class="figure">
-<img src="01-intro_files/figure-html/unnamed-chunk-3-1.png" alt="Distribution of Maple trees in a 1,000 x 1,000 ft study area." width="192" />
-<p class="caption">(\#fig:unnamed-chunk-3)Distribution of Maple trees in a 1,000 x 1,000 ft study area.</p>
+<img src="01-intro_files/figure-html/f01-ppp-1.png" alt="Distribution of Maple trees in a 1,000 x 1,000 ft study area." width="192" />
+<p class="caption">(\#fig:f01-ppp)Distribution of Maple trees in a 1,000 x 1,000 ft study area.</p>
 </div>
 
 What you will learn in this course is that popular GIS software like ArcGIS are great tools to create and manipulate spatial data, but if one wishes to go beyond the data manipulation and analyze patterns and processes that may have led to these patterns, other quantitative tools are needed. One such tool we will use in this class is **R**: an open source (freeware) data analysis environment. 
@@ -95,13 +95,7 @@ R has one, if not the *richest* set of spatial data analysis and statistics tool
 
 ## What's in an Acronym?
 
-<div class="figure">
-<img src="img/GeographicInformationAnalysis_cover.png" alt="A highly recommended book for anyone serious about exploring spatial data is O'Sullivan and Unwin's **Geographic Information Analysis** [@Unwin1]. The book tackles general concepts and theory behind spatial analysis." width="150" />
-<p class="caption">(\#fig:unnamed-chunk-4)A highly recommended book for anyone serious about exploring spatial data is O'Sullivan and Unwin's **Geographic Information Analysis** [@Unwin1]. The book tackles general concepts and theory behind spatial analysis.</p>
-</div>
-
-
-GIS is a ubiquitous technology. Many of you are taking this course in part because you have seen GIS listed as a "desirable"" or "required" skill in job postings. Many of you will think of GIS as a “map making” environment as do many ancillary users of GIS in the workforce. While "visualizing" data is an important feature of a GIS, one must not lose sight of *what* data is being visualized and for what purpose. O'Sullivan and Unwin (2010) use the term **accidental geographer** to refer to those *"whose understanding of geographic science is based on the operations made possible by GIS software"*. We can expand on this idea and define **accidental data analyst** as one whose understanding of data and its analysis is limited to the point-and-click environment of popular pieces of software such as spreadsheet environments, statistical packages and GIS software. The aggressive marketing of GIS technology has the undesirable effect of placing the *technology* before *purpose* and *theory*. This is not unique to GIS, however. Such concerns were shared decades ago when personal computers made it easier for researchers and employees to graph non-spatial data as well as perform many statistical procedures. 
+GIS is a ubiquitous technology. Many of you are taking this course in part because you have seen GIS listed as a "desirable"" or "required" skill in job postings. Many of you will think of GIS as a “map making” environment as do many ancillary users of GIS in the workforce. While "visualizing" data is an important feature of a GIS, one must not lose sight of *what* data is being visualized and for what purpose. O'Sullivan and Unwin [@Unwin1] use the term **accidental geographer** to refer to those *"whose understanding of geographic science is based on the operations made possible by GIS software"*. We can expand on this idea and define **accidental data analyst** as one whose understanding of data and its analysis is limited to the point-and-click environment of popular pieces of software such as spreadsheet environments, statistical packages and GIS software. The aggressive marketing of GIS technology has the undesirable effect of placing the *technology* before *purpose* and *theory*. This is not unique to GIS, however. Such concerns were shared decades ago when personal computers made it easier for researchers and employees to graph non-spatial data as well as perform many statistical procedures. 
 
 The different purposes of mapping spatial data have strong parallels to that of graphing (or plotting) non-spatial data. **John Tukey** [@Tukey1972] offers three broad classes of the latter:
 
@@ -113,7 +107,7 @@ A *GIS world* analogy is proposed here:
 
  * **Reference maps** (USGS maps, hiking maps, road maps). Such maps are used to navigate landscapes or identify locations of points-of-interest.
  * **Presentation maps** presented in the press such as the NY Times and the Wall Street Journal, but also maps presented in journals. Such maps are designed to convey a very specific narrative of the author's choosing. (Here we'll avoid Tukey's harsh description of such visual displays, but the idea that maps can be used as *propaganda* is not farfetched).
- * **Statistical maps** whose purpose it is to manipulate the raw data in such a way to tease out patterns otherwise not discernable the original data. This usually requires multiple data manipulation operations and visualization and can sometimes benefit being explored outside of a spatial context.
+ * **Statistical maps** whose purpose it is to manipulate the raw data in such a way to tease out patterns otherwise not discernable in its original form. This usually requires multiple data manipulation operations and visualization and can sometimes benefit from being explored outside of a spatial context.
  
 This course will focus on the last two spatial data visualization purposes with a strong emphasis on the latter (*Statistical maps*).
 

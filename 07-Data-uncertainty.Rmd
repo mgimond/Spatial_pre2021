@@ -23,7 +23,7 @@ Many census datasets such as the U.S. Census Bureau's American Community Survey 
 
 One approach to mapping both estimates *and* SE's is to display both as side-by-side maps.
 
-```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 7, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "Maps of income estimates (left) and associated standard errors (right)."}
+```{r f07-map1, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 7, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "Maps of income estimates (left) and associated standard errors (right)."}
 library(RColorBrewer)
 brks1 <- quantile(S$Income, seq(0,1,0.2))
 brks1[length(brks1)] <- brks1[length(brks1)] + 1
@@ -40,14 +40,14 @@ While there is nothing inherently wrong in doing this, it can prove to be diffic
 
 Another approach is to overlay the measure of uncertainty (SE or MoE) as a textured layer on top of the income layer.
 
-```{r echo=FALSE, fig.cap = "Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE.", out.width=400}
+```{r f07-map2, echo=FALSE, fig.cap = "Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE.", out.width=400}
 
 knitr::include_graphics("img/Income_and_uncertainty.jpg")
 ```
 
 Or, one could map both ends of the MoE range side by side.
 
-```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 7, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right)."}
+```{r f07-map-MoE, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 7, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right)."}
 library(RColorBrewer)
 S$IncMax <- S$Income + 1.645 * S$IncomeSE
 S$IncMin <- S$Income - 1.645 * S$IncomeSE
@@ -66,7 +66,7 @@ print(P2, split=c(2, 1, 2, 1), more=FALSE)
 Attempting to convey uncertainty using the aforementioned maps fails to highlight the reason one chooses to map values in the first place: that is to compare values across a spatial domain. More specifically, we are interested in identifying spatial patterns of high or low values. What is implied in the above maps is that the estimates will always maintain their order across the polygons. In other words, if one polygon's estimate is greater than all neighboring estimates, this order will always hold true if another sample was surveyed. But this assumption is incorrect. Each polygon (or county in the above example) can derive different estimates independently from its neighboring polygon. 
 Let's look at a bar plot of our estimates.
 
-```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 5, fig.height = 3.0, fig.fullwidth = FALSE, fig.cap = "Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges."}
+```{r f07-MoE-plot1, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 5, fig.height = 3.0, fig.fullwidth = FALSE, fig.cap = "Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges."}
 library(gplots)
 # Sort data by INCOME
 Y   = S$Income[order(S$Income)]  # per capita income
@@ -86,7 +86,7 @@ par(OP)
 Note, for example, how Piscataquis county's income estimate (grey point in the graphic) is lower than that of Oxford county. If another sample of the population was surveyed in each county, the new estimates could place Piscataquis *above* Oxford county in income rankings as shown in the following example:
 
 
-```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 5, fig.height = 3.0, fig.fullwidth = FALSE, fig.cap = "Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot."}
+```{r f07-sim-values, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 5, fig.height = 3.0, fig.fullwidth = FALSE, fig.cap = "Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot."}
 
 # ===================================================================
 # =====   Custom Normal distribution ================================
@@ -125,7 +125,7 @@ Note how, in this sample, Oxford's income drops in ranking below that of Piscata
 
 How does the *estimated income* map compare with the *simulated income* map?
 
-```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 9, fig.height = 5.0, fig.fullwidth = TRUE, fig.cap = "Original income estimate (left) and realization of a simulated sample (right)."}
+```{r f07-sim-map, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 9, fig.height = 5.0, fig.fullwidth = TRUE, fig.cap = "Original income estimate (left) and realization of a simulated sample (right)."}
 library(RColorBrewer)
 S$R1 <- Yrnd
 brks <- quantile(c(S$Income, S$R1), seq(0,1,0.2))
@@ -139,7 +139,7 @@ print(P2, split=c(2, 1, 2, 1), more=FALSE)
 
 A few more simulated samples (using the 90% confidence interval) are shown below:
 
-```{r, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 10, fig.height = 3.1, fig.fullwidth = TRUE, fig.cap = "Original income estimate (left) and realizations from simulated samples (R1 through R5)."}
+```{r f07-5sim-maps, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 10, fig.height = 3.1, fig.fullwidth = TRUE, fig.cap = "Original income estimate (left) and realizations from simulated samples (R1 through R5)."}
 
 set.seed(421); S$R2 <- rnorml(Y, YSE, 1.645)
 set.seed(1231); S$R3 <- rnorml(Y, YSE, 1.645)
@@ -227,7 +227,7 @@ SDplot = function(X,Y,x.lab,y.lab) {
 ```
 
 
-```{r, fig.height=2.5, echo=FALSE, fig.cap="Regression between percent not having completed any school grade and median per capita income for each county."}
+```{r f07-regression1, fig.height=2.5, echo=FALSE, fig.cap="Regression between percent not having completed any school grade and median per capita income for each county."}
 OP <- par(mar=c(2,2,1,1))
 SDplot(S$Income,S$NoSchool * 100,x.lab="Income",y.lab="% No school")
 abline( M1, col="red" )
@@ -245,7 +245,7 @@ SM <- summary(M)
 AM <- anova(M)
 ```
 
-```{r, fig.height=2.5, echo=FALSE, fig.cap="Example of what a regression line could look like had another sample been surveyed for each county."}
+```{r f07-regression2, fig.height=2.5, echo=FALSE, fig.cap="Example of what a regression line could look like had another sample been surveyed for each county."}
 OP <- par(mar=c(2,2,1,1))
 #plot(S$S1 ~ S$R1, pch=20, xlab="Income", ylab="% not schooled")
 SDplot(S$R1,S$S1 * 100,x.lab="Income",y.lab="% No school")
@@ -256,7 +256,7 @@ par(OP)
 
 With this new (simulated) sample, the $R^2$ value dropped to `r round(SM$r.squared,2)` and the p-value is now `r round(AM$Pr[1],3)`--a much less significant relationship then computed with the original estimate! In fact, if we were to survey  1000 different samples within each county we would get the following range of regression lines:
 
-```{r, fig.height=2.5, echo=FALSE, fig.cap = "A range of regression lines computed from different samples from each county."}
+```{r f07-regression-envelope, fig.height=2.5, echo=FALSE, fig.cap = "A range of regression lines computed from different samples from each county."}
 OP <- par(mar=c(2,2,1,1))
 SDplot(S$Income,S$NoSchool * 100,x.lab="Income",y.lab="% No school")
 

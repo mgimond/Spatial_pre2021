@@ -25,13 +25,13 @@ For example, if you have a GIS layer of major cities and you want to identify al
 
 <div class="figure">
 <img src="img/Select_attribute_1.jpg" alt="An example of *selection by attributes* tool in ArcMap  where it is accessed from the *Selection* pull-down menu." width="358" />
-<p class="caption">(\#fig:unnamed-chunk-3)An example of *selection by attributes* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.</p>
+<p class="caption">(\#fig:f08-sel1)An example of *selection by attributes* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.</p>
 </div>
 
 
 <div class="figure">
 <img src="img/Select_cities.svg" alt="Selected cities meeting the criterion are shown in cyan color."  />
-<p class="caption">(\#fig:unnamed-chunk-4)Selected cities meeting the criterion are shown in cyan color.</p>
+<p class="caption">(\#fig:f08-sel1-result)Selected cities meeting the criterion are shown in cyan color.</p>
 </div>
 
 
@@ -49,8 +49,8 @@ Following up with the last example, let's now select cities having a population 
 
 
 <div class="figure">
-<img src="img/Select_cities_2.svg" alt="Selected cities meeting *both* criteria are shown in cyan color."  />
-<p class="caption">(\#fig:unnamed-chunk-5)Selected cities meeting *both* criteria are shown in cyan color.</p>
+<img src="img/Select_cities_2.svg" alt="Selected cities meeting `POP &gt; 50000` AND `FIPS_CNTRY == US` criteria are shown in cyan color."  />
+<p class="caption">(\#fig:f08-sel2)Selected cities meeting `POP > 50000` AND `FIPS_CNTRY == US` criteria are shown in cyan color.</p>
 </div>
 
 ## Selection by location
@@ -61,13 +61,13 @@ Continuing with our working example, we might be interested in cities that are w
 
 <div class="figure">
 <img src="img/Select_location_1.jpg" alt="An example of a *selection by location* tool in ArcMap  where it is accessed from the *Selection* pull-down menu." width="420" />
-<p class="caption">(\#fig:unnamed-chunk-6)An example of a *selection by location* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.</p>
+<p class="caption">(\#fig:f08-loc1)An example of a *selection by location* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.</p>
 </div>
 
 
 <div class="figure">
 <img src="img/Cities_earthquakes.svg" alt="Selected cities meeting the criterion are shown in cyan color." width="300" />
-<p class="caption">(\#fig:unnamed-chunk-7)Selected cities meeting the criterion are shown in cyan color.</p>
+<p class="caption">(\#fig:f08-loc1-map)Selected cities meeting the criterion are shown in cyan color.</p>
 </div>
 
 

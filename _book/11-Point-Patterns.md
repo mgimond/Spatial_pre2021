@@ -34,8 +34,8 @@ $$
 $$
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-4-1.png" alt="An example of a point pattern where n = 20 and the study area (defined by a square boundary) is 10 units squared. The point density is thus 20/100 = 0.2 points per unit area." width="240" />
-<p class="caption">(\#fig:unnamed-chunk-4)An example of a point pattern where n = 20 and the study area (defined by a square boundary) is 10 units squared. The point density is thus 20/100 = 0.2 points per unit area.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-gobal-dens-1.png" alt="An example of a point pattern where n = 20 and the study area (defined by a square boundary) is 10 units squared. The point density is thus 20/100 = 0.2 points per unit area." width="240" />
+<p class="caption">(\#fig:f11-gobal-dens)An example of a point pattern where n = 20 and the study area (defined by a square boundary) is 10 units squared. The point density is thus 20/100 = 0.2 points per unit area.</p>
 </div>
 
 ### Local density
@@ -47,8 +47,8 @@ A point pattern's density can be measured at different locations within the stud
 This technique requires that the study area be divided into sub-regions (aka *quadrats*). Then, the point density is computed for each quadrat by dividing the number of points in each quadrat by the quadrat's area. Quadrats can take on many different shapes such as hexagons and triangles, here we use square shaped quadrats to demonstrate the procedure.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-5-1.png" alt="An example of a quadrat count where the study area is divided into four equally sized quadrats whose area is 25 square units each. The density in each quadrat can be computed by dividing the number of points in each quadrat by that quadrat's area." width="211.2" />
-<p class="caption">(\#fig:unnamed-chunk-5)An example of a quadrat count where the study area is divided into four equally sized quadrats whose area is 25 square units each. The density in each quadrat can be computed by dividing the number of points in each quadrat by that quadrat's area.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-quad01-1.png" alt="An example of a quadrat count where the study area is divided into four equally sized quadrats whose area is 25 square units each. The density in each quadrat can be computed by dividing the number of points in each quadrat by that quadrat's area." width="211.2" />
+<p class="caption">(\#fig:f11-quad01)An example of a quadrat count where the study area is divided into four equally sized quadrats whose area is 25 square units each. The density in each quadrat can be computed by dividing the number of points in each quadrat by that quadrat's area.</p>
 </div>
 
 
@@ -62,23 +62,23 @@ Quadrat regions do not have to take on a uniform pattern across the study area, 
 </div>
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-7-1.png" alt="Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed." width="576" />
-<p class="caption">(\#fig:unnamed-chunk-7)Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-quad02-1.png" alt="Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed." width="576" />
+<p class="caption">(\#fig:f11-quad02)Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions for which a local density will be computed.</p>
 </div>
 
 
 If the local intensity changes across all regions of the tessellated covariate as a function of the covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of 17.08, 50.45, 26.76, 5.71 respectively. To compute these regions' point densities, we simply divide the number of points by the area.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-8-1.png" alt="Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region)." width="576" />
-<p class="caption">(\#fig:unnamed-chunk-8)Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region).</p>
+<img src="11-Point-Patterns_files/figure-html/f11-quad03-1.png" alt="Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region)." width="576" />
+<p class="caption">(\#fig:f11-quad03)Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by area of sub-region).</p>
 </div>
 
 We can plot the relationship between point density and elevation regions to help assess any dependence between the variables.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-9-1.png" alt="Plot of point density vs elevation regions." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-9)Plot of point density vs elevation regions.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-quad04-1.png" alt="Plot of point density vs elevation regions." width="672" />
+<p class="caption">(\#fig:f11-quad04)Plot of point density vs elevation regions.</p>
 </div>
 
 Though there is a steep increase in density at the highest elevation range, this increase is not monotonic across all ranges of increasing elevation suggesting that density may not be explained by elevation alone.
@@ -86,8 +86,8 @@ Though there is a steep increase in density at the highest elevation range, this
 Note that how one chooses to tessellate a surface can have an influence on the resulting density values. For example, dividing the elevation into *equal area* sub-regions produces different density values.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-10-1.png" alt="Same analysis as last figure using different sub-regions. Note the difference in density values." width="576" />
-<p class="caption">(\#fig:unnamed-chunk-10)Same analysis as last figure using different sub-regions. Note the difference in density values.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-quad05-1.png" alt="Same analysis as last figure using different sub-regions. Note the difference in density values." width="576" />
+<p class="caption">(\#fig:f11-quad05)Same analysis as last figure using different sub-regions. Note the difference in density values.</p>
 </div>
 
 
@@ -99,15 +99,15 @@ The kernel density approach is an extension of the quadrat method: Like the quad
 A kernel not only defines the shape and size of the window, but it can also *weight* the points following a well defined kernel function. The simplest of functions is a **basic kernel** where each point in the kernel window is assigned equal weight.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-11-1.png" alt="An example of a basic 3x3 kernel density map (ArcGIS calls this a point density map) where each point is assigned an equal weight. For example, the second cell from the top and left (i.e. centered at location x=1.5 and y =8.5) has one point within a 3x3 unit (pixel) region and thus has a local density of 1/9 = 0.11." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-11)An example of a basic 3x3 kernel density map (ArcGIS calls this a point density map) where each point is assigned an equal weight. For example, the second cell from the top and left (i.e. centered at location x=1.5 and y =8.5) has one point within a 3x3 unit (pixel) region and thus has a local density of 1/9 = 0.11.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-kernel01-1.png" alt="An example of a basic 3x3 kernel density map (ArcGIS calls this a point density map) where each point is assigned an equal weight. For example, the second cell from the top and left (i.e. centered at location x=1.5 and y =8.5) has one point within a 3x3 unit (pixel) region and thus has a local density of 1/9 = 0.11." width="672" />
+<p class="caption">(\#fig:f11-kernel01)An example of a basic 3x3 kernel density map (ArcGIS calls this a point density map) where each point is assigned an equal weight. For example, the second cell from the top and left (i.e. centered at location x=1.5 and y =8.5) has one point within a 3x3 unit (pixel) region and thus has a local density of 1/9 = 0.11.</p>
 </div>
 
 Some of the most popular **kernel functions** assign weights to points that are inversely proportional to their distances to the kernel window center. A few such kernel functions follow a *gaussian* or *quartic* like distribution function. These functions tend to produce a smoother density map.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-12-1.png" alt="An example of a kernel function is the 3x3 quartic kernel function where each point in the kernel window is weighted based on its proximity to the kernel's center cell (typically, closer points are weighted more heavily). Kernel functions, like the quartic, tend to generate smoother surfaces." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-12)An example of a kernel function is the 3x3 quartic kernel function where each point in the kernel window is weighted based on its proximity to the kernel's center cell (typically, closer points are weighted more heavily). Kernel functions, like the quartic, tend to generate smoother surfaces.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-kernel02-1.png" alt="An example of a kernel function is the 3x3 quartic kernel function where each point in the kernel window is weighted based on its proximity to the kernel's center cell (typically, closer points are weighted more heavily). Kernel functions, like the quartic, tend to generate smoother surfaces." width="672" />
+<p class="caption">(\#fig:f11-kernel02)An example of a kernel function is the 3x3 quartic kernel function where each point in the kernel window is weighted based on its proximity to the kernel's center cell (typically, closer points are weighted more heavily). Kernel functions, like the quartic, tend to generate smoother surfaces.</p>
 </div>
 
 
@@ -116,8 +116,8 @@ Some of the most popular **kernel functions** assign weights to points that are 
 In the previous section, we learned that we could use a covariate, like elevation, to define the sub-regions (quadrats) within which densities were computed. In essence a form of *normalization* was applied to the density calculations whereby each sub-region was assumed to represent a unique underlying process (if this were the case, then the density values would have been the same across each sub-region). The idea of *normalizing* the data to some underlying covariate can be extended to kernel density analysis. Here, instead of *dividing* the study region into discrete sub-regions (as was done with quadrat analysis), we normalize the computed density (from our observed point pattern) to a *measure* of density expected from the underlying covariate. This normalized density, which we'll denote as $\rho$, can be estimated in one of three different ways-- by *ratio*, *re-weight* and *transform* methods. We will not delve into the differences between these methods, but note that there is more than one way to estimate $\rho$.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-13-1.png" alt="An estimate of $\rho$ using the ratio method. The figure on the left shows the estimated $\rho$ as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of $\rho$." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-13)An estimate of $\rho$ using the ratio method. The figure on the left shows the estimated $\rho$ as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of $\rho$.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-kernel03-1.png" alt="An estimate of $\rho$ using the ratio method. The figure on the left shows the estimated $\rho$ as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of $\rho$." width="480" />
+<p class="caption">(\#fig:f11-kernel03)An estimate of $\rho$ using the ratio method. The figure on the left shows the estimated $\rho$ as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of $\rho$.</p>
 </div>
 
 If the density, $\rho$, can be explained by the elevation, we would expect a constant $\rho$ value across all elevation values (figure on the left) and across the spatial extent (figure on the right). This appears to be the case with our working example except near the upper right-hand corner of the spatial extent where the elevation values are the highest. This can be explained by the small area covered by these high elevation locations which result in fewer observed points and thus higher uncertainty for that corner of the study extent. This is very apparent in the left figure where the 95% confidence interval envelope widens at higher elevation values (indicating the greater uncertainty in our estimated $\rho$ value at the higher elevation).
@@ -145,8 +145,8 @@ where $\lambda(i)$ is the modeled intensity at location $i$, $e^{\alpha}$ (the e
 Let's work with the point distribution of Starbucks cafes in the state of Massachusetts. The point pattern clearly exhibits a non-random distribution. It might be helpful to compare this distribution to some underlying covariate such as the population density distribution.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-15-1.png" alt="Location of Starbucks relative to population density. Note that the classification scheme follows a log scale to more easily differentiate population density values." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-15)Location of Starbucks relative to population density. Note that the classification scheme follows a log scale to more easily differentiate population density values.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-starbucks-1.png" alt="Location of Starbucks relative to population density. Note that the classification scheme follows a log scale to more easily differentiate population density values." width="672" />
+<p class="caption">(\#fig:f11-starbucks)Location of Starbucks relative to population density. Note that the classification scheme follows a log scale to more easily differentiate population density values.</p>
 </div>
 
 We can fit a poisson point process model to these data where the modeled intensity takes on the form:
@@ -168,8 +168,8 @@ The estimated value for $\alpha$ is -18.966. This is interpreted as stating that
 If one were to plot the relationship between density and population, we would get:
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-17-1.png" alt="Poisson point process model fitted to the relationship between Starbucks store locations and population density. The model assumes a loglinear relationship. Note that the density is reported in number of stores per map unit area (the map units are in meters)." width="288" />
-<p class="caption">(\#fig:unnamed-chunk-17)Poisson point process model fitted to the relationship between Starbucks store locations and population density. The model assumes a loglinear relationship. Note that the density is reported in number of stores per map unit area (the map units are in meters).</p>
+<img src="11-Point-Patterns_files/figure-html/f11-pppm01-1.png" alt="Poisson point process model fitted to the relationship between Starbucks store locations and population density. The model assumes a loglinear relationship. Note that the density is reported in number of stores per map unit area (the map units are in meters)." width="288" />
+<p class="caption">(\#fig:f11-pppm01)Poisson point process model fitted to the relationship between Starbucks store locations and population density. The model assumes a loglinear relationship. Note that the density is reported in number of stores per map unit area (the map units are in meters).</p>
 </div>
 
 
@@ -187,36 +187,36 @@ An alternative to density based methods is **distance based methods** for patter
 An average nearest neighbor (ANN) analysis measures the average distance from each point in the study area to its nearest point. In the following example, the average nearest neighbor for all points is 1.52 units.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-19-1.png" alt="Distance between each point and its closest point. For example, the point closest to point 1 is point 9 which is 2.32 units away." width="480" />
-<p class="caption">(\#fig:unnamed-chunk-19)Distance between each point and its closest point. For example, the point closest to point 1 is point 9 which is 2.32 units away.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-ppp-dist-1.png" alt="Distance between each point and its closest point. For example, the point closest to point 1 is point 9 which is 2.32 units away." width="480" />
+<p class="caption">(\#fig:f11-ppp-dist)Distance between each point and its closest point. For example, the point closest to point 1 is point 9 which is 2.32 units away.</p>
 </div>
 
 An extension of this idea is to plot the ANN values for different order neighbors, that is for the first closest point, then the second closest point, and so forth.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-20-1.png" alt="ANN values for different neighbor order numbers. For example, the ANN for the first closest neighbor is 1.52 units; the ANN for the 2nd closest neighbor is 2.14  units; and so forth." width="240" />
-<p class="caption">(\#fig:unnamed-chunk-20)ANN values for different neighbor order numbers. For example, the ANN for the first closest neighbor is 1.52 units; the ANN for the 2nd closest neighbor is 2.14  units; and so forth.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-ANN-plot-1.png" alt="ANN values for different neighbor order numbers. For example, the ANN for the first closest neighbor is 1.52 units; the ANN for the 2nd closest neighbor is 2.14  units; and so forth." width="240" />
+<p class="caption">(\#fig:f11-ANN-plot)ANN values for different neighbor order numbers. For example, the ANN for the first closest neighbor is 1.52 units; the ANN for the 2nd closest neighbor is 2.14  units; and so forth.</p>
 </div>
 
 The shape of the ANN curve as a function of neighbor order can provide insight into the spatial arrangement of points relative to one another. In the following example, three different point patterns of 20 points are presented.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-21-1.png" alt="Three different point patterns: a single cluster, a dual cluster and a randomly scattered pattern." width="432" />
-<p class="caption">(\#fig:unnamed-chunk-21)Three different point patterns: a single cluster, a dual cluster and a randomly scattered pattern.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-diff-patterns-1.png" alt="Three different point patterns: a single cluster, a dual cluster and a randomly scattered pattern." width="432" />
+<p class="caption">(\#fig:f11-diff-patterns)Three different point patterns: a single cluster, a dual cluster and a randomly scattered pattern.</p>
 </div>
 
 Each point pattern offers different ANN vs. neighbor order plots.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-22-1.png" alt="Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern." width="384" />
-<p class="caption">(\#fig:unnamed-chunk-22)Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern.</p>
+<img src="11-Point-Patterns_files/figure-html/f11-diff-ANN-plots-1.png" alt="Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern." width="384" />
+<p class="caption">(\#fig:f11-diff-ANN-plots)Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern.</p>
 </div>
 
 The bottom line (black line) indicates that the cluster (left plot) is tight and that the distances between a point and all other points is very short. This is in stark contrast with the top line (red line) which indicates that the distances between points is much greater. Note that the way we describe these patterns is heavily influenced by the size and shape of the study region. If the region was defined as the smallest rectangle encompassing the cluster of points, the cluster of points would no longer look clustered.
 
 <div class="figure">
-<img src="11-Point-Patterns_files/figure-html/unnamed-chunk-23-1.png" alt="The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?" width="384" />
-<p class="caption">(\#fig:unnamed-chunk-23)The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?</p>
+<img src="11-Point-Patterns_files/figure-html/f11-diff-ppp02-1.png" alt="The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?" width="384" />
+<p class="caption">(\#fig:f11-diff-ppp02)The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?</p>
 </div>
 
 
@@ -282,7 +282,7 @@ The above $\hat{K}$ is transformed to the following plot (note how the $K_{expec
 
 <div class="figure">
 <img src="img/L_function.svg" alt="L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K~expected~ at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km."  />
-<p class="caption">(\#fig:unnamed-chunk-25)L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K~expected~ at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km.</p>
+<p class="caption">(\#fig:f11-L)L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K~expected~ at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km.</p>
 </div>
 
 ### The Pair Correlation Function $g$
@@ -291,14 +291,14 @@ A shortcoming of the $K$ function (and by extension the $L$ function) is its cum
 
 <div class="figure">
 <img src="img/K_vs_g_bands.png" alt="Difference in how the $K$ and $g$ functions aggregate points at distance $r$ ($r$ = 30 km in this example). *All* points *up to* $r$ contribute to $K$ whereas just the points in the *annulus band* at $r$ contribute to $g$." width="632" />
-<p class="caption">(\#fig:unnamed-chunk-26)Difference in how the $K$ and $g$ functions aggregate points at distance $r$ ($r$ = 30 km in this example). *All* points *up to* $r$ contribute to $K$ whereas just the points in the *annulus band* at $r$ contribute to $g$.</p>
+<p class="caption">(\#fig:f11-k-g)Difference in how the $K$ and $g$ functions aggregate points at distance $r$ ($r$ = 30 km in this example). *All* points *up to* $r$ contribute to $K$ whereas just the points in the *annulus band* at $r$ contribute to $g$.</p>
 </div>
 
 The plot and interpretation of the $g$ function differs from that of the $K$ and $L$ functions.
 
 <div class="figure">
 <img src="img/g_function.svg" alt="$g$-function of the Massachusets Walmart point data. Its interpretation is  similar to that of the $K$ and $L$ functions. Here, we observe distances between stores greater than expected under CSR up to about 5 km. Note that this cutoff is less than the 12 km cutoff observed with the $K$ function; this can be explained by the point pattern at the shorter $r$ distances contributing to the $K$ values at higher $r$ values--a problem avoided using the $g$-function." width="400" />
-<p class="caption">(\#fig:unnamed-chunk-27)$g$-function of the Massachusets Walmart point data. Its interpretation is  similar to that of the $K$ and $L$ functions. Here, we observe distances between stores greater than expected under CSR up to about 5 km. Note that this cutoff is less than the 12 km cutoff observed with the $K$ function; this can be explained by the point pattern at the shorter $r$ distances contributing to the $K$ values at higher $r$ values--a problem avoided using the $g$-function.</p>
+<p class="caption">(\#fig:f11-g)$g$-function of the Massachusets Walmart point data. Its interpretation is  similar to that of the $K$ and $L$ functions. Here, we observe distances between stores greater than expected under CSR up to about 5 km. Note that this cutoff is less than the 12 km cutoff observed with the $K$ function; this can be explained by the point pattern at the shorter $r$ distances contributing to the $K$ values at higher $r$ values--a problem avoided using the $g$-function.</p>
 </div>
 
 If $g(r)$ = 1, then the inter-point distances (at and around distance $r$) are consistant with CSR. If $g(r)$ > 1, then the points are more clustered than expected under CSR. If $g(r)$ < 1, then the points are more dispersed than expected under CSR. Note that $g$ can never be less than 0.
@@ -311,7 +311,7 @@ The concept of 1^st^ order effects and 2^nd^ order effects is an important one. 
 
 <div class="figure">
 <img src="img/1st_2nd_order_property.png" alt="Tree distribution can be influenced by 1^st^ order effects such as elevation gradient of spatial distribution of soil characteristics; this, in turn, changes the  tree density distribution across the study area. Tree distribution can also be influenced by 2^nd^ order effects such as seed dispersal processes where the process is independent of location and, instead, dependent on the presence of other trees." width="750" />
-<p class="caption">(\#fig:unnamed-chunk-28)Tree distribution can be influenced by 1^st^ order effects such as elevation gradient of spatial distribution of soil characteristics; this, in turn, changes the  tree density distribution across the study area. Tree distribution can also be influenced by 2^nd^ order effects such as seed dispersal processes where the process is independent of location and, instead, dependent on the presence of other trees.</p>
+<p class="caption">(\#fig:f11-1st-2nd-effects)Tree distribution can be influenced by 1^st^ order effects such as elevation gradient of spatial distribution of soil characteristics; this, in turn, changes the  tree density distribution across the study area. Tree distribution can also be influenced by 2^nd^ order effects such as seed dispersal processes where the process is independent of location and, instead, dependent on the presence of other trees.</p>
 </div>
 
 Density based measurements such as kernel density estimations look at the *1^st^ order* property of the underlying process. Distance based measurements such as ANN and K-functions focus on the *2^nd^ order* property of the underlying process. 

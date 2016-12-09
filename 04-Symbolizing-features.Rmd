@@ -9,7 +9,7 @@ Each color is a combination of three perceptual dimensions: **hue**, **lightness
 
 **Hue** is the perceptual dimension associated with color names. 
 
-```{r, marginfigure = FALSE, fig.cap = "An example of eight different hues. Hues are associated with color names such as green, red or blue.", echo=FALSE, fig.height=0.2, fig.width = 3}
+```{r f04-hue, fig.cap = "An example of eight different hues. Hues are associated with color names such as green, red or blue.", echo=FALSE, fig.height=0.2, fig.width = 3}
 
 library(munsell)
 library(colorspace)
@@ -35,7 +35,7 @@ Note that magentas and purples are not part of the natural visible light spectru
 
 **Lightness** (sometimes referred to as *value*) describes how much light reflects (or is emitted) off of a surface. Lightness is an important dimension for representing ordinal/interval/ratio data. 
 
-```{r, marginfigure = FALSE, fig.cap = "Eight different hues with decreasing lightness values.", echo=FALSE, fig.height=0.8, fig.width = 3,warning=FALSE, message=FALSE}
+```{r f04-lightness, fig.cap = "Eight different hues with decreasing lightness values.", echo=FALSE, fig.height=0.8, fig.width = 3,warning=FALSE, message=FALSE}
 
 # Function
 pal <- function(col, border = "light gray", ...)
@@ -60,7 +60,7 @@ par(OP)
 
 **Saturation** (sometimes referred to as *chroma*) is a measure of a color's vividness. You can use saturated colors to help distinguish map symbols. But be careful when manipulating saturation, its property should be modified sparingly in most maps. 
 
-```{r, marginfigure = FALSE, fig.cap = "Eight different hues with decreasing saturation values.", echo=FALSE, fig.height=0.8, fig.width = 3,warning=FALSE, message=FALSE}
+```{r f04-saturation,  fig.cap = "Eight different hues with decreasing saturation values.", echo=FALSE, fig.height=0.8, fig.width = 3,warning=FALSE, message=FALSE}
 
 library(munsell)
 library(colorspace)
@@ -89,7 +89,7 @@ par(OP)
 
 The three perceptual dimensions of color can be used to construct a 3D color space. This 3D space need not be a cube (as one would expect given that we are combining three dimensions) but a cone where lightness, saturation and hue are the cone's height, radius and circumference respectively.
 
-```{r echo=FALSE, fig.cap = "This is how the software defines the color space. But does this match our perception of color space?"}
+```{r f04-color-space, echo=FALSE, fig.cap = "This is how the software defines the color space. But does this match our perception of color space?"}
 
 knitr::include_graphics("img/Color_space_std_small.jpg")
 ```
@@ -101,7 +101,7 @@ The color space implemented in most software is symmetrical about the value/ligh
 Let's examine a slice of the symmetrical color space along the blue/yellow hue axis at a lightness value of about 90%.
 
 
-```{r, marginfigure = FALSE, fig.cap = "A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge.", echo=FALSE, fig.height=.3, fig.width = 4, warning=FALSE, message=FALSE}
+```{r f04-munsell, fig.cap = "A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge.", echo=FALSE, fig.height=.3, fig.width = 4, warning=FALSE, message=FALSE}
 
 library(munsell)
 library(colorspace)
@@ -127,7 +127,7 @@ par(OP)
 Now, how many distinct yellows can you make out? How many distinct blues can you make out? Do the numbers match? Unless you have incredible color perception, you will probably observe that the number of distinct colors do not match when in fact they do! There are exactly 30 distinct blues and 30 distinct yellows. Let's add a border to each color to convince ourselves that the software did indeed generate the same number of distinct colors.
 
 
-```{r, marginfigure = FALSE, fig.cap = "A cross section of the color space with each color distinctly outlined.", echo=FALSE, fig.height=.3, fig.width = 4, warning=FALSE, message=FALSE}
+```{r f04-munsell-bis, fig.cap = "A cross section of the color space with each color distinctly outlined.", echo=FALSE, fig.height=.3, fig.width = 4, warning=FALSE, message=FALSE}
 
 ## Function
 pal <- function(col, border = "light gray", ...)
@@ -150,14 +150,12 @@ par(OP)
 
 It should be clear by now that a symmetrical color space does not reflect the way we "perceive" colors. There are more rigorously designed color spaces such as **CIELAB** and **Munsell** that depict the color space as a non-symmetrical object as perceived by humans. For example, in a Munsell color space, a vertical slice of the cone along the blue/yellow axis looks like this.
 
-```{r, marginfigure = FALSE, fig.cap = "A slice of the Munsell color space.", echo=FALSE, fig.height=2, fig.width = 4, warning=FALSE, message=FALSE}
+```{r f04-munsell-slice, fig.cap = "A slice of the Munsell color space.", echo=FALSE, fig.height=2, fig.width = 4, warning=FALSE, message=FALSE}
 library(ggplot2)
 OP <- par( mar=c(0,0,0,0))
 p <- complement_slice("5Y")
 p$layers[[2]] <- NULL # remove text layer
-p + theme(axis.text.x = element_text(angle = 90, hjust = 1),
-         axis.text.y = element_text(),
-         strip.text = element_text(size = rel(0.5)))
+p 
 par(OP)
 
 ```
@@ -172,7 +170,7 @@ So how do we leverage our understanding of color spaces when choosing colors for
 
 Qualitative schemes are used to symbolize data having no inherent order (i.e. categorical data). Different hues are normally used to distinguish different categorical values. When possible, use commonly associated hues for land features such as vegetation and water. 
 
-```{r, marginfigure = FALSE, fig.cap = "Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette.", echo=FALSE, fig.height=1, fig.width = 4}
+```{r f04-qualitative,  fig.cap = "Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette.", echo=FALSE, fig.height=1, fig.width = 4}
 
 library(RColorBrewer)
 n <- 6
@@ -198,7 +196,7 @@ par(OP)
 
 Election results can be displayed using a qualitative color scheme. But be careful in your choice of hues if a cultural bias exists (i.e. it may not make sense to assign "blue" to republican or "red"" to democratic regions).
 
-```{r, marginfigure = FALSE, fig.cap = "Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation.", echo=FALSE, fig.width = 4.5,fig.height=4}
+```{r f04-qualitative-map, fig.cap = "Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation.", echo=FALSE, fig.width = 4.5,fig.height=4}
 
 library(classInt)
 library(maptools)
@@ -219,7 +217,7 @@ par(OP)
 
 Sequential color schemes are used to highlight ordered data such as income, temperature, elevation or infection rates. A well designed sequential color scheme ranges from a light color (representing low attribute values) to a dark color (representing high attribute values). Such color schemes are typically composed of a single hue, but may include two hues as shown in the last two color schemes of the following figure.
 
-```{r, marginfigure = FALSE, fig.cap = "Example of four different sequential color schemes. Color hex numbers are superimposed on each palette.", echo=FALSE, fig.height=1, fig.width = 4, warning=FALSE, message=FALSE}
+```{r f04-sequential,  fig.cap = "Example of four different sequential color schemes. Color hex numbers are superimposed on each palette.", echo=FALSE, fig.height=1, fig.width = 4, warning=FALSE, message=FALSE}
 n <- 6
 OP <- par( mfrow=c(4,1), mar=c(0.5,0,0,0))
 image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"Blues"), ylab = "", xaxt = "n", yaxt = "n", 
@@ -242,7 +240,7 @@ par(OP)
 
 Distribution of income is a good example of a sequential map. Income values are interval/ratio data which have an implied order. 
 
-```{r, marginfigure = FALSE, fig.cap = "Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels.", echo=FALSE, fig.width = 4.5, fig.height=4}
+```{r f04-sequential-map,  fig.cap = "Map of household income shown in a sequential color scheme. Note the use of a single hue (green) and 7 different lightness levels.", echo=FALSE, fig.width = 4.5, fig.height=4}
 
 library(classInt)
 library(maptools)
@@ -264,7 +262,7 @@ par(OP)
 
 Divergent color schemes apply to ordered data as well. However, there is an implied central value about which all values are compared. Typically, a divergent color scheme is composed of two hues--one for each side of the central value. Each hue's lightness/saturation value is then adjusted symmetrically about the central value. Examples of such a color scheme follows:
 
-```{r, marginfigure = FALSE, fig.cap = "Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette.", echo=FALSE, fig.height=1, fig.width = 4}
+```{r f04-divergent,  fig.cap = "Example of four different divergent color schemes. Color hex numbers are superimposed onto each palette.", echo=FALSE, fig.height=1, fig.width = 4}
 n <- 6
 OP <- par( mfrow=c(4,1), mar=c(0.5,0,0,0))
 image(x=1:n, y=1,as.matrix(1:n), col = brewer.pal(n,"BrBG"), ylab = "", xaxt = "n", yaxt = "n", 
@@ -288,7 +286,7 @@ par(OP)
 
 Continuing with the last example, we now focus on the divergence of income values about the median value of $36,641. We use a brown hue for income values below the median and a green/blue hue for values above the median.
 
-```{r, marginfigure = FALSE, fig.cap = "This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median.", echo=FALSE, fig.height=4, fig.width = 4.5, warning=FALSE, message=FALSE}
+```{r f04-divergent-map,  fig.cap = "This map of household income uses a divergent color scheme where two different hues (brown and blue-green) are used for two sets of values separated by the median income of 36,641 dollars. Each hue is then split into three separate colors using decreasing lightness values away from the median.", echo=FALSE, fig.height=4, fig.width = 4.5, warning=FALSE, message=FALSE}
 
 n = 6
 brk <- classIntervals(S$Household_,n,style="quantile")
@@ -333,7 +331,7 @@ The **Jenks interval** scheme (aka natural breaks) uses an algorithm that identi
 It may help to view the breaks when superimposed on top of a distribution of the attribute data. In the following graphics the three classification intervals are superimposed on a histogram of the per-household income data. The histogram shows the distribution of values as “bins” where each bin represents a range of income values. The y-axis shows the frequency (or number of occurrences) for values in each bin.
 
 
-```{r echo=FALSE, fig.cap = "Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different).", dpi=60}
+```{r f04-three-breaks, echo=FALSE, fig.cap = "Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different).", dpi=60}
 
 knitr::include_graphics("img/Three_hist_intervals.png")
 ```
