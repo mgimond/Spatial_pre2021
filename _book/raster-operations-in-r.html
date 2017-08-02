@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Intro to GIS and Spatial Analysis</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -34,7 +33,6 @@
   
 <link rel="prev" href="vector-operations-in-r.html">
 <link rel="next" href="point-pattern-analysis-in-r.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #008000; } /* Information */
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -338,7 +337,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#kriging"><i class="fa fa-check"></i>Kriging</a><ul>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#fit-the-variogram-model"><i class="fa fa-check"></i>Fit the variogram model</a></li>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-kriged-surface"><i class="fa fa-check"></i>Generate Kriged surface</a></li>
-<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-the-variance-map"><i class="fa fa-check"></i>Generate the variance map</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-the-variance-and-confidence-interval-maps"><i class="fa fa-check"></i>Generate the variance and confidence interval maps</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html"><i class="fa fa-check"></i>Mapping rates in R</a><ul>
@@ -661,8 +660,9 @@ FALSE  TRUE
         </div>
       </div>
 <a href="vector-operations-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="point-pattern-analysis-in-r.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="point-pattern-analysis-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -707,7 +707,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

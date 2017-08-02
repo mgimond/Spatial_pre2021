@@ -411,10 +411,12 @@ tm_shape(pt2) +
 If you wish to use Google Maps as a backdrop, you can map the points with `ggmap`'s `qmplot` function.
 
 ```{r, fig.height=3, fig.align='center'}
-qmplot(lon, lat, data=df3.geo, source="osm") + 
+qmplot(lon, lat, data=df3.geo, source="google", maptype = "satellite") + 
   geom_point(col="red", size=2, show.legend = FALSE) + 
   geom_label(aes(label=College), hjust = "inward", vjust="inward")
 ```
+
+Other Google map `maptypes` include `"terrain"`, `"roadmap"` and `"hybrid"`.
 
 ## Exporting to a shapefile {-}
 

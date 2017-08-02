@@ -236,7 +236,7 @@ Recall that the kriging interpolation was performed on the de-trended data. In e
 <p class="caption">(\#fig:f14-krige02)The final kriged surface.</p>
 </div>
 
-A valuable by-product of the kriging operation is the variance map which gives us a measure of uncertainty in the interpolated values. The smaller the variance, the better.
+A valuable by-product of the kriging operation is the variance map which gives us a measure of uncertainty in the interpolated values. The smaller the variance, the better (note that the variance values are in squared units).
 
 <div class="figure" style="text-align: center">
 <img src="14-Spatial-Interpolation_files/figure-html/f14-krige03-1.png" alt="Variance map resulting from the Kriging analysis." width="672" />

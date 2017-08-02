@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Intro to GIS and Spatial Analysis</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -34,7 +33,6 @@
   
 <link rel="prev" href="spatial-autocorrelation-in-r.html">
 <link rel="next" href="mapping-rates-in-r.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -92,6 +90,7 @@ code > span.in { color: #008000; } /* Information */
 </head>
 
 <body>
+
 
 
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
@@ -338,7 +337,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#kriging"><i class="fa fa-check"></i>Kriging</a><ul>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#fit-the-variogram-model"><i class="fa fa-check"></i>Fit the variogram model</a></li>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-kriged-surface"><i class="fa fa-check"></i>Generate Kriged surface</a></li>
-<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-the-variance-map"><i class="fa fa-check"></i>Generate the variance map</a></li>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-the-variance-and-confidence-interval-maps"><i class="fa fa-check"></i>Generate the variance and confidence interval maps</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html"><i class="fa fa-check"></i>Mapping rates in R</a><ul>
@@ -631,17 +630,26 @@ r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)
 <span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="A7-Interpolation_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
-<div id="generate-the-variance-map" class="section level3 unnumbered">
-<h3>Generate the variance map</h3>
+<div id="generate-the-variance-and-confidence-interval-maps" class="section level3 unnumbered">
+<h3>Generate the variance and confidence interval maps</h3>
 <p>The <code>dat.krg</code> object stores not just the interpolated values, but the variance values as well. These can be passed to the raster object for mapping as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r   &lt;-<span class="st"> </span><span class="kw">raster</span>(dat.krg, <span class="dt">layer=</span><span class="st">&quot;var1.var&quot;</span>)
 r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)
 
 <span class="kw">tm_shape</span>(r.m) +<span class="st"> </span>
 <span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">7</span>, <span class="dt">palette =</span><span class="st">&quot;Reds&quot;</span>,
-            <span class="dt">title=</span><span class="st">&quot;Variance map </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) +<span class="kw">tm_shape</span>(P) +<span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) +
+            <span class="dt">title=</span><span class="st">&quot;Variance map </span><span class="ch">\n</span><span class="st">(in squared inches)&quot;</span>) +<span class="kw">tm_shape</span>(P) +<span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) +
 <span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="A7-Interpolation_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Are more readily interpretable map is the 95% confidence interval map which can be generated from the variance object as follows (the map values should be interpreted as the number of inches above and below the estimated rainfall amount).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r   &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">raster</span>(dat.krg, <span class="dt">layer=</span><span class="st">&quot;var1.var&quot;</span>)) *<span class="st"> </span><span class="fl">1.96</span>
+r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)
+
+<span class="kw">tm_shape</span>(r.m) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">7</span>, <span class="dt">palette =</span><span class="st">&quot;Reds&quot;</span>,
+            <span class="dt">title=</span><span class="st">&quot;95% CI map </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) +<span class="kw">tm_shape</span>(P) +<span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) +
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="A7-Interpolation_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -652,8 +660,9 @@ r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)
         </div>
       </div>
 <a href="spatial-autocorrelation-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mapping-rates-in-r.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="mapping-rates-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -698,7 +707,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

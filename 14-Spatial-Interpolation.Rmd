@@ -503,7 +503,7 @@ tm_shape(r.m) + tm_raster(n=10, palette="RdBu", auto.palette.mapping=FALSE, titl
   tm_legend(legend.outside=TRUE)
 ```
 
-A valuable by-product of the kriging operation is the variance map which gives us a measure of uncertainty in the interpolated values. The smaller the variance, the better.
+A valuable by-product of the kriging operation is the variance map which gives us a measure of uncertainty in the interpolated values. The smaller the variance, the better (note that the variance values are in squared units).
 
 ```{r f14-krige03, echo=FALSE, results='hide',  fig.height=3.3, cache=TRUE, fig.cap="Variance map resulting from the Kriging analysis.", fig.align='center'}
 
@@ -513,6 +513,6 @@ A valuable by-product of the kriging operation is the variance map which gives u
 r <- raster(dat.krg, layer="var1.var")
 r.m <- mask(r, W)
 
-tm_shape(r.m) + tm_raster(n=7, palette ="Reds", ,title="Variance map \n(in inches)") +tm_shape(P) + tm_dots(size=0.2) +
+tm_shape(r.m) + tm_raster(n=7, palette ="Reds", ,title="Variance map \n(in squared inches)") +tm_shape(P) + tm_dots(size=0.2) +
   tm_legend(legend.outside=TRUE)
 ```

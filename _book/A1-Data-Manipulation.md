@@ -646,12 +646,14 @@ If you wish to use Google Maps as a backdrop, you can map the points with `ggmap
 
 
 ```r
-qmplot(lon, lat, data=df3.geo, source="osm") + 
+qmplot(lon, lat, data=df3.geo, source="google", maptype = "satellite") + 
   geom_point(col="red", size=2, show.legend = FALSE) + 
   geom_label(aes(label=College), hjust = "inward", vjust="inward")
 ```
 
 <img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" />
+
+Other Google map `maptypes` include `"terrain"`, `"roadmap"` and `"hybrid"`.
 
 ## Exporting to a shapefile {-}
 

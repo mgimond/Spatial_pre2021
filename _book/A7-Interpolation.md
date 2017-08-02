@@ -318,7 +318,7 @@ tm_shape(r.m) +
 
 <img src="A7-Interpolation_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
-### Generate the variance map {-}
+### Generate the variance and confidence interval maps {-}
 
 The `dat.krg` object stores not just the interpolated values, but the variance values as well. These can be passed to the raster object for mapping as follows:
 
@@ -329,9 +329,23 @@ r.m <- mask(r, W)
 
 tm_shape(r.m) + 
   tm_raster(n=7, palette ="Reds",
-            title="Variance map \n(in inches)") +tm_shape(P) + tm_dots(size=0.2) +
+            title="Variance map \n(in squared inches)") +tm_shape(P) + tm_dots(size=0.2) +
   tm_legend(legend.outside=TRUE)
 ```
 
 <img src="A7-Interpolation_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
+Are more readily interpretable map is the 95% confidence interval map which can be generated from the variance object as follows (the map values should be interpreted as the number of inches above and below the estimated rainfall amount).
+
+
+```r
+r   <- sqrt(raster(dat.krg, layer="var1.var")) * 1.96
+r.m <- mask(r, W)
+
+tm_shape(r.m) + 
+  tm_raster(n=7, palette ="Reds",
+            title="95% CI map \n(in inches)") +tm_shape(P) + tm_dots(size=0.2) +
+  tm_legend(legend.outside=TRUE)
+```
+
+<img src="A7-Interpolation_files/figure-html/unnamed-chunk-14-1.png" width="672" />
