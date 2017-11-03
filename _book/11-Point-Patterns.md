@@ -163,7 +163,7 @@ The parameters $\alpha$ and $\beta$ are estimated from a method called *maximum 
 
 
 
-The estimated value for $\alpha$ is -18.966. This is interpreted as stating that given a population density of *zero*, the base intensity of the point process is e^-18.966^ or 5.79657e-09--a number close to zero (as one would expect). The estimated value for $\beta$ is 0.00017. This is interpretated as stating that for every unit increase in population density (one person per square mile), the intensity of the point process increases by e^0.00017^ or 1.00017.
+The estimated value for $\alpha$ is -18.966. This is interpreted as stating that given a population density of *zero*, the base intensity of the point process is e^-18.966^ or 5.79657e-09 stores per square meter (the units are derived from the point's reference system)--a number close to zero (as one would expect). The estimated value for $\beta$ is 0.00017. This is interpretated as stating that for every unit increase in the population density derived from the raster, the intensity of the point process increases by e^0.00017^ or 1.00017.
 
 If one were to plot the relationship between density and population, we would get:
 
