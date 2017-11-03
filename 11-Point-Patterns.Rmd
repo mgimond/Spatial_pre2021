@@ -291,14 +291,14 @@ $$
 $$
 
 
+where $\lambda(i)$ is the modeled intensity at location $i$, $e^{\alpha}$ (the exponent of $\alpha$) is the base intensity when the covariate is *zero* and $e^{\beta}$ is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate. This is a form of the *logistic regression* model--popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a **loglinear** function of the underlying covariate (i.e. one where the process' intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where $\alpha + \beta Z(i)$ is the *linear predictor*.
+
 ```{block, type="note"}
-The left-hand side of a logisitic regression model is often presented as the *probability*, $P$, of occurance and is related to $\lambda$ as \$\\lambda=P/(1-P)\$ which is the *ratio of probability of occurence*. Solving for $P$ gives us \$P = \\lambda/(1 + \\lambda)\$ which yields the following equation:
+Note: The left-hand side of a logisitic regression model is often presented as the *probability*, $P$, of occurance and is related to $\lambda$ as \$\\lambda=P/(1-P)\$ which is the *ratio of probability of occurence*. Solving for $P$ gives us \$P = \\lambda/(1 + \\lambda)\$ which yields the following equation:
 $$
 P(i) = \frac{e^{\alpha + \beta Z(i)}}{1 + e^{\alpha + \beta Z(i)}}
 $$
 ```
-
-where $\lambda(i)$ is the modeled intensity at location $i$, $e^{\alpha}$ (the exponent of $\alpha$) is the base intensity when the covariate is *zero* and $e^{\beta}$ is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate. This is a form of the *logistic regression* model--popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a **loglinear** function of the underlying covariate (i.e. one where the process' intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where $\alpha + \beta Z(i)$ is the *linear predictor*.
 
 Let's work with the point distribution of Starbucks cafes in the state of Massachusetts. The point pattern clearly exhibits a non-random distribution. It might be helpful to compare this distribution to some underlying covariate such as the population density distribution.
 
