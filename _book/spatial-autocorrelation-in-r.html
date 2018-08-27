@@ -7,14 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="github-repo" content="mgimond/private-test" />
+  <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
@@ -46,11 +46,14 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-0.7.3/leaflet.js"></script>
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-1.0.1/leaflet.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -377,7 +380,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</code></pre>
 <p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="500" /></p>
 <p>Let’s map the income distribution using a quantile classification scheme.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
-<span class="kw">tm_shape</span>(s1) +<span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;Income&quot;</span>) +
+<span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;Income&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
 <p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <div id="define-neighboring-polygons" class="section level2 unnumbered">
@@ -391,22 +394,22 @@ nb &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(s1, <span class
 <pre><code>[[1]]
 [1] 2 3 4 5</code></pre>
 <p>Polygon <code>1</code> has 4 neighbors. The first polygon is associated with the attribute name <code>Aroostook</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1$NAME[<span class="dv">1</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>NAME[<span class="dv">1</span>]</code></pre></div>
 <pre><code>[1] Aroostook
 16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock ... York</code></pre>
 <p>The four neighboring polygons are associated with the names:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1$NAME[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>NAME[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</code></pre></div>
 <pre><code>[1] Somerset    Piscataquis Penobscot   Washington 
 16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock ... York</code></pre>
 <p>Next, we need to assign weights to each neighboring polygon. In our case, each polygon will be assigned equal weight when computing the neighboring mean values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(nb, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>, <span class="dt">zero.policy=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>To see the weight of the first polygon’s four neighbors type:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw$weights[<span class="dv">1</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw<span class="op">$</span>weights[<span class="dv">1</span>]</code></pre></div>
 <pre><code>[[1]]
 [1] 0.25 0.25 0.25 0.25</code></pre>
 <p>Each neighbor is assigned a quarter of the total weight. This means that when R computes the average neighboring income values, each neighbor’s income will be multiplied by <code>0.25</code> before being tallied.</p>
 <p>Finally, we’ll compute the average neighbor income value for each polygon. These values are often referred to as <strong>spatially lagged</strong> values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Inc.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, s1$Income)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Inc.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, s1<span class="op">$</span>Income)</code></pre></div>
 <p>The following table shows the average neighboring income values (stored in the <code>Inc.lag</code> object) for each county.</p>
 <p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="500" /></p>
 </div>
@@ -414,11 +417,11 @@ nb &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(s1, <span class
 <h2>Computing the Moran’s I statistic: the hard way</h2>
 <p>We can plot <em>lagged income</em> vs. <em>income</em> and fit a linear regression model to the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a regression model</span>
-M &lt;-<span class="st"> </span><span class="kw">lm</span>(Inc.lag ~<span class="st"> </span>s1$Income)
+M &lt;-<span class="st"> </span><span class="kw">lm</span>(Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income)
 
 <span class="co"># Plot the data</span>
 OP &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pty=</span><span class="st">&quot;s&quot;</span>)  <span class="co"># Force a square plot</span>
- <span class="kw">plot</span>( Inc.lag ~<span class="st"> </span>s1$Income, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">asp=</span><span class="dv">1</span>)
+ <span class="kw">plot</span>( Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">asp=</span><span class="dv">1</span>)
  <span class="kw">abline</span>(M, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co"># Add the regression line from model M</span>
 <span class="kw">par</span>(OP) <span class="co"># Revert back to default plot settings</span></code></pre></div>
 <p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
@@ -430,13 +433,13 @@ OP &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pt
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">599</span>   <span class="co"># Define the number of simulations</span>
 I.r &lt;-<span class="st"> </span><span class="kw">vector</span>()  <span class="co"># Create an empty vector</span>
 
-for (i in <span class="dv">1</span>:n){
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
   <span class="co"># Randomly shuffle income values</span>
-  x &lt;-<span class="st"> </span><span class="kw">sample</span>(s1$Income, <span class="dt">replace=</span><span class="ot">FALSE</span>)
+  x &lt;-<span class="st"> </span><span class="kw">sample</span>(s1<span class="op">$</span>Income, <span class="dt">replace=</span><span class="ot">FALSE</span>)
   <span class="co"># Compute new set of lagged values</span>
   x.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, x)
   <span class="co"># Compute the regression slope</span>
-  M.r &lt;-<span class="st"> </span><span class="kw">lm</span>(x.lag ~<span class="st"> </span>x)
+  M.r &lt;-<span class="st"> </span><span class="kw">lm</span>(x.lag <span class="op">~</span><span class="st"> </span>x)
   I.r[i] &lt;-<span class="st"> </span><span class="kw">coef</span>(M.r)[<span class="dv">2</span>]
 }
 
@@ -450,9 +453,9 @@ for (i in <span class="dv">1</span>:n){
 <div id="computing-a-pseudo-p-value-from-an-mc-simulation" class="section level3 unnumbered">
 <h3>Computing a pseudo p-value from an MC simulation</h3>
 <p>First, we need to find the number of simulated ANN values greater than our observed ANN value</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">coef</span>(M)[<span class="dv">2</span>] &gt;<span class="st"> </span>I.r)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">coef</span>(M)[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>I.r)</code></pre></div>
 <p>To compute the p-value, find the end of the distribution closest to the observed ANN value, then divide that count by the total count. Note that this is a so-called one-side P-value. See lecture notes for more information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater +<span class="st"> </span><span class="dv">1</span>, n +<span class="st"> </span><span class="dv">1</span> -<span class="st"> </span>N.greater) /<span class="st"> </span>(n +<span class="st"> </span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
 p</code></pre></div>
 <pre><code>[1] 0.025</code></pre>
 <p>In our working example, the p-value suggests that there is a small chance (~ 2%) of being wrong in stating that the income values are not clustered at the county level.</p>
@@ -461,12 +464,12 @@ p</code></pre></div>
 <div id="computing-the-morans-i-statistic-the-easy-way" class="section level2 unnumbered">
 <h2>Computing the Moran’s I statistic: the easy way</h2>
 <p>To get the Moran’s I value, simply use the <code>moran.test</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(s1$Income,lw)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(s1<span class="op">$</span>Income,lw)</code></pre></div>
 <pre><code>
     Moran I test under randomisation
 
 data:  s1$Income  
-weights: lw  
+weights: lw    
 
 Moran I statistic standard deviate = 2.2472, p-value = 0.01231
 alternative hypothesis: greater
@@ -474,7 +477,7 @@ sample estimates:
 Moran I statistic       Expectation          Variance 
        0.28281108       -0.06666667        0.02418480 </code></pre>
 <p>Note that the p-value computed from the <code>moran.test</code> function is not computed from an MC silumation but <em>analytically</em> instead. This may not always prove to be the most accurate measure of significance. To test for significance using the <em>MC simulation</em> method instead, use the <code>moran.mc</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MC&lt;-<span class="st"> </span><span class="kw">moran.mc</span>(s1$Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MC&lt;-<span class="st"> </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>)
 
 <span class="co"># View results (including p-value)</span>
 MC</code></pre></div>
@@ -485,7 +488,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.28281, observed rank = 584, p-value = 0.02667
+statistic = 0.28281, observed rank = 590, p-value = 0.01667
 alternative hypothesis: greater</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the distribution (note that this is a density plot instead of a histogram)</span>
 <span class="kw">plot</span>(MC, <span class="dt">main=</span><span class="ot">NULL</span>)</code></pre></div>
@@ -504,7 +507,7 @@ alternative hypothesis: greater</code></pre>
 <p>Now that we defined our search circle, we need to identify all neighboring polygons for each polygon in the dataset.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(S.dist, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>,<span class="dt">zero.policy=</span>T) </code></pre></div>
 <p>Run the MC simulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MI  &lt;-<span class="st">  </span><span class="kw">moran.mc</span>(s1$Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>,<span class="dt">zero.policy=</span>T) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MI  &lt;-<span class="st">  </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>,<span class="dt">zero.policy=</span>T) </code></pre></div>
 <p>Plot the results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(MI) </code></pre></div>
 <p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
@@ -517,7 +520,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.31361, observed rank = 595, p-value = 0.008333
+statistic = 0.31361, observed rank = 598, p-value = 0.003333
 alternative hypothesis: greater</code></pre>
 
 </div>
@@ -539,13 +542,14 @@ alternative hypothesis: greater</code></pre>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": false,
 "twitter": false,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
@@ -575,9 +579,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

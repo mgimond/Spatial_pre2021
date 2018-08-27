@@ -485,7 +485,7 @@ a <- c(a , a+3050)
 r[a] <- NA
 
 # Let's check that the baffles are properly placed
-tm_shape(r) + tm_raster(col="Grey") + 
+tm_shape(r) + tm_raster(colorNA="red") + 
   tm_legend(legend.show=FALSE)
 
 # Next, generate a transition matrix for the 8-node case and the 16-node case

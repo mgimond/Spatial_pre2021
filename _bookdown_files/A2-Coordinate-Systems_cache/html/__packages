@@ -4,3 +4,4 @@ rgdal
 leaflet
 maptools
 tmap
+sf

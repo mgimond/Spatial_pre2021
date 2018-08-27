@@ -2,6 +2,7 @@ base
 sp
 rgdal
 tmap
+spatstat.data
 nlme
 rpart
 spatstat

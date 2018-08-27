@@ -47,7 +47,7 @@ s1 <- readOGR(".", "Income_schooling")
 
 ```
 OGR data source with driver: ESRI Shapefile 
-Source: ".", layer: "Income_schooling"
+Source: "C:\Users\mgimond\Documents\Github\Spatial", layer: "Income_schooling"
 with 16 features
 It has 5 fields
 ```
@@ -165,9 +165,10 @@ s3 <- readOGR("TX.gpkg", layer="TX")
 
 ```
 OGR data source with driver: GPKG 
-Source: "TX.gpkg", layer: "TX"
+Source: "C:\Users\mgimond\Documents\Github\Spatial\TX.gpkg", layer: "TX"
 with 1 features
 It has 49 fields
+Integer64 fields read as strings:  NO_FARMS07 AVG_SIZE07 CROP_ACR07 
 ```
 
 
@@ -204,8 +205,8 @@ class       : RasterLayer
 dimensions  : 540, 1080, 583200  (nrow, ncol, ncell)
 resolution  : 0.3333333, 0.3333333  (x, y)
 extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
-coord. ref. : +proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs 
-data source : D:\mgimond\GitHub\Spatial\elevation.img 
+coord. ref. : +proj=longlat +ellps=WGS84 +towgs84=0,0,0,-0,-0,-0,0 +no_defs 
+data source : C:\Users\mgimond\Documents\Github\Spatial\elevation.img 
 names       : elevation 
 values      : 0, 6821  (min, max)
 ```
@@ -555,7 +556,7 @@ tm_shape(pt) +
 
 ## Geocoding street addresses {-}
 
-The package `ggmap` offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of Google Maps' API.
+The package `ggmap` offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of Data Science Toolkit API.
 
 Let's first create a new data table with addresses for a few liberal arts colleges in the state of Maine.
 
@@ -575,7 +576,7 @@ Next, we'll geocode the addresses and save the output to a new data table called
 
 ```r
 library(ggmap)
-df3.geo <- mutate_geocode(df3, location=Address, output="latlona" )
+df3.geo <- mutate_geocode(df3, location=Address, output="latlona" , source="dsk")
 ```
 
 The `location` parameter is assigned the column with the addresses. The `output` parameter is given instructions on what to output. Here, the option `latlona` instructs R to output both the lat/lon values as well as all other attributes. It also adds another column called `address` with Google's nearest address match--not all addresses are necessarily matched exactly requiring Google to propose the closest match.
@@ -587,33 +588,17 @@ df3.geo
 
 ```
                                  Address College       lon      lat
-1 4000 mayflower Hill, Waterville, Maine   Colby -69.65321 44.55605
-2       2 Andrews Rd, Lewiston, ME 04240   Bates -70.20420 44.10675
-3      255 Maine St, Brunswick, ME 04011 Bowdoin -69.96524 43.90701
+1 4000 mayflower Hill, Waterville, Maine   Colby -69.66264 44.56387
+2       2 Andrews Rd, Lewiston, ME 04240   Bates        NA       NA
+3      255 Maine St, Brunswick, ME 04011 Bowdoin -69.96420 43.90649
 4     90 Quaker Hill Rd, Unity, ME 04988   Unity -69.33084 44.60335
-5      105 Eden St, Bar Harbor, ME 04609     CoA -68.22182 44.39536
-                                       address
-1 mayflower hill dr, waterville, me 04901, usa
-2        2 andrews rd, lewiston, me 04240, usa
-3       255 maine st, brunswick, me 04011, usa
-4      90 quaker hill rd, unity, me 04988, usa
-5       105 eden st, bar harbor, me 04609, usa
-```
-
-In our little example, all addresses are matched exactly except Colby which is assigned `mayflower hill dr` without a number.
-
-<div class="warning">
-<p>Note that the Google Maps API sets the limit to 2500 queries a day. To check how many queries you have left in your session, use <code>geocodeQueryCheck</code>.</p>
-</div>
-  
-  
-
-```r
-geocodeQueryCheck()
-```
-
-```
-2495 geocoding queries remaining.
+5      105 Eden St, Bar Harbor, ME 04609     CoA        NA       NA
+                                            address
+1 4000 mayflower hill dr, waterville, me 04901, usa
+2                                              <NA>
+3            255 maine st, brunswick, me 04011, usa
+4           90 quaker hill rd, unity, me 04988, usa
+5                                              <NA>
 ```
 
 Note that `df2.geo` is not a spatial object. It needs to be converted to one if it is to be used in generating a map output. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.
@@ -640,7 +625,7 @@ tm_shape(pt2) +
   tm_text("College", auto.placement = TRUE, shadow=TRUE, size=0.8)
 ```
 
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" />
+<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" />
 
 If you wish to use Google Maps as a backdrop, you can map the points with `ggmap`'s `qmplot` function.
 
@@ -651,7 +636,7 @@ qmplot(lon, lat, data=df3.geo, source="google", maptype = "satellite") +
   geom_label(aes(label=College), hjust = "inward", vjust="inward")
 ```
 
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" />
+<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" />
 
 Other Google map `maptypes` include `"terrain"`, `"roadmap"` and `"hybrid"`.
 

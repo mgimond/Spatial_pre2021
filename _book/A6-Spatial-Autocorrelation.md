@@ -200,7 +200,7 @@ moran.test(s1$Income,lw)
 	Moran I test under randomisation
 
 data:  s1$Income  
-weights: lw  
+weights: lw    
 
 Moran I statistic standard deviate = 2.2472, p-value = 0.01231
 alternative hypothesis: greater
@@ -227,7 +227,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.28281, observed rank = 584, p-value = 0.02667
+statistic = 0.28281, observed rank = 590, p-value = 0.01667
 alternative hypothesis: greater
 ```
 
@@ -301,7 +301,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.31361, observed rank = 595, p-value = 0.008333
+statistic = 0.31361, observed rank = 598, p-value = 0.003333
 alternative hypothesis: greater
 ```
 

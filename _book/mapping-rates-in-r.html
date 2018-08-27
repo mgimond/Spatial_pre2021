@@ -7,14 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="github-repo" content="mgimond/private-test" />
+  <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
@@ -46,11 +46,14 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-0.7.3/leaflet.js"></script>
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-1.0.1/leaflet.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -379,13 +382,13 @@ code > span.in { color: #008000; } /* Information */
 pal2 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">8</span>,<span class="st">&quot;RdYlGn&quot;</span>)
 pal3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">brewer.pal</span>(<span class="dv">9</span>,<span class="st">&quot;Greys&quot;</span>), <span class="st">&quot;#FF0000&quot;</span>)</code></pre></div>
 <p>The Auckland dataset from the <code>spdep</code> package will be used throughout this exercise. Some of the graphics that follow are R reproductions of Bailey and Gatrell’s book, <em>Interactive Spatial Data Analysis</em> <span class="citation">(Bailey and Gatrell <a href="#ref-BaileyGatrell">1995</a>)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland &lt;-<span class="st"> </span><span class="kw">readShapePoly</span>(<span class="kw">system.file</span>(<span class="st">&quot;etc/shapes/auckland.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spdep&quot;</span>)[<span class="dv">1</span>])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland &lt;-<span class="st"> </span><span class="kw">readShapePoly</span>(<span class="kw">system.file</span>(<span class="st">&quot;shapes/auckland.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spData&quot;</span>)[<span class="dv">1</span>])</code></pre></div>
 <p>The Auckland data represents total infant deaths (under the age of five) for Auckland, New Zealand, spanning the years 1977 through 1985 for different census area units. The following block of code maps these counts by area. Both equal interval and quantile classification schemes of the same data are mapped.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$M77_85, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
-brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$M77_85, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks1$brks, <span class="dt">col.regions =</span> pal1)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
+brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
+<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)
       ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks2$brks, <span class="dt">col.regions =</span> pal1)
+<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)
       ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</code></pre></div>
 <p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
 <p>These are examples of <strong>choropleth</strong> maps (<em>choro</em> = area and <em>pleth</em> = value) where some value (an enumeration of child deaths in this working example) is aggregated over a defined area (e.g. census area units) and displayed using different colors.</p>
@@ -394,15 +397,15 @@ brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckl
 <h2>Raw Rates</h2>
 <p>A popular approach for correcting for biased visual weights (due, for instance, to different unit area sizes) is to normalize the count data by <em>area</em> thus giving a <em>count per unit area</em>. Though this may make sense for population count data, it does not make a whole lot sense when applied to mortality counts; we are usually interested in the number of deaths per <em>population</em> count and not in the number of deaths per unit area.</p>
 <p>In the next chunk of code we extract population count under the age of 5 from the Auckland data set and assign this value to the variable <code>pop</code>. Likewise, we extract the under 5 mortality count and assign this value to the variable <code>mor</code>. Bear in mind that the mortality count spans a 9 year period. Since mortality rates are usually presented in rates <em>per year</em>, we need to multiply the population value (which is for the year 1981) by nine. This will be important in the subsequent code when we compute mortality rates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop &lt;-<span class="st"> </span>auckland$Und5_81 *<span class="st"> </span><span class="dv">9</span>
-mor &lt;-<span class="st"> </span>auckland$M77_85</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop &lt;-<span class="st"> </span>auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span>
+mor &lt;-<span class="st"> </span>auckland<span class="op">$</span>M77_<span class="dv">85</span></code></pre></div>
 <p>Next, we will compute the raw rates (infant deaths per 1000 individuals per year) and map this rate by census unit area. Both quantile and equal interval classification schemes of the same data are mapped.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland$raw.rate &lt;-<span class="st"> </span>mor /<span class="st"> </span>pop *<span class="st"> </span><span class="dv">1000</span>
-brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
-brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks1$brks, <span class="dt">col.regions =</span> pal1)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland<span class="op">$</span>raw.rate &lt;-<span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>pop <span class="op">*</span><span class="st"> </span><span class="dv">1000</span>
+brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
+brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
+<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)
       ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2$brks, <span class="dt">col.regions =</span> pal1)
+<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)
       ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</code></pre></div>
 <p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
 <p>Note how our perception of the distribution of infant deaths changes when looking at mapped raw rates vs. counts. A north-south trend in perceived “abnormal” infant deaths is no longer apparent in this map.</p>
@@ -411,12 +414,12 @@ brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckl
 <h2>Standardized mortality ratios (relative risk).</h2>
 <p>Another way to re-express the data is to map the Standardized Mortality Ratios (SMR)-a very popular form of representation in the field of epidemiology. Such maps map the ratios of the number of deaths to an <em>expected</em> death count. There are many ways to define an expected death count, many of which can be externally specified. In the following example, the expected death count <span class="math inline">\(E_i\)</span> is estimated by multiplying the under 5 population count for each area by the overall death rate for Auckland: <span class="math display">\[E_i = {n_i}\times{mortality_{Auckland} } \]</span> where <span class="math inline">\(n_i\)</span> is the population count within census unit area <span class="math inline">\(i\)</span> and <span class="math inline">\(mortality_{Auckland}\)</span> is the overall death rate computed from <span class="math inline">\(mortality_{Auckland} = \sum_{i=1}^j O_i / \sum_{i=1}^j n_i\)</span> where <span class="math inline">\(O_i\)</span> is the observed death count for census unit <span class="math inline">\(i\)</span>.</p>
 <p>This chunk of code replicates Bailey and Gatrell’s figure 8.1 with the one exception that the color scheme is reversed (Bailey and Gatrell assign lighter hues to higher numbers).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auck.rate &lt;-<span class="st"> </span><span class="kw">sum</span>(mor) /<span class="st"> </span><span class="kw">sum</span>(pop)
-mor.exp   &lt;-<span class="st"> </span>pop *<span class="st"> </span>auck.rate  <span class="co"># Expected count over a nine year period</span>
-auckland$rel.rate &lt;-<span class="st"> </span><span class="dv">100</span> *<span class="st"> </span>mor /<span class="st"> </span>mor.exp
-brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$rel.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auck.rate &lt;-<span class="st"> </span><span class="kw">sum</span>(mor) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pop)
+mor.exp   &lt;-<span class="st"> </span>pop <span class="op">*</span><span class="st"> </span>auck.rate  <span class="co"># Expected count over a nine year period</span>
+auckland<span class="op">$</span>rel.rate &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>mor.exp
+brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>rel.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, 
                      <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">47</span>, <span class="dv">83</span>, <span class="dv">118</span>, <span class="dv">154</span>, <span class="dv">190</span>, <span class="dv">704</span>))
-<span class="kw">spplot</span>(auckland, <span class="st">&quot;rel.rate&quot;</span>, <span class="dt">at =</span> brks$brks,<span class="dt">col.regions=</span>pal1)</code></pre></div>
+<span class="kw">spplot</span>(auckland, <span class="st">&quot;rel.rate&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</code></pre></div>
 <p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
 </div>
 <div id="dykes-and-unwins-chi-square-statistic" class="section level2 unnumbered">
@@ -424,17 +427,17 @@ brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckla
 <p>Dykes and Unwin <span class="citation">(Dykes and Unwin <a href="#ref-DykeUnwin2001">2001</a>)</span> propose a similar technique whereby the rates are standardized following:</p>
 <p><span class="math display">\[\frac{O_i - E_i}{\sqrt{E_i}} \]</span></p>
 <p>This has the effect of creating a distribution of values closer to normal (as opposed to a Poisson distribution of rates and counts encountered thus far). We can therefore apply a diverging color scheme where green hues represent less than expected rates and red hues represent greater than expected rates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland$chi.squ =<span class="st"> </span>(mor -<span class="st"> </span>mor.exp) /<span class="st"> </span><span class="kw">sqrt</span>(mor.exp)
-brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$chi.squ, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, 
-                      <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(-<span class="dv">5</span>,-<span class="dv">3</span>, -<span class="dv">1</span>, -<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>))
-<span class="kw">spplot</span>(auckland, <span class="st">&quot;chi.squ&quot;</span>, <span class="dt">at =</span> brks$brks,<span class="dt">col.regions=</span><span class="kw">rev</span>(pal2))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland<span class="op">$</span>chi.squ =<span class="st"> </span>(mor <span class="op">-</span><span class="st"> </span>mor.exp) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(mor.exp)
+brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>chi.squ, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, 
+                      <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>))
+<span class="kw">spplot</span>(auckland, <span class="st">&quot;chi.squ&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span><span class="kw">rev</span>(pal2))</code></pre></div>
 <p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-9-1.png" width="384" /></p>
 </div>
 <div id="unstable-ratios" class="section level2 unnumbered">
 <h2>Unstable ratios</h2>
 <p>One problem with the various techniques used thus far is their sensitivity (hence instability) to small underlying population counts (i.e. unstable ratios). This next chunk of code maps the under 5 population count by census area unit.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$Und5_81, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
-<span class="kw">spplot</span>(auckland, <span class="st">&quot;Und5_81&quot;</span>, <span class="dt">at =</span> brks$brks,<span class="dt">col.regions=</span>pal1)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>Und5_<span class="dv">81</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
+<span class="kw">spplot</span>(auckland, <span class="st">&quot;Und5_81&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</code></pre></div>
 <p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-10-1.png" width="384" /></p>
 <p>Note the variability in population count with some areas encompassing fewer than 50 infants. If there is just one death in that census unit, the death rate would be reported as <span class="math inline">\(1/50 * 1000\)</span> or 20 per thousand infants–far more than then the 2.63 per thousand rate for our Auckland data set. Interestingly, the three highest raw rates in Auckland (14.2450142, 18.5185185, 10.5820106 deaths per 1000) are associated with some of the smallest underlying population counts (39, 6, 21 infants under 5).</p>
 <p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
@@ -443,13 +446,13 @@ brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckla
 <h3>Global Empirical Bayes (EB) rate estimate</h3>
 <p>The idea behind Bayesian approach is to compare the value in some area <span class="math inline">\(i\)</span> to some <em>a priori</em> estimate of the value and to “stabilize” the values due to unstable ratios (e.g. where area populations are small). The <em>a priori</em> estimate can be based on some global mean. An example of the use on a global EB infant mortality rate map is shown below. The EB map is shown side-by-side with the raw rates map for comparison.</p>
 <p><em>aka Global moment estimator of infant mortality per 1000 per year</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EB.est         &lt;-<span class="st"> </span><span class="kw">EBest</span>(auckland$M77_85, auckland$Und5_81 *<span class="st"> </span><span class="dv">9</span> )
-auckland$EBest &lt;-<span class="st"> </span>EB.est$estmm *<span class="st"> </span><span class="dv">1000</span>
-brks1          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$EBest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-brks2          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBest&quot;</span>, <span class="dt">at =</span> brks1$brks, <span class="dt">col.regions =</span> pal3, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EB.est         &lt;-<span class="st"> </span><span class="kw">EBest</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> )
+auckland<span class="op">$</span>EBest &lt;-<span class="st"> </span>EB.est<span class="op">$</span>estmm <span class="op">*</span><span class="st"> </span><span class="dv">1000</span>
+brks1          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
+brks2          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
+<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, 
              <span class="dt">main=</span><span class="st">&quot;EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2$brks, <span class="dt">col.regions =</span> pal3, 
+<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, 
              <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</code></pre></div>
 <p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-12-1.png" width="864" /></p>
 <p>The census units with the top 10% rates are highlighted in red.</p>
@@ -460,13 +463,13 @@ brks2          &lt;-<span class="st"> </span><span class="kw">classIntervals</sp
 <h3>Local Empirical Bayes (EB) rate estimate</h3>
 <p>The <em>a priori</em> mean and variance need not be aspatial (i.e. the <em>prior</em> distribution being the same for the entire Auckland study area). The adjusted estimated rates can be shrunk towards a <em>local</em> mean instead. Such technique is referred to as <em>local</em> empirical Bayes rate estimates. In the following example, we define <em>local</em> as consisting of all first order adjacent census unit areas.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nb      &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(auckland) 
-EBL.est &lt;-<span class="st"> </span><span class="kw">EBlocal</span>(auckland$M77_85, <span class="dv">9</span>*auckland$Und5_81, nb)
-auckland$EBLest &lt;-<span class="st"> </span>EBL.est$est *<span class="st"> </span><span class="dv">1000</span>
-brks1           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$EBLest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-brks2           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland$raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBLest&quot;</span>, <span class="dt">at =</span> brks1$brks, <span class="dt">col.regions =</span> pal3, 
+EBL.est &lt;-<span class="st"> </span><span class="kw">EBlocal</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dv">9</span><span class="op">*</span>auckland<span class="op">$</span>Und5_<span class="dv">81</span>, nb)
+auckland<span class="op">$</span>EBLest &lt;-<span class="st"> </span>EBL.est<span class="op">$</span>est <span class="op">*</span><span class="st"> </span><span class="dv">1000</span>
+brks1           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBLest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
+brks2           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
+<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBLest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, 
              <span class="dt">main=</span><span class="st">&quot;Local EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2$brks, <span class="dt">col.regions =</span> pal3, 
+<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, 
              <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</code></pre></div>
 <p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
 <p>The census units with the top 10% rates are highlighted in red.</p>
@@ -500,13 +503,14 @@ brks2           &lt;-<span class="st"> </span><span class="kw">classIntervals</s
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": false,
 "twitter": false,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
@@ -536,9 +540,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -137,9 +137,9 @@ $$
 where $\lambda(i)$ is the modeled intensity at location $i$, $e^{\alpha}$ (the exponent of $\alpha$) is the base intensity when the covariate is *zero* and $e^{\beta}$ is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate. This is a form of the *logistic regression* model--popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a **loglinear** function of the underlying covariate (i.e. one where the process' intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where $\alpha + \beta Z(i)$ is the *linear predictor*.
 
 <div class="note">
-<p>Note: The left-hand side of a logisitic regression model is often presented as the <em>probability</em>, <span class="math inline"><em>P</em></span>, of occurance and is related to <span class="math inline"><em>λ</em></span> as $\lambda=P/(1-P)$ which is the <em>ratio of probability of occurence</em>. Solving for <span class="math inline"><em>P</em></span> gives us $P = \lambda/(1 + \lambda)$ which yields the following equation: <br /><span class="math display">$$
+<p>Note: The left-hand side of a logisitic regression model is often presented as the <em>probability</em>, <span class="math inline">\(P\)</span>, of occurance and is related to <span class="math inline">\(\lambda\)</span> as $\lambda=P/(1-P)$ which is the <em>ratio of probability of occurence</em>. Solving for <span class="math inline">\(P\)</span> gives us $P = \lambda/(1 + \lambda)$ which yields the following equation: <span class="math display">\[
 P(i) = \frac{e^{\alpha + \beta Z(i)}}{1 + e^{\alpha + \beta Z(i)}}
-$$</span><br /></p>
+\]</span></p>
 </div>
 
 Let's work with the point distribution of Starbucks cafes in the state of Massachusetts. The point pattern clearly exhibits a non-random distribution. It might be helpful to compare this distribution to some underlying covariate such as the population density distribution.
@@ -258,7 +258,7 @@ The average nearest neighbor (ANN) statistic is one of many point pattern analys
 We can then plot K and compare that plot to a plot we would expect to get if an IRP/CSR process was at play (K~expected~).
 
 <div class="note">
-<p>K-function calculated from the Walmart stores point distribution in MA (shown in black) compared to<span class="math inline"><em>K</em><sub><em>e</em><em>x</em><em>p</em><em>e</em><em>c</em><em>t</em><em>e</em><em>d</em></sub></span> under the IRP/CSR assumption (shown in red).</p>
+<p>K-function calculated from the Walmart stores point distribution in MA (shown in black) compared to<span class="math inline">\(K_{expected}\)</span> under the IRP/CSR assumption (shown in red).</p>
 </div>
 
 K values greater than $K_{expected}$ indicates a greater number of points at that distance (more clustered); K values less than $K_{expected}$ indicates fewer number of points at that distance (more dispersed).

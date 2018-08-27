@@ -25,7 +25,7 @@ Knowing the intended audience should also dictate what you will convey and how. 
 Here's an example of a map layout that showcases several bad practices.
 
 <div class="figure">
-<img src="img/Bad_map.jpg" alt="Example of a *bad* map. Can you identify the many issues with this map? " width="528" />
+<img src="img/Bad_map.jpg" alt="Example of a *bad* map. Can you identify the many issues with this map? "  />
 <p class="caption">(\#fig:Bad-map)Example of a *bad* map. Can you identify the many issues with this map? </p>
 </div>
 
@@ -46,7 +46,7 @@ Here's an example of a map layout that showcases several bad practices.
 Following the aforementioned guidelines can go a long way in producing an effective map. 
 
 <div class="figure">
-<img src="img/Good_map.jpg" alt="Example of a *good* map." width="528" />
+<img src="img/Good_map.jpg" alt="Example of a *good* map."  />
 <p class="caption">(\#fig:Good-map)Example of a *good* map.</p>
 </div>
 

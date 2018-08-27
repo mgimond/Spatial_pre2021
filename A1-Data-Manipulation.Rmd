@@ -348,7 +348,7 @@ tm_shape(pt) +
 
 ## Geocoding street addresses {-}
 
-The package `ggmap` offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of Google Maps' API.
+The package `ggmap` offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of Data Science Toolkit API.
 
 Let's first create a new data table with addresses for a few liberal arts colleges in the state of Maine.
 
@@ -366,24 +366,13 @@ Next, we'll geocode the addresses and save the output to a new data table called
 
 ```{r}
 library(ggmap)
-df3.geo <- mutate_geocode(df3, location=Address, output="latlona" )
+df3.geo <- mutate_geocode(df3, location=Address, output="latlona" , source="dsk")
 ```
 
 The `location` parameter is assigned the column with the addresses. The `output` parameter is given instructions on what to output. Here, the option `latlona` instructs R to output both the lat/lon values as well as all other attributes. It also adds another column called `address` with Google's nearest address match--not all addresses are necessarily matched exactly requiring Google to propose the closest match.
 
 ```{r}
 df3.geo
-```
-
-In our little example, all addresses are matched exactly except Colby which is assigned `mayflower hill dr` without a number.
-
-```{block type="warning"}
-Note that the Google Maps API sets the limit to 2500 queries a day. To check how many queries you have left in your session, use `geocodeQueryCheck`.
-```
-  
-  
-```{r message=TRUE}
-geocodeQueryCheck()
 ```
 
 Note that `df2.geo` is not a spatial object. It needs to be converted to one if it is to be used in generating a map output. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.

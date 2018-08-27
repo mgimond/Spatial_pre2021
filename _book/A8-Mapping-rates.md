@@ -23,7 +23,7 @@ The Auckland dataset from the `spdep` package will be used throughout this exerc
 
 
 ```r
-auckland <- readShapePoly(system.file("etc/shapes/auckland.shp", package="spdep")[1])
+auckland <- readShapePoly(system.file("shapes/auckland.shp", package="spData")[1])
 ```
 
 The Auckland data represents total infant deaths (under the age of five) for Auckland, New Zealand, spanning the years 1977 through 1985 for different census area units. The following block of code maps these counts by area. Both equal interval and quantile classification schemes of the same data are mapped.

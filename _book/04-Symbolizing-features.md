@@ -41,7 +41,7 @@ Note that magentas and purples are not part of the natural visible light spectru
 The three perceptual dimensions of color can be used to construct a 3D color space. This 3D space need not be a cube (as one would expect given that we are combining three dimensions) but a cone where lightness, saturation and hue are the cone's height, radius and circumference respectively.
 
 <div class="figure">
-<img src="img/Color_space_std_small.jpg" alt="This is how the software defines the color space. But does this match our perception of color space?" width="192" />
+<img src="img/Color_space_std_small.jpg" alt="This is how the software defines the color space. But does this match our perception of color space?"  />
 <p class="caption">(\#fig:f04-color-space)This is how the software defines the color space. But does this match our perception of color space?</p>
 </div>
 

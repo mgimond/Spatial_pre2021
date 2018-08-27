@@ -1,6 +1,7 @@
 base
 sp
 Matrix
+spData
 spdep
 classInt
 RColorBrewer

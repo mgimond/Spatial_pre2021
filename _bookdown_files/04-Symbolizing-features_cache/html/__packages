@@ -3,6 +3,7 @@ munsell
 colorspace
 ggplot2
 RColorBrewer
+spData
 classInt
 sp
 maptools

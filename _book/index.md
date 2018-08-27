@@ -2,14 +2,14 @@
 --- 
 title: "Intro to GIS and Spatial Analysis"
 author: "Manuel Gimond"
-date: "Last edited on 2017-11-03"
+date: "Last edited on 2018-08-27"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
 bibliography: [book.bib, packages.bib, journal.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: mgimond/private-test
+github-repo: mgimond/spatial
 description: "This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course."
 ---
 

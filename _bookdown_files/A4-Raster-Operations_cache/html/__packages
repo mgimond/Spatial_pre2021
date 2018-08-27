@@ -2,6 +2,7 @@ base
 sp
 raster
 tmap
+sf
 igraph
 Matrix
 gdistance

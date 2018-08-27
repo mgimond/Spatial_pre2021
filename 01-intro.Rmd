@@ -54,7 +54,7 @@ A very capable open source (free) GIS software is [**QGIS**](http://qgis.org). I
 
 A distinction is made in this course between GIS and spatial analysis.
 In the context of mainstream GIS software, the term *analysis*
-refers to data manipulation and basic data description. In the context
+refers to data manipulation and data querying. In the context
 of **spatial analysis**, the *analysis* focuses on the *statistical analysis* of
 patterns and underlying processes or more generally, spatial analysis
 addresses the question “what could have been the genesis of the

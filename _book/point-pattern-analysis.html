@@ -7,14 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="github-repo" content="mgimond/private-test" />
+  <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
@@ -46,11 +46,14 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-0.7.3/leaflet.js"></script>
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-1.0.1/leaflet.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -489,9 +492,9 @@ Figure 11.9: An estimate of <span class="math inline">\(\rho\)</span> using the 
 <p>where <span class="math inline">\(\lambda(i)\)</span> is the modeled intensity at location <span class="math inline">\(i\)</span>, <span class="math inline">\(e^{\alpha}\)</span> (the exponent of <span class="math inline">\(\alpha\)</span>) is the base intensity when the covariate is <em>zero</em> and <span class="math inline">\(e^{\beta}\)</span> is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate. This is a form of the <em>logistic regression</em> model–popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a <strong>loglinear</strong> function of the underlying covariate (i.e. one where the process’ intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where <span class="math inline">\(\alpha + \beta Z(i)\)</span> is the <em>linear predictor</em>.</p>
 <div class="note">
 <p>
-Note: The left-hand side of a logisitic regression model is often presented as the <em>probability</em>, <span class="math inline"><em>P</em></span>, of occurance and is related to <span class="math inline"><em>λ</em></span> as <span class="math inline">\(\lambda=P/(1-P)\)</span> which is the <em>ratio of probability of occurence</em>. Solving for <span class="math inline"><em>P</em></span> gives us <span class="math inline">\(P = \lambda/(1 + \lambda)\)</span> which yields the following equation: <br /><span class="math display"><span class="math display">\[
+Note: The left-hand side of a logisitic regression model is often presented as the <em>probability</em>, <span class="math inline"><span class="math inline">\(P\)</span></span>, of occurance and is related to <span class="math inline"><span class="math inline">\(\lambda\)</span></span> as <span class="math inline">\(\lambda=P/(1-P)\)</span> which is the <em>ratio of probability of occurence</em>. Solving for <span class="math inline"><span class="math inline">\(P\)</span></span> gives us <span class="math inline">\(P = \lambda/(1 + \lambda)\)</span> which yields the following equation: <span class="math display"><span class="math display">\[
 P(i) = \frac{e^{\alpha + \beta Z(i)}}{1 + e^{\alpha + \beta Z(i)}}
-\]</span></span><br />
+\]</span></span>
 </p>
 </div>
 <p>Let’s work with the point distribution of Starbucks cafes in the state of Massachusetts. The point pattern clearly exhibits a non-random distribution. It might be helpful to compare this distribution to some underlying covariate such as the population density distribution.</p>
@@ -685,7 +688,7 @@ K
 <p>We can then plot K and compare that plot to a plot we would expect to get if an IRP/CSR process was at play (K<sub>expected</sub>).</p>
 <div class="note">
 <p>
-K-function calculated from the Walmart stores point distribution in MA (shown in black) compared to<span class="math inline"><em>K</em><sub><em>e</em><em>x</em><em>p</em><em>e</em><em>c</em><em>t</em><em>e</em><em>d</em></sub></span> under the IRP/CSR assumption (shown in red).
+K-function calculated from the Walmart stores point distribution in MA (shown in black) compared to<span class="math inline"><span class="math inline">\(K_{expected}\)</span></span> under the IRP/CSR assumption (shown in red).
 </p>
 </div>
 <p>K values greater than <span class="math inline">\(K_{expected}\)</span> indicates a greater number of points at that distance (more clustered); K values less than <span class="math inline">\(K_{expected}\)</span> indicates fewer number of points at that distance (more dispersed).</p>
@@ -760,13 +763,14 @@ Figure 11.20: Tree distribution can be influenced by 1<sup>st</sup> order effect
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": false,
 "twitter": false,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
@@ -796,9 +800,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

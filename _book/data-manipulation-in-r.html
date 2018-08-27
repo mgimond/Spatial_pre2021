@@ -7,14 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="github-repo" content="mgimond/private-test" />
+  <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
@@ -46,11 +46,14 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-0.7.3/leaflet.js"></script>
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-1.0.1/leaflet.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -389,7 +392,7 @@ code > span.in { color: #008000; } /* Information */
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgdal)
 s1 &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="st">&quot;.&quot;</span>, <span class="st">&quot;Income_schooling&quot;</span>)</code></pre></div>
 <pre><code>OGR data source with driver: ESRI Shapefile 
-Source: &quot;.&quot;, layer: &quot;Income_schooling&quot;
+Source: &quot;C:\Users\mgimond\Documents\Github\Spatial&quot;, layer: &quot;Income_schooling&quot;
 with 16 features
 It has 5 fields</code></pre>
 <p>The <code>&quot;.&quot;</code> parameter tells R to look for the shapefile in the current working directory, the second parameter tells R the name of the shapefile to open. Note that you <strong>must not</strong> add a file extension to the name as this will generate an error message.</p>
@@ -465,9 +468,10 @@ Data attributes:
 <p>The <code>TX.gpkg</code> file has a single layer called <code>TX</code>. To extract the layer <code>TX</code> into a new spatial object called <code>s3</code>, type:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s3 &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="st">&quot;TX.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;TX&quot;</span>)</code></pre></div>
 <pre><code>OGR data source with driver: GPKG 
-Source: &quot;TX.gpkg&quot;, layer: &quot;TX&quot;
+Source: &quot;C:\Users\mgimond\Documents\Github\Spatial\TX.gpkg&quot;, layer: &quot;TX&quot;
 with 1 features
-It has 49 fields</code></pre>
+It has 49 fields
+Integer64 fields read as strings:  NO_FARMS07 AVG_SIZE07 CROP_ACR07 </code></pre>
 </div>
 </div>
 <div id="reading-gis-raster-files" class="section level2 unnumbered">
@@ -485,8 +489,8 @@ r1 &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st"
 dimensions  : 540, 1080, 583200  (nrow, ncol, ncell)
 resolution  : 0.3333333, 0.3333333  (x, y)
 extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
-coord. ref. : +proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs 
-data source : D:\mgimond\GitHub\Spatial\elevation.img 
+coord. ref. : +proj=longlat +ellps=WGS84 +towgs84=0,0,0,-0,-0,-0,0 +no_defs 
+data source : C:\Users\mgimond\Documents\Github\Spatial\elevation.img 
 names       : elevation 
 values      : 0, 6821  (min, max)</code></pre>
 <p>You’ll note that the object is of class <code>RasterLayer</code>. You’ll also note that the coordinate system information stored in the original raster has been carried over into the <code>r1</code> object.</p>
@@ -524,14 +528,14 @@ Data attributes:
                 </code></pre>
 <p>The first line of output gives us the spatial object type, <code>SpatialPolygonsDataFrame</code>. It suggests that the shapefile is a polygon layer and that it has an attributes tables (hence the segment <code>DataFrame</code> in the object name). If this were a polyline layer the object type would be <code>SpatialLinesDataFrame</code> and if it were a point layer the object type would be <code>SpatialPointsDataFrame</code>.</p>
 <p>The next few lines of output give us the bounding extent of the layer in the layer’s coordinate system units.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Coordinates:
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Coordinates<span class="op">:</span>
 <span class="st">        </span>min       max
 x  <span class="fl">336337.7</span>  <span class="fl">660529.1</span>
 y <span class="fl">4772272.3</span> <span class="fl">5255569.2</span></code></pre></div>
 <p>The three lines that follow give us the projection information. Note, once again, that this information is absent if you loaded the data via <code>maptools</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Is projected:<span class="st"> </span><span class="ot">TRUE</span> 
-proj4string :
-[+proj=utm +zone=<span class="dv">19</span> +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Is projected<span class="op">:</span><span class="st"> </span><span class="ot">TRUE</span> 
+proj4string <span class="op">:</span>
+[<span class="op">+</span>proj=utm <span class="op">+</span>zone=<span class="dv">19</span> <span class="op">+</span>datum=NAD83 <span class="op">+</span>units=m <span class="op">+</span>no_defs <span class="op">+</span>ellps=GRS80 <span class="op">+</span>towgs84=<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>]</code></pre></div>
 <p>What remains of the output is a summary of each column in the attributes table.</p>
 <p>You can also extract the column names via the <code>names</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(s1)</code></pre></div>
@@ -572,8 +576,8 @@ proj4string :
 <span class="kw">library</span>(RColorBrewer)
 
 <span class="co"># Generate breaks</span>
-brks &lt;-<span class="st">  </span><span class="kw">classIntervals</span>(s1$Income, <span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)$brks
-brks[<span class="kw">length</span>(brks)] &lt;-<span class="st"> </span>brks[<span class="kw">length</span>(brks)] +<span class="st"> </span><span class="dv">1</span>
+brks &lt;-<span class="st">  </span><span class="kw">classIntervals</span>(s1<span class="op">$</span>Income, <span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)<span class="op">$</span>brks
+brks[<span class="kw">length</span>(brks)] &lt;-<span class="st"> </span>brks[<span class="kw">length</span>(brks)] <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
 
 <span class="co"># Define color swatches</span>
 pal  &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">4</span>, <span class="st">&quot;Greens&quot;</span>)
@@ -601,12 +605,12 @@ pal  &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span clas
     <span class="dt">layout.legend.position =</span> <span class="kw">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</code></pre></div>
 <p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If a more complex map is desired, the plotting functions can be broken down into elements (similar to <code>ggplot2</code>’s plotting elements). The last block of code can be modified as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">tm_fill</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">23000</span> ,<span class="dv">27000</span>,<span class="dv">100000</span> ),
           <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;under $23,000&quot;</span>, <span class="st">&quot;$23,000 to $27,000&quot;</span>, <span class="st">&quot;above $27,000&quot;</span>),
-          <span class="dt">palette=</span><span class="st">&quot;Greens&quot;</span>)  +
-<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;grey&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) +
+          <span class="dt">palette=</span><span class="st">&quot;Greens&quot;</span>)  <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Here, we move the legend element to the right of the map data frame and we suppress the drawing of the map border.</p>
@@ -617,14 +621,14 @@ pal  &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qtm</span>(r1)</code></pre></div>
 <p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>The next chunk of code overlays the raster with a vector layer and limits the extent to the northeastern US. To maximize the use of colors, elevation breaks are manually defined.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(r1, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">50</span>), <span class="dt">xlim=</span><span class="kw">c</span>(-<span class="dv">100</span>,-<span class="dv">50</span>)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">200</span>,<span class="dv">300</span>,<span class="dv">400</span>,<span class="dv">500</span>,<span class="dv">750</span>,<span class="dv">1000</span>,<span class="dv">1500</span>,<span class="dv">2000</span>,<span class="dv">3000</span>,<span class="dv">4000</span>)) +
-<span class="st">  </span><span class="kw">tm_shape</span>(s1) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(r1, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">30</span>,<span class="dv">50</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">100</span>,<span class="op">-</span><span class="dv">50</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>,<span class="dv">200</span>,<span class="dv">300</span>,<span class="dv">400</span>,<span class="dv">500</span>,<span class="dv">750</span>,<span class="dv">1000</span>,<span class="dv">1500</span>,<span class="dv">2000</span>,<span class="dv">3000</span>,<span class="dv">4000</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">tm_fill</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">23000</span> ,<span class="dv">27000</span>,<span class="dv">100000</span> ),
           <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;under $23,000&quot;</span>, <span class="st">&quot;$23,000 to $27,000&quot;</span>, <span class="st">&quot;above $27,000&quot;</span>),
-          <span class="dt">palette=</span><span class="st">&quot;Greens&quot;</span>)  +
-<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;grey&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) +
+          <span class="dt">palette=</span><span class="st">&quot;Greens&quot;</span>)  <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To learn more about the tmap package, check out the <a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html">package vignette</a> and the package author’s <a href="http://von-tijn.nl/tijn/research/presentations/tmap_user2015.pdf">presentation</a>.</p>
@@ -636,7 +640,7 @@ pal  &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/ME2010_pop.csv&quot;</span>)</code></pre></div>
 <p>Next, we’ll make use of <code>dplyr</code>’s <code>left_join</code> function to join the table to the spatial object <code>s1</code> by county name.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-s1@data &lt;-<span class="st"> </span><span class="kw">left_join</span>(s1@data, df, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;NAME&quot;</span> =<span class="st"> &quot;County&quot;</span>))</code></pre></div>
+s1<span class="op">@</span>data &lt;-<span class="st"> </span><span class="kw">left_join</span>(s1<span class="op">@</span>data, df, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;NAME&quot;</span> =<span class="st"> &quot;County&quot;</span>))</code></pre></div>
 <p>The spatial object <code>s1</code> consists of many components including the attributes table. Accessing each component requires appending the object name with <code>@</code>. In our case, we are accessing the attributes table (stored in the <code>data</code> component) via <code>s1@data</code>. In essence, the above code is joining the data table <code>df</code> to the attributes table <code>s1@data</code> and overwriting the existing attributes table (with the join) in the process. The function is also provided with a join <em>key</em> that dictates which columns from each table are to be used to match the records. Here, we are matching <code>s1</code>’s <code>NAME</code> column with <code>df</code>’s <code>County</code> column (both store the county names).</p>
 <div class="warning">
 <p>
@@ -644,21 +648,21 @@ For a join to be successful, all record elements must match letter for letter–
 </p>
 </div>
 <p>Attribute tables can be manipulated just like any other regular table in R. For example, to compute population density from the population field and the land area field, type the following.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1$Pop_dens =<span class="st"> </span>s1$Population /<span class="st"> </span>s1$Land</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>Pop_dens =<span class="st"> </span>s1<span class="op">$</span>Population <span class="op">/</span><span class="st"> </span>s1<span class="op">$</span>Land</code></pre></div>
 <p>The <code>$</code> symbol accesses the field names <code>Population</code> and <code>Land</code>. The new field <code>Pop_dens</code> is now added to the <code>s1</code> attributes table. Next, we’ll map the population density values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">tm_fill</span>(<span class="st">&quot;Pop_dens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>,  <span class="dt">palette=</span><span class="st">&quot;Reds&quot;</span>,
-          <span class="dt">title=</span><span class="st">&quot;Population density </span><span class="ch">\n</span><span class="st">(per square mile)&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;white&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) +
+          <span class="dt">title=</span><span class="st">&quot;Population density </span><span class="ch">\n</span><span class="st">(per square mile)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;white&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="converting-xy-data-to-point-objects" class="section level2 unnumbered">
 <h2>Converting XY data to point objects</h2>
 <p>Let’s create a new data table with latitude and longitude values for nine major cities in the state of Maine.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon =</span> <span class="kw">c</span>(-<span class="fl">68.783</span>, -<span class="fl">69.6458</span>, -<span class="fl">69.7653</span>, -<span class="fl">69.9536</span>, 
-                          -<span class="fl">70.7733</span>, -<span class="fl">70.4462</span>, -<span class="fl">70.4449</span>, -<span class="fl">70.1924</span>, -<span class="fl">70.2691</span>), 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">68.783</span>, <span class="op">-</span><span class="fl">69.6458</span>, <span class="op">-</span><span class="fl">69.7653</span>, <span class="op">-</span><span class="fl">69.9536</span>, 
+                          <span class="op">-</span><span class="fl">70.7733</span>, <span class="op">-</span><span class="fl">70.4462</span>, <span class="op">-</span><span class="fl">70.4449</span>, <span class="op">-</span><span class="fl">70.1924</span>, <span class="op">-</span><span class="fl">70.2691</span>), 
                   <span class="dt">lat =</span> <span class="kw">c</span>(<span class="fl">44.8109</span>, <span class="fl">44.5521</span>, <span class="fl">44.3235</span>, <span class="fl">43.913</span>, 
                           <span class="fl">43.4399</span>, <span class="fl">43.4741</span>, <span class="fl">43.5104</span>, <span class="fl">44.0975</span>, <span class="fl">43.6651</span> ), 
                   <span class="dt">Name =</span> <span class="kw">c</span>(<span class="st">&quot;Bangor&quot;</span>, <span class="st">&quot;Waterville&quot;</span>, <span class="st">&quot;Augusta&quot;</span>, <span class="st">&quot;Brunswick&quot;</span>, 
@@ -689,21 +693,21 @@ Data attributes:
                                   (Other)  :3  </code></pre>
 <p>Note the object class <code>SpatialPointsDataFrame</code>. Also note that the dataframe contents were also carried over into the attributes table (here we had just one attribute, <code>Name</code>, other than <code>lon</code> and <code>lat</code>).</p>
 <p>The next chunk of code plots the point layer on top of the population density thematic map.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">tm_fill</span>(<span class="st">&quot;Pop_dens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>,  <span class="dt">palette=</span><span class="st">&quot;Reds&quot;</span>,
-          <span class="dt">title=</span><span class="st">&quot;Population density </span><span class="ch">\n</span><span class="st">(per square mile)&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;white&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) +
+          <span class="dt">title=</span><span class="st">&quot;Population density </span><span class="ch">\n</span><span class="st">(per square mile)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;white&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>,
-            <span class="dt">inner.margins =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="dv">0</span>, <span class="fl">0.01</span>)) +
-<span class="kw">tm_shape</span>(pt) +
-<span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">size=</span>.<span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">border.col=</span><span class="st">&quot;black&quot;</span>) +
+            <span class="dt">inner.margins =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="dv">0</span>, <span class="fl">0.01</span>)) <span class="op">+</span>
+<span class="kw">tm_shape</span>(pt) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">size=</span>.<span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">border.col=</span><span class="st">&quot;black&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;Name&quot;</span>, <span class="dt">auto.placement =</span> <span class="ot">TRUE</span>, <span class="dt">shadow=</span><span class="ot">TRUE</span>, <span class="dt">size=</span><span class="fl">0.8</span>)</code></pre></div>
 <p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geocoding-street-addresses" class="section level2 unnumbered">
 <h2>Geocoding street addresses</h2>
-<p>The package <code>ggmap</code> offers a geocoding function called <code>mutate_geocode</code> which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of Google Maps’ API.</p>
+<p>The package <code>ggmap</code> offers a geocoding function called <code>mutate_geocode</code> which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of Data Science Toolkit API.</p>
 <p>Let’s first create a new data table with addresses for a few liberal arts colleges in the state of Maine.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df3 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Address =</span> <span class="kw">c</span>(<span class="st">&quot;4000 mayflower Hill, Waterville, Maine&quot;</span>, 
                      <span class="st">&quot;2 Andrews Rd, Lewiston, ME 04240&quot;</span>,
@@ -714,49 +718,41 @@ Data attributes:
          <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Next, we’ll geocode the addresses and save the output to a new data table called <code>df3.geo</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggmap)
-df3.geo &lt;-<span class="st"> </span><span class="kw">mutate_geocode</span>(df3, <span class="dt">location=</span>Address, <span class="dt">output=</span><span class="st">&quot;latlona&quot;</span> )</code></pre></div>
+df3.geo &lt;-<span class="st"> </span><span class="kw">mutate_geocode</span>(df3, <span class="dt">location=</span>Address, <span class="dt">output=</span><span class="st">&quot;latlona&quot;</span> , <span class="dt">source=</span><span class="st">&quot;dsk&quot;</span>)</code></pre></div>
 <p>The <code>location</code> parameter is assigned the column with the addresses. The <code>output</code> parameter is given instructions on what to output. Here, the option <code>latlona</code> instructs R to output both the lat/lon values as well as all other attributes. It also adds another column called <code>address</code> with Google’s nearest address match–not all addresses are necessarily matched exactly requiring Google to propose the closest match.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df3.geo</code></pre></div>
 <pre><code>                                 Address College       lon      lat
-1 4000 mayflower Hill, Waterville, Maine   Colby -69.65321 44.55605
-2       2 Andrews Rd, Lewiston, ME 04240   Bates -70.20420 44.10675
-3      255 Maine St, Brunswick, ME 04011 Bowdoin -69.96524 43.90701
+1 4000 mayflower Hill, Waterville, Maine   Colby -69.66264 44.56387
+2       2 Andrews Rd, Lewiston, ME 04240   Bates        NA       NA
+3      255 Maine St, Brunswick, ME 04011 Bowdoin -69.96420 43.90649
 4     90 Quaker Hill Rd, Unity, ME 04988   Unity -69.33084 44.60335
-5      105 Eden St, Bar Harbor, ME 04609     CoA -68.22182 44.39536
-                                       address
-1 mayflower hill dr, waterville, me 04901, usa
-2        2 andrews rd, lewiston, me 04240, usa
-3       255 maine st, brunswick, me 04011, usa
-4      90 quaker hill rd, unity, me 04988, usa
-5       105 eden st, bar harbor, me 04609, usa</code></pre>
-<p>In our little example, all addresses are matched exactly except Colby which is assigned <code>mayflower hill dr</code> without a number.</p>
-<div class="warning">
-<p>
-Note that the Google Maps API sets the limit to 2500 queries a day. To check how many queries you have left in your session, use <code>geocodeQueryCheck</code>.
-</p>
-</div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">geocodeQueryCheck</span>()</code></pre></div>
-<pre><code>2495 geocoding queries remaining.</code></pre>
+5      105 Eden St, Bar Harbor, ME 04609     CoA        NA       NA
+                                            address
+1 4000 mayflower hill dr, waterville, me 04901, usa
+2                                              &lt;NA&gt;
+3            255 maine st, brunswick, me 04011, usa
+4           90 quaker hill rd, unity, me 04988, usa
+5                                              &lt;NA&gt;</code></pre>
 <p>Note that <code>df2.geo</code> is not a spatial object. It needs to be converted to one if it is to be used in generating a map output. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pt2 &lt;-<span class="st"> </span><span class="kw">SpatialPointsDataFrame</span>(<span class="dt">coords =</span> df3.geo[,<span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)], <span class="dt">data =</span> df3.geo,
                              <span class="dt">proj4string =</span> <span class="kw">CRS</span>(<span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>))</code></pre></div>
 <p>Finally, we’ll add the points to an existing thematic map.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">tm_fill</span>(<span class="st">&quot;Pop_dens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>,  <span class="dt">palette=</span><span class="st">&quot;Reds&quot;</span>,
-          <span class="dt">title=</span><span class="st">&quot;Population density </span><span class="ch">\n</span><span class="st">(per square mile)&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;white&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) +
+          <span class="dt">title=</span><span class="st">&quot;Population density </span><span class="ch">\n</span><span class="st">(per square mile)&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_borders</span>(<span class="st">&quot;white&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>,
-            <span class="dt">inner.margins =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="dv">0</span>, <span class="fl">0.01</span>)) +
-<span class="kw">tm_shape</span>(pt2) +
-<span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">size=</span>.<span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">border.col=</span><span class="st">&quot;black&quot;</span>) +
+            <span class="dt">inner.margins =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="dv">0</span>, <span class="fl">0.01</span>)) <span class="op">+</span>
+<span class="kw">tm_shape</span>(pt2) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">size=</span>.<span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">border.col=</span><span class="st">&quot;black&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;College&quot;</span>, <span class="dt">auto.placement =</span> <span class="ot">TRUE</span>, <span class="dt">shadow=</span><span class="ot">TRUE</span>, <span class="dt">size=</span><span class="fl">0.8</span>)</code></pre></div>
-<p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If you wish to use Google Maps as a backdrop, you can map the points with <code>ggmap</code>’s <code>qmplot</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qmplot</span>(lon, lat, <span class="dt">data=</span>df3.geo, <span class="dt">source=</span><span class="st">&quot;google&quot;</span>, <span class="dt">maptype =</span> <span class="st">&quot;satellite&quot;</span>) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) +<span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qmplot</span>(lon, lat, <span class="dt">data=</span>df3.geo, <span class="dt">source=</span><span class="st">&quot;google&quot;</span>, <span class="dt">maptype =</span> <span class="st">&quot;satellite&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label=</span>College), <span class="dt">hjust =</span> <span class="st">&quot;inward&quot;</span>, <span class="dt">vjust=</span><span class="st">&quot;inward&quot;</span>)</code></pre></div>
-<p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Other Google map <code>maptypes</code> include <code>&quot;terrain&quot;</code>, <code>&quot;roadmap&quot;</code> and <code>&quot;hybrid&quot;</code>.</p>
 </div>
 <div id="exporting-to-a-shapefile" class="section level2 unnumbered">
@@ -809,13 +805,14 @@ Note that the Google Maps API sets the limit to 2500 queries a day. To check how
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": false,
 "twitter": false,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
@@ -845,9 +842,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

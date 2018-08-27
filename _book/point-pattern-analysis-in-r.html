@@ -7,14 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="github-repo" content="mgimond/private-test" />
+  <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
@@ -46,11 +46,14 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/leaflet-0.7.3/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-0.7.3/leaflet.js"></script>
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-1.0.1/leaflet.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -415,10 +418,10 @@ Q.d &lt;-<span class="st"> </span><span class="kw">intensity</span>(Q)
 <p>We’ll work off of an internal dataset.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spatstat)
 P    &lt;-<span class="st"> </span>bei              <span class="co"># Use built-in point dataset</span>
-elev &lt;-<span class="st"> </span>bei.extra$elev   <span class="co"># Use built-in covariate</span></code></pre></div>
+elev &lt;-<span class="st"> </span>bei.extra<span class="op">$</span>elev   <span class="co"># Use built-in covariate</span></code></pre></div>
 <p>Next, we’ll divide the covariate into regions (aka tesselated surfaces).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brk  &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">110</span>, <span class="dv">135</span>, <span class="dv">145</span>, <span class="dv">155</span> , <span class="dv">160</span>)
-Zcut &lt;-<span class="st"> </span><span class="kw">cut</span>(elev, <span class="dt">breaks=</span>brk, <span class="dt">labels=</span><span class="dv">1</span>:<span class="dv">4</span>)
+Zcut &lt;-<span class="st"> </span><span class="kw">cut</span>(elev, <span class="dt">breaks=</span>brk, <span class="dt">labels=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)
 E    &lt;-<span class="st"> </span><span class="kw">tess</span>(<span class="dt">image=</span>Zcut)</code></pre></div>
 <p>Next, compute the quadrat counts within each tesselated area then compute the density.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Q &lt;-<span class="st"> </span><span class="kw">quadratcount</span>(P, <span class="dt">tess =</span> E)
@@ -432,7 +435,7 @@ Q.d</code></pre></div>
 <span class="kw">plot</span>(P, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">2</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="A5-Point-pattern-analysis_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Let’s modify the color scheme.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cl &lt;-<span class="st">  </span><span class="kw">interp.colours</span>(<span class="kw">c</span>(<span class="st">&quot;lightyellow&quot;</span>, <span class="st">&quot;orange&quot;</span> ,<span class="st">&quot;red&quot;</span>), E$n)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cl &lt;-<span class="st">  </span><span class="kw">interp.colours</span>(<span class="kw">c</span>(<span class="st">&quot;lightyellow&quot;</span>, <span class="st">&quot;orange&quot;</span> ,<span class="st">&quot;red&quot;</span>), E<span class="op">$</span>n)
 <span class="kw">plot</span>( <span class="kw">intensity</span>(Q, <span class="dt">image=</span><span class="ot">TRUE</span>), <span class="dt">col=</span>cl, <span class="dt">main=</span><span class="ot">NULL</span>)
 <span class="kw">plot</span>(P, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">2</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="A5-Point-pattern-analysis_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
@@ -464,7 +467,7 @@ K3 &lt;-<span class="st"> </span><span class="kw">density</span>(P, <span class=
 <p>In the following example, a kernel density map is generated using an elevation raster as a covariate. The outputs include a plot of <span class="math inline">\(\rho\)</span> vs. elevation and a raster map of <span class="math inline">\(\rho\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spatstat)
 P    &lt;-<span class="st"> </span>bei              <span class="co"># Use built-in point dataset</span>
-elev &lt;-<span class="st"> </span>bei.extra$elev   <span class="co"># Use built-in covariate</span>
+elev &lt;-<span class="st"> </span>bei.extra<span class="op">$</span>elev   <span class="co"># Use built-in covariate</span>
 
 <span class="co"># Compute rho using the ratio method</span>
 rho &lt;-<span class="st"> </span><span class="kw">rhohat</span>(P, elev, <span class="dt">method=</span><span class="st">&quot;ratio&quot;</span>)
@@ -483,15 +486,15 @@ cl &lt;-<span class="st">  </span><span class="kw">interp.colours</span>(<span c
 <p>In this example, we make use of the Starbucks and population density datasets loaded at the beginning of this tutorial.</p>
 <p>First, we’ll map the data. The population density raster is mapped on a log scale.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
-<span class="kw">tm_shape</span>(r) +<span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greys&quot;</span>) +
-<span class="st">  </span><span class="kw">tm_shape</span>(S1) +<span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, 
-                           <span class="dt">border.col =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">border.lwd =</span> <span class="fl">0.5</span>) +<span class="st"> </span>
+<span class="kw">tm_shape</span>(r) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greys&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_shape</span>(S1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, 
+                           <span class="dt">border.col =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">border.lwd =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
 <p><img src="A5-Point-pattern-analysis_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Next, we’ll generate the Poisson point process model and plot the results. Note that we are using the <code>ppp</code> representation of the Starbucks points (object <code>p2</code>) and not the <code>SpatialPointsDataFrame</code> representation (object <code>S1</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spatstat)
 <span class="co"># Create the Poisson point process model</span>
-PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 ~<span class="st"> </span>pop)
+PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 <span class="op">~</span><span class="st"> </span>pop)
 
 <span class="co"># Plot the relationship</span>
 <span class="kw">plot</span>(<span class="kw">effectfun</span>(PPM1, <span class="st">&quot;pop&quot;</span>, <span class="dt">se.fit=</span><span class="ot">TRUE</span>), <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">cex.axis=</span><span class="fl">0.6</span>,<span class="dt">cex.lab=</span><span class="fl">0.6</span>,
@@ -512,8 +515,8 @@ P &lt;-<span class="st"> </span>bei</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">nndist</span>(P, <span class="dt">k=</span><span class="dv">2</span>))</code></pre></div>
 <pre><code>[1] 6.473149</code></pre>
 <p>To plot average distance as a function of neighbor order for the first 100 closest neighbors:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANN &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="kw">nndist</span>(P, <span class="dt">k=</span><span class="dv">1</span>:<span class="dv">100</span>),<span class="dv">2</span>,<span class="dt">FUN=</span>mean)
-<span class="kw">plot</span>(ANN ~<span class="st"> </span><span class="kw">eval</span>(<span class="dv">1</span>:<span class="dv">100</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">main=</span><span class="ot">NULL</span> )</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANN &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="kw">nndist</span>(P, <span class="dt">k=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>),<span class="dv">2</span>,<span class="dt">FUN=</span>mean)
+<span class="kw">plot</span>(ANN <span class="op">~</span><span class="st"> </span><span class="kw">eval</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">main=</span><span class="ot">NULL</span> )</code></pre></div>
 <p><img src="A5-Point-pattern-analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>The bottom axis shows the neighbor order number and the left axis shows the average distance.</p>
 </div>
@@ -530,7 +533,7 @@ P &lt;-<span class="st"> </span>bei</code></pre></div>
 <span class="kw">plot</span>(L)</code></pre></div>
 <p><img src="A5-Point-pattern-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>To plot the L function with the L<sub>expected</sub> line set horizontal:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(L, . -r ~<span class="st"> </span>r)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(L, . <span class="op">-</span>r <span class="op">~</span><span class="st"> </span>r)</code></pre></div>
 <p><img src="A5-Point-pattern-analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 </div>
 <div id="the-pair-correlation-function-g-1" class="section level3 unnumbered">
@@ -554,8 +557,8 @@ ann.p &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw
 <p>Now run the MC simulation using a homogeneous point pattern density process</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n     &lt;-<span class="st"> </span><span class="dv">599</span>      <span class="co"># This tells the model how many times to run the simulation</span>
 ann.r &lt;-<span class="st"> </span><span class="kw">vector</span>() <span class="co"># Create an empty object to be used to store simulated values</span>
-for (i in <span class="dv">1</span>:n){
-  rand.p   &lt;-<span class="st"> </span><span class="kw">rpoint</span>(<span class="dt">n=</span>p2$n, <span class="dt">win=</span>W)  <span class="co"># Generate the random point locations</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
+  rand.p   &lt;-<span class="st"> </span><span class="kw">rpoint</span>(<span class="dt">n=</span>p2<span class="op">$</span>n, <span class="dt">win=</span>W)  <span class="co"># Generate the random point locations</span>
   ann.r[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">nndist</span>(rand.p, <span class="dt">k=</span><span class="dv">1</span>)) <span class="co"># Tally the ANN values</span>
 }</code></pre></div>
 <p>In the above loop, the function <code>rpoint</code> is passed two parameters: <code>n=p2k$n</code> and <code>win=W</code>. The first tells the function how many points to randomly generate (<code>p2$n</code> extracts the number of points in object <code>p2</code>). The second tells the function to confine the points to the extent defined by <code>w</code> (the state of MA boundary).</p>
@@ -567,8 +570,8 @@ for (i in <span class="dv">1</span>:n){
 <p>Next, we’ll run the same test but add the influence due to population distribution. This is a non-homogeneous test.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n     &lt;-<span class="st"> </span><span class="dv">599</span>
 ann.r &lt;-<span class="st"> </span><span class="kw">vector</span>()
-for (i in <span class="dv">1</span>:n){
-  rand.p   &lt;-<span class="st"> </span><span class="kw">rpoint</span>(<span class="dt">n=</span>p2$n, <span class="dt">f=</span>pop) 
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
+  rand.p   &lt;-<span class="st"> </span><span class="kw">rpoint</span>(<span class="dt">n=</span>p2<span class="op">$</span>n, <span class="dt">f=</span>pop) 
   ann.r[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">nndist</span>(rand.p, <span class="dt">k=</span><span class="dv">1</span>))
 }</code></pre></div>
 <p>Here, we pass the parameter <code>f=pop</code> to the function <code>rpoint</code> telling it that the population density raster <code>pop</code> should be used to define where a point should be most likely placed (high population density) and least likely placed (low population density).</p>
@@ -581,9 +584,9 @@ for (i in <span class="dv">1</span>:n){
 <div id="computing-a-pseudo-p-value" class="section level3 unnumbered">
 <h3>Computing a pseudo p-value</h3>
 <p>We’ll work off of the last simulation. First, we need to find the number of simulated ANN values greater than our observed ANN value</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(ann.r &gt;<span class="st"> </span>ann.p)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(ann.r <span class="op">&gt;</span><span class="st"> </span>ann.p)</code></pre></div>
 <p>To compute the p-value, find the end of the distribution closest to the observed ANN value, then divide that count by the total count. Note that this is a so-called one-sided P-value. See lecture notes for more information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater +<span class="st"> </span><span class="dv">1</span>, n +<span class="st"> </span><span class="dv">1</span> -<span class="st"> </span>N.greater) /<span class="st"> </span>(n +<span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="dv">1</span>)
 p</code></pre></div>
 <pre><code>[1] 0.001666667</code></pre>
 <p>In our working example, you’ll note that or simulated ANN value was nowhere near the range of ANN values computed under the null yet we don’t have a p-value of zero. This is by design since the <em>strength</em> of our estimated p will be proportional to the number of simulations–there is always a chance that one <em>realization</em> of a point pattern could produce an ANN value more extreme than ours.</p>
@@ -599,7 +602,7 @@ p</code></pre></div>
 <p><img src="A5-Point-pattern-analysis_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>Now, we’ll fit the model that assumes that point density <em>is</em> a function of population (the alternative hypothesis).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spatstat)
-PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 ~<span class="st"> </span>pop)
+PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 <span class="op">~</span><span class="st"> </span>pop)
 PPM1</code></pre></div>
 <pre><code>Nonstationary Poisson process
 
@@ -619,7 +622,7 @@ Problem:
  Values of the covariate &#39;pop&#39; were NA or undefined at 0.57% (4 out of 
 699) of the quadrature points</code></pre>
 <p>Next, we’ll fit the model that assumes that density is <em>not</em> a function of population (the null hypothesis).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PPM0 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 ~<span class="st"> </span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">PPM0 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
 PPM0</code></pre></div>
 <pre><code>Stationary Poisson process
 Intensity: 8.268627e-09
@@ -681,13 +684,14 @@ log(lambda) -18.6108 0.07647191 -18.76068 -18.46092   *** -243.3678</code></pre>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
 "facebook": false,
 "twitter": false,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
@@ -717,9 +721,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

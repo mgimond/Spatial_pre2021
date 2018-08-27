@@ -8,7 +8,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib, journal.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: mgimond/private-test
+github-repo: mgimond/spatial
 description: "This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course."
 ---
 
