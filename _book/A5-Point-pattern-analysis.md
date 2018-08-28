@@ -135,7 +135,7 @@ plot(P, pch=20, cex=0.6, col=rgb(0,0,0,.2), add=TRUE)
 
 ### Kernel density raster {-}
 
-The spatstat package has a function called `density` which implements a gaussian kernel function. Its bandwidth defines the kernel's  window extent.
+The spatstat package has a function called `density` which implements an isotropic kernel  intensity estimate. Its bandwidth defines the kernel's window extent.
 
 
 
