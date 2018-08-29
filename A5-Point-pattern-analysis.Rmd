@@ -203,7 +203,11 @@ par(OP)
 
 ## Distance based analysis {-}
 
+Next, we'll explore three different distance based analyses.
+
 ### Average nearest neighbor analysis {-}
+
+Here, we'll compute the average nearest neighbor (ANN) distances for the tropical rain forest dataset.
 
 ```{r eval=FALSE}
 library(spatstat)
@@ -222,7 +226,9 @@ To compute the average **second** nearest neighbor distance (2^nd^ order):
 mean(nndist(P, k=2))
 ```
 
-To plot average distance as a function of neighbor order for the first 100 closest neighbors:
+The parameter `k` can take on any order neighbor (up to `n-1` where n is the total number of points).
+
+The average nearest neighbor function can be expended to generate an ANN vs neighbor order plot. In the following example, we'll plot ANN as a function of neighbor order for the first 100 closest neighbors:
 
 ```{r fig.height=2.5, fig.show='asis', echo=2:3}
 OP <- par(mar=c(4,4,1,4))

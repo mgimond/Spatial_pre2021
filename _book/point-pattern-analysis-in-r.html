@@ -504,8 +504,10 @@ PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 <span class="o
 </div>
 <div id="distance-based-analysis-1" class="section level2 unnumbered">
 <h2>Distance based analysis</h2>
+<p>Next, we’ll explore three different distance based analyses.</p>
 <div id="average-nearest-neighbor-analysis" class="section level3 unnumbered">
 <h3>Average nearest neighbor analysis</h3>
+<p>Here, we’ll compute the average nearest neighbor (ANN) distances for the tropical rain forest dataset.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spatstat)
 P &lt;-<span class="st"> </span>bei</code></pre></div>
 <p>To compute the average <strong>first</strong> nearest neighbor distance (1<sup>st</sup> order):</p>
@@ -514,7 +516,8 @@ P &lt;-<span class="st"> </span>bei</code></pre></div>
 <p>To compute the average <strong>second</strong> nearest neighbor distance (2<sup>nd</sup> order):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">nndist</span>(P, <span class="dt">k=</span><span class="dv">2</span>))</code></pre></div>
 <pre><code>[1] 6.473149</code></pre>
-<p>To plot average distance as a function of neighbor order for the first 100 closest neighbors:</p>
+<p>The parameter <code>k</code> can take on any order neighbor (up to <code>n-1</code> where n is the total number of points).</p>
+<p>The average nearest neighbor function can be expended to generate an ANN vs neighbor order plot. In the following example, we’ll plot ANN as a function of neighbor order for the first 100 closest neighbors:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ANN &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="kw">nndist</span>(P, <span class="dt">k=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>),<span class="dv">2</span>,<span class="dt">FUN=</span>mean)
 <span class="kw">plot</span>(ANN <span class="op">~</span><span class="st"> </span><span class="kw">eval</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">main=</span><span class="ot">NULL</span> )</code></pre></div>
 <p><img src="A5-Point-pattern-analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>

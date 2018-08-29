@@ -234,7 +234,11 @@ plot(effectfun(PPM1, "pop", se.fit=TRUE), main=NULL, cex.axis=0.6,cex.lab=0.6,
 
 ## Distance based analysis {-}
 
+Next, we'll explore three different distance based analyses.
+
 ### Average nearest neighbor analysis {-}
+
+Here, we'll compute the average nearest neighbor (ANN) distances for the tropical rain forest dataset.
 
 
 ```r
@@ -264,7 +268,9 @@ mean(nndist(P, k=2))
 [1] 6.473149
 ```
 
-To plot average distance as a function of neighbor order for the first 100 closest neighbors:
+The parameter `k` can take on any order neighbor (up to `n-1` where n is the total number of points).
+
+The average nearest neighbor function can be expended to generate an ANN vs neighbor order plot. In the following example, we'll plot ANN as a function of neighbor order for the first 100 closest neighbors:
 
 
 ```r
