@@ -38,7 +38,7 @@ knitr::include_graphics("img/geodatabase.jpg")
 
 #### GeoPackage
 
-This is a relatively new data format that follows (open format standards)[https://en.wikipedia.org/wiki/Open_format] (it is non-proprietary). It's built on top of SQLite (a self-contained relational database). Its one big advantage over many other vector formats is its compactness--coordinate value, metadata, attribute table, projection information, etc..., are all stored in a *single* file which facilitates portability. Its filename usually ends in `.gpkg`. Applications such as QGIS (2.12 and up), R and ArcGIS will recognize this format (ArcGIS version 10.2.2 and above will read the file from ArcCatalog but requires a script to create a GeoPackage).
+This is a relatively new data format that follows [open format standards](https://en.wikipedia.org/wiki/Open_format) (i.e. it is non-proprietary). It's built on top of SQLite (a self-contained relational database). Its one big advantage over many other vector formats is its compactness--coordinate value, metadata, attribute table, projection information, etc..., are all stored in a *single* file which facilitates portability. Its filename usually ends in `.gpkg`. Applications such as QGIS (2.12 and up), R and ArcGIS will recognize this format (ArcGIS version 10.2.2 and above will read the file from ArcCatalog but requires a script to create a GeoPackage).
 
 
 ### Raster Data File Formats
@@ -84,6 +84,8 @@ text(c(0.05,0.95), 0.4, as.character(c(0,65535)),col=c("white","black"),cex=1)
 par(OP)
 ```
 
+There is a wide range of raster file formats used in the GIS world. Some of the most popular ones are listed below.
+
 #### Imagine
 
 The **Imagine** file format was originally created by an image processing software company called ERDAS. This file format consists of a single **.img** file. This is a simpler file format than the shapefile. It is sometimes accompanied by an .xml file which usually stores metadata information about the raster layer.
@@ -100,7 +102,7 @@ A raster file can also be stored in a file geodatabase alongside vector files. G
 
 Unless you are intimately familiar with the file structure of a GIS file, it is best to copy/move/delete GIS files from within the software environment. **ArcCatalog** (part of the ArcGIS suite) acts like a Windows file management environment with the added benefit that it recognizes GIS files. 
 
-```{r f02-catalog, echo=FALSE, fig.cap = "Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single file in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment).", out.width=300}
+```{r f02-catalog, echo=FALSE, fig.cap = "Windows Explorer view vs. ArcCatalog view. Note how the many files that make up the Parks shapefile (as viewed in a Windows Explorer environment) appears as a single entry in the ArcCatalog view. This makes it easier to rename the shapefile since it needs to be done only for a single entry in ArcCatalog (as opposed to renaming the Parks files seven times in the Windows Explorer environment).", out.width=300}
 
 knitr::include_graphics("img/ArcCatalog.jpg")
 ```
@@ -108,7 +110,7 @@ knitr::include_graphics("img/ArcCatalog.jpg")
 
 ## Managing a Map Project in ArcGIS
 
-Unlike many other software environments such as word processors and spreadsheets, a GIS map is not self-contained in a single file. A GIS map consists of many files: ArcMap's **.mxd** file and the various vector and/or raster files used in the map project. The .mxd file only stores information about how the different layers are to be symbolized and the GIS file locations these layers point to.
+Unlike many other software environments such as word processors and spreadsheets, a GIS map project is not self-contained in a single file. A GIS map consists of many files: ArcMap's **.mxd** file and the various vector and/or raster files used in the map project. The .mxd file only stores information about how the different layers are to be symbolized and the GIS file locations these layers point to.
 
 Because of the complex data structure associated with GIS maps, it's usually best to store the .mxd and all associated GIS files under a single project directory. Then, when you are ready to share your map project with someone else, just pass along that project folder as is or compressed in a zip or tar file.
 
@@ -130,14 +132,14 @@ knitr::include_graphics("img/Directory_full.svg")
 ```
 
 ```{block, type="warning"}
-Exclamation marks in your map document indicate that the GIS files are missing or that the directory structure has changed.
+NOTE: Exclamation marks in your map document indicate that the GIS files are missing or that the directory structure has changed.
 ```
 
 ```{r echo=FALSE, out.width=100}
 knitr::include_graphics("img/Exclamation_marks.jpg")
 ```
 
-Your choice of full vs relative pathnames matters if you find yourself having to move or copy your project folder to another directory structure. For example, if you share you HW05/ project folder with another user and that user places the project folder under a different directory structure such as C:/User/Jdoe/GIS/, ArcMap will not find the shapefiles if the pathnames is set to full (i.e. the Store relative pathnames is not checked). This will result in exclamation marks in your map document TOC. This problem can be avoided by making sure that the map document is set to use relative pathnames and by placing all GIS files (raster and vector) in a common project folder.
+Your choice of full vs relative pathnames matters if you find yourself having to move or copy your project folder to another directory structure. For example, if you share you HW05/ project folder with another user and that user places the project folder under a different directory structure such as C:/User/Jdoe/GIS/, ArcMap will not find the shapefiles if the pathnames is set to full (i.e. the _Store relative pathnames_ option is not checked). This will result in exclamation marks in your map document TOC. This problem can be avoided by making sure that the map document is set to use relative pathnames and by placing all GIS files (raster and vector) in a common project folder.
 
 
 
