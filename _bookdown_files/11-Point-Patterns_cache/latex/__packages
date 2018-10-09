@@ -1,0 +1,11 @@
+base
+spatstat.data
+nlme
+rpart
+spatstat
+ggplot2
+sp
+raster
+maptools
+rgdal
+gridExtra

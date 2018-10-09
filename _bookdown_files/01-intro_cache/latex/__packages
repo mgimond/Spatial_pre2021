@@ -1,0 +1,10 @@
+base
+xtable
+sp
+Matrix
+spData
+spdep
+spatstat.data
+nlme
+rpart
+spatstat

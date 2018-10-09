@@ -1,0 +1,9 @@
+base
+ggplot2
+sp
+raster
+Matrix
+spData
+spdep
+maptools
+RColorBrewer

@@ -1,0 +1,13 @@
+base
+sp
+rgdal
+tmap
+spatstat.data
+nlme
+rpart
+spatstat
+maptools
+raster
+gstat
+stringr
+lattice
