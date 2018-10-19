@@ -11,3 +11,5 @@ sf
 dplyr
 ggplot2
 ggmap
+knitr
+kableExtra

@@ -1,698 +1,546 @@
 
 # (PART) Appendix {-}
 
-# Data Manipulation in R{-}
 
-## Reading vector files {-}
 
-First, we'll load sample spatial data files into the current working directory (you might want to create a temporary folder for this exercise and set it as the working directory via the **Session >> Set Working Directory >> Choose Directory** pull-down menu from the RStudio interface).
+# Reading and writing spatial data in R{-}
 
-The following chunk will download and unzip a zipped shapefile into the current working directory.
+## Sample files for this exercise{-}
+
+First, you will need to download some sample files from the github repository.  Make sure to set you R session folder to the directory where you will want to save the sample files before running the following code chunks.
+
 
 
 ```r
-tmp <- tempfile()
-download.file("http://colby.edu/~mgimond/Spatial/Data/Income_schooling.zip", destfile = tmp)
-unzip(tmp, exdir = ".")
+download.file("http://github.com/mgimond/Spatial/raw/master/Data/Income_schooling.zip", 
+              destfile = "Income_schooling.zip" , mode='wb')
+unzip("Income_schooling.zip", exdir = ".")
+file.remove("Income_schooling.zip")
 ```
 
-The first line of code creates a temporary file on your machine to house the zip file. The second line of code downloads the zip file into the temporary file. The third line unzips the zip file into the current working directory. You should see the six files that constitute the shapefile:
-
-
-```
-[1] "Income_schooling.dbf" "Income_schooling.prj" "Income_schooling.sbn"
-[4] "Income_schooling.sbx" "Income_schooling.shp" "Income_schooling.shx"
-[7] "Income_schooling.zip"
-```
-
-The following chunk of code will download a [GeoPackage](http://www.geopackage.org/) file into the current working directory. Note that the file is not zipped thus eliminating any need to unzip (unlike a shapefile, a GeoPackage data file is self-contained).
 
 
 ```r
-download.file("http://colby.edu/~mgimond/Spatial/Data/TX.gpkg", destfile = "./TX.gpkg", mode="wb")
+download.file("http://github.com/mgimond/Spatial/raw/master/Data/rail_inters.gpkg", 
+              destfile = "./rail_inters.gpkg", mode='wb')
 ```
-
-### Reading a shapefile with `rgdal` &#x200b; {-}
-
-There are two different ways one can load a shapefile into R: using the `rgdal` package and using the `maptools` package. The difference between both methods is that the `rgdal`  option loads the coordinate system (CS) information (if present in the shapefile) while `maptools` does not. 
-
-
-The function `readOGR()` from `rgdal` is used to load the shapefile.
 
 
 ```r
-library(rgdal)
-s1 <- readOGR(".", "Income_schooling")
+download.file("http://github.com/mgimond/Spatial/raw/master/Data/Elev.tif",  
+              destfile = "./elev.img", mode='wb')               
 ```
 
+## Introduction {-}
+
+There are several different R spatial formats to choose from. Your choice of format will largely be dictated by the package(s) and or function(s) used in your workflow. A breakdown of formats and intended use are listed below.
+
+
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; ">
+ <thead>
+  <tr>
+   <th style="text-align:right;color: white;background-color: #6E6E6E;text-align: center;"> Data format </th>
+   <th style="text-align:center;color: white;background-color: #6E6E6E;text-align: center;"> Used with... </th>
+   <th style="text-align:center;color: white;background-color: #6E6E6E;text-align: center;"> Used in package... </th>
+   <th style="text-align:left;color: white;background-color: #6E6E6E;text-align: center;"> Used for... </th>
+   <th style="text-align:left;color: white;background-color: #6E6E6E;text-align: center;"> Comment </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> `sf` </td>
+   <td style="text-align:center;"> vector </td>
+   <td style="text-align:center;"> `sf`, others </td>
+   <td style="text-align:left;"> visualizing, manipulating, querying </td>
+   <td style="text-align:left;"> This is likely to become the new spatial standard in R. Will also read from spatially enabled databases such as postgresSQL. </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> `raster` </td>
+   <td style="text-align:center;"> raster </td>
+   <td style="text-align:center;"> `raster`, others </td>
+   <td style="text-align:left;"> visualizing, manipulating, spatial statistics </td>
+   <td style="text-align:left;"> This is the most versatile raster format </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> `SpatialPoints*` 
+ `SpatialPolygons*` 
+ `SpatialLines*` 
+ `SpatialGrid*` </td>
+   <td style="text-align:center;"> vector and raster </td>
+   <td style="text-align:center;"> `sp`, `spdep` </td>
+   <td style="text-align:left;"> Visualizing, spatial statistics </td>
+   <td style="text-align:left;"> May be superseded by `sf` in the future </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> `ppp` `owin` </td>
+   <td style="text-align:center;"> vector </td>
+   <td style="text-align:center;"> `spatstat` </td>
+   <td style="text-align:left;"> Point pattern analysis/statistics </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> `im` </td>
+   <td style="text-align:center;"> raster </td>
+   <td style="text-align:center;"> `spatstat` </td>
+   <td style="text-align:left;"> Point pattern analysis/statistics </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; border: 0;" colspan="100%">
+<sup>1</sup> The `spatial*` format includes SpatialPointsDataFrame, SpatialPolygonsDataFrame, SpatialLinesDataFrame, etc...</td></tr></tfoot>
+</table>
+
+
+There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called   [`sf`](https://r-spatial.github.io/sf/).
+
+It is therefore recommended that you work in a `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
+
+Some packages such as `spdep` and `spatstat` require specialized data object types. This tutorial will highlight some useful conversion functions for this purpose.
+
+
+
+## Creating spatial objects {-}
+
+The following sections demonstrate different spatial data object creation strategies.
+
+### Reading a shapefile {-}
+
+Shapefiles consist of many files sharing the same core filename and different suffixes (i.e. file extensions). For example, the sample shapefile used in this exercise consists of the following files:
+
+
 ```
-OGR data source with driver: ESRI Shapefile 
-Source: "C:\Users\mgimond\Documents\Github\Spatial", layer: "Income_schooling"
-with 16 features
-It has 5 fields
+[1] "Income_schooling.dbf" "Income_schooling.prj" "Income_schooling.sbn" "Income_schooling.sbx"
+[5] "Income_schooling.shp" "Income_schooling.shx"
 ```
 
-The `"."` parameter tells R to look for the shapefile in the current working directory, the second parameter tells R the name of the shapefile to open. Note that you **must not** add a file extension to the name as this will generate an error message.
-
-Let's check the contents of this shapefile.
+Note that the number of files associated with a shapefile can vary. `sf` only needs to be given the `*.shp` name. It will then know which other files to read into R such as projection information and attribute table.
 
 
 ```r
-summary(s1)
+library(sf)
+s.sf <- st_read("Income_schooling.shp")
 ```
 
-```
-Object of class SpatialPolygonsDataFrame
-Coordinates:
-        min       max
-x  336337.7  660529.1
-y 4772272.3 5255569.2
-Is projected: TRUE 
-proj4string :
-[+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs +ellps=GRS80
-+towgs84=0,0,0]
-Data attributes:
-           NAME        Income         NoSchool          NoSchoolSE       
- Androscoggin: 1   Min.   :20015   Min.   :0.002390   Min.   :0.0006832  
- Aroostook   : 1   1st Qu.:21631   1st Qu.:0.004907   1st Qu.:0.0009130  
- Cumberland  : 1   Median :23788   Median :0.005252   Median :0.0010281  
- Franklin    : 1   Mean   :24716   Mean   :0.005778   Mean   :0.0011658  
- Hancock     : 1   3rd Qu.:27897   3rd Qu.:0.006603   3rd Qu.:0.0013404  
- Kennebec    : 1   Max.   :32549   Max.   :0.013387   Max.   :0.0021290  
- (Other)     :10                                                         
-    IncomeSE    
- Min.   :242.4  
- 1st Qu.:342.6  
- Median :455.8  
- Mean   :458.8  
- 3rd Qu.:551.5  
- Max.   :724.2  
-                
-```
-
-Note the coordinate information under the  `proj4string :` heading. It suggests that the CS is a UTM projection for zone 19 (north) and an NAD83 datum.
-
-
-### Reading a shapefile with `maptools` &#x200b; {-}
-
-Here, we'll use `readShapeSpatial()` from `maptools` to load the shapefile.
+Let's view the first few records in the spatial data object. 
 
 
 ```r
-library(maptools)
-s2 <- readShapeSpatial("Income_schooling")
-```
-
-Let's check the contents of this shapefile.
-
-
-```r
-summary(s2)
+head(s.sf, n=4)  # List spatial object and the first 4 attribute records
 ```
 
 ```
-Object of class SpatialPolygonsDataFrame
-Coordinates:
-        min       max
-x  336337.7  660529.1
-y 4772272.3 5255569.2
-Is projected: NA 
-proj4string : [NA]
-Data attributes:
-           NAME        Income         NoSchool          NoSchoolSE       
- Androscoggin: 1   Min.   :20015   Min.   :0.002390   Min.   :0.0006832  
- Aroostook   : 1   1st Qu.:21631   1st Qu.:0.004907   1st Qu.:0.0009130  
- Cumberland  : 1   Median :23788   Median :0.005252   Median :0.0010281  
- Franklin    : 1   Mean   :24716   Mean   :0.005778   Mean   :0.0011658  
- Hancock     : 1   3rd Qu.:27897   3rd Qu.:0.006603   3rd Qu.:0.0013404  
- Kennebec    : 1   Max.   :32549   Max.   :0.013387   Max.   :0.0021290  
- (Other)     :10                                                         
-    IncomeSE    
- Min.   :242.4  
- 1st Qu.:342.6  
- Median :455.8  
- Mean   :458.8  
- 3rd Qu.:551.5  
- Max.   :724.2  
-                
+Simple feature collection with 4 features and 5 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 379071.8 ymin: 4936182 xmax: 596500.1 ymax: 5255569
+epsg (SRID):    26919
+proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
+         NAME Income   NoSchool NoSchoolSE IncomeSE                       geometry
+1   Aroostook  21024 0.01338720 0.00140696  250.909 MULTIPOLYGON (((513821.1 51...
+2    Somerset  21025 0.00521153 0.00115002  390.909 MULTIPOLYGON (((379071.8 50...
+3 Piscataquis  21292 0.00633830 0.00212896  724.242 MULTIPOLYGON (((445039.5 51...
+4   Penobscot  23307 0.00684534 0.00102545  242.424 MULTIPOLYGON (((472271.3 49...
 ```
 
-`s2`'s summary output is nearly identical to that of `s1` except for the missing CS (the summary indicates that `Is projected: NA`, i.e. that there is no projection information).
-
-
-
+Note that the `sf` object stores not only the geometry but the coordinate system information and attribute data as well. These will be explored later in this exercise.
 
 ### Reading a GeoPackage {-}
 
-A GeoPackage can be read with the `rgdal` package. A GeoPackage is a spatial database that can store more than one layer. This requires knowledge of the layer name which may be different from database filename. You can extract the layer name(s) from a GeoPackage as follows:
+A geopackage can store more than one layer. To list the layers available in the geopackage, type:
 
 
 ```r
-library(rgdal)
-ogrListLayers("TX.gpkg")[1]
+st_layers("rail_inters.gpkg")
 ```
 
 ```
-[1] "TX"
+Driver: GPKG 
+Available layers:
+  layer_name     geometry_type features fields
+1 Interstate Multi Line String       35      1
+2       Rail Multi Line String      730      3
 ```
 
-The `TX.gpkg` file has a single layer called `TX`. To extract the layer `TX` into a new spatial object called `s3`, type:
+In this example, we have two separate layers: `Interstate` and `Rail`. We can extract each layer separately via the `layer=` parameter.
 
 
 ```r
-s3 <- readOGR("TX.gpkg", layer="TX")
+inter.sf <- st_read("rail_inters.gpkg", layer="Interstate")
+rail.sf  <- st_read("rail_inters.gpkg", layer="Rail")
 ```
 
-```
-OGR data source with driver: GPKG 
-Source: "C:\Users\mgimond\Documents\Github\Spatial\TX.gpkg", layer: "TX"
-with 1 features
-It has 49 fields
-Integer64 fields read as strings:  NO_FARMS07 AVG_SIZE07 CROP_ACR07 
-```
+### Reading a raster {-}
 
+The `raster` package will read many different raster file formats such as geoTiff, Imagine and HDF5 just to name a few. To see a list of supported raster file formats simply run `rgdal::gdalDrivers()` at a command prompt. The `rgdal` package is normally installed with your installation of `raster`.
 
-
-## Reading GIS raster files {-}
-
-First, we'll load a sample raster file into your current working directory (you might want to create a temporary folder for this exercise and set it as the working directory via the **Session >> Set Working Directory >> Choose Directory** pull-down menu from the RStudio interface). The raster file will be in an ERDAS Imagine format.
- 
-
-```r
-download.file("http://colby.edu/~mgimond/Spatial/Data/elevation.img", 
-              destfile = "./elevation.img", mode = "wb")
-```
-
-Raster files can be read with `rgdal`'s `readGDAL()` function  or with `raster`'s `raster()` function. They differ in the output formats and in the way the data are managed in an R session--`readGDAL` will load the raster as a `SpatialGridDataFrame` object whereas `raster` will load the data as a `raster*` object and `raster` will not load the entire raster into memory whereas `readGDAL` will making `raster`'s approach attractive if large rasters are to be worked with. If you wish to load all data from a `raster` object in R memory, wrap the raster object with`readAll` as in `r1 <- readAll(r)`.
-
-In the following example, we'll load the raster as a `raster*` object.
+In the following example, an _Imagine_ raster file format is read into R.
 
 
 ```r
 library(raster)
-r1 <- raster("elevation.img")
-```
-
-To view the contents of the newly created `r1` raster object, type its name at the command line.
-
-
-```r
-r1
+elev.r <- raster("elev.img")
+elev.r
 ```
 
 ```
 class       : RasterLayer 
-dimensions  : 540, 1080, 583200  (nrow, ncol, ncell)
-resolution  : 0.3333333, 0.3333333  (x, y)
-extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
-coord. ref. : +proj=longlat +ellps=WGS84 +towgs84=0,0,0,-0,-0,-0,0 +no_defs 
-data source : C:\Users\mgimond\Documents\Github\Spatial\elevation.img 
-names       : elevation 
-values      : 0, 6821  (min, max)
+dimensions  : 994, 651, 647094  (nrow, ncol, ncell)
+resolution  : 500, 500  (x, y)
+extent      : 336630.3, 662130.3, 4759297, 5256297  (xmin, xmax, ymin, ymax)
+coord. ref. : +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0 
+data source : C:\Users\mgimond\Documents\Github\Spatial\elev.img 
+names       : elev 
+values      : -32768, 32767  (min, max)
 ```
 
-You'll note that the object is of class `RasterLayer`. You'll also note that the coordinate system information stored in the original raster has been carried over into the `r1` object.
 
-The `raster` function will recognize many difference raster formats including GeoTIFF and jpg.
+### Creating a spatial object from a data frame {-}
 
-
-## Dissecting the file summary  {-}
-
-Let's explore the contents of `s1`'s summary.
+Geographic point data locations recorded in a spreadsheet can be converted to a spatial point object. Note that it's important that you specify the coordinate system used to record the coordinate pairs since such information is not stored in a data frame. In the following example, the coordinate values are recorded in a WGS 1984 geographic coordinate system (`crs = 4326`).
 
 
 ```r
-summary(s1)
+# Create a simple dataframe with lat/long values
+df <- data.frame(lon = c(-68.783, -69.6458, -69.7653),
+                 lat = c(44.8109, 44.5521, 44.3235),
+                 Name= c("Bangor", "Waterville", "Augusta"))
+
+# Convert the dataframe to a spatial object. Note that the
+# crs= 4326 parameter assigns a WGS84 coordinate system to the 
+# spatial object
+p.sf <- st_as_sf(df, coords = c("lon", "lat"), crs = 4326) 
+p.sf  
 ```
 
 ```
-Object of class SpatialPolygonsDataFrame
-Coordinates:
-        min       max
-x  336337.7  660529.1
-y 4772272.3 5255569.2
-Is projected: TRUE 
-proj4string :
-[+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs +ellps=GRS80
-+towgs84=0,0,0]
-Data attributes:
-           NAME        Income         NoSchool          NoSchoolSE       
- Androscoggin: 1   Min.   :20015   Min.   :0.002390   Min.   :0.0006832  
- Aroostook   : 1   1st Qu.:21631   1st Qu.:0.004907   1st Qu.:0.0009130  
- Cumberland  : 1   Median :23788   Median :0.005252   Median :0.0010281  
- Franklin    : 1   Mean   :24716   Mean   :0.005778   Mean   :0.0011658  
- Hancock     : 1   3rd Qu.:27897   3rd Qu.:0.006603   3rd Qu.:0.0013404  
- Kennebec    : 1   Max.   :32549   Max.   :0.013387   Max.   :0.0021290  
- (Other)     :10                                                         
-    IncomeSE    
- Min.   :242.4  
- 1st Qu.:342.6  
- Median :455.8  
- Mean   :458.8  
- 3rd Qu.:551.5  
- Max.   :724.2  
-                
+Simple feature collection with 3 features and 1 field
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -69.7653 ymin: 44.3235 xmax: -68.783 ymax: 44.8109
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+        Name                 geometry
+1     Bangor  POINT (-68.783 44.8109)
+2 Waterville POINT (-69.6458 44.5521)
+3    Augusta POINT (-69.7653 44.3235)
 ```
 
-The first line of output gives us the spatial object type, `SpatialPolygonsDataFrame`. It suggests that the shapefile is a polygon layer and that it has an attributes tables (hence the segment `DataFrame` in the object name). If this were a polyline layer the object type would be `SpatialLinesDataFrame` and if it were a point layer the object type would be `SpatialPointsDataFrame`.
+### Geocoding street addresses {-}
 
-The next few lines of output give us the bounding extent of the layer in the layer's coordinate system units. 
-
-
-```r
-Coordinates:
-        min       max
-x  336337.7  660529.1
-y 4772272.3 5255569.2
-```
-
-The three lines that follow give us the projection information. Note, once again, that this information is absent if you loaded the data via `maptools`.
-
-
-```r
-Is projected: TRUE 
-proj4string :
-[+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0]
-```
-
-What remains of the output is a summary of each column in the attributes table.
-
-You can also extract the column names via the `names` function:
-
-
-```r
-names(s1)
-```
-
-```
-[1] "NAME"       "Income"     "NoSchool"   "NoSchoolSE" "IncomeSE"  
-```
-
-If you want to extract the contents of the attributes tables, use the `data.frame` function.
-
-
-```r
-data.frame(s1)
-```
-
-```
-           NAME Income   NoSchool  NoSchoolSE IncomeSE
-0     Aroostook  21024 0.01338720 0.001406960  250.909
-1      Somerset  21025 0.00521153 0.001150020  390.909
-2   Piscataquis  21292 0.00633830 0.002128960  724.242
-3     Penobscot  23307 0.00684534 0.001025450  242.424
-4    Washington  20015 0.00478188 0.000966036  327.273
-5      Franklin  21744 0.00508507 0.001641740  530.909
-6        Oxford  21885 0.00700822 0.001318160  536.970
-7         Waldo  23020 0.00498141 0.000918837  450.909
-8      Kennebec  25652 0.00570358 0.000917087  360.000
-9  Androscoggin  24268 0.00830953 0.001178660  460.606
-10      Hancock  28071 0.00238996 0.000784584  585.455
-11         Knox  27141 0.00652269 0.001863920  684.849
-12      Lincoln  27839 0.00278315 0.001030800  571.515
-13   Cumberland  32549 0.00494917 0.000683236  346.061
-14    Sagadahoc  28122 0.00285524 0.000900782  544.849
-15         York  28496 0.00529228 0.000737195  332.121
-```
-
-## Mapping spatial data {-}
-
-There are many ways one can plot spatial features in R. We'll explore two approaches: one using `sp`'s `spplot`, the second using the `tmap` package.
-
-
-### Mapping with `spplot` &#x200b; {-}
-
-`spplot` is a base plotting function that is part of the `sp` package. Note that `sp` underlies many other packages including `maptools` and `rgdal`.
-
-To simply plot the `Income` attribute, type:
-
-
-```r
-spplot(s1, z="Income")
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-18-1.png" width="350" style="display: block; margin: auto;" />
-
-The resulting map is referred to as a choropleth map (choro = area and pleth = value) where some value (an enumeration of population in this working example) is aggregated over a defined area (e.g.counties) and displayed using different colors.
-
-We can control how the attribute values are binned and which colors to assign to each bin. We will use the function `classIntervals` to generate the breaks following a quantile scheme. The `classIntervals`'s minimum and maximum values will be the range of values from the `Income` attribute. This poses a problem since the `spplot` function will interpret that maximum value as not being inclusive which will result in the polygon having the maximum attribute value not being assigned a color. To remedy this, we will pad the maximum value with the value of `0.1`.
-
-We will also use the `RColorBrewer` package to generate the different color swatches: In our working example, we will generate four different shades of green. The code chunk and resulting map follow:
-
-
-```r
-library(classInt)
-library(RColorBrewer)
-
-# Generate breaks
-brks <-  classIntervals(s1$Income, n = 4, style = "quantile")$brks
-brks[length(brks)] <- brks[length(brks)] + 1
-
-# Define color swatches
-pal  <- brewer.pal(4, "Greens")
-
-# Generate the map
-spplot(s1, z="Income", at = brks, col.regions=pal)
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-19-1.png" width="350" style="display: block; margin: auto;" />
-
-Note how we are able to extract the `Income` column via `s1$Income` which is passed to the `classIntervals` function (which, in turn, uses these values to compute the breaks). The breaks are stored in the object `brks`; its contents are 20015.0, 21631.0, 23787.5, 27897.0, 32550.0.
-
-A nice feature of `spplot` is its legend: instead of generating discrete color swatches (with associated value ranges) `ssplot` generates contiguous color swatches along a scale which provides us with not only information on the ranges covered by the colors but a visual on the distribution of these bins.
-
-### Mapping with `tmap` &#x200b; {-}
-
-The `tmap` package is designed to map thematic data. The following chunk recreates the map generated with `spplot`.
-
-
-```r
-library(tmap)
-qtm(s1, fill="Income", fill.style="quantile", 
-    fill.n=8 ,fill.palette="Greens")
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
-
-The `fill.style` parameter defines the binning scheme. Here we choose a quantile scheme. Other options include `equal` (equal interval), `jenks` (same scheme ArcMap defaults to), `sd` (breaks the data into standard deviations), `kmeans` (based on the kmeans method), and `pretty` to name a few. If you want to manually define your breaks, you can pass the option `fixed` to the `fill.style` parameter then pass the desired breaks to the `breaks` parameter. For example, to break the data into 3 bins--`under $23,000`, `$23,000 to $27,000` and `$27,000 and greater`-- modify the above chunk as follows.
-
-
-```r
-library(tmap)
-qtm(s1, fill="Income", fill.style="fixed", 
-    fill.breaks=c(0,23000 ,27000,100000 ), 
-    fill.labels=c("under $23,000", "$23,000 to $27,000", "above $27,000"),
-    fill.palette="Greens",
-    legend.text.size = 0.5,
-    layout.legend.position = c("right", "bottom"))
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" />
-
-If a more complex map is desired, the plotting functions can be broken down into elements (similar to `ggplot2`'s plotting elements). The last block of code can be modified as follows:
-
-
-```r
-tm_shape(s1) + 
-  tm_fill("Income", style="fixed", breaks=c(0,23000 ,27000,100000 ),
-          labels=c("under $23,000", "$23,000 to $27,000", "above $27,000"),
-          palette="Greens")  +
-  tm_borders("grey") +
-  tm_legend(outside = TRUE, text.size = .8) +
-  tm_layout(frame = FALSE)
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" />
-
-Here, we move the legend element to the right of the map data frame and we suppress the drawing of the map border.
-
-### Mapping rasters with `tmap` &#x200b; {-}
-
-To generate a quick map, simply use the `qtm` function.
-
-
-```r
-qtm(r1)
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-23-1.png" width="672" />
-
-The next chunk of code overlays the raster with a vector layer and limits the extent to the northeastern US. To maximize the use of colors, elevation breaks are manually defined.
-
-
-```r
-tm_shape(r1, ylim = c(30,50), xlim=c(-100,-50)) + 
-  tm_raster(breaks=c(0,100,200,300,400,500,750,1000,1500,2000,3000,4000)) +
-  tm_shape(s1) + 
-  tm_fill("Income", style="fixed", breaks=c(0,23000 ,27000,100000 ),
-          labels=c("under $23,000", "$23,000 to $27,000", "above $27,000"),
-          palette="Greens")  +
-  tm_borders("grey") +
-  tm_legend(outside = TRUE, text.size = .8) +
-  tm_layout(frame = FALSE)
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
-
-To learn more about the tmap package, check out the  [package vignette](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html) and the package author's [presentation](http://von-tijn.nl/tijn/research/presentations/tmap_user2015.pdf).
-
-
-## Joining tables to spatial features {-}
-
-First, we'll download a comma delimited table (aka a CSV file). The table consists of population count and land/water surface area for each county in the state of Maine.
-
-
-```r
-df <- read.csv("http://colby.edu/~mgimond/Spatial/Data/ME2010_pop.csv")
-```
-
-Next, we'll make use of `dplyr`'s `left_join` function to join the table to the spatial object `s1` by county name.
-
-
-```r
-library(dplyr)
-s1@data <- left_join(s1@data, df, by=c("NAME" = "County"))
-```
-
-The spatial object `s1` consists of many components including the attributes table. Accessing each component requires appending the object name with `@`. In our case, we are accessing the attributes table (stored in the `data` component) via `s1@data`. In essence, the above code is joining the data table `df` to the attributes table `s1@data` and overwriting the existing attributes table (with the join) in the process. The function is also provided with a join *key* that dictates which columns from each table are to be used to match the records. Here, we are matching `s1`'s `NAME` column with `df`'s `County` column (both store the county names).
-
-<div class="warning">
-<p>For a join to be successful, all record elements must match letter for letter--this includes case! For example <code>Kennebec</code> and <code>kennebec</code> will not match since one has an upper case <code>K</code> while the other does not.</p>
-</div>
-
-Attribute tables can be manipulated just like any other regular table in R. For example, to compute population density from the population field and the land area field, type the following.
- 
-
-```r
-s1$Pop_dens = s1$Population / s1$Land
-```
-
-The `$` symbol accesses the field names `Population` and `Land`. The new field `Pop_dens` is now added to the `s1` attributes table. Next, we'll map the population density values.
-
-
-```r
-tm_shape(s1) + 
-  tm_fill("Pop_dens", style="quantile",  palette="Reds",
-          title="Population density \n(per square mile)") +
-  tm_borders("white") +
-  tm_legend(outside = TRUE, text.size = .8) +
-  tm_layout(frame = FALSE)
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" />
-
-
-## Converting XY data to point objects {-}
-
-Let's create a new data table with latitude and longitude values for nine major cities in the state of Maine.
-
-
-```r
-df2 <- data.frame(lon = c(-68.783, -69.6458, -69.7653, -69.9536, 
-                          -70.7733, -70.4462, -70.4449, -70.1924, -70.2691), 
-                  lat = c(44.8109, 44.5521, 44.3235, 43.913, 
-                          43.4399, 43.4741, 43.5104, 44.0975, 43.6651 ), 
-                  Name = c("Bangor", "Waterville", "Augusta", "Brunswick", 
-                           "Sanford", "Biddeford", "Saco", "Lewiston", "Portland") )
-```
-
-Next, we'll create a spatial object (a `SpatialPointsDataFrame` to be more precise) from the regular data table.
-
-
-```r
-pt <- SpatialPointsDataFrame(coords = df2[,c("lon","lat")], data = df2,
-                             proj4string = CRS("+proj=longlat +datum=WGS84"))
-```
-
-The `coords` parameter is given the latitude and longitude value columns--values used to locate the points associated with each record. The `proj4string` parameter defines the coordinate systems associated with the lat/long values--a WGS 1984 Geographic Coordinate System in our example.
-
-Let's check that `pt` is indeed a spatial object.
-
-
-```r
-summary(pt)		
-```
-
-```
-Object of class SpatialPointsDataFrame
-Coordinates:
-         min      max
-lon -70.7733 -68.7830
-lat  43.4399  44.8109
-Is projected: FALSE 
-proj4string :
-[+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0]
-Number of points: 9
-Data attributes:
-      lon              lat               Name  
- Min.   :-70.77   Min.   :43.44   Augusta  :1  
- 1st Qu.:-70.44   1st Qu.:43.51   Bangor   :1  
- Median :-70.19   Median :43.91   Biddeford:1  
- Mean   :-70.03   Mean   :43.98   Brunswick:1  
- 3rd Qu.:-69.77   3rd Qu.:44.32   Lewiston :1  
- Max.   :-68.78   Max.   :44.81   Portland :1  
-                                  (Other)  :3  
-```
-
-Note the object class `SpatialPointsDataFrame`. Also note that the dataframe contents were also carried over into the attributes table (here we had just one attribute, `Name`, other than `lon` and `lat`).
-
-The next chunk of code plots the point layer on top of the population density thematic map.
-
-
-```r
-tm_shape(s1) + 
-  tm_fill("Pop_dens", style="quantile",  palette="Reds",
-          title="Population density \n(per square mile)") +
-  tm_borders("white") +
-  tm_legend(outside = TRUE, text.size = .8) +
-  tm_layout(frame = FALSE,
-            inner.margins = c(0, 0.25, 0, 0.01)) +
-tm_shape(pt) +
-  tm_dots(size=.3, col="yellow", border.col="black") +
-  tm_text("Name", auto.placement = TRUE, shadow=TRUE, size=0.8)
-```
-
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" />
-
-## Geocoding street addresses {-}
-
-The package `ggmap` offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of Data Science Toolkit API.
+The `ggmap` package offers a geocoding function called mutate_geocode which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of *Data Science Toolkit* API.
 
 Let's first create a new data table with addresses for a few liberal arts colleges in the state of Maine.
 
 
 ```r
-df3 <- data.frame(Address = c("4000 mayflower Hill, Waterville, Maine", 
-                     "2 Andrews Rd, Lewiston, ME 04240",
-                     "255 Maine St, Brunswick, ME 04011",
-                     "90 Quaker Hill Rd, Unity, ME 04988",
-                     "105 Eden St, Bar Harbor, ME 04609"),
-         College = c("Colby", "Bates", "Bowdoin", "Unity", "CoA"),
-         stringsAsFactors = FALSE)
+addr <- data.frame(Address = c("4000 mayflower Hill, Waterville, Maine", 
+                               "2 Andrews Rd, Lewiston, ME 04240",
+                               "255 Maine St, Brunswick, ME 04011",
+                               "90 Quaker Hill Rd, Unity, ME 04988",
+                               "105 Eden St, Bar Harbor, ME 04609"),
+                   College = c("Colby", "Bates", "Bowdoin", "Unity", "CoA"),
+                   stringsAsFactors = FALSE)
 ```
 
-Next, we'll geocode the addresses and save the output to a new data table called `df3.geo`.
+Next, we'll geocode the addresses and save the output to a new data table called `addr.geo`.
 
 
 ```r
 library(ggmap)
-df3.geo <- mutate_geocode(df3, location=Address, output="latlona" , source="dsk")
+addr.geo <- mutate_geocode(addr, location=Address, output="latlona" , source="dsk")
 ```
 
-The `location` parameter is assigned the column with the addresses. The `output` parameter is given instructions on what to output. Here, the option `latlona` instructs R to output both the lat/lon values as well as all other attributes. It also adds another column called `address` with Google's nearest address match--not all addresses are necessarily matched exactly requiring Google to propose the closest match.
+The `location` parameter is assigned the column with the addresses. The `output` parameter is given instructions on _what_ to output. Here, the option `latlona` instructs the function to output both the lat/lon coordinate values as well as all other attributes. It also adds another column called `address` (note the lower case `a`) with the nearest address match. Note that not all addresses are necessarily matched.
 
 
 ```r
-df3.geo
+addr.geo
 ```
 
 ```
                                  Address College       lon      lat
-1 4000 mayflower Hill, Waterville, Maine   Colby -69.66264 44.56387
-2       2 Andrews Rd, Lewiston, ME 04240   Bates        NA       NA
-3      255 Maine St, Brunswick, ME 04011 Bowdoin -69.96420 43.90649
-4     90 Quaker Hill Rd, Unity, ME 04988   Unity -69.33084 44.60335
-5      105 Eden St, Bar Harbor, ME 04609     CoA        NA       NA
-                                            address
-1 4000 mayflower hill dr, waterville, me 04901, usa
-2                                              <NA>
-3            255 maine st, brunswick, me 04011, usa
-4           90 quaker hill rd, unity, me 04988, usa
-5                                              <NA>
+1 4000 mayflower Hill, Waterville, Maine   Colby -69.65208 44.56719
+2       2 Andrews Rd, Lewiston, ME 04240   Bates -70.20540 44.10721
+3      255 Maine St, Brunswick, ME 04011 Bowdoin -69.96525 43.90702
+4     90 Quaker Hill Rd, Unity, ME 04988   Unity -69.33315 44.60612
+5      105 Eden St, Bar Harbor, ME 04609     CoA -68.22009 44.39235
+                                 address
+1 4000 mayflower Hill, Waterville, Maine
+2       2 Andrews Rd, Lewiston, ME 04240
+3      255 Maine St, Brunswick, ME 04011
+4     90 Quaker Hill Rd, Unity, ME 04988
+5      105 Eden St, Bar Harbor, ME 04609
 ```
 
-Note that `df2.geo` is not a spatial object. It needs to be converted to one if it is to be used in generating a map output. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.
+Note that `addr.geo` is not a spatial object; it's a data frame. It can be converted to an `sf` object via `st_as_sf` as outlined in the previous section. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.
 
 
 ```r
-pt2 <- SpatialPointsDataFrame(coords = df3.geo[,c("lon","lat")], data = df3.geo,
-                             proj4string = CRS("+proj=longlat +datum=WGS84"))
+la.sf <- st_as_sf(addr.geo, coords = c("lon", "lat"), crs = 4326) 
+la.sf
 ```
 
-Finally, we'll add the points to an existing thematic map.
+```
+Simple feature collection with 5 features and 3 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -70.2054 ymin: 43.90702 xmax: -68.22009 ymax: 44.60612
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+                                 Address College                                address
+1 4000 mayflower Hill, Waterville, Maine   Colby 4000 mayflower Hill, Waterville, Maine
+2       2 Andrews Rd, Lewiston, ME 04240   Bates       2 Andrews Rd, Lewiston, ME 04240
+3      255 Maine St, Brunswick, ME 04011 Bowdoin      255 Maine St, Brunswick, ME 04011
+4     90 Quaker Hill Rd, Unity, ME 04988   Unity     90 Quaker Hill Rd, Unity, ME 04988
+5      105 Eden St, Bar Harbor, ME 04609     CoA      105 Eden St, Bar Harbor, ME 04609
+                    geometry
+1 POINT (-69.65208 44.56719)
+2  POINT (-70.2054 44.10721)
+3 POINT (-69.96525 43.90702)
+4 POINT (-69.33315 44.60612)
+5 POINT (-68.22009 44.39235)
+```
+
+
+The US Census Bureau offers a [geocoding service](https://geocoding.geo.census.gov/geocoder/locations/addressbatch?form) that can also be used to create lat/lon values from US street addresses. This needs to be completed via their website and the resulting data table (a CSV file) would then need to be loaded in R as a data frame.
+
+## Converting from an `sf` object {-}
+
+Packages such as `spdep` and `spatsat` currently do not support `sf` objects. The following sections demonstrate methods to convert from `sf` to other formats.
+
+### Converting an `sf` object to a `Spatial*` object (`spdep`/`sp`) {-}
+
+The following code will convert point, polyline or polygon features to a `spatial*` object. In this example, an `sf` polygon feature is converted to a `SpatialPolygonsDataFrame` object.
 
 
 ```r
-tm_shape(s1) + 
-  tm_fill("Pop_dens", style="quantile",  palette="Reds",
-          title="Population density \n(per square mile)") +
-  tm_borders("white") +
-  tm_legend(outside = TRUE, text.size = .8) +
-  tm_layout(frame = FALSE,
-            inner.margins = c(0, 0.25, 0, 0.01)) +
-tm_shape(pt2) +
-  tm_dots(size=.3, col="yellow", border.col="black") +
-  tm_text("College", auto.placement = TRUE, shadow=TRUE, size=0.8)
+s.sp <- as(s.sf, "Spatial")
+class(s.sp)
 ```
 
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" />
+```
+[1] "SpatialPolygonsDataFrame"
+attr(,"package")
+[1] "sp"
+```
 
-If you wish to use Google Maps as a backdrop, you can map the points with `ggmap`'s `qmplot` function.
+Note that if you wish to create a `Spatial*` object directly from a shapefile (and bypass the `sf` object creation), you could run the following `maptools` function: `readShapeSpatial("Income_schooling.shp")`. However, this approach _strips_ the coordinate system information from the shapefile object.
+
+### Converting an `sf` polygon object to an `owin` object {-}
+
+The `spatstat` package is normally used to analyze point patterns however, in most cases, the study extent needs to be explicitly defined by a polygon object. The polygon should be of class `owin`. Conversion from `sf` to `owin` requires the use of the `maptools` package.
+
+Note that the attribute table gets stripped from the polygon data. This is usually fine given that the only reason for converting a polygon to an `owin` format is for delineating the study boundary.
 
 
 ```r
-qmplot(lon, lat, data=df3.geo, source="google", maptype = "satellite") + 
-  geom_point(col="red", size=2, show.legend = FALSE) + 
-  geom_label(aes(label=College), hjust = "inward", vjust="inward")
+library(maptools)
+s.owin <- as(s.sp, "owin")
+class(s.owin)
 ```
 
-<img src="A1-Data-Manipulation_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" />
+```
+[1] "owin"
+```
 
-Other Google map `maptypes` include `"terrain"`, `"roadmap"` and `"hybrid"`.
+### Convering an `sf` point object to a `ppp` object {-}
 
-## Exporting to a shapefile {-}
-
-Both `rgdal` and `maptools` have functions to export spatial objects to shapefiles, but only `rgdal` will export the coordinate systems (if present) with the shapefile. The following chunk of code demonstrates the exports of two spatial objects created earlier in this exercise: `s1` (a `SpatialPolygonsDataFrame` object) and `pt2` (a `SpatialPointsDataFrame`).
+As of this writing, it seems that you need to first convert the `sf` object to a `SpatialPoints*` before creating a `ppp` object as shown in the following code chunk. Note that the `maptools` package is required for this step.
 
 
 ```r
-library(rgdal)
-
-# Save polygon layer to shapefile
-writeOGR(s1, dsn=".", layer="Counties", driver="ESRI Shapefile" )
-
-# Save point layer to shapefile
-writeOGR(pt2, dsn=".", layer="Colleges", driver="ESRI Shapefile" )
+p.sp  <- as(p.sf, "Spatial")  # Create Spatial* object
+p.ppp <- as(p.sp, "ppp")      # Create ppp object
+class(p.ppp)
 ```
 
-The `layer="Colleges"` parameter defines the file names (note that the file extension is not specified since it will be automatically added based on the output format) and the `driver` parameter specifies the output file format.
+```
+[1] "ppp"
+```
 
-## Exporting to a GeoPackage {-}
+If the point layer has an attribute table, its attributes will be converted to `ppp` _marks_.
 
-`rgdal`'s `GPKG` driver is used to export to a GeoPackage format. The syntax is slightly different from that used to export to a shapefile in that the database name must be specified as well as the layer name. For example, the following chunk of code exports the `Counties` layer to a database named `geo.gpkg`
+### Converting a `raster` object to an `im` object (`spatstat`) {-}
+
+The `maptools` package will readily convert a `raster` object to an `im` object using the `as.im.RasterLayer()` function.
 
 
 ```r
-library(rgdal)
-
-# Save polygon layer to shapefile
-writeOGR(s1, dsn="geo.gpkg", layer="Counties", driver="GPKG" )
+elev.im <- as.im.RasterLayer(elev.r) # From the maptools package
+class(elev.im)
 ```
- 
-## Exporting to a raster file format {-}
 
-You may use `raster`'s `writeRaster` function to export rasters to external raster formats. For example, to export to a GeoTIFF raster:
+```
+[1] "im"
+```
+
+## Converting to an `sf` object {-}
+
+All aforementioned spatial formats, except `owin`, can be coerced to an `sf` object via the `st_as_sf` function. for example:
 
 
 ```r
-library(rgdal)
-writeRaster(r1, filename="elev", format="GTiff" )
+st_as_sf(p.ppp)  # For converting a ppp object to an sf object
+st_as_sf(s.sp)  # For converting a Spatial* object to an sf object
 ```
 
-To export to an ERDAS Imagine file format:
+## Dissecting the `sf` file object {-}
 
 
 ```r
-library(rgdal)
-writeRaster(r1, filename="elev", format="HFA" )
+head(s.sf,3)
 ```
 
-To list all available output raster file formats, type:
+```
+Simple feature collection with 3 features and 5 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 379071.8 ymin: 4936182 xmax: 596500.1 ymax: 5255569
+epsg (SRID):    26919
+proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
+         NAME Income   NoSchool NoSchoolSE IncomeSE                       geometry
+1   Aroostook  21024 0.01338720 0.00140696  250.909 MULTIPOLYGON (((513821.1 51...
+2    Somerset  21025 0.00521153 0.00115002  390.909 MULTIPOLYGON (((379071.8 50...
+3 Piscataquis  21292 0.00633830 0.00212896  724.242 MULTIPOLYGON (((445039.5 51...
+```
+
+The first line of output gives us the geometry type, `MULTIPOLYGON`,  a multi-polygon data type. This is also referred to as a multipart polygon. A single-part `sf` polygon object will adopt the `POLYGON` geometry.
+
+The next few lines of output give us the layer's bounding extent in the layer's native coordinate system units. You can extract the extent via the `extent()` function as in `extent(s.sf)`.
+
+The next lines indicate the coordinate system used to define the polygon feature locations. It's offered in two formats: **epsg** code (when available) and **PROJ4** string format. You can extract the coordinate system information from an `sf` object via:
 
 
 ```r
-writeFormats()
+st_crs(s.sf)
+```
+
+```
+Coordinate Reference System:
+  EPSG: 26919 
+  proj4string: "+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs"
+```
+
+The output of this call is an object of class `crs`. Extracting the reference system from a spatial object can prove useful in certain workflows.
+
+What remains of the `sf` summary output is the first few records of the attribute table. You can extract the object's table to a dedicated data frame via:
+
+
+```r
+s.df <- data.frame(s.sf)
+class(s.df)
+```
+
+```
+[1] "data.frame"
+```
+
+```r
+head(s.df, 5)
+```
+
+```
+         NAME Income   NoSchool  NoSchoolSE IncomeSE                       geometry
+1   Aroostook  21024 0.01338720 0.001406960  250.909 MULTIPOLYGON (((513821.1 51...
+2    Somerset  21025 0.00521153 0.001150020  390.909 MULTIPOLYGON (((379071.8 50...
+3 Piscataquis  21292 0.00633830 0.002128960  724.242 MULTIPOLYGON (((445039.5 51...
+4   Penobscot  23307 0.00684534 0.001025450  242.424 MULTIPOLYGON (((472271.3 49...
+5  Washington  20015 0.00478188 0.000966036  327.273 MULTIPOLYGON (((645446.5 49...
+```
+
+The above chunk will also create a geometry column. This column is somewhat unique in that it stores its contents as a **list** of geometry coordinate pairs (polygon vertex coordinate values in this example).
+
+
+```r
+str(s.df)
+```
+
+```
+'data.frame':	16 obs. of  6 variables:
+ $ NAME      : Factor w/ 16 levels "Androscoggin",..: 2 13 11 10 15 4 9 14 6 1 ...
+ $ Income    : int  21024 21025 21292 23307 20015 21744 21885 23020 25652 24268 ...
+ $ NoSchool  : num  0.01339 0.00521 0.00634 0.00685 0.00478 ...
+ $ NoSchoolSE: num  0.001407 0.00115 0.002129 0.001025 0.000966 ...
+ $ IncomeSE  : num  251 391 724 242 327 ...
+ $ geometry  :sfc_MULTIPOLYGON of length 16; first list element: List of 1
+  ..$ :List of 1
+  .. ..$ : num [1:32, 1:2] 513821 513806 445039 422284 424687 ...
+  ..- attr(*, "class")= chr  "XY" "MULTIPOLYGON" "sfg"
+```
+
+You can also opt to remove this column prior to creating the dataframe as follows:
+
+
+```r
+s.nogeom.df <- st_set_geometry(s.sf, NULL) 
+class(s.nogeom.df)
+```
+
+```
+[1] "data.frame"
+```
+
+```r
+head(s.nogeom.df, 5)
+```
+
+```
+         NAME Income   NoSchool  NoSchoolSE IncomeSE
+1   Aroostook  21024 0.01338720 0.001406960  250.909
+2    Somerset  21025 0.00521153 0.001150020  390.909
+3 Piscataquis  21292 0.00633830 0.002128960  724.242
+4   Penobscot  23307 0.00684534 0.001025450  242.424
+5  Washington  20015 0.00478188 0.000966036  327.273
+```
+
+## Exporting to different data file formats {-}
+
+You can export an `sf` object to many different spatial file formats such as a shapefile or a geopackage.
+
+
+```r
+st_write(s.sf, "shapefile_out.shp", driver="ESRI Shapefile")  # create to a shapefile 
+st_write(s.sf, " s.gpkg", driver="GPKG")  # Create a geopackage file
+```
+
+You can see a list of writable vector formats via a call to `subset(rgdal::ogrDrivers(), write == TRUE)`. Only as subset of the output is shown in the following example. Note that supported file formats will differ from platform to platform.
+
+
+```
+             name                       long_name write  copy isVector
+17 ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     TRUE
+18     Geoconcept                      Geoconcept  TRUE FALSE     TRUE
+19        GeoJSON                         GeoJSON  TRUE FALSE     TRUE
+21         GeoRSS                          GeoRSS  TRUE FALSE     TRUE
+22            GFT            Google Fusion Tables  TRUE FALSE     TRUE
+23            GML Geography Markup Language (GML)  TRUE FALSE     TRUE
+24           GPKG                      GeoPackage  TRUE  TRUE     TRUE
 ```
 
 
+The value in the `name` column is the driver name used in the `st_write()` function.
+
+To export a raster to a data file, use `writeRaster()` from the `raster` package.
+
+
+```r
+writeRaster(elev.r, "elev_out.tif", format="GTiff" ) # Create a geoTiff file
+writeRaster(elev.r, "elev_out.img", format="HFA" )  # Create an Imagine raster file
+```
+
+You can see a list of writable raster formats via a call to `subset(rgdal::gdalDrivers(), create == TRUE)`. 
+
+
+```
+        name                            long_name create  copy isRaster
+43      GPKG                           GeoPackage   TRUE  TRUE     TRUE
+46     GS7BG Golden Software 7 Binary Grid (.grd)   TRUE  TRUE     TRUE
+48      GSBG   Golden Software Binary Grid (.grd)   TRUE  TRUE     TRUE
+50     GTiff                              GeoTIFF   TRUE  TRUE     TRUE
+51       GTX             NOAA Vertical Datum .GTX   TRUE FALSE     TRUE
+54 HDF4Image                         HDF4 Dataset   TRUE FALSE     TRUE
+58       HFA          Erdas Imagine Images (.img)   TRUE  TRUE     TRUE
+```
+
+The value in the `name` column is the format parameter name used in the `writeRaster()` function.
 

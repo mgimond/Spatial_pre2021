@@ -1,0 +1,10 @@
+base
+sf
+sp
+raster
+leaflet
+tmap
+maptools
+dplyr
+bindrcpp
+geosphere

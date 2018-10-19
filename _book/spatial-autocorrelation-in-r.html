@@ -46,7 +46,8 @@
 
 
 
-<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -57,36 +58,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -253,43 +280,51 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
-<li><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal">Reading a shapefile with <code>rgdal</code> ​</a></li>
-<li><a href="data-manipulation-in-r.html#reading-a-shapefile-with-maptools">Reading a shapefile with <code>maptools</code> ​</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html"><i class="fa fa-check"></i>Reading and writing spatial data in R</a><ul>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#creating-spatial-objects"><i class="fa fa-check"></i>Creating spatial objects</a><ul>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-shapefile"><i class="fa fa-check"></i>Reading a shapefile</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-raster"><i class="fa fa-check"></i>Reading a raster</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#creating-a-spatial-object-from-a-data-frame"><i class="fa fa-check"></i>Creating a spatial object from a data frame</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#geocoding-street-addresses"><i class="fa fa-check"></i>Geocoding street addresses</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-gis-raster-files"><i class="fa fa-check"></i>Reading GIS raster files</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#dissecting-the-file-summary"><i class="fa fa-check"></i>Dissecting the file summary</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-spatial-data"><i class="fa fa-check"></i>Mapping spatial data</a><ul>
-<li><a href="data-manipulation-in-r.html#mapping-with-spplot">Mapping with <code>spplot</code> ​</a></li>
-<li><a href="data-manipulation-in-r.html#mapping-with-tmap">Mapping with <code>tmap</code> ​</a></li>
-<li><a href="data-manipulation-in-r.html#mapping-rasters-with-tmap">Mapping rasters with <code>tmap</code> ​</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-from-an-sf-object">Converting from an <code>sf</code> object</a><ul>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-an-sf-object-to-a-spatial-object-spdepsp">Converting an <code>sf</code> object to a <code>Spatial*</code> object (<code>spdep</code>/<code>sp</code>)</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-an-sf-polygon-object-to-an-owin-object">Converting an <code>sf</code> polygon object to an <code>owin</code> object</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-an-sf-point-object-to-a-ppp-object">Converting an <code>sf</code> point object to a <code>ppp</code> object</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-a-raster-object-to-an-im-object-spatstat">Converting a <code>raster</code> object to an <code>im</code> object (<code>spatstat</code>)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#joining-tables-to-spatial-features"><i class="fa fa-check"></i>Joining tables to spatial features</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#converting-xy-data-to-point-objects"><i class="fa fa-check"></i>Converting XY data to point objects</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#geocoding-street-addresses"><i class="fa fa-check"></i>Geocoding street addresses</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-shapefile"><i class="fa fa-check"></i>Exporting to a shapefile</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-geopackage"><i class="fa fa-check"></i>Exporting to a GeoPackage</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-raster-file-format"><i class="fa fa-check"></i>Exporting to a raster file format</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-to-an-sf-object">Converting to an <code>sf</code> object</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#dissecting-the-sf-file-object">Dissecting the <code>sf</code> file object</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#exporting-to-different-data-file-formats"><i class="fa fa-check"></i>Exporting to different data file formats</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html"><i class="fa fa-check"></i>Mapping data in R</a><ul>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#sample-files-for-this-exercise-1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#the-basics"><i class="fa fa-check"></i>The basics</a><ul>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#combining-layers"><i class="fa fa-check"></i>Combining layers</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#tweaking-classification-schemes"><i class="fa fa-check"></i>Tweaking classification schemes</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#tweaking-colors"><i class="fa fa-check"></i>Tweaking colors</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#splitting-data-by-polygons-or-group-of-polygons"><i class="fa fa-check"></i>Splitting data by polygons or group of polygons</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise-2"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-coordinate-syntax"><i class="fa fa-check"></i>Understanding the coordinate syntax</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#modifying-coordinate-systems"><i class="fa fa-check"></i>Modifying coordinate systems</a><ul>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#example-of-failed-transformations"><i class="fa fa-check"></i>Example of failed transformations</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#transforming-coordinate-systems"><i class="fa fa-check"></i>Transforming coordinate systems</a><ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#example-of-a-failed-transformation"><i class="fa fa-check"></i>Example of a failed transformation</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html"><i class="fa fa-check"></i>Vector operations in R</a><ul>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-contiguous-shape"><i class="fa fa-check"></i>Dissolve by contiguous shape</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-attribute"><i class="fa fa-check"></i>Dissolve by attribute</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#calculate-area"><i class="fa fa-check"></i>Calculate area</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#subsetting"><i class="fa fa-check"></i>Subsetting</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting"><i class="fa fa-check"></i>Intersecting</a><ul>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting-polygons-with-line-and-point-objects"><i class="fa fa-check"></i>Intersecting polygons with line and point objects</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#a-note-about-containment"><i class="fa fa-check"></i>A note about containment</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#creating-tissot-indicatrix-circles"><i class="fa fa-check"></i>Creating Tissot indicatrix circles</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
@@ -354,6 +389,16 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html"><i class="fa fa-check"></i>Vector operations in R</a><ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-contiguous-shape"><i class="fa fa-check"></i>Dissolve by contiguous shape</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-attribute"><i class="fa fa-check"></i>Dissolve by attribute</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#calculate-area"><i class="fa fa-check"></i>Calculate area</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#subsetting"><i class="fa fa-check"></i>Subsetting</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting"><i class="fa fa-check"></i>Intersecting</a><ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting-polygons-with-line-and-point-objects"><i class="fa fa-check"></i>Intersecting polygons with line and point objects</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -375,97 +420,97 @@ code > span.in { color: #008000; } /* Information */
 <h1>Spatial Autocorrelation in R</h1>
 <p>The <code>spdep</code> functions used in this exercise make use of different spatial object classes than those used by the <code>spatstat</code> package. Here, we’ll load layers as <code>SpatialPolygonsDataFrame</code> objects. If we were to work with point data instead, we would store the point shapefiles as <code>SpatialPointsDataFrame</code>.</p>
 <p>We’ll first load the spatial object used in this exercise from a remote website–income and education data aggregated at the county level for the state of Maine. This object will be loaded as a <code>SpatialPolygonsDataFrame</code> and will therefore not require conversion.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/Income_schooling.rds&quot;</span>))
-s1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/Income_schooling.rds&quot;</span>))</a>
+<a class="sourceLine" id="cb223-2" data-line-number="2">s1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a></code></pre></div>
 <p>The spatial object has five attributes. The one of interest for this exercise is <code>Income</code> (per capita, in dollars).</p>
-<p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="500" /></p>
+<p><img src="A06-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="500" /></p>
 <p>Let’s map the income distribution using a quantile classification scheme.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
-<span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;Income&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
-<p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">library</span>(tmap)</a>
+<a class="sourceLine" id="cb224-2" data-line-number="2"><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;Income&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb224-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
+<p><img src="A06-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <div id="define-neighboring-polygons" class="section level2 unnumbered">
 <h2>Define neighboring polygons</h2>
 <p>The first step requires that we define “neighboring” polygons. This could refer to contiguous polygons, polygons within a certain distance band, or it could be non-spatial in nature and defined by social, political or cultural “neighbors”.</p>
 <p>Here, we’ll adopt a contiguous neighbor definition where we’ll accept any contiguous polygon that shares at least on vertex (this is the “queen” case and is defined by setting the parameter <code>queen=TRUE</code>). If we required that at least one <em>edge</em> be shared between polygons then we would set <code>queen=FALSE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spdep)
-nb &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(s1, <span class="dt">queen=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="kw">library</span>(spdep)</a>
+<a class="sourceLine" id="cb225-2" data-line-number="2">nb &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(s1, <span class="dt">queen=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>For each polygon in our polygon object, <code>nb</code> lists all neighboring polygons. For example, to see the neighbors for the first polygon in the object, type:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nb[<span class="dv">1</span>]</code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb226-1" data-line-number="1">nb[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[[1]]
 [1] 2 3 4 5</code></pre>
 <p>Polygon <code>1</code> has 4 neighbors. The first polygon is associated with the attribute name <code>Aroostook</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>NAME[<span class="dv">1</span>]</code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1">s1<span class="op">$</span>NAME[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[1] Aroostook
 16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock ... York</code></pre>
 <p>The four neighboring polygons are associated with the names:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>NAME[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1">s1<span class="op">$</span>NAME[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</a></code></pre></div>
 <pre><code>[1] Somerset    Piscataquis Penobscot   Washington 
 16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock ... York</code></pre>
 <p>Next, we need to assign weights to each neighboring polygon. In our case, each polygon will be assigned equal weight when computing the neighboring mean values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(nb, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>, <span class="dt">zero.policy=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(nb, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>, <span class="dt">zero.policy=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <p>To see the weight of the first polygon’s four neighbors type:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw<span class="op">$</span>weights[<span class="dv">1</span>]</code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1">lw<span class="op">$</span>weights[<span class="dv">1</span>]</a></code></pre></div>
 <pre><code>[[1]]
 [1] 0.25 0.25 0.25 0.25</code></pre>
 <p>Each neighbor is assigned a quarter of the total weight. This means that when R computes the average neighboring income values, each neighbor’s income will be multiplied by <code>0.25</code> before being tallied.</p>
 <p>Finally, we’ll compute the average neighbor income value for each polygon. These values are often referred to as <strong>spatially lagged</strong> values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Inc.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, s1<span class="op">$</span>Income)</code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb235-1" data-line-number="1">Inc.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, s1<span class="op">$</span>Income)</a></code></pre></div>
 <p>The following table shows the average neighboring income values (stored in the <code>Inc.lag</code> object) for each county.</p>
-<p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="500" /></p>
+<p><img src="A06-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="500" /></p>
 </div>
 <div id="computing-the-morans-i-statistic-the-hard-way" class="section level2 unnumbered">
 <h2>Computing the Moran’s I statistic: the hard way</h2>
 <p>We can plot <em>lagged income</em> vs. <em>income</em> and fit a linear regression model to the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a regression model</span>
-M &lt;-<span class="st"> </span><span class="kw">lm</span>(Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income)
-
-<span class="co"># Plot the data</span>
-OP &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pty=</span><span class="st">&quot;s&quot;</span>)  <span class="co"># Force a square plot</span>
- <span class="kw">plot</span>( Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">asp=</span><span class="dv">1</span>)
- <span class="kw">abline</span>(M, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co"># Add the regression line from model M</span>
-<span class="kw">par</span>(OP) <span class="co"># Revert back to default plot settings</span></code></pre></div>
-<p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="co"># Create a regression model</span></a>
+<a class="sourceLine" id="cb236-2" data-line-number="2">M &lt;-<span class="st"> </span><span class="kw">lm</span>(Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income)</a>
+<a class="sourceLine" id="cb236-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb236-4" data-line-number="4"><span class="co"># Plot the data</span></a>
+<a class="sourceLine" id="cb236-5" data-line-number="5">OP &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pty=</span><span class="st">&quot;s&quot;</span>)  <span class="co"># Force a square plot</span></a>
+<a class="sourceLine" id="cb236-6" data-line-number="6"> <span class="kw">plot</span>( Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">asp=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb236-7" data-line-number="7"> <span class="kw">abline</span>(M, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co"># Add the regression line from model M</span></a>
+<a class="sourceLine" id="cb236-8" data-line-number="8"><span class="kw">par</span>(OP) <span class="co"># Revert back to default plot settings</span></a></code></pre></div>
+<p><img src="A06-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>The slope of the regression line is the Moran’s I coefficient</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(M)[<span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1"><span class="kw">coef</span>(M)[<span class="dv">2</span>]</a></code></pre></div>
 <pre><code>s1$Income 
 0.2828111 </code></pre>
 <p>To assess if the slope is significantly different from zero, we can <em>randomly</em> permute the income values (i.e. we are not imposing any spatial autocorrelation) across all counties then fit a regression model to each permuted set of values. We then tally the slope values and compare our observed slope (i.e. the Moran’s I value) to the distribution of Moran’s I values from the simulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">599</span>   <span class="co"># Define the number of simulations</span>
-I.r &lt;-<span class="st"> </span><span class="kw">vector</span>()  <span class="co"># Create an empty vector</span>
-
-<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
-  <span class="co"># Randomly shuffle income values</span>
-  x &lt;-<span class="st"> </span><span class="kw">sample</span>(s1<span class="op">$</span>Income, <span class="dt">replace=</span><span class="ot">FALSE</span>)
-  <span class="co"># Compute new set of lagged values</span>
-  x.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, x)
-  <span class="co"># Compute the regression slope</span>
-  M.r &lt;-<span class="st"> </span><span class="kw">lm</span>(x.lag <span class="op">~</span><span class="st"> </span>x)
-  I.r[i] &lt;-<span class="st"> </span><span class="kw">coef</span>(M.r)[<span class="dv">2</span>]
-}
-
-<span class="co"># Plot histogram of simulated Moran&#39;s I values</span>
-<span class="co"># then add our observed Moran&#39;s I value to the plot</span>
-<span class="kw">hist</span>(I.r, <span class="dt">main=</span><span class="ot">NULL</span>)
-<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">coef</span>(M)[<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)
-<span class="kw">par</span>(OP)</code></pre></div>
-<p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="dv">599</span>   <span class="co"># Define the number of simulations</span></a>
+<a class="sourceLine" id="cb239-2" data-line-number="2">I.r &lt;-<span class="st"> </span><span class="kw">vector</span>()  <span class="co"># Create an empty vector</span></a>
+<a class="sourceLine" id="cb239-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb239-4" data-line-number="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</a>
+<a class="sourceLine" id="cb239-5" data-line-number="5">  <span class="co"># Randomly shuffle income values</span></a>
+<a class="sourceLine" id="cb239-6" data-line-number="6">  x &lt;-<span class="st"> </span><span class="kw">sample</span>(s1<span class="op">$</span>Income, <span class="dt">replace=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb239-7" data-line-number="7">  <span class="co"># Compute new set of lagged values</span></a>
+<a class="sourceLine" id="cb239-8" data-line-number="8">  x.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, x)</a>
+<a class="sourceLine" id="cb239-9" data-line-number="9">  <span class="co"># Compute the regression slope</span></a>
+<a class="sourceLine" id="cb239-10" data-line-number="10">  M.r &lt;-<span class="st"> </span><span class="kw">lm</span>(x.lag <span class="op">~</span><span class="st"> </span>x)</a>
+<a class="sourceLine" id="cb239-11" data-line-number="11">  I.r[i] &lt;-<span class="st"> </span><span class="kw">coef</span>(M.r)[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb239-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb239-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb239-14" data-line-number="14"><span class="co"># Plot histogram of simulated Moran&#39;s I values</span></a>
+<a class="sourceLine" id="cb239-15" data-line-number="15"><span class="co"># then add our observed Moran&#39;s I value to the plot</span></a>
+<a class="sourceLine" id="cb239-16" data-line-number="16"><span class="kw">hist</span>(I.r, <span class="dt">main=</span><span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb239-17" data-line-number="17"><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">coef</span>(M)[<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a>
+<a class="sourceLine" id="cb239-18" data-line-number="18"><span class="kw">par</span>(OP)</a></code></pre></div>
+<p><img src="A06-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>The simulation suggests that our observed Moran’s I value is not consistent with a Moran’s I value one would expect to get if the income values were not spatially correlated. In the next step, we’ll compute a pseudo p-value.</p>
 <div id="computing-a-pseudo-p-value-from-an-mc-simulation" class="section level3 unnumbered">
 <h3>Computing a pseudo p-value from an MC simulation</h3>
 <p>First, we need to find the number of simulated ANN values greater than our observed ANN value</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">coef</span>(M)[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>I.r)</code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">coef</span>(M)[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>I.r)</a></code></pre></div>
 <p>To compute the p-value, find the end of the distribution closest to the observed ANN value, then divide that count by the total count. Note that this is a so-called one-side P-value. See lecture notes for more information.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
-p</code></pre></div>
-<pre><code>[1] 0.025</code></pre>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb241-2" data-line-number="2">p</a></code></pre></div>
+<pre><code>[1] 0.015</code></pre>
 <p>In our working example, the p-value suggests that there is a small chance (~ 2%) of being wrong in stating that the income values are not clustered at the county level.</p>
 </div>
 </div>
 <div id="computing-the-morans-i-statistic-the-easy-way" class="section level2 unnumbered">
 <h2>Computing the Moran’s I statistic: the easy way</h2>
 <p>To get the Moran’s I value, simply use the <code>moran.test</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(s1<span class="op">$</span>Income,lw)</code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1"><span class="kw">moran.test</span>(s1<span class="op">$</span>Income,lw)</a></code></pre></div>
 <pre><code>
     Moran I test under randomisation
 
@@ -478,10 +523,10 @@ sample estimates:
 Moran I statistic       Expectation          Variance 
        0.28281108       -0.06666667        0.02418480 </code></pre>
 <p>Note that the p-value computed from the <code>moran.test</code> function is not computed from an MC silumation but <em>analytically</em> instead. This may not always prove to be the most accurate measure of significance. To test for significance using the <em>MC simulation</em> method instead, use the <code>moran.mc</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MC&lt;-<span class="st"> </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>)
-
-<span class="co"># View results (including p-value)</span>
-MC</code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1">MC&lt;-<span class="st"> </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>)</a>
+<a class="sourceLine" id="cb245-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb245-3" data-line-number="3"><span class="co"># View results (including p-value)</span></a>
+<a class="sourceLine" id="cb245-4" data-line-number="4">MC</a></code></pre></div>
 <pre><code>
     Monte-Carlo simulation of Moran I
 
@@ -489,31 +534,31 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.28281, observed rank = 590, p-value = 0.01667
+statistic = 0.28281, observed rank = 589, p-value = 0.01833
 alternative hypothesis: greater</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the distribution (note that this is a density plot instead of a histogram)</span>
-<span class="kw">plot</span>(MC, <span class="dt">main=</span><span class="ot">NULL</span>)</code></pre></div>
-<p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" data-line-number="1"><span class="co"># Plot the distribution (note that this is a density plot instead of a histogram)</span></a>
+<a class="sourceLine" id="cb247-2" data-line-number="2"><span class="kw">plot</span>(MC, <span class="dt">main=</span><span class="ot">NULL</span>)</a></code></pre></div>
+<p><img src="A06-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
 <div id="morans-i-as-a-function-of-a-distance-band" class="section level2 unnumbered">
 <h2>Moran’s I as a function of a distance band</h2>
 <p>In this section, we will explore spatial autocorrelation as a function of distance bands.</p>
 <p>Instead of defining neighbors as contiguous polygons, we will define neighbors based on distances to polygon centers. We therefore need to extract the center of each polygon</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coo &lt;-<span class="st"> </span><span class="kw">coordinates</span>(s1)</code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1">coo &lt;-<span class="st"> </span><span class="kw">coordinates</span>(s1)</a></code></pre></div>
 <p>The object <code>coo</code> stores all sixteen pairs of coordinate values.</p>
 <p>Next, we will define the search radius to include all neighboring polygon centers within 50 km (or 50,000 meters)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">S.dist  &lt;-<span class="st">  </span><span class="kw">dnearneigh</span>(coo, <span class="dv">0</span>, <span class="dv">50000</span>)  </code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1">S.dist  &lt;-<span class="st">  </span><span class="kw">dnearneigh</span>(coo, <span class="dv">0</span>, <span class="dv">50000</span>)  </a></code></pre></div>
 <p>The <code>dnearneigh</code> function takes on three parameters: the coordinate values <code>coo</code>, the radius for the inner radius of the annulus band, and the radius for the outer annulus band. In our example, the inner annulus radius is <code>0</code> which implies that all polygon centers up to 50km are considered neighbors.</p>
 <p>Note that if we chose to restrict the neighbors to all polygon centers between 50 km and 100 km, then we would define a search annulus (instead of a circle) as <code>dnearneigh(coo, 50000, 100000)</code>.</p>
 <p>Now that we defined our search circle, we need to identify all neighboring polygons for each polygon in the dataset.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(S.dist, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>,<span class="dt">zero.policy=</span>T) </code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(S.dist, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>,<span class="dt">zero.policy=</span>T) </a></code></pre></div>
 <p>Run the MC simulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MI  &lt;-<span class="st">  </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>,<span class="dt">zero.policy=</span>T) </code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1">MI  &lt;-<span class="st">  </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>,<span class="dt">zero.policy=</span>T) </a></code></pre></div>
 <p>Plot the results.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(MI) </code></pre></div>
-<p><img src="A6-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1"><span class="kw">plot</span>(MI) </a></code></pre></div>
+<p><img src="A06-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>Display p-value and other summary statistics.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MI</code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1">MI</a></code></pre></div>
 <pre><code>
     Monte-Carlo simulation of Moran I
 
@@ -521,7 +566,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.31361, observed rank = 598, p-value = 0.003333
+statistic = 0.31361, observed rank = 596, p-value = 0.006667
 alternative hypothesis: greater</code></pre>
 
 </div>
@@ -580,7 +625,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

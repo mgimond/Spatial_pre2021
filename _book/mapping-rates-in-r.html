@@ -46,7 +46,8 @@
 
 
 
-<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -57,36 +58,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -253,43 +280,51 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html"><i class="fa fa-check"></i>Data Manipulation in R</a><ul>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-vector-files"><i class="fa fa-check"></i>Reading vector files</a><ul>
-<li><a href="data-manipulation-in-r.html#reading-a-shapefile-with-rgdal">Reading a shapefile with <code>rgdal</code> ​</a></li>
-<li><a href="data-manipulation-in-r.html#reading-a-shapefile-with-maptools">Reading a shapefile with <code>maptools</code> ​</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html"><i class="fa fa-check"></i>Reading and writing spatial data in R</a><ul>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#creating-spatial-objects"><i class="fa fa-check"></i>Creating spatial objects</a><ul>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-shapefile"><i class="fa fa-check"></i>Reading a shapefile</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-raster"><i class="fa fa-check"></i>Reading a raster</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#creating-a-spatial-object-from-a-data-frame"><i class="fa fa-check"></i>Creating a spatial object from a data frame</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#geocoding-street-addresses"><i class="fa fa-check"></i>Geocoding street addresses</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#reading-gis-raster-files"><i class="fa fa-check"></i>Reading GIS raster files</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#dissecting-the-file-summary"><i class="fa fa-check"></i>Dissecting the file summary</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#mapping-spatial-data"><i class="fa fa-check"></i>Mapping spatial data</a><ul>
-<li><a href="data-manipulation-in-r.html#mapping-with-spplot">Mapping with <code>spplot</code> ​</a></li>
-<li><a href="data-manipulation-in-r.html#mapping-with-tmap">Mapping with <code>tmap</code> ​</a></li>
-<li><a href="data-manipulation-in-r.html#mapping-rasters-with-tmap">Mapping rasters with <code>tmap</code> ​</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-from-an-sf-object">Converting from an <code>sf</code> object</a><ul>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-an-sf-object-to-a-spatial-object-spdepsp">Converting an <code>sf</code> object to a <code>Spatial*</code> object (<code>spdep</code>/<code>sp</code>)</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-an-sf-polygon-object-to-an-owin-object">Converting an <code>sf</code> polygon object to an <code>owin</code> object</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-an-sf-point-object-to-a-ppp-object">Converting an <code>sf</code> point object to a <code>ppp</code> object</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-a-raster-object-to-an-im-object-spatstat">Converting a <code>raster</code> object to an <code>im</code> object (<code>spatstat</code>)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#joining-tables-to-spatial-features"><i class="fa fa-check"></i>Joining tables to spatial features</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#converting-xy-data-to-point-objects"><i class="fa fa-check"></i>Converting XY data to point objects</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#geocoding-street-addresses"><i class="fa fa-check"></i>Geocoding street addresses</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-shapefile"><i class="fa fa-check"></i>Exporting to a shapefile</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-geopackage"><i class="fa fa-check"></i>Exporting to a GeoPackage</a></li>
-<li class="chapter" data-level="" data-path="data-manipulation-in-r.html"><a href="data-manipulation-in-r.html#exporting-to-a-raster-file-format"><i class="fa fa-check"></i>Exporting to a raster file format</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#converting-to-an-sf-object">Converting to an <code>sf</code> object</a></li>
+<li><a href="reading-and-writing-spatial-data-in-r.html#dissecting-the-sf-file-object">Dissecting the <code>sf</code> file object</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#exporting-to-different-data-file-formats"><i class="fa fa-check"></i>Exporting to different data file formats</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html"><i class="fa fa-check"></i>Mapping data in R</a><ul>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#sample-files-for-this-exercise-1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#the-basics"><i class="fa fa-check"></i>The basics</a><ul>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#combining-layers"><i class="fa fa-check"></i>Combining layers</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#tweaking-classification-schemes"><i class="fa fa-check"></i>Tweaking classification schemes</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#tweaking-colors"><i class="fa fa-check"></i>Tweaking colors</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#splitting-data-by-polygons-or-group-of-polygons"><i class="fa fa-check"></i>Splitting data by polygons or group of polygons</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise-2"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-coordinate-syntax"><i class="fa fa-check"></i>Understanding the coordinate syntax</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#modifying-coordinate-systems"><i class="fa fa-check"></i>Modifying coordinate systems</a><ul>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#example-of-failed-transformations"><i class="fa fa-check"></i>Example of failed transformations</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#transforming-coordinate-systems"><i class="fa fa-check"></i>Transforming coordinate systems</a><ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#example-of-a-failed-transformation"><i class="fa fa-check"></i>Example of a failed transformation</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html"><i class="fa fa-check"></i>Vector operations in R</a><ul>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-contiguous-shape"><i class="fa fa-check"></i>Dissolve by contiguous shape</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-attribute"><i class="fa fa-check"></i>Dissolve by attribute</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#calculate-area"><i class="fa fa-check"></i>Calculate area</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#subsetting"><i class="fa fa-check"></i>Subsetting</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting"><i class="fa fa-check"></i>Intersecting</a><ul>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting-polygons-with-line-and-point-objects"><i class="fa fa-check"></i>Intersecting polygons with line and point objects</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#a-note-about-containment"><i class="fa fa-check"></i>A note about containment</a></li>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#creating-tissot-indicatrix-circles"><i class="fa fa-check"></i>Creating Tissot indicatrix circles</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
@@ -354,6 +389,16 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html"><i class="fa fa-check"></i>Vector operations in R</a><ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-contiguous-shape"><i class="fa fa-check"></i>Dissolve by contiguous shape</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#dissolve-by-attribute"><i class="fa fa-check"></i>Dissolve by attribute</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#calculate-area"><i class="fa fa-check"></i>Calculate area</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#subsetting"><i class="fa fa-check"></i>Subsetting</a></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting"><i class="fa fa-check"></i>Intersecting</a><ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting-polygons-with-line-and-point-objects"><i class="fa fa-check"></i>Intersecting polygons with line and point objects</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -374,105 +419,107 @@ code > span.in { color: #008000; } /* Information */
 <div id="mapping-rates-in-r" class="section level1 unnumbered">
 <h1>Mapping rates in R</h1>
 <p>The following libraries are used in the examples that follow.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spdep)
-<span class="kw">library</span>(classInt)
-<span class="kw">library</span>(RColorBrewer)
-<span class="kw">library</span>(maptools)</code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" data-line-number="1"><span class="kw">library</span>(spdep)</a>
+<a class="sourceLine" id="cb268-2" data-line-number="2"><span class="kw">library</span>(classInt)</a>
+<a class="sourceLine" id="cb268-3" data-line-number="3"><span class="kw">library</span>(RColorBrewer)</a>
+<a class="sourceLine" id="cb268-4" data-line-number="4"><span class="kw">library</span>(maptools)</a></code></pre></div>
 <p>Next, we’ll initialize some color palettes.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pal1 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">6</span>,<span class="st">&quot;Greys&quot;</span>)
-pal2 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">8</span>,<span class="st">&quot;RdYlGn&quot;</span>)
-pal3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">brewer.pal</span>(<span class="dv">9</span>,<span class="st">&quot;Greys&quot;</span>), <span class="st">&quot;#FF0000&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb269-1" data-line-number="1">pal1 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">6</span>,<span class="st">&quot;Greys&quot;</span>)</a>
+<a class="sourceLine" id="cb269-2" data-line-number="2">pal2 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">8</span>,<span class="st">&quot;RdYlGn&quot;</span>)</a>
+<a class="sourceLine" id="cb269-3" data-line-number="3">pal3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">brewer.pal</span>(<span class="dv">9</span>,<span class="st">&quot;Greys&quot;</span>), <span class="st">&quot;#FF0000&quot;</span>)</a></code></pre></div>
 <p>The Auckland dataset from the <code>spdep</code> package will be used throughout this exercise. Some of the graphics that follow are R reproductions of Bailey and Gatrell’s book, <em>Interactive Spatial Data Analysis</em> <span class="citation">(Bailey and Gatrell <a href="#ref-BaileyGatrell">1995</a>)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland &lt;-<span class="st"> </span><span class="kw">readShapePoly</span>(<span class="kw">system.file</span>(<span class="st">&quot;shapes/auckland.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spData&quot;</span>)[<span class="dv">1</span>])</code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" data-line-number="1">auckland &lt;-<span class="st"> </span><span class="kw">readShapePoly</span>(<span class="kw">system.file</span>(<span class="st">&quot;shapes/auckland.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spData&quot;</span>)[<span class="dv">1</span>])</a></code></pre></div>
 <p>The Auckland data represents total infant deaths (under the age of five) for Auckland, New Zealand, spanning the years 1977 through 1985 for different census area units. The following block of code maps these counts by area. Both equal interval and quantile classification schemes of the same data are mapped.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
-brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)
-      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)
-      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</code></pre></div>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1">brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</a>
+<a class="sourceLine" id="cb271-2" data-line-number="2">brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</a>
+<a class="sourceLine" id="cb271-3" data-line-number="3"><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</a>
+<a class="sourceLine" id="cb271-4" data-line-number="4">      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</a>
+<a class="sourceLine" id="cb271-5" data-line-number="5"><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</a>
+<a class="sourceLine" id="cb271-6" data-line-number="6">      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</a></code></pre></div>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
 <p>These are examples of <strong>choropleth</strong> maps (<em>choro</em> = area and <em>pleth</em> = value) where some value (an enumeration of child deaths in this working example) is aggregated over a defined area (e.g. census area units) and displayed using different colors.</p>
 <p>Since the area units used to map death counts are not uniform in <em>shape</em> and <em>area</em> across Auckland, there is a tendency to assign more “visual weight” to polygons having larger areas than those having smaller areas. In our example, census units in the southern end of Auckland appear to have an “abnormally” large infant death count. Another <em>perceptual</em> interpretation of the map is one that flags those southern units as being “problematic” or of “great concern”. However, as we shall see in the following sections, this perception may not reflect reality. We therefore seek to produce <strong>perceptually tenable</strong> maps. Dykes and Unwin <span class="citation">(Dykes and Unwin <a href="#ref-DykeUnwin2001">2001</a>)</span> define a similar concept called <strong>map stability</strong> which seeks to produce maps that convey <em>real effects</em>.</p>
 <div id="raw-rates" class="section level2 unnumbered">
 <h2>Raw Rates</h2>
 <p>A popular approach for correcting for biased visual weights (due, for instance, to different unit area sizes) is to normalize the count data by <em>area</em> thus giving a <em>count per unit area</em>. Though this may make sense for population count data, it does not make a whole lot sense when applied to mortality counts; we are usually interested in the number of deaths per <em>population</em> count and not in the number of deaths per unit area.</p>
 <p>In the next chunk of code we extract population count under the age of 5 from the Auckland data set and assign this value to the variable <code>pop</code>. Likewise, we extract the under 5 mortality count and assign this value to the variable <code>mor</code>. Bear in mind that the mortality count spans a 9 year period. Since mortality rates are usually presented in rates <em>per year</em>, we need to multiply the population value (which is for the year 1981) by nine. This will be important in the subsequent code when we compute mortality rates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pop &lt;-<span class="st"> </span>auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span>
-mor &lt;-<span class="st"> </span>auckland<span class="op">$</span>M77_<span class="dv">85</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" data-line-number="1">pop &lt;-<span class="st"> </span>auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span></a>
+<a class="sourceLine" id="cb272-2" data-line-number="2">mor &lt;-<span class="st"> </span>auckland<span class="op">$</span>M77_<span class="dv">85</span></a></code></pre></div>
 <p>Next, we will compute the raw rates (infant deaths per 1000 individuals per year) and map this rate by census unit area. Both quantile and equal interval classification schemes of the same data are mapped.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland<span class="op">$</span>raw.rate &lt;-<span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>pop <span class="op">*</span><span class="st"> </span><span class="dv">1000</span>
-brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
-brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)
-      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)
-      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</code></pre></div>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1">auckland<span class="op">$</span>raw.rate &lt;-<span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>pop <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb273-2" data-line-number="2">brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</a>
+<a class="sourceLine" id="cb273-3" data-line-number="3">brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</a>
+<a class="sourceLine" id="cb273-4" data-line-number="4"><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</a>
+<a class="sourceLine" id="cb273-5" data-line-number="5">      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</a>
+<a class="sourceLine" id="cb273-6" data-line-number="6"><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</a>
+<a class="sourceLine" id="cb273-7" data-line-number="7">      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</a></code></pre></div>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
 <p>Note how our perception of the distribution of infant deaths changes when looking at mapped raw rates vs. counts. A north-south trend in perceived “abnormal” infant deaths is no longer apparent in this map.</p>
 </div>
 <div id="standardized-mortality-ratios-relative-risk." class="section level2 unnumbered">
 <h2>Standardized mortality ratios (relative risk).</h2>
-<p>Another way to re-express the data is to map the Standardized Mortality Ratios (SMR)-a very popular form of representation in the field of epidemiology. Such maps map the ratios of the number of deaths to an <em>expected</em> death count. There are many ways to define an expected death count, many of which can be externally specified. In the following example, the expected death count <span class="math inline">\(E_i\)</span> is estimated by multiplying the under 5 population count for each area by the overall death rate for Auckland: <span class="math display">\[E_i = {n_i}\times{mortality_{Auckland} } \]</span> where <span class="math inline">\(n_i\)</span> is the population count within census unit area <span class="math inline">\(i\)</span> and <span class="math inline">\(mortality_{Auckland}\)</span> is the overall death rate computed from <span class="math inline">\(mortality_{Auckland} = \sum_{i=1}^j O_i / \sum_{i=1}^j n_i\)</span> where <span class="math inline">\(O_i\)</span> is the observed death count for census unit <span class="math inline">\(i\)</span>.</p>
+<p>Another way to re-express the data is to map the Standardized Mortality Ratios (SMR)-a very popular form of representation in the field of epidemiology. Such maps map the ratios of the number of deaths to an <em>expected</em> death count. There are many ways to define an expected death count, many of which can be externally specified. In the following example, the expected death count <span class="math inline">\(E_i\)</span> is estimated by multiplying the under 5 population count for each area by the overall death rate for Auckland:
+<span class="math display">\[E_i = {n_i}\times{mortality_{Auckland} } \]</span>
+where <span class="math inline">\(n_i\)</span> is the population count within census unit area <span class="math inline">\(i\)</span> and <span class="math inline">\(mortality_{Auckland}\)</span> is the overall death rate computed from <span class="math inline">\(mortality_{Auckland} = \sum_{i=1}^j O_i / \sum_{i=1}^j n_i\)</span> where <span class="math inline">\(O_i\)</span> is the observed death count for census unit <span class="math inline">\(i\)</span>.</p>
 <p>This chunk of code replicates Bailey and Gatrell’s figure 8.1 with the one exception that the color scheme is reversed (Bailey and Gatrell assign lighter hues to higher numbers).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auck.rate &lt;-<span class="st"> </span><span class="kw">sum</span>(mor) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pop)
-mor.exp   &lt;-<span class="st"> </span>pop <span class="op">*</span><span class="st"> </span>auck.rate  <span class="co"># Expected count over a nine year period</span>
-auckland<span class="op">$</span>rel.rate &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>mor.exp
-brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>rel.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, 
-                     <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">47</span>, <span class="dv">83</span>, <span class="dv">118</span>, <span class="dv">154</span>, <span class="dv">190</span>, <span class="dv">704</span>))
-<span class="kw">spplot</span>(auckland, <span class="st">&quot;rel.rate&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</code></pre></div>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" data-line-number="1">auck.rate &lt;-<span class="st"> </span><span class="kw">sum</span>(mor) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pop)</a>
+<a class="sourceLine" id="cb274-2" data-line-number="2">mor.exp   &lt;-<span class="st"> </span>pop <span class="op">*</span><span class="st"> </span>auck.rate  <span class="co"># Expected count over a nine year period</span></a>
+<a class="sourceLine" id="cb274-3" data-line-number="3">auckland<span class="op">$</span>rel.rate &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>mor.exp</a>
+<a class="sourceLine" id="cb274-4" data-line-number="4">brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>rel.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, </a>
+<a class="sourceLine" id="cb274-5" data-line-number="5">                     <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">47</span>, <span class="dv">83</span>, <span class="dv">118</span>, <span class="dv">154</span>, <span class="dv">190</span>, <span class="dv">704</span>))</a>
+<a class="sourceLine" id="cb274-6" data-line-number="6"><span class="kw">spplot</span>(auckland, <span class="st">&quot;rel.rate&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</a></code></pre></div>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
 </div>
 <div id="dykes-and-unwins-chi-square-statistic" class="section level2 unnumbered">
 <h2>Dykes and Unwin’s chi-square statistic</h2>
 <p>Dykes and Unwin <span class="citation">(Dykes and Unwin <a href="#ref-DykeUnwin2001">2001</a>)</span> propose a similar technique whereby the rates are standardized following:</p>
 <p><span class="math display">\[\frac{O_i - E_i}{\sqrt{E_i}} \]</span></p>
 <p>This has the effect of creating a distribution of values closer to normal (as opposed to a Poisson distribution of rates and counts encountered thus far). We can therefore apply a diverging color scheme where green hues represent less than expected rates and red hues represent greater than expected rates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auckland<span class="op">$</span>chi.squ =<span class="st"> </span>(mor <span class="op">-</span><span class="st"> </span>mor.exp) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(mor.exp)
-brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>chi.squ, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, 
-                      <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>))
-<span class="kw">spplot</span>(auckland, <span class="st">&quot;chi.squ&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span><span class="kw">rev</span>(pal2))</code></pre></div>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-9-1.png" width="384" /></p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" data-line-number="1">auckland<span class="op">$</span>chi.squ =<span class="st"> </span>(mor <span class="op">-</span><span class="st"> </span>mor.exp) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(mor.exp)</a>
+<a class="sourceLine" id="cb275-2" data-line-number="2">brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>chi.squ, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, </a>
+<a class="sourceLine" id="cb275-3" data-line-number="3">                      <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="op">-</span><span class="dv">3</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb275-4" data-line-number="4"><span class="kw">spplot</span>(auckland, <span class="st">&quot;chi.squ&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span><span class="kw">rev</span>(pal2))</a></code></pre></div>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-9-1.png" width="384" /></p>
 </div>
 <div id="unstable-ratios" class="section level2 unnumbered">
 <h2>Unstable ratios</h2>
 <p>One problem with the various techniques used thus far is their sensitivity (hence instability) to small underlying population counts (i.e. unstable ratios). This next chunk of code maps the under 5 population count by census area unit.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>Und5_<span class="dv">81</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)
-<span class="kw">spplot</span>(auckland, <span class="st">&quot;Und5_81&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</code></pre></div>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-10-1.png" width="384" /></p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1">brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>Und5_<span class="dv">81</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</a>
+<a class="sourceLine" id="cb276-2" data-line-number="2"><span class="kw">spplot</span>(auckland, <span class="st">&quot;Und5_81&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</a></code></pre></div>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-10-1.png" width="384" /></p>
 <p>Note the variability in population count with some areas encompassing fewer than 50 infants. If there is just one death in that census unit, the death rate would be reported as <span class="math inline">\(1/50 * 1000\)</span> or 20 per thousand infants–far more than then the 2.63 per thousand rate for our Auckland data set. Interestingly, the three highest raw rates in Auckland (14.2450142, 18.5185185, 10.5820106 deaths per 1000) are associated with some of the smallest underlying population counts (39, 6, 21 infants under 5).</p>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
 <p>One approach to circumventing this issue is to generate a probability map of the data. The next section highlights such an example.</p>
 <div id="global-empirical-bayes-eb-rate-estimate" class="section level3 unnumbered">
 <h3>Global Empirical Bayes (EB) rate estimate</h3>
 <p>The idea behind Bayesian approach is to compare the value in some area <span class="math inline">\(i\)</span> to some <em>a priori</em> estimate of the value and to “stabilize” the values due to unstable ratios (e.g. where area populations are small). The <em>a priori</em> estimate can be based on some global mean. An example of the use on a global EB infant mortality rate map is shown below. The EB map is shown side-by-side with the raw rates map for comparison.</p>
 <p><em>aka Global moment estimator of infant mortality per 1000 per year</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">EB.est         &lt;-<span class="st"> </span><span class="kw">EBest</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> )
-auckland<span class="op">$</span>EBest &lt;-<span class="st"> </span>EB.est<span class="op">$</span>estmm <span class="op">*</span><span class="st"> </span><span class="dv">1000</span>
-brks1          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-brks2          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, 
-             <span class="dt">main=</span><span class="st">&quot;EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, 
-             <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</code></pre></div>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-12-1.png" width="864" /></p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">EB.est         &lt;-<span class="st"> </span><span class="kw">EBest</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> )</a>
+<a class="sourceLine" id="cb277-2" data-line-number="2">auckland<span class="op">$</span>EBest &lt;-<span class="st"> </span>EB.est<span class="op">$</span>estmm <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb277-3" data-line-number="3">brks1          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</a>
+<a class="sourceLine" id="cb277-4" data-line-number="4">brks2          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</a>
+<a class="sourceLine" id="cb277-5" data-line-number="5"><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </a>
+<a class="sourceLine" id="cb277-6" data-line-number="6">             <span class="dt">main=</span><span class="st">&quot;EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</a>
+<a class="sourceLine" id="cb277-7" data-line-number="7"><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </a>
+<a class="sourceLine" id="cb277-8" data-line-number="8">             <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</a></code></pre></div>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-12-1.png" width="864" /></p>
 <p>The census units with the top 10% rates are highlighted in red.</p>
 <p>Unstable rates (i.e. those associated with smaller population counts) are assigned lower weights to reduce their “prominence” in the mapped data. Notice how the three high raw rates highlighted in the last section are reduced from 14.2450142, 18.5185185, 10.5820106 <em>counts per thousand</em> to 3.6610133, 2.8672132, 3.0283279 <em>counts per thousand</em>. The “remapping” of these values along with others can be shown on the following plot:</p>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-13-1.png" width="480" /></p>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-13-1.png" width="480" /></p>
 </div>
 <div id="local-empirical-bayes-eb-rate-estimate" class="section level3 unnumbered">
 <h3>Local Empirical Bayes (EB) rate estimate</h3>
 <p>The <em>a priori</em> mean and variance need not be aspatial (i.e. the <em>prior</em> distribution being the same for the entire Auckland study area). The adjusted estimated rates can be shrunk towards a <em>local</em> mean instead. Such technique is referred to as <em>local</em> empirical Bayes rate estimates. In the following example, we define <em>local</em> as consisting of all first order adjacent census unit areas.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nb      &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(auckland) 
-EBL.est &lt;-<span class="st"> </span><span class="kw">EBlocal</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dv">9</span><span class="op">*</span>auckland<span class="op">$</span>Und5_<span class="dv">81</span>, nb)
-auckland<span class="op">$</span>EBLest &lt;-<span class="st"> </span>EBL.est<span class="op">$</span>est <span class="op">*</span><span class="st"> </span><span class="dv">1000</span>
-brks1           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBLest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-brks2           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBLest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, 
-             <span class="dt">main=</span><span class="st">&quot;Local EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)
-<span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, 
-             <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</code></pre></div>
-<p><img src="A8-Mapping-rates_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" data-line-number="1">nb      &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(auckland) </a>
+<a class="sourceLine" id="cb278-2" data-line-number="2">EBL.est &lt;-<span class="st"> </span><span class="kw">EBlocal</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dv">9</span><span class="op">*</span>auckland<span class="op">$</span>Und5_<span class="dv">81</span>, nb)</a>
+<a class="sourceLine" id="cb278-3" data-line-number="3">auckland<span class="op">$</span>EBLest &lt;-<span class="st"> </span>EBL.est<span class="op">$</span>est <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb278-4" data-line-number="4">brks1           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBLest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</a>
+<a class="sourceLine" id="cb278-5" data-line-number="5">brks2           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</a>
+<a class="sourceLine" id="cb278-6" data-line-number="6"><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBLest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </a>
+<a class="sourceLine" id="cb278-7" data-line-number="7">             <span class="dt">main=</span><span class="st">&quot;Local EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</a>
+<a class="sourceLine" id="cb278-8" data-line-number="8"><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </a>
+<a class="sourceLine" id="cb278-9" data-line-number="9">             <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</a></code></pre></div>
+<p><img src="A08-Mapping-rates_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
 <p>The census units with the top 10% rates are highlighted in red.</p>
 
 </div>
@@ -484,7 +531,7 @@ brks2           &lt;-<span class="st"> </span><span class="kw">classIntervals</s
 <p>Bailey, Trevor C., and Anthony C. Gatrell. 1995. <em>Interactive Spatial Data Analysis</em>. England: Prentice Hall.</p>
 </div>
 <div id="ref-DykeUnwin2001">
-<p>Dykes, J. A., and D. J. Unwin. 2001. “Maps of the Census: A Rough Guide.” <em>In Case Studies of Visualization in the Social Sciences: Technical Report</em> 43 (43): 29–54. <a href="http://www.agocg.ac.uk/reports/visual/casestud/dykes/dykes.pdf" class="uri">http://www.agocg.ac.uk/reports/visual/casestud/dykes/dykes.pdf</a>.</p>
+<p>Dykes, J. A., and D. J. Unwin. 2001. “Maps of the Census: A Rough Guide.” <em>In Case Studies of Visualization in the Social Sciences: Technical Report</em> 43 (43): 29–54. <a href="http://www.agocg.ac.uk/reports/visual/casestud/dykes/dykes.pdf">http://www.agocg.ac.uk/reports/visual/casestud/dykes/dykes.pdf</a>.</p>
 </div>
 </div>
             </section>
@@ -541,7 +588,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
