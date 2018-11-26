@@ -1,42 +1,35 @@
 
 # Raster operations in R{-}
 
-We'll first load spatial objects used in this exercise from a remote website: an elevation raster, a bathymetry raster and a continents polygon vector layer. These objects will be loaded as R spatial objects and will therefore not require conversion.
+We'll first load spatial objects used in this exercise from a remote website: an elevation `raster` object, a bathymetry `raster` object and a continents `SpatialPolygonsDataFrame` vector layer. 
 
 
 ```r
-library(raster)
-z <- gzcon(url("http://colby.edu/~mgimond/Spatial/Data/elevation.rds"))
-r1 <- readRDS(z)
-
-z <- gzcon(url("http://colby.edu/~mgimond/Spatial/Data/bathymetry.rds"))
-r2 <- readRDS(z)
-
-z <- gzcon(url("http://colby.edu/~mgimond/Spatial/Data/continents.rds"))
-s1 <- readRDS(z)
+load(url("http://github.com/mgimond/Spatial/raw/master/Data/raster.RData"))
 ```
 
-Both rasters cover the entire globe. Elevation below mean sea level are encoded as `0` in the elevation raster. Likewise, bathymetrty values above mean sea level are encoded as `0`.
+Both rasters cover the entire globe. Elevation below mean sea level are encoded as `0` in the elevation raster. Likewise, bathymetry values above mean sea level are encoded as `0`.
 
-Note that most of the map algebra operations and functions covered in this tutorial are implemented using the `raster` package.
+Note that most of the map algebra operations and functions covered in this tutorial are implemented using the `raster` package. See chapter 10 for a theoretical discussion of map algebra operations.
 
 ## Local operations and functions {-}
 
-### Unary operations and functions (applied to single raster) {-}
+### Unary operations and functions (applied to single rasters) {-}
 
-Most algebreic operations can be applied to rasters as they would with any vector element. For example, to convert all bathymetric values in `r2` (currently recorded as postive values)  to *negative* values simply multiply the raster by `-1`.
+Most algebraic operations can be applied to rasters as they would with any vector element. For example, to convert all bathymetric values in `bath` (currently recorded as positive values)  to *negative* values simply multiply the raster by `-1`.
 
 
 ```r
 library(raster)
-r2b <- r2 * (-1)
+
+bath2 <- bath * (-1)
 ```
 
-Another unary operation that can be applied to a raster is reclassification. In the following example, we will assign all values in `r2b` less than zero  `1` and all zero values will remain unchanged. A simple way to do this is to apply a conditional statement.
+Another unary operation that can be applied to a raster is reclassification. In the following example, we will assign all `bath2` values that are less than zero a `1` and all zero values will remain unchanged. A simple way to do this is to apply a conditional statement.
 
 
 ```r
-r2c <- r2b < 0
+bath3 <- bath2 < 0
 ```
 
 Let's look at the output. Note that all `0` pixels are coded as `FALSE` and all `1` pixels are coded as `TRUE`.
@@ -44,13 +37,13 @@ Let's look at the output. Note that all `0` pixels are coded as `FALSE` and all 
 
 ```r
 library(tmap)
-tm_shape(r2c) + tm_raster(palette = "Greys") + 
+tm_shape(bath3) + tm_raster(palette = "Greys") + 
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
 <img src="A04-Raster-Operations_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-If a more elaborate form of reclassification is desired, you can use the `reclassify` function. In the following example, the raster object `r2` is reclassified to 4 unique values: 100, 500, 1000 and 11000 as follows:
+If a more elaborate form of reclassification is desired, you can use the `reclassify` function. In the following example, the raster object `bath` is reclassified to 4 unique values: 100, 500, 1000 and 11000 as follows:
 
 Original depth values | Reclassified values
 --------------------- | -------------------
@@ -59,7 +52,7 @@ Original depth values | Reclassified values
 501 - 1000            | 1000
 1001 - 11000          | 11000
 
-The first step is to create a plain matrix where the first and second columns list the starting and ending values of the range of `r` values that are to be reclassified, and where the third column lists the new raster cell values.
+The first step is to create a plain matrix where the first and second columns list the starting and ending values of the range of input values that are to be reclassified, and where the third column lists the new raster cell values.
 
 
 ```r
@@ -79,14 +72,14 @@ m
 
 
 ```r
-r2c <- reclassify(r2, m, right = T)
+bath3 <- reclassify(bath, m, right = T)
 ```
 
-The `right=T` parameter indicates that the intervals should be closed to the right (i.e. inclusive).
+The `right=T` parameter indicates that the intervals should be closed to the right (i.e. the second column of the reclassification matrix is inclusive).
 
 
 ```r
-tm_shape(r2c) + tm_raster(style="cat") + tm_legend(outside = TRUE, text.size = .8) 
+tm_shape(bath3) + tm_raster(style="cat") + tm_legend(outside = TRUE, text.size = .8) 
 ```
 
 <img src="A04-Raster-Operations_files/figure-html/unnamed-chunk-8-1.png" width="672" />
@@ -95,31 +88,31 @@ You can also assign `NA` (missing) values to pixels. For example, to assign `NA`
 
 
 ```r
-r2c[r2c == 100] <- NA
+bath3[bath3 == 100] <- NA
 ```
 
-The following chunk of code shows all pixels whose value is `NA` in a grey color.
+The following chunk of code highlights all `NA` pixels in grey and labels them as missing.
 
 
 ```r
-tm_shape(r2c) + tm_raster(showNA=TRUE, colorNA="grey") + 
+tm_shape(bath3) + tm_raster(showNA=TRUE, colorNA="grey") + 
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
 <img src="A04-Raster-Operations_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
-### Binary operations and functions (where two layers are used) {-}
+### Binary operations and functions (where two rasters are used) {-}
 
-In the following example, `r1` (elevation raster) is added to `r2` (bathymetry raster) to create a single elevation raster for the globe. Note that the bathymetric raster will need to be muliplied by `-1` to differentiate above mean sea level elevation from bellow mean sea level.
+In the following example, `elev` (elevation raster) is added to `bath` (bathymetry raster) to create a single elevation raster for the globe. Note that the bathymetric raster will need to be multiplied by `-1` to differentiate above mean sea level elevation from below mean sea level depth.
 
 
 ```r
-elev <- r1 - r2
+elevation <- elev - bath
 ```
 
 
 ```r
-tm_shape(elev) + tm_raster(palette="-RdBu",n=6) + 
+tm_shape(elevation) + tm_raster(palette="-RdBu",n=6) + 
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
@@ -127,13 +120,11 @@ tm_shape(elev) + tm_raster(palette="-RdBu",n=6) +
 
 ## Focal operations and functions {-}
 
-Operations or functions applied focally to rasters involve the cell whose value we are computing and all user defined neighboring cells. For example, a cell output value can be the average of all 121 cells--an 11x11 kernel--centered on the cell whose value is being estimated (this acts as a _smoothing function_).
-
-Next, we apply the `focal` function to `r2`.
+Operations or functions applied focally to rasters involve all user defined neighboring cells. For example, a cell output value can be the average of all 121 cells--an 11x11 kernel--centered on the cell whose value is being estimated (this is an example of a _smoothing function_).
 
 
 ```r
-f1 <- focal(elev, w=matrix(1,nrow=11,ncol=11)  , fun=mean)
+f1 <- focal(elevation, w=matrix(1,nrow=11,ncol=11)  , fun=mean)
 ```
 
 
@@ -148,7 +139,7 @@ Notice that the edge cells have been assigned a value of `NA`. This is because c
 
 
 ```r
-f1 <- focal(elev, w=matrix(1,nrow=11,ncol=11)  , 
+f1 <- focal(elevation, w=matrix(1,nrow=11,ncol=11)  , 
             fun=mean, pad=TRUE,  na.rm = TRUE)
 ```
 
@@ -165,7 +156,7 @@ The _neighbors_ matrix (or _kernel_) that defines the moving window can be custo
 
 ```r
 m  <- matrix(c(1,1,1,1,0,1,1,1,1)/8,nrow = 3) 
-f2 <- focal(elev, w=m, fun=sum)
+f2 <- focal(elevation, w=m, fun=sum)
 ```
 
 More complicated kernels can be defined. In the following example, a [Sobel][2] filter (used for edge detection in image processing) is defined then applied to the raster layer `elev`.
@@ -173,7 +164,8 @@ More complicated kernels can be defined. In the following example, a [Sobel][2] 
 
 ```r
 Sobel <- matrix(c(-1,0,1,-2,0,2,-1,0,1) / 4, nrow=3) 
-f3    <- focal(elev, w=Sobel, fun=sum) 
+f3    <- focal(elevation, w=Sobel, fun=sum) 
+
 tm_shape(f3) + tm_raster(palette="Greys") + 
   tm_legend(legend.show = FALSE) 
 ```
@@ -186,7 +178,7 @@ A common zonal operation is the aggregation of cells. In the following example, 
 
 
 ```r
-z1 <- aggregate(elev, fact=2, fun=mean, expand=TRUE)
+z1 <- aggregate(elevation, fact=2, fun=mean, expand=TRUE)
 
 tm_shape(z1) + tm_raster(palette="-RdBu",n=6) + 
   tm_legend(outside = TRUE, text.size = .8) 
@@ -198,7 +190,7 @@ The image may not look much different from the original, but a look at the image
 
 
 ```r
-res(elev)
+res(elevation)
 ```
 
 ```
@@ -213,22 +205,22 @@ res(z1)
 [1] 0.6666667 0.6666667
 ```
 
-`z1`'s pixel dimensions are half of `elev`'s dimensions. You can reverse the process by using the `disaggregate` function which will split a cell into the desired number of subcells while assigning each one the same parent cell value.
+`z1`'s pixel dimensions are half of `elevation`'s dimensions. You can reverse the process by using the `disaggregate` function which will split a cell into the desired number of subcells while assigning each one the same parent cell value.
 
-Zonal operations can often involve two layers, one with the values to be aggregated, the other with the defined zones. In the next example, `elev`'s cell values are averaged by zones defined by the raster layer `l4`.
+Zonal operations can often involve two layers, one with the values to be aggregated, the other with the defined zones. In the next example, `elevation`'s cell values are averaged by zones defined by the `cont` polygon layer.
 
-First, we generate a table with summed cell values `r` for each each zone `l4`,
+The following chunk computes the mean elevation value for each unique polygon in `cont`,
 
 
 ```r
-s1.elev <- extract(elev, s1, fun=mean, sp=TRUE) 
+cont.elev <- extract(elevation, cont, fun=mean, sp=TRUE) 
 ```
 
 The `sp=TRUE` parameter instructs the function to output a `SpatialPolygonsDataFrame` object (same as the input zonal object) instead of a standalone table (matrix). The output spatial object inherits the original attributes and adds a column called `layer` with the computed mean elevation values.
 
 
 ```r
-s1.elev@data
+cont.elev@data
 ```
 
 ```
@@ -242,11 +234,11 @@ s1.elev@data
 6 South America  595.6067
 ```
 
-We can map the average elevation by continent.
+We can now map the average elevation by continent.
 
 
 ```r
-tm_shape(s1.elev) + tm_polygons(col="layer") + 
+tm_shape(cont.elev) + tm_polygons(col="layer") + 
   tm_legend(outside = TRUE, text.size = .8)
 ```
 
@@ -256,29 +248,29 @@ Many custom functions can be applied to `extract`. For example, to extract the m
 
 
 ```r
-s1.elev <- extract(elev, s1, fun=max, sp=TRUE) 
+cont.elev <- extract(elevation, cont, fun=max, sp=TRUE) 
 ```
 
-As another example, we may wish to extract the number of cells in each polygon. 
+As another example, we may wish to extract the number of pixels in each polygon using a customized function. 
 
 
 ```r
-s1.elev <- extract(elev, s1, fun=function(x,...){length(x)}, sp=TRUE) 
+cont.elev <- extract(elevation, cont, fun=function(x,...){length(x)}, sp=TRUE) 
 ```
 
-The `extract` function will also work with lines and points spatial objects. If you wish to compute the zonal statistics of a raster using a another raster as zones instead of a polygon, use the `zonal` function instead.
+The `extract` function will also work with lines and point spatial objects. If you wish to compute the zonal statistics of a raster using another raster as zones instead of a vector layer, use the `zonal()` function instead.
 
 ## Global operations and functions {-}
 
 Global operations and functions may make use of all input cells of a grid in the computation of an output cell value.
 
-An example of a global function is the Euclidean distance tool, `distance`,  which computes the shortest distance between a pixel and a source (or destination) location. To demonstrate the `distance` function, we'll first create a new raster layer with two non-NA pixels.
+An example of a global function is the Euclidean distance function, `distance`,  which computes the shortest distance between a pixel and a source (or destination) location. To demonstrate the `distance` function, we'll first create a new raster layer with two non-NA pixels.
 
 
 ```r
 r1   <- raster(ncol=100, nrow=100, xmn=0, xmx=100, ymn=0, ymx=100)
 r1[] <- NA              # Assign NoData values to all pixels
-r1[c(850, 5650)] <- 1   # Change the pixels 20 and 85  to 1
+r1[c(850, 5650)] <- 1   # Change the pixels #850 and #5650  to 1
 ```
 
 
@@ -298,32 +290,38 @@ r1.d <- distance(r1)
 
 
 ```r
-tm_shape(r1.d) + tm_raster(palette = "Greens", style="order") + 
+tm_shape(r1.d) + tm_raster(palette = "Greens", style="order", title="Distance") + 
   tm_legend(outside = TRUE, text.size = .8) +
-  tm_shape(r1) + tm_raster(palette="red") 
+  tm_shape(r1) + tm_raster(palette="red", title="Points") 
 ```
 
 <img src="A04-Raster-Operations_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
-You can also compute a distance raster using `SpatialPoints` objects or a simple x,y data table. In the following example, distances to points (25,30) and (87,80) are computed for each output cell. We will first need to create a blank raster (which will define the extent of the Euclidean raster output). We then create a new `SpatialPoints` object from a basic table.
+You can also compute a distance raster using `SpatialPoints` objects or a simple x,y data table. In the following example, distances to points (25,30) and (87,80) are computed for each output cell. However, since we are working off of point objects (and not an existing raster as was the case in the previous example), we will need to create a blank raster layer which will define the extent of the Euclidean distance raster output. 
 
 
 ```r
+# Create a blank raster
 r2 <- raster(ncol=100, nrow=100, xmn=0, xmx=100, ymn=0, ymx=100)
+
+# Create a point layer
 xy <- matrix(c(25,30,87,80),nrow=2, byrow=T) 
 p1 <- SpatialPoints(xy)
 ```
 
-Now let's compute the Euclidean distance to these points.
+Now let's compute the Euclidean distance to these points using the `distanceFromPoints` function.
 
 
 ```r
 r2.d <- distanceFromPoints(r2, p1) 
 ```
 
+Let's plot the resulting output.
+
 
 ```r
-tm_shape(r2.d) + tm_raster(palette = "Greens", style="order") + tm_legend(outside = TRUE, text.size = .8) +
+tm_shape(r2.d) + tm_raster(palette = "Greens", style="order") + 
+  tm_legend(outside = TRUE, text.size = .8) +
   tm_shape(p1) + tm_bubbles(col="red") 
 ```
 
@@ -340,7 +338,7 @@ Load the `gdistance` package.
 library(gdistance)
 ```
 
-First, we'll create a 100x100 raster and assign a value of `1` to each cell. If you were to include traveling costs other than distance (e.g. elevation) you would assign _those_ values to each cell instead of a constant value of `1`. 
+First, we'll create a 100x100 raster and assign a value of `1` to each cell. The pixel value defines the cost (other than distance) in traversing that pixel. In this example, we'll assume that the cost is uniform across the entire extent. 
 
 
 ```r
@@ -354,11 +352,13 @@ r[] <- rep(1, ncell(r))
 
 
 
-A translation matrix allows one to define a 'traversing' cost (other than distance) to go from one cell to an adjacent cell. For example, differences in height between two adjacent cell could be defined as a 'cost'. In our example, we will assume that there are no 'costs' (other than distance) in traversing from one cell to any adjacent cell; we therefore assign a value of 1, (`function(x){1}`), to the translation between a cell and its adjacent cells (i.e. translation cost is uniform in all directions).
+If you were to include traveling costs other than distance (such as elevation) you would assign those values to each cell instead of the constant value of `1`. 
+
+A **translation matrix** allows one to define a 'traversing' cost  going from one cell to an adjacent cell. Since we are assuming there are no 'costs' (other than distance) in traversing from one cell to any adjacent cell we'll assign a value of 1, `function(x){1}`, to the translation between a cell and its adjacent cells (i.e. translation cost is uniform in all directions).
  
 There are four different ways in which 'adjacency' can be defined using the `transition` function. These are showcased in the next four blocks of code.
 
-In this example, adjacency is defined as a _four_ node (vertical and horizontal) connection (i.e. a "rook" move). 
+In this example, adjacency is defined as a **four node** (vertical and horizontal) connection (i.e. a "rook" move). 
 
 <img src="A04-Raster-Operations_files/figure-html/unnamed-chunk-37-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
@@ -367,7 +367,7 @@ In this example, adjacency is defined as a _four_ node (vertical and horizontal)
 h4   <- transition(r, transitionFunction = function(x){1}, directions = 4)
 ```
 
-In this example, adjacency is defined as an _eight_ node connection (i.e. a single cell "queen" move).
+In this example, adjacency is defined as an **eight node** connection (i.e. a single cell "queen" move).
 
 <img src="A04-Raster-Operations_files/figure-html/unnamed-chunk-39-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
@@ -376,7 +376,7 @@ In this example, adjacency is defined as an _eight_ node connection (i.e. a sing
 h8   <- transition(r, transitionFunction = function(x){1}, directions = 8)
 ```
 
-In this example, adjacency is defined as a _sixteen_ node connection (i.e. a single cell "queen" move combined with a "knight" move).
+In this example, adjacency is defined as a  **sixteen node** connection (i.e. a single cell "queen" move combined with a "knight" move).
 
 <img src="A04-Raster-Operations_files/figure-html/unnamed-chunk-41-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
@@ -385,7 +385,7 @@ In this example, adjacency is defined as a _sixteen_ node connection (i.e. a sin
 h16  <- transition(r, transitionFunction=function(x){1},16,symm=FALSE)
 ```
 
-In this example, adjacency is defined as a _four_ node (diagonal) connection (i.e. a single cell "bishop" move).
+In this example, adjacency is defined as a **four node diagonal** connection (i.e. a single cell "bishop" move).
 
 <img src="A04-Raster-Operations_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
