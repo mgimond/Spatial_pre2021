@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Intro to GIS and Spatial Analysis</title>
+  <title>Point pattern analysis in R | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
+  <meta property="og:title" content="Point pattern analysis in R | Intro to GIS and Spatial Analysis />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
+  <meta name="twitter:title" content="Point pattern analysis in R | Intro to GIS and Spatial Analysis />
   
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
@@ -35,6 +35,7 @@
 <link rel="next" href="spatial-autocorrelation-in-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -328,8 +329,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-raster"><i class="fa fa-check"></i>Unary operations and functions (applied to single raster)</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-layers-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two layers are used)</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-rasters"><i class="fa fa-check"></i>Unary operations and functions (applied to single rasters)</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-rasters-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two rasters are used)</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
@@ -339,22 +340,25 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#sample-files-for-this-exercise-3"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li><a href="point-pattern-analysis-in-r.html#getting-external-data-into-a-spatstat-format">Getting external data into a <code>spatstat</code> format</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tesselated-surface"><i class="fa fa-check"></i>Quadrat density on a tesselated surface</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tessellated-surface"><i class="fa fa-check"></i>Quadrat density on a tessellated surface</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel Density Adjusted for Covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#the-pair-correlation-function-g-1"><i class="fa fa-check"></i>The Pair Correlation Function g</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pair-correlation-function-g"><i class="fa fa-check"></i>Pair correlation function g</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-clustering"><i class="fa fa-check"></i>Test for clustering</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#computing-a-pseudo-p-value"><i class="fa fa-check"></i>Computing a pseudo p-value</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#testing-for-a-covariate-effect"><i class="fa fa-check"></i>Testing for a covariate effect</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-clusteringdispersion"><i class="fa fa-check"></i>Test for clustering/dispersion</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#computing-a-pseudo-p-value-from-the-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from the simulation</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-a-poisson-point-process-model-with-a-covariate-effect"><i class="fa fa-check"></i>Test for a poisson point process model with a covariate effect</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial Autocorrelation in R</a><ul>
@@ -418,275 +422,351 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
             <section class="normal" id="section-">
 <div id="point-pattern-analysis-in-r" class="section level1 unnumbered">
 <h1>Point pattern analysis in R</h1>
-<p>Most point pattern analysis tools are available in the <code>spatstat</code> package. These tools are designed to work with points stored as <code>ppp</code> objects and <em>not</em> <code>SpatialPointsDataFrame</code> objects. A <code>ppp</code> may or may not have attribute information (also referred to as <em>marks</em>). Knowing whether or not a function requires that an attributes table be present in the <code>ppp</code> object matters if a the operation is to complete successfully.</p>
-<p>In the following chunk of code, a point feature of Starbucks stores in Massachusetts is downloaded from the website as a <code>SpatialPointsDataFrame</code> then converted to a <code>ppp</code> object. Converting a <code>SpatialPointsDataFrame</code> to a <code>ppp</code> requires the use of the <code>maptools</code> package. Note the intermediate step that strips the point object of a dataframe (attributes table) before being converted to a mark free <code>ppp</code> object.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">library</span>(maptools)</a>
-<a class="sourceLine" id="cb177-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb177-3" data-line-number="3">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/starbucks.rds&quot;</span>))</a>
-<a class="sourceLine" id="cb177-4" data-line-number="4">S1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a>
-<a class="sourceLine" id="cb177-5" data-line-number="5">SP &lt;-<span class="st"> </span><span class="kw">as</span>(S1, <span class="st">&quot;SpatialPoints&quot;</span>)</a>
-<a class="sourceLine" id="cb177-6" data-line-number="6">p2  &lt;-<span class="st"> </span><span class="kw">as</span>(SP, <span class="st">&quot;ppp&quot;</span>)</a></code></pre></div>
-<p>We will also load a polygon outline of the state of Massachusetts. It will be used to define the extent of the study area (this is needed for hypothesis testing later in this tutorial). It too must be converted to a <code>spatstat</code> readable format. We’ll convert it to an <code>owin</code> object.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/ma.rds&quot;</span>))</a>
-<a class="sourceLine" id="cb178-2" data-line-number="2">S2 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a>
-<a class="sourceLine" id="cb178-3" data-line-number="3">W  &lt;-<span class="st"> </span><span class="kw">as</span>(S2, <span class="st">&quot;owin&quot;</span>)</a></code></pre></div>
-<p>Some <code>spatstat</code> applications make use of rasters which must be stored as an <code>im</code> object. The following chunk of code downloads a raster of Massachusetts population density.</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="kw">library</span>(spatstat)  <span class="co"># Needed for function as.im()</span></a>
-<a class="sourceLine" id="cb179-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb179-3" data-line-number="3">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/pop_sqmile.rds&quot;</span>))</a>
-<a class="sourceLine" id="cb179-4" data-line-number="4">r &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a>
-<a class="sourceLine" id="cb179-5" data-line-number="5">pop &lt;-<span class="st"> </span><span class="kw">as.im</span>(r)  <span class="co"># Convert r object to an im object</span></a></code></pre></div>
-<p>The above datasets will be used later in this tutorial.</p>
-<p>Note that <code>im</code> objects created by <code>spatstat</code> can be converted to a raster object using the <code>raster()</code> function from the <code>raster</code> package. This can be helpful if you wish to use a mapping application such as <code>tmap</code> to map the rasters instead of the base plotting function.</p>
+<p>For a basic theoretical treatise on point pattern analysis (PPA) the reader is encouraged to review the <a href="https://mgimond.github.io/Spatial/point-pattern-analysis.html">point pattern analysis lecture notes</a>. This section is intended to supplement the lecture notes by implementing PPA techniques in the R programming environment.</p>
+<div id="sample-files-for-this-exercise-3" class="section level2 unnumbered">
+<h2>Sample files for this exercise</h2>
+<p>Data used in the following exercises can be loaded into your current R session by running the following chunk of code.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/ppa.RData&quot;</span>))</code></pre>
+<p>The data objects consist of three spatial data layers:</p>
+<ul>
+<li><code>starbucks</code>: A <code>ppp</code> point layer of Starbucks stores in Massachusetts;<br />
+</li>
+<li><code>ma</code>: An <code>owin</code> polygon layer of Massachusetts boundaries;</li>
+<li><code>pop</code>: An <code>im</code> raster layer of population density distribution.</li>
+</ul>
+<p>All layers are in a format supported by the <code>spatstat</code> package. Note that these layers are not authoritative and are to be used for instructional purposes only.</p>
+</div>
+<div id="getting-external-data-into-a-spatstat-format" class="section level2 unnumbered">
+<h2>Getting external data into a <code>spatstat</code> format</h2>
+<p>The <a href="https://mgimond.github.io/Spatial/reading-and-writing-spatial-data-in-r.html#converting-an-sf-point-object-to-a-ppp-object">first appendix</a> steps you through the process of loading external data into R. But in summary, if you had layers stored as shapefile and raster file formats, you could import the data using the following example:</p>
+<pre><code>library(rgdal)
+library(maptools)
+library(raster)
+
+# Load an MA.shp polygon shapefile 
+s    &lt;- readOGR(&quot;.&quot;, &quot;MA&quot;)  # Don&#39;t add the .shp extension
+ma    &lt;- as(s, &quot;owin&quot;) 
+
+# Load a starbucks.shp point feature shapefile
+s  &lt;- readOGR(&quot;.&quot;,&quot;starbucks&quot;)  # Don&#39;t add the .shp extension
+starbucks    &lt;- as(s, &quot;ppp&quot;)
+
+# Load a pop_sqmile.img population density raster layer
+img  &lt;- raster(&quot;pop_sqmile.img&quot;)
+pop  &lt;- as.im(img)</code></pre>
+</div>
+<div id="introduction-2" class="section level2 unnumbered">
+<h2>Introduction</h2>
+<p>All point pattern analysis tools used in this tutorial are available in the <code>spatstat</code> package. These tools are designed to work with points stored as <code>ppp</code> objects and <em>not</em> <code>SpatialPointsDataFrame</code> or <code>sf</code> objects. Note that a <code>ppp</code> object may or may not have attribute information (also referred to as <em>marks</em>). Knowing whether or not a function requires that an attribute table be present in the <code>ppp</code> object matters if the operation is to complete successfully. In this tutorial we will only concern ourselves with the pattern generated by the points and not their attributes. We’ll therefore remove all marks from the point object.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spatstat)
+<span class="kw">marks</span>(starbucks)  &lt;-<span class="st"> </span><span class="ot">NULL</span></code></pre>
+<p>Many point pattern analyses such as the average nearest neighbor analysis should have their study boundaries explicitly defined. This can be done in <code>spatstat</code> by “binding” the Massachusetts boundary polygon to the Starbucks point feature object using the <code>Window()</code> function. Note that the function name starts with an upper case <code>W</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Window</span>(starbucks) &lt;-<span class="st"> </span>ma</code></pre>
+<p>We can plot the point layer to ensure that the boundary is properly defined for that layer.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(starbucks, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">cols=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">2</span>), <span class="dt">pch=</span><span class="dv">20</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-5-1.png" width="288" /></p>
+<p>We’ll make another change to the dataset. Population density values for an administrative layer are usually quite skewed. The population density for Massachusetts is no exception. The following code chunk generates a histogram from the <code>pop</code> raster layer.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(pop, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-6-1.png" width="288" /></p>
+<p>Transforming the skewed distribution in the population density covariate may help reveal relationships between point distributions and the covariate in some of the point pattern analyses covered later in this tutorial. We’ll therefore create a log-transformed version of <code>pop</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pop.lg &lt;-<span class="st"> </span><span class="kw">log</span>(pop)
+<span class="kw">hist</span>(pop.lg, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-7-1.png" width="288" /></p>
+<p>We’ll be making use of both expressions of the population density distribution in the following exercises.</p>
+</div>
 <div id="density-based-analysis-1" class="section level2 unnumbered">
 <h2>Density based analysis</h2>
 <div id="quadrat-density-1" class="section level3 unnumbered">
 <h3>Quadrat density</h3>
-<p>You can compute the quadrat count and intensity using spatstat’s <code>quadratcount()</code> and <code>intensity()</code> functions. We’ll use a built-in dataset for this example.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb180-2" data-line-number="2">P &lt;-<span class="st"> </span>bei</a>
-<a class="sourceLine" id="cb180-3" data-line-number="3">Q &lt;-<span class="st"> </span><span class="kw">quadratcount</span>(P, <span class="dt">nx=</span> <span class="dv">6</span>, <span class="dt">ny=</span><span class="dv">3</span>)</a></code></pre></div>
-<p>The object <code>Q</code> stores the number of points inside each quadrat. You can plot the quadrats along with the counts as follows:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1"><span class="kw">plot</span>(P, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cols=</span><span class="st">&quot;grey70&quot;</span>, <span class="dt">main=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb181-2" data-line-number="2"><span class="kw">plot</span>(Q, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>You can compute the density of points within each quadrat as follows:</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="co"># Compute the density for each quadrat</span></a>
-<a class="sourceLine" id="cb182-2" data-line-number="2">Q.d &lt;-<span class="st"> </span><span class="kw">intensity</span>(Q)</a>
-<a class="sourceLine" id="cb182-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb182-4" data-line-number="4"><span class="co"># Plot the density</span></a>
-<a class="sourceLine" id="cb182-5" data-line-number="5"><span class="kw">plot</span>( <span class="kw">intensity</span>(Q, <span class="dt">image=</span><span class="ot">TRUE</span>), <span class="dt">main=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb182-6" data-line-number="6"><span class="kw">plot</span>(P, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">2</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>You can compute the quadrat count and intensity using spatstat’s <code>quadratcount()</code> and <code>intensity()</code> functions. The following code chunk divides the state of Massachusetts into a grid of 3 rows and 6 columns then tallies the number of points falling in each quadrat.</p>
+<pre class="sourceCode r"><code class="sourceCode r">Q &lt;-<span class="st"> </span><span class="kw">quadratcount</span>(starbucks, <span class="dt">nx=</span> <span class="dv">6</span>, <span class="dt">ny=</span><span class="dv">3</span>)</code></pre>
+<p>The object <code>Q</code> stores the number of points inside each quadrat. You can plot the quadrats along with the <strong>counts</strong> as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(starbucks, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cols=</span><span class="st">&quot;grey70&quot;</span>, <span class="dt">main=</span><span class="ot">NULL</span>)  <span class="co"># Plot points</span>
+<span class="kw">plot</span>(Q, <span class="dt">add=</span><span class="ot">TRUE</span>)  <span class="co"># Add quadrat grid</span></code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-9-1.png" width="288" /></p>
+<p>You can compute the <strong>density</strong> of points within each quadrat as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute the density for each quadrat</span>
+Q.d &lt;-<span class="st"> </span><span class="kw">intensity</span>(Q)
+
+<span class="co"># Plot the density</span>
+<span class="kw">plot</span>(<span class="kw">intensity</span>(Q, <span class="dt">image=</span><span class="ot">TRUE</span>), <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>)  <span class="co"># Plot density raster</span>
+<span class="kw">plot</span>(starbucks, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)  <span class="co"># Add points</span></code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-10-1.png" width="364.8" /></p>
+<p>The density values are reported as the number of points (stores) per square meters, per quadrat. The <em>Length</em> dimension unit is extracted from the coordinate system associated with the point layer. In this example, the length unit is in meters, so the density is reported as points per square meter. Such a small length unit is not practical at this scale of analysis. It’s therefore desirable to rescale the spatial objects to a larger length unit such as the <strong>kilometer</strong>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">starbucks.km &lt;-<span class="st"> </span><span class="kw">rescale</span>(starbucks, <span class="dv">1000</span>, <span class="st">&quot;km&quot;</span>)
+ma.km &lt;-<span class="st"> </span><span class="kw">rescale</span>(ma, <span class="dv">1000</span>, <span class="st">&quot;km&quot;</span>)
+pop.km    &lt;-<span class="st"> </span><span class="kw">rescale</span>(pop, <span class="dv">1000</span>, <span class="st">&quot;km&quot;</span>)
+pop.lg.km &lt;-<span class="st"> </span><span class="kw">rescale</span>(pop.lg, <span class="dv">1000</span>, <span class="st">&quot;km&quot;</span>)</code></pre>
+<p>The second argument to the <code>rescale</code> function divides the current unit (meter) to get the new unit (kilometer). This gives us more sensible density values to work with.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute the density for each quadrat (in counts per km2)</span>
+Q   &lt;-<span class="st"> </span><span class="kw">quadratcount</span>(starbucks.km, <span class="dt">nx=</span> <span class="dv">6</span>, <span class="dt">ny=</span><span class="dv">3</span>)
+Q.d &lt;-<span class="st"> </span><span class="kw">intensity</span>(Q)
+
+<span class="co"># Plot the density</span>
+<span class="kw">plot</span>(<span class="kw">intensity</span>(Q, <span class="dt">image=</span><span class="ot">TRUE</span>), <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>)  <span class="co"># Plot density raster</span>
+<span class="kw">plot</span>(starbucks.km, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)  <span class="co"># Add points</span></code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-12-1.png" width="364.8" /></p>
 </div>
-<div id="quadrat-density-on-a-tesselated-surface" class="section level3 unnumbered">
-<h3>Quadrat density on a tesselated surface</h3>
-<p>We’ll work off of an internal dataset.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb183-2" data-line-number="2">P    &lt;-<span class="st"> </span>bei              <span class="co"># Use built-in point dataset</span></a>
-<a class="sourceLine" id="cb183-3" data-line-number="3">elev &lt;-<span class="st"> </span>bei.extra<span class="op">$</span>elev   <span class="co"># Use built-in covariate</span></a></code></pre></div>
-<p>Next, we’ll divide the covariate into regions (aka tesselated surfaces).</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">brk  &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">110</span>, <span class="dv">135</span>, <span class="dv">145</span>, <span class="dv">155</span> , <span class="dv">160</span>)</a>
-<a class="sourceLine" id="cb184-2" data-line-number="2">Zcut &lt;-<span class="st"> </span><span class="kw">cut</span>(elev, <span class="dt">breaks=</span>brk, <span class="dt">labels=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb184-3" data-line-number="3">E    &lt;-<span class="st"> </span><span class="kw">tess</span>(<span class="dt">image=</span>Zcut)</a></code></pre></div>
-<p>Next, compute the quadrat counts within each tesselated area then compute the density.</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1">Q &lt;-<span class="st"> </span><span class="kw">quadratcount</span>(P, <span class="dt">tess =</span> E)</a>
-<a class="sourceLine" id="cb185-2" data-line-number="2">Q.d &lt;-<span class="st"> </span><span class="kw">intensity</span>(Q)</a>
-<a class="sourceLine" id="cb185-3" data-line-number="3">Q.d</a></code></pre></div>
+<div id="quadrat-density-on-a-tessellated-surface" class="section level3 unnumbered">
+<h3>Quadrat density on a tessellated surface</h3>
+<p>We can use a covariate such as the population density raster to define non-uniform quadrats.</p>
+<p>We’ll first divide the population density covariate into four regions (aka tessellated surfaces) following an equal interval classification scheme. Recall that we are working with the log transformed population density values. The breaks will be defined as follows:</p>
+<table style="width:58%;">
+<colgroup>
+<col width="11%" />
+<col width="47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Break</th>
+<th>Logged population density value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>] -Inf; 4 ]</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>]  4  ; 6 ]</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>]  3  ; 8 ]</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>]  8  ; Inf ]</code></td>
+</tr>
+</tbody>
+</table>
+<pre class="sourceCode r"><code class="sourceCode r">brk  &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="op">-</span><span class="ot">Inf</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span> , <span class="ot">Inf</span>)  <span class="co"># Define the breaks</span>
+Zcut &lt;-<span class="st"> </span><span class="kw">cut</span>(pop.lg.km, <span class="dt">breaks=</span>brk, <span class="dt">labels=</span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)  <span class="co"># Classify the raster</span>
+E    &lt;-<span class="st"> </span><span class="kw">tess</span>(<span class="dt">image=</span>Zcut)  <span class="co"># Create a tesselated surface</span></code></pre>
+<p>The tessellated object can be mapped to view the spatial distribution of quadrats.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(E, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-14-1.png" width="364.8" /></p>
+<p>Next, we’ll tally the quadrat counts within each tessellated area then compute their density values (number of points per quadrat area).</p>
+<pre class="sourceCode r"><code class="sourceCode r">Q   &lt;-<span class="st"> </span><span class="kw">quadratcount</span>(starbucks.km, <span class="dt">tess =</span> E)  <span class="co"># Tally counts</span>
+Q.d &lt;-<span class="st"> </span><span class="kw">intensity</span>(Q)  <span class="co"># Compute density</span>
+Q.d</code></pre>
 <pre><code>tile
-          1           2           3           4 
-0.003219228 0.007573599 0.009870740 0.001859664 </code></pre>
-<p>Plot the density values across each tesselated region.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="kw">plot</span>( <span class="kw">intensity</span>(Q, <span class="dt">image=</span><span class="ot">TRUE</span>), <span class="dt">main=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb187-2" data-line-number="2"><span class="kw">plot</span>(P, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">2</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+           1            2            3            4 
+0.0000000000 0.0003706106 0.0103132964 0.0889370933 </code></pre>
+<p>Recall that the length unit is kilometer so the above density values are number of points per square kilometer within each quadrat unit.</p>
+<p>Plot the density values across each tessellated region.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">intensity</span>(Q, <span class="dt">image=</span><span class="ot">TRUE</span>), <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="ot">NULL</span>)
+<span class="kw">plot</span>(starbucks.km, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">5</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-16-1.png" width="364.8" /></p>
 <p>Let’s modify the color scheme.</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" data-line-number="1">cl &lt;-<span class="st">  </span><span class="kw">interp.colours</span>(<span class="kw">c</span>(<span class="st">&quot;lightyellow&quot;</span>, <span class="st">&quot;orange&quot;</span> ,<span class="st">&quot;red&quot;</span>), E<span class="op">$</span>n)</a>
-<a class="sourceLine" id="cb188-2" data-line-number="2"><span class="kw">plot</span>( <span class="kw">intensity</span>(Q, <span class="dt">image=</span><span class="ot">TRUE</span>), <span class="dt">col=</span>cl, <span class="dt">main=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb188-3" data-line-number="3"><span class="kw">plot</span>(P, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">2</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">cl &lt;-<span class="st">  </span><span class="kw">interp.colours</span>(<span class="kw">c</span>(<span class="st">&quot;lightyellow&quot;</span>, <span class="st">&quot;orange&quot;</span> ,<span class="st">&quot;red&quot;</span>), E<span class="op">$</span>n)
+<span class="kw">plot</span>( <span class="kw">intensity</span>(Q, <span class="dt">image=</span><span class="ot">TRUE</span>), <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">col=</span>cl, <span class="dt">main=</span><span class="ot">NULL</span>)
+<span class="kw">plot</span>(starbucks.km, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">cex=</span><span class="fl">0.6</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>), <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-17-1.png" width="364.8" /></p>
 </div>
 <div id="kernel-density-raster" class="section level3 unnumbered">
 <h3>Kernel density raster</h3>
-<p>The spatstat package has a function called <code>density</code> which implements an isotropic kernel intensity estimate. Its bandwidth defines the kernel’s window extent.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb189-2" data-line-number="2">P &lt;-<span class="st"> </span>bei    </a>
-<a class="sourceLine" id="cb189-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb189-4" data-line-number="4"><span class="co"># Using the default bandwidth</span></a>
-<a class="sourceLine" id="cb189-5" data-line-number="5">K1 &lt;-<span class="st"> </span><span class="kw">density</span>(P)</a>
-<a class="sourceLine" id="cb189-6" data-line-number="6"><span class="kw">plot</span>(K1, <span class="dt">main=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb189-7" data-line-number="7"><span class="kw">contour</span>(K1, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1"><span class="co"># Using a custom (smaller) bandwidth of 40 map units</span></a>
-<a class="sourceLine" id="cb190-2" data-line-number="2">K2 &lt;-<span class="st"> </span><span class="kw">density</span>(P, <span class="dt">sigma=</span><span class="dv">40</span>)</a>
-<a class="sourceLine" id="cb190-3" data-line-number="3"><span class="kw">plot</span>(K2, <span class="dt">main=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb190-4" data-line-number="4"><span class="kw">contour</span>(K2, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="co"># Using a custom (larger) bandwidth of 50 map units</span></a>
-<a class="sourceLine" id="cb191-2" data-line-number="2">K3 &lt;-<span class="st"> </span><span class="kw">density</span>(P, <span class="dt">sigma=</span><span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb191-3" data-line-number="3"><span class="kw">plot</span>(K3, <span class="dt">main=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb191-4" data-line-number="4"><span class="kw">contour</span>(K3, <span class="dt">add=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-13-3.png" width="672" /></p>
+<p>The spatstat package has a function called <code>density</code> which computes an isotropic kernel intensity estimate of the point pattern. Its bandwidth defines the kernel’s window extent.</p>
+<p>This next code chunk uses the default bandwidth.</p>
+<pre class="sourceCode r"><code class="sourceCode r">K1 &lt;-<span class="st"> </span><span class="kw">density</span>(starbucks.km) <span class="co"># Using the default bandwidth</span>
+<span class="kw">plot</span>(K1, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>)
+<span class="kw">contour</span>(K1, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-18-1.png" width="364.8" /></p>
+<p>In this next chunk, a 50 km bandwidth (<code>sigma = 50</code>) is used. Note that the length unit is extracted from the point layer’s mapping units (which was rescaled to kilometers earlier in this exercise).</p>
+<pre class="sourceCode r"><code class="sourceCode r">K2 &lt;-<span class="st"> </span><span class="kw">density</span>(starbucks.km, <span class="dt">sigma=</span><span class="dv">50</span>) <span class="co"># Using a 50km bandwidth</span>
+<span class="kw">plot</span>(K2, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>)
+<span class="kw">contour</span>(K2, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-19-1.png" width="364.8" /></p>
+<p>The kernel defaults to a gaussian smoothing function. The smoothing function can be changed to a <code>quartic</code>, <code>disc</code> or <code>epanechnikov</code> function. For example, to change the kernel to a <code>disc</code> function type:</p>
+<pre class="sourceCode r"><code class="sourceCode r">K3 &lt;-<span class="st"> </span><span class="kw">density</span>(starbucks.km, <span class="dt">kernel =</span> <span class="st">&quot;disc&quot;</span>, <span class="dt">sigma=</span><span class="dv">50</span>) <span class="co"># Using a 50km bandwidth</span>
+<span class="kw">plot</span>(K3, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>)
+<span class="kw">contour</span>(K3, <span class="dt">add=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-20-1.png" width="364.8" /></p>
 </div>
 <div id="kernel-density-adjusted-for-covariate-1" class="section level3 unnumbered">
-<h3>Kernel Density Adjusted for Covariate</h3>
-<p>In the following example, a kernel density map is generated using an elevation raster as a covariate. The outputs include a plot of <span class="math inline">\(\rho\)</span> vs. elevation and a raster map of <span class="math inline">\(\rho\)</span>.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb192-2" data-line-number="2">P    &lt;-<span class="st"> </span>bei              <span class="co"># Use built-in point dataset</span></a>
-<a class="sourceLine" id="cb192-3" data-line-number="3">elev &lt;-<span class="st"> </span>bei.extra<span class="op">$</span>elev   <span class="co"># Use built-in covariate</span></a>
-<a class="sourceLine" id="cb192-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb192-5" data-line-number="5"><span class="co"># Compute rho using the ratio method</span></a>
-<a class="sourceLine" id="cb192-6" data-line-number="6">rho &lt;-<span class="st"> </span><span class="kw">rhohat</span>(P, elev, <span class="dt">method=</span><span class="st">&quot;ratio&quot;</span>)</a>
-<a class="sourceLine" id="cb192-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb192-8" data-line-number="8"><span class="co"># Generate rho vs covariate plot</span></a>
-<a class="sourceLine" id="cb192-9" data-line-number="9"><span class="kw">plot</span>(rho, <span class="dt">main=</span><span class="ot">NULL</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="co"># Generate map of rho</span></a>
-<a class="sourceLine" id="cb193-2" data-line-number="2">pred &lt;-<span class="st"> </span><span class="kw">predict</span>(rho)</a>
-<a class="sourceLine" id="cb193-3" data-line-number="3">cl &lt;-<span class="st">  </span><span class="kw">interp.colours</span>(<span class="kw">c</span>(<span class="st">&quot;lightyellow&quot;</span>, <span class="st">&quot;orange&quot;</span> ,<span class="st">&quot;red&quot;</span>), <span class="dv">100</span>) <span class="co"># Create color scheme</span></a>
-<a class="sourceLine" id="cb193-4" data-line-number="4"><span class="kw">plot</span>(pred, <span class="dt">col=</span>cl, <span class="dt">las=</span><span class="dv">2</span>, <span class="dt">main=</span><span class="ot">NULL</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<h3>Kernel density adjusted for covariate</h3>
+<p>In the following example, a Starbucks store point intensity is estimated following the population density raster covariate. The outputs include a plot of <span class="math inline">\(\rho\)</span> vs. population density and a raster map of <span class="math inline">\(\rho\)</span> controlled for population density.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute rho using the ratio method</span>
+rho &lt;-<span class="st"> </span><span class="kw">rhohat</span>(starbucks.km, pop.lg.km,  <span class="dt">method=</span><span class="st">&quot;ratio&quot;</span>)
+<span class="co"># Generate rho vs covariate plot</span>
+<span class="kw">plot</span>(rho, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">legendargs=</span><span class="kw">list</span>(<span class="dt">cex=</span><span class="fl">0.8</span>, <span class="dt">xpd=</span><span class="ot">TRUE</span>, <span class="dt">inset=</span><span class="kw">c</span>(<span class="fl">1.01</span>, <span class="dv">0</span>) ))</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-21-1.png" width="480" /></p>
+<p>It’s important to note that we are not fitting a parametric model to the data. Instead, a non-parametric curve is fit to the data. Its purpose is to describe/explore the shape of the relationship between point density and covariate. Note the exponentially increasing density of Starbucks stores with increasing population density values up to about 3 stores per square kilometer when the population density is expressed as a log. The grey envelope represents the 95% confidence interval.</p>
+<p>The following code chunk generates the map of the predicted density when controlled for the population density. If the covariate does a good job in explaining the store density, the predicted density map should be nearly uniform across the map.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pred &lt;-<span class="st"> </span><span class="kw">predict</span>(rho)
+cl   &lt;-<span class="st"> </span><span class="kw">interp.colours</span>(<span class="kw">c</span>(<span class="st">&quot;lightyellow&quot;</span>, <span class="st">&quot;orange&quot;</span> ,<span class="st">&quot;red&quot;</span>), <span class="dv">100</span>) <span class="co"># Create color scheme</span>
+<span class="kw">plot</span>(pred, <span class="dt">col=</span>cl, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">main=</span><span class="ot">NULL</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-22-1.png" width="364.8" /></p>
 </div>
 <div id="modeling-intensity-as-a-function-of-a-covariate-1" class="section level3 unnumbered">
 <h3>Modeling intensity as a function of a covariate</h3>
-<p>In this example, we make use of the Starbucks and population density datasets loaded at the beginning of this tutorial.</p>
-<p>First, we’ll map the data. The population density raster is mapped on a log scale.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1"><span class="kw">library</span>(tmap)</a>
-<a class="sourceLine" id="cb194-2" data-line-number="2"><span class="kw">tm_shape</span>(r) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Greys&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb194-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_shape</span>(S1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, </a>
-<a class="sourceLine" id="cb194-4" data-line-number="4">                           <span class="dt">border.col =</span> <span class="st">&quot;yellow&quot;</span>, <span class="dt">border.lwd =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb194-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<p>Next, we’ll generate the Poisson point process model and plot the results. Note that we are using the <code>ppp</code> representation of the Starbucks points (object <code>p2</code>) and not the <code>SpatialPointsDataFrame</code> representation (object <code>S1</code>).</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb195-2" data-line-number="2"><span class="co"># Create the Poisson point process model</span></a>
-<a class="sourceLine" id="cb195-3" data-line-number="3">PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 <span class="op">~</span><span class="st"> </span>pop)</a>
-<a class="sourceLine" id="cb195-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb195-5" data-line-number="5"><span class="co"># Plot the relationship</span></a>
-<a class="sourceLine" id="cb195-6" data-line-number="6"><span class="kw">plot</span>(<span class="kw">effectfun</span>(PPM1, <span class="st">&quot;pop&quot;</span>, <span class="dt">se.fit=</span><span class="ot">TRUE</span>), <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">cex.axis=</span><span class="fl">0.6</span>,<span class="dt">cex.lab=</span><span class="fl">0.6</span>,</a>
-<a class="sourceLine" id="cb195-7" data-line-number="7">     <span class="dt">legend=</span><span class="ot">FALSE</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>The relationship between the predicted Starbucks store point pattern intensity and the population density distribution can be modeled following a Poisson point process model. We’ll generate the Poisson point process model then plot the results.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create the Poisson point process model</span>
+PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(starbucks.km <span class="op">~</span><span class="st"> </span>pop.lg.km)
+<span class="co"># Plot the relationship</span>
+<span class="kw">plot</span>(<span class="kw">effectfun</span>(PPM1, <span class="st">&quot;pop.lg.km&quot;</span>, <span class="dt">se.fit=</span><span class="ot">TRUE</span>), <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">legendargs=</span><span class="kw">list</span>(<span class="dt">cex=</span><span class="fl">0.8</span>, <span class="dt">xpd=</span><span class="ot">TRUE</span>, <span class="dt">inset=</span><span class="kw">c</span>(<span class="fl">1.01</span>, <span class="dv">0</span>) ))</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-23-1.png" width="480" /></p>
+<p>Note that this is not the same relationship as <span class="math inline">\(\rho\)</span> vs. population density shown in the previous section. Here, we’re fitting a well defined model to the data whose parameters can be extracted from the <code>PPM1</code> object.</p>
+<pre class="sourceCode r"><code class="sourceCode r">PPM1</code></pre>
+<pre><code>Nonstationary Poisson process
+
+Log intensity:  ~pop.lg.km
+
+Fitted trend coefficients:
+(Intercept)   pop.lg.km 
+ -13.710551    1.279928 
+
+              Estimate       S.E.    CI95.lo    CI95.hi Ztest      Zval
+(Intercept) -13.710551 0.46745489 -14.626746 -12.794356   *** -29.33021
+pop.lg.km     1.279928 0.05626785   1.169645   1.390211   ***  22.74705
+Problem:
+ Values of the covariate &#39;pop.lg.km&#39; were NA or undefined at 0.57% (4 out 
+of 699) of the quadrature points</code></pre>
+<p>The model takes on the form:</p>
+<p><span class="math display">\[
+\lambda(i) = e^{-13.71 + 1.27(logged\ population\ density)}
+\]</span></p>
+<p>Here, the base intensity is close to zero (<span class="math inline">\(e^{-13.71}\)</span>) when the logged population density is zero and for every increase in one unit of the logged population density, the Starbucks point density increases by <span class="math inline">\(e^{1.27}\)</span> units.</p>
 </div>
 </div>
 <div id="distance-based-analysis-1" class="section level2 unnumbered">
 <h2>Distance based analysis</h2>
-<p>Next, we’ll explore three different distance based analyses.</p>
+<p>Next, we’ll explore three different distance based analyses: The average nearest neighbor, the <span class="math inline">\(K\)</span> and <span class="math inline">\(L\)</span> functions and the pair correlation function <span class="math inline">\(g\)</span>.</p>
 <div id="average-nearest-neighbor-analysis" class="section level3 unnumbered">
 <h3>Average nearest neighbor analysis</h3>
-<p>Here, we’ll compute the average nearest neighbor (ANN) distances for the tropical rain forest dataset.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb196-2" data-line-number="2">P &lt;-<span class="st"> </span>bei</a></code></pre></div>
-<p>To compute the average <strong>first</strong> nearest neighbor distance (1<sup>st</sup> order):</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" data-line-number="1"><span class="kw">mean</span>(<span class="kw">nndist</span>(P, <span class="dt">k=</span><span class="dv">1</span>))</a></code></pre></div>
-<pre><code>[1] 4.329677</code></pre>
-<p>To compute the average <strong>second</strong> nearest neighbor distance (2<sup>nd</sup> order):</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb199-1" data-line-number="1"><span class="kw">mean</span>(<span class="kw">nndist</span>(P, <span class="dt">k=</span><span class="dv">2</span>))</a></code></pre></div>
-<pre><code>[1] 6.473149</code></pre>
+<p>Next, we’ll compute the average nearest neighbor (ANN) distances between Starbucks stores.</p>
+<p>To compute the average <strong>first</strong> nearest neighbor distance (in kilometers) set <code>k=1</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">nndist</span>(starbucks.km, <span class="dt">k=</span><span class="dv">1</span>))</code></pre>
+<pre><code>[1] 3.275492</code></pre>
+<p>To compute the average <strong>second</strong> nearest neighbor distance set <code>k=2</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">nndist</span>(starbucks.km, <span class="dt">k=</span><span class="dv">2</span>))</code></pre>
+<pre><code>[1] 5.81173</code></pre>
 <p>The parameter <code>k</code> can take on any order neighbor (up to <code>n-1</code> where n is the total number of points).</p>
 <p>The average nearest neighbor function can be expended to generate an ANN vs neighbor order plot. In the following example, we’ll plot ANN as a function of neighbor order for the first 100 closest neighbors:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1">ANN &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="kw">nndist</span>(P, <span class="dt">k=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>),<span class="dv">2</span>,<span class="dt">FUN=</span>mean)</a>
-<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="kw">plot</span>(ANN <span class="op">~</span><span class="st"> </span><span class="kw">eval</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">main=</span><span class="ot">NULL</span> )</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>The bottom axis shows the neighbor order number and the left axis shows the average distance.</p>
+<pre class="sourceCode r"><code class="sourceCode r">ANN &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="kw">nndist</span>(starbucks.km, <span class="dt">k=</span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>),<span class="dv">2</span>,<span class="dt">FUN=</span>mean)
+<span class="kw">plot</span>(ANN <span class="op">~</span><span class="st"> </span><span class="kw">eval</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>), <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-27-1.png" width="384" /></p>
+<p>The bottom axis shows the neighbor order number and the left axis shows the average distance in kilometers.</p>
 </div>
 <div id="k-and-l-functions-1" class="section level3 unnumbered">
 <h3>K and L functions</h3>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb202-2" data-line-number="2">P &lt;-<span class="st"> </span>bei</a></code></pre></div>
-<p>To compute the K function:</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">K &lt;-<span class="st"> </span><span class="kw">Kest</span>(P)</a>
-<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="kw">plot</span>(K, <span class="dt">main=</span><span class="ot">NULL</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<p>To compute the L function:</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">L &lt;-<span class="st"> </span><span class="kw">Lest</span>(P, <span class="dt">main=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb204-2" data-line-number="2"><span class="kw">plot</span>(L)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>To compute the K function, type:</p>
+<pre class="sourceCode r"><code class="sourceCode r">K &lt;-<span class="st"> </span><span class="kw">Kest</span>(starbucks.km)
+<span class="kw">plot</span>(K, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">legendargs=</span><span class="kw">list</span>(<span class="dt">cex=</span><span class="fl">0.8</span>, <span class="dt">xpd=</span><span class="ot">TRUE</span>, <span class="dt">inset=</span><span class="kw">c</span>(<span class="fl">1.01</span>, <span class="dv">0</span>) ))</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-28-1.png" width="480" /></p>
+<p>The plot returns different estimates of K depending on the the edge correction chosen. By default, the <code>isotropic</code>, <code>translate</code> and <code>border</code> corrections are implemented. To learn more about these edge correction methods type <code>?Kest</code> at the command line. The estimated <span class="math inline">\(K\)</span> functions are listed with a hat <code>^</code>. The black line (<span class="math inline">\(K_{pois}\)</span>) represents the theoretical <span class="math inline">\(K\)</span> function under the null hypothesis that the points are completely randomly distributed (CSR/IRP). Where K falls under the theoretical <span class="math inline">\(K_{pois}\)</span> line the points are deemed more clustered than expected at distance <span class="math inline">\(r\)</span>. Where <span class="math inline">\(K\)</span> falls above the theoretical <span class="math inline">\(K_{pois}\)</span> line the points are deemed more dispersed than expected at distance <span class="math inline">\(r\)</span>.</p>
+<p>To compute the L function, type:</p>
+<pre class="sourceCode r"><code class="sourceCode r">L &lt;-<span class="st"> </span><span class="kw">Lest</span>(starbucks.km, <span class="dt">main=</span><span class="ot">NULL</span>)
+<span class="kw">plot</span>(L, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">legendargs=</span><span class="kw">list</span>(<span class="dt">cex=</span><span class="fl">0.8</span>, <span class="dt">xpd=</span><span class="ot">TRUE</span>, <span class="dt">inset=</span><span class="kw">c</span>(<span class="fl">1.01</span>, <span class="dv">0</span>) ))</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-29-1.png" width="480" /></p>
 <p>To plot the L function with the L<sub>expected</sub> line set horizontal:</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb205-1" data-line-number="1"><span class="kw">plot</span>(L, . <span class="op">-</span>r <span class="op">~</span><span class="st"> </span>r)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(L, . <span class="op">-</span>r <span class="op">~</span><span class="st"> </span>r, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">legendargs=</span><span class="kw">list</span>(<span class="dt">cex=</span><span class="fl">0.8</span>, <span class="dt">xpd=</span><span class="ot">TRUE</span>, <span class="dt">inset=</span><span class="kw">c</span>(<span class="fl">1.01</span>, <span class="dv">0</span>) ))</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-30-1.png" width="480" /></p>
 </div>
-<div id="the-pair-correlation-function-g-1" class="section level3 unnumbered">
-<h3>The Pair Correlation Function g</h3>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb206-2" data-line-number="2">P &lt;-<span class="st"> </span>swedishpines</a></code></pre></div>
-<p>To compute the pair correlation function.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1">g &lt;-<span class="st"> </span><span class="kw">pcf</span>(P)</a>
-<a class="sourceLine" id="cb207-2" data-line-number="2"><span class="kw">plot</span>(g, <span class="dt">main=</span><span class="ot">NULL</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<div id="pair-correlation-function-g" class="section level3 unnumbered">
+<h3>Pair correlation function g</h3>
+<p>To compute the pair correlation function type:</p>
+<pre class="sourceCode r"><code class="sourceCode r">g  &lt;-<span class="st"> </span><span class="kw">pcf</span>(starbucks.km)
+<span class="kw">plot</span>(g, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">legendargs=</span><span class="kw">list</span>(<span class="dt">cex=</span><span class="fl">0.8</span>, <span class="dt">xpd=</span><span class="ot">TRUE</span>, <span class="dt">inset=</span><span class="kw">c</span>(<span class="fl">1.01</span>, <span class="dv">0</span>) ))</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-31-1.png" width="480" /></p>
+<p>As with the <code>Kest</code> and <code>Lest</code> functions, the <code>pcf</code> function outputs different estimates of <span class="math inline">\(g\)</span> using different edge correction methods (<code>Ripley</code> and <code>Translate</code>). The theoretical <span class="math inline">\(g\)</span>-function <span class="math inline">\(g_{Pois}\)</span> under a CSR process (green dashed line) is also displayed for comparison. Where the observed <span class="math inline">\(g\)</span> is greater than <span class="math inline">\(g_{Pois}\)</span> we can expect more clustering than expected and where the observed <span class="math inline">\(g\)</span> is less than <span class="math inline">\(g_{Pois}\)</span> we can expect more dispersion than expected.</p>
 </div>
 </div>
 <div id="hypothesis-tests" class="section level2 unnumbered">
 <h2>Hypothesis tests</h2>
-<div id="test-for-clustering" class="section level3 unnumbered">
-<h3>Test for clustering</h3>
-<p>First, we’ll compute the ANN for Walmart locations assuming uniform density across the state (i.e. assuming that there are no underlying factors at play).</p>
-<p>Compute the observed data’s ANN value,</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb208-2" data-line-number="2">ann.p &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">nndist</span>(p2, <span class="dt">k=</span><span class="dv">1</span>))</a></code></pre></div>
-<p>Now run the MC simulation using a homogeneous point pattern density process</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1">n     &lt;-<span class="st"> </span><span class="dv">599</span>      <span class="co"># This tells the model how many times to run the simulation</span></a>
-<a class="sourceLine" id="cb209-2" data-line-number="2">ann.r &lt;-<span class="st"> </span><span class="kw">vector</span>() <span class="co"># Create an empty object to be used to store simulated values</span></a>
-<a class="sourceLine" id="cb209-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</a>
-<a class="sourceLine" id="cb209-4" data-line-number="4">  rand.p   &lt;-<span class="st"> </span><span class="kw">rpoint</span>(<span class="dt">n=</span>p2<span class="op">$</span>n, <span class="dt">win=</span>W)  <span class="co"># Generate the random point locations</span></a>
-<a class="sourceLine" id="cb209-5" data-line-number="5">  ann.r[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">nndist</span>(rand.p, <span class="dt">k=</span><span class="dv">1</span>)) <span class="co"># Tally the ANN values</span></a>
-<a class="sourceLine" id="cb209-6" data-line-number="6">}</a></code></pre></div>
-<p>In the above loop, the function <code>rpoint</code> is passed two parameters: <code>n=p2k$n</code> and <code>win=W</code>. The first tells the function how many points to randomly generate (<code>p2$n</code> extracts the number of points in object <code>p2</code>). The second tells the function to confine the points to the extent defined by <code>w</code> (the state of MA boundary).</p>
+<div id="test-for-clusteringdispersion" class="section level3 unnumbered">
+<h3>Test for clustering/dispersion</h3>
+<p>First, we’ll run an ANN analysis for Starbucks locations assuming a uniform point density across the state (i.e. a completely spatially random process).</p>
+<pre class="sourceCode r"><code class="sourceCode r">ann.p &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">nndist</span>(starbucks.km, <span class="dt">k=</span><span class="dv">1</span>))
+ann.p</code></pre>
+<pre><code>[1] 3.275492</code></pre>
+<p>The observed average nearest neighbor distance is 3.28 km.</p>
+<p>Next, we will generate the distribution of expected ANN values given a homogeneous (CSR/IRP) point process using Monte Carlo methods. This is our null model.</p>
+<pre class="sourceCode r"><code class="sourceCode r">n     &lt;-<span class="st"> </span>599L               <span class="co"># Number of simulations</span>
+ann.r &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> n) <span class="co"># Create an empty object to be used to store simulated ANN values</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
+  rand.p   &lt;-<span class="st"> </span><span class="kw">rpoint</span>(<span class="dt">n=</span>starbucks.km<span class="op">$</span>n, <span class="dt">win=</span>ma.km)  <span class="co"># Generate random point locations</span>
+  ann.r[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">nndist</span>(rand.p, <span class="dt">k=</span><span class="dv">1</span>))  <span class="co"># Tally the ANN values</span>
+}</code></pre>
+<p>In the above loop, the function <code>rpoint</code> is passed two parameters: <code>n=starbucks.km$n</code> and <code>win=ma.km</code>. The first tells the function how many points to randomly generate (<code>starbucks.km$n</code> extracts the number of points from object <code>starbucks.km</code>). The second tells the function to confine the points to the extent defined by <code>ma.km</code>. Note that the latter parameter is not necessary if the <code>ma</code> boundary was already defined as the <code>starbucks</code> window extent.</p>
+<p>You can plot the last realization of the homogeneous point process to see what a completely random placement of Starbucks stores could look like.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(rand.p, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">cols=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.5</span>))</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-34-1.png" width="288" /></p>
+<p>Our observed distribution of Starbucks stores certainly does not look like the outcome of a completely independent random process.</p>
+<p>Next, let’s plot the histogram of expected values under the null and add a blue vertical line showing where our observed ANN value lies relative to this distribution.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(ann.r, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">breaks=</span><span class="dv">40</span>, <span class="dt">col=</span><span class="st">&quot;bisque&quot;</span>, <span class="dt">xlim=</span><span class="kw">range</span>(ann.p, ann.r))
+<span class="kw">abline</span>(<span class="dt">v=</span>ann.p, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-35-1.png" width="480" /></p>
+<p>It’s obvious from the test that the observed ANN value is far smaller than the expected ANN values one could expect under the null hypothesis. A smaller observed value indicates that the stores are far more clustered than expected under the null.</p>
+<p>Next, we’ll run the same test but control for the influence due to population density distribution. Recall that the ANN analysis explores the 2nd order process underlying a point pattern thus requiring that we control for the first order process (e.g. population density distribution). This is a non-homogeneous test. Here, we pass the parameter <code>f=pop.km</code> to the function <code>rpoint</code> telling it that the population density raster <code>pop.km</code> should be used to define where a point should be most likely placed (high population density) and least likely placed (low population density) under this new null model. Here, we’ll use the non-transformed representation of the population density raster, <code>pop.km</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">n     &lt;-<span class="st"> </span>599L
+ann.r &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length=</span>n)
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
+  rand.p   &lt;-<span class="st"> </span><span class="kw">rpoint</span>(<span class="dt">n=</span>starbucks.km<span class="op">$</span>n, <span class="dt">f=</span>pop.km) 
+  ann.r[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">nndist</span>(rand.p, <span class="dt">k=</span><span class="dv">1</span>))
+}</code></pre>
+<p>You can plot the last realization of the non-homogeneous point process to convince yourself that the simulation correctly incorporated the covariate raster in its random point function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Window</span>(rand.p) &lt;-<span class="st"> </span>ma.km  <span class="co"># Replace raster mask with ma.km window</span>
+<span class="kw">plot</span>(rand.p, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">cols=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.5</span>))</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-37-1.png" width="288" /></p>
+<p>Note the cluster of points near the highly populated areas. This pattern is different from the one generated from a completely random process.</p>
 <p>Next, let’s plot the histogram and add a blue line showing where our observed ANN value lies.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">hist</span>(ann.r, <span class="dt">breaks=</span><span class="dv">40</span>, <span class="dt">col=</span><span class="st">&quot;bisque&quot;</span>, <span class="dt">xlim=</span><span class="kw">range</span>(ann.p, ann.r))</a>
-<a class="sourceLine" id="cb210-2" data-line-number="2"><span class="kw">abline</span>(<span class="dt">v=</span>ann.p, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<p>It’s obvious from the test that the observed ANN is far smaller than the expected ANN values under the null hypothesis that the stores are randomly distributed across the state. A smaller value indicates that the stores are far more clustered than expected under the null.</p>
-<p>Next, we’ll run the same test but add the influence due to population distribution. This is a non-homogeneous test.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">n     &lt;-<span class="st"> </span><span class="dv">599</span></a>
-<a class="sourceLine" id="cb211-2" data-line-number="2">ann.r &lt;-<span class="st"> </span><span class="kw">vector</span>()</a>
-<a class="sourceLine" id="cb211-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</a>
-<a class="sourceLine" id="cb211-4" data-line-number="4">  rand.p   &lt;-<span class="st"> </span><span class="kw">rpoint</span>(<span class="dt">n=</span>p2<span class="op">$</span>n, <span class="dt">f=</span>pop) </a>
-<a class="sourceLine" id="cb211-5" data-line-number="5">  ann.r[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">nndist</span>(rand.p, <span class="dt">k=</span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb211-6" data-line-number="6">}</a></code></pre></div>
-<p>Here, we pass the parameter <code>f=pop</code> to the function <code>rpoint</code> telling it that the population density raster <code>pop</code> should be used to define where a point should be most likely placed (high population density) and least likely placed (low population density).</p>
-<p>Next, let’s plot the histogram and add a blue line showing where our observed ANN value lies.</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">hist</span>(ann.r, <span class="dt">breaks=</span><span class="dv">40</span>, <span class="dt">col=</span><span class="st">&quot;bisque&quot;</span>, <span class="dt">xlim=</span><span class="kw">range</span>(ann.p, ann.r))</a>
-<a class="sourceLine" id="cb212-2" data-line-number="2"><span class="kw">abline</span>(<span class="dt">v=</span>ann.p, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
-<p>Population density alone cannot explain the clustering given that the observed ANN value is less than the expected ANN values.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(ann.r, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">breaks=</span><span class="dv">40</span>, <span class="dt">col=</span><span class="st">&quot;bisque&quot;</span>, <span class="dt">xlim=</span><span class="kw">range</span>(ann.p, ann.r))
+<span class="kw">abline</span>(<span class="dt">v=</span>ann.p, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</code></pre>
+<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-38-1.png" width="480" /></p>
+<p>Even though the distribution of ANN values we could expect when controlled for the population density nudges closer to our observed ANN value, we still cannot say that the clustering of Starbucks stores can be explained by population density alone.</p>
 </div>
-<div id="computing-a-pseudo-p-value" class="section level3 unnumbered">
-<h3>Computing a pseudo p-value</h3>
-<p>We’ll work off of the last simulation. First, we need to find the number of simulated ANN values greater than our observed ANN value</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(ann.r <span class="op">&gt;</span><span class="st"> </span>ann.p)</a></code></pre></div>
+<div id="computing-a-pseudo-p-value-from-the-simulation" class="section level3 unnumbered">
+<h3>Computing a pseudo p-value from the simulation</h3>
+<p>A (pseudo) p-value can be extracted from a Monte Carlo simulation. We’ll work off of the last simulation. First, we need to find the number of simulated ANN values greater than our observed ANN value.</p>
+<pre class="sourceCode r"><code class="sourceCode r">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(ann.r <span class="op">&gt;</span><span class="st"> </span>ann.p)</code></pre>
 <p>To compute the p-value, find the end of the distribution closest to the observed ANN value, then divide that count by the total count. Note that this is a so-called one-sided P-value. See lecture notes for more information.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb214-2" data-line-number="2">p</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="dv">1</span>)
+p</code></pre>
 <pre><code>[1] 0.001666667</code></pre>
-<p>In our working example, you’ll note that or simulated ANN value was nowhere near the range of ANN values computed under the null yet we don’t have a p-value of zero. This is by design since the <em>strength</em> of our estimated p will be proportional to the number of simulations–there is always a chance that one <em>realization</em> of a point pattern could produce an ANN value more extreme than ours.</p>
+<p>In our working example, you’ll note that or simulated ANN value was nowhere near the range of ANN values computed under the null yet we don’t have a p-value of zero. This is by design since the <em>strength</em> of our estimated p will be proportional to the number of simulations–this reflects the chance that given an infinite number of simulations at least one <em>realization</em> of a point pattern could produce an ANN value more extreme than ours.</p>
 </div>
-<div id="testing-for-a-covariate-effect" class="section level3 unnumbered">
-<h3>Testing for a covariate effect</h3>
-<p>It’s important that the <code>p2</code> object have its extent defined so as to match the extent of the population raster <code>pop</code>. Plotting <code>p2</code> with the base plot function shows that the extent is currently defined by the smallest rectangle enclosing the points.</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb216-1" data-line-number="1"><span class="kw">plot</span>(p2, <span class="dt">main=</span><span class="ot">NULL</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
-<p>We can impose the Massachusetts boundary as the new extent as follows:</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">Window</span>(p2) &lt;-<span class="st"> </span>W</a>
-<a class="sourceLine" id="cb217-2" data-line-number="2"><span class="kw">plot</span>(p2, <span class="dt">main=</span><span class="ot">NULL</span>)</a></code></pre></div>
-<p><img src="A05-Point-pattern-analysis_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
-<p>Now, we’ll fit the model that assumes that point density <em>is</em> a function of population (the alternative hypothesis).</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1"><span class="kw">library</span>(spatstat)</a>
-<a class="sourceLine" id="cb218-2" data-line-number="2">PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 <span class="op">~</span><span class="st"> </span>pop)</a>
-<a class="sourceLine" id="cb218-3" data-line-number="3">PPM1</a></code></pre></div>
+<div id="test-for-a-poisson-point-process-model-with-a-covariate-effect" class="section level3 unnumbered">
+<h3>Test for a poisson point process model with a covariate effect</h3>
+<p>The ANN analysis addresses the 2<sub>nd</sub> order effect of a point process. Here, we’ll address the 1<sub>st</sub> order process using the poisson point process model.</p>
+<p>We’ll first fit a model that assumes that the point process’ intensity <em>is</em> a function of the logged population density (this will be our alternate hypothesis).</p>
+<pre class="sourceCode r"><code class="sourceCode r">PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(starbucks.km <span class="op">~</span><span class="st"> </span>pop.lg.km)
+PPM1</code></pre>
 <pre><code>Nonstationary Poisson process
 
-Log intensity:  ~pop
+Log intensity:  ~pop.lg.km
 
 Fitted trend coefficients:
-  (Intercept)           pop 
--1.905198e+01  1.836711e-04 
+(Intercept)   pop.lg.km 
+ -13.710551    1.279928 
 
-                 Estimate         S.E.       CI95.lo       CI95.hi Ztest
-(Intercept) -1.905198e+01 9.039783e-02 -1.922915e+01 -1.887480e+01   ***
-pop          1.836711e-04 6.060545e-06  1.717927e-04  1.955496e-04   ***
-                  Zval
-(Intercept) -210.75700
-pop           30.30604
+              Estimate       S.E.    CI95.lo    CI95.hi Ztest      Zval
+(Intercept) -13.710551 0.46745489 -14.626746 -12.794356   *** -29.33021
+pop.lg.km     1.279928 0.05626785   1.169645   1.390211   ***  22.74705
 Problem:
- Values of the covariate &#39;pop&#39; were NA or undefined at 0.57% (4 out of 
-699) of the quadrature points</code></pre>
-<p>Next, we’ll fit the model that assumes that density is <em>not</em> a function of population (the null hypothesis).</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb220-1" data-line-number="1">PPM0 &lt;-<span class="st"> </span><span class="kw">ppm</span>(p2 <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb220-2" data-line-number="2">PPM0</a></code></pre></div>
+ Values of the covariate &#39;pop.lg.km&#39; were NA or undefined at 0.57% (4 out 
+of 699) of the quadrature points</code></pre>
+<p>Next, we’ll fit the model that assumes that the process’ intensity is <em>not</em> a function of population density (the null hypothesis).</p>
+<pre class="sourceCode r"><code class="sourceCode r">PPM0 &lt;-<span class="st"> </span><span class="kw">ppm</span>(starbucks.km <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)
+PPM0</code></pre>
 <pre><code>Stationary Poisson process
-Intensity: 8.268627e-09
-            Estimate       S.E.   CI95.lo   CI95.hi Ztest      Zval
-log(lambda) -18.6108 0.07647191 -18.76068 -18.46092   *** -243.3678</code></pre>
+Intensity: 0.008268627
+             Estimate       S.E.   CI95.lo   CI95.hi Ztest      Zval
+log(lambda) -4.795287 0.07647191 -4.945169 -4.645405   *** -62.70651</code></pre>
 <p>In our working example, the null model (homogeneous intensity) takes on the form:</p>
 <p><span class="math display">\[
-\lambda(i) = e^{-18.6}
+\lambda(i) = e^{-4.795}
 \]</span></p>
+<p><span class="math inline">\(\lambda(i)\)</span> under the null is nothing more than the observed density of Starbucks stores within the State of Massachusetts, or:</p>
+<pre class="sourceCode r"><code class="sourceCode r">starbucks.km<span class="op">$</span>n <span class="op">/</span><span class="st"> </span><span class="kw">area</span>(ma.km) </code></pre>
+<pre><code>[1] 0.008268627</code></pre>
 <p>The alternate model takes on the form:</p>
 <p><span class="math display">\[
-\lambda(i) = e^{-19.1 + 1.8^{-4}population}
+\lambda(i) = e^{-13.71 + 1.27\ (logged\ population\ density)}
 \]</span></p>
 <p>The models are then compared using the <strong>likelihood ratio test</strong> which produces the following output:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1"><span class="kw">anova</span>(PPM0, PPM1, <span class="dt">test=</span><span class="st">&quot;LRT&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(PPM0, PPM1, <span class="dt">test=</span><span class="st">&quot;LRT&quot;</span>)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -706,12 +786,13 @@ log(lambda) -18.6108 0.07647191 -18.76068 -18.46092   *** -243.3678</code></pre>
 <tr class="even">
 <td align="left">6</td>
 <td align="left">1</td>
-<td align="left">347.4234</td>
+<td align="left">537.218</td>
 <td align="left">0</td>
 </tr>
 </tbody>
 </table>
-<p>The value under the heading <code>PR(&gt;Chi)</code> is the p-value which gives us the probability we would be wrong in rejecting the null. Here p~0 suggesting that there is close to a 0% chance that we would be remiss to reject the base model in favor of the alternate model–put another way, the alternate model (that population density can help explain the distribution of Starbucks) is a significant improvement over the null.</p>
+<p>The value under the heading <code>PR(&gt;Chi)</code> is the p-value which gives us the probability that we would be wrong in rejecting the null. Here p~0 suggests that there is close to a 0% chance that we would be wrong in rejecting the base model in favor of the alternate model–put another way, the alternate model (that the logged population density can help explain the distribution of Starbucks stores) is a significant improvement over the null.</p>
+<p>Note that if you were to compare two competing non-homogeneous models such as population density and income distributions, you would need to compare the model with one of the covariates with an augmented version of that model using the other covariate. In other words, you would need to compare <code>PPM1 &lt;- ppm(starbucks.km ~ pop.lg.km)</code> with something like <code>PPM2 &lt;- ppm(starbucks.km ~ pop.lg.km + income.km)</code>.</p>
 
 </div>
 </div>
@@ -742,9 +823,10 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": false
+"all": false,
+"instapper": false
 },
 "fontsettings": {
 "theme": "white",
@@ -752,6 +834,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -771,7 +857,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

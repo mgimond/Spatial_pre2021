@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Intro to GIS and Spatial Analysis</title>
+  <title>Mapping data in R | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
+  <meta property="og:title" content="Mapping data in R | Intro to GIS and Spatial Analysis />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
+  <meta name="twitter:title" content="Mapping data in R | Intro to GIS and Spatial Analysis />
   
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
@@ -35,6 +35,7 @@
 <link rel="next" href="coordinate-systems-in-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -328,8 +329,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-raster"><i class="fa fa-check"></i>Unary operations and functions (applied to single raster)</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-layers-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two layers are used)</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-rasters"><i class="fa fa-check"></i>Unary operations and functions (applied to single rasters)</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-rasters-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two rasters are used)</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
@@ -339,22 +340,25 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#sample-files-for-this-exercise-3"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li><a href="point-pattern-analysis-in-r.html#getting-external-data-into-a-spatstat-format">Getting external data into a <code>spatstat</code> format</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tesselated-surface"><i class="fa fa-check"></i>Quadrat density on a tesselated surface</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tessellated-surface"><i class="fa fa-check"></i>Quadrat density on a tessellated surface</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel Density Adjusted for Covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#the-pair-correlation-function-g-1"><i class="fa fa-check"></i>The Pair Correlation Function g</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pair-correlation-function-g"><i class="fa fa-check"></i>Pair correlation function g</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-clustering"><i class="fa fa-check"></i>Test for clustering</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#computing-a-pseudo-p-value"><i class="fa fa-check"></i>Computing a pseudo p-value</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#testing-for-a-covariate-effect"><i class="fa fa-check"></i>Testing for a covariate effect</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-clusteringdispersion"><i class="fa fa-check"></i>Test for clustering/dispersion</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#computing-a-pseudo-p-value-from-the-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from the simulation</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-a-poisson-point-process-model-with-a-covariate-effect"><i class="fa fa-check"></i>Test for a poisson point process model with a covariate effect</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial Autocorrelation in R</a><ul>
@@ -421,7 +425,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="sample-files-for-this-exercise-1" class="section level2 unnumbered">
 <h2>Sample files for this exercise</h2>
 <p>Data used in the following exercises can be loaded into your current R session by running the following chunk of code.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/Sample1.RData&quot;</span>))</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/Sample1.RData&quot;</span>))</code></pre>
 <p>The data objects consist of five layers: an elevation raster (<code>elev.r</code>), an interstate polyline layer (<code>inter.sf</code>), a point cities layer (<code>p.sf</code>), a railroad polyline layer (<code>rail.sf</code>) and a Maine counties polygon layer (<code>s.sf</code>). All vector layers are <code>sf</code> objects.</p>
 <p>R offers many different mapping environments. Most spatial object types have their own <code>plot</code> methods that can be called via <code>plot()</code>. This is fine when seeking a quick view of the data, but if you need more control of the look and feel of the map, you might want to turn to the <code>tmap</code> package.</p>
 <p>The <code>tmap</code> functions will recognize <code>sf</code>, <code>raster</code> and <code>Spatial*</code> objects.</p>
@@ -429,58 +433,58 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="the-basics" class="section level2 unnumbered">
 <h2>The basics</h2>
 <p>To map the counties polygon layer using a uniform grey color color scheme, type:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">  <span class="kw">library</span>(tmap) </a>
-<a class="sourceLine" id="cb58-2" data-line-number="2">  <span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">border.col=</span><span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">library</span>(tmap) 
+  <span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">border.col=</span><span class="st">&quot;white&quot;</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-3-1.png" width="336" /></p>
 <p>The <code>tm_shape</code> function loads the spatial object (it can be vector or raster) and the <code>tm_polygons</code> function is one of many <code>tmap</code> functions that dictates how the spatial object is to be mapped. The <code>col</code> parameter defines either the polygon fill color or the spatial object’s attribute column to be used to define the polygons’ color scheme (thus generating a choropleth map). For example, to use the <code>Income</code> attribute value to define the color scheme, type:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">  <span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>, <span class="dt">border.col =</span> <span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>, <span class="dt">border.col =</span> <span class="st">&quot;white&quot;</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-4-1.png" width="336" /></p>
 <p>You can customize the map by piecing together various map element functions. For example, to move the legend box outside of the main map body add a <code>tm_legend(outside = TRUE)</code> element to the mapping operation. Note the <code>+</code> symbol used to piece the functions together.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>,  <span class="dt">border.col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>,  <span class="dt">border.col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-5-1.png" width="480" /></p>
 <p>You can also choose to omit the legend box (via the <code>legend.show=FALSE</code> parameter) and the data frame border (via the <code>tm_layout(frame = FALSE)</code> parameter:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>,  <span class="dt">border.col =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">legend.show=</span><span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb61-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>,  <span class="dt">border.col =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">legend.show=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">frame =</span> <span class="ot">FALSE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-6-1.png" width="336" /></p>
 <p>If you want to omit the polygon border lines from the plot, simply add <code>border.col = NULL</code> to the list of<code>tm_polygons</code> parameters.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">border.col =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">border.col =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-7-1.png" width="480" /></p>
 <p>Note that the <code>tm_fill</code> function is nearly identical to the <code>tm_polygons</code> function with the difference being that the <code>tm_fill</code> function ignores polygon borders.</p>
 <div id="combining-layers" class="section level3 unnumbered">
 <h3>Combining layers</h3>
 <p>You can easily stack layers by piecing together additional <code>tmp_shapes</code>. In the following example, the railroad layer and the point layer are added to the income map. The railroad layer is mapped using the <code>tm_lines</code> function and the cities point layer is mapped using the <code>tm_dots</code> function. Note that layers are pieced together using the <code>+</code> symbol.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">border.col =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb63-4" data-line-number="4"><span class="st"> </span><span class="kw">tm_shape</span>(rail.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;grey70&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb63-5" data-line-number="5"><span class="st"> </span><span class="kw">tm_shape</span>(p.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span>.<span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>) </a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">border.col =</span> <span class="ot">NULL</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st"> </span><span class="kw">tm_shape</span>(rail.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;grey70&quot;</span>) <span class="op">+</span>
+<span class="st"> </span><span class="kw">tm_shape</span>(p.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span>.<span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>) </code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-8-1.png" width="480" /></p>
 <p>Layers are stacked in the order in which they are listed. In the above example, the point layer is the last layer called therefore it is drawn on top of the previously called layers.</p>
 </div>
 <div id="tweaking-classification-schemes" class="section level3 unnumbered">
 <h3>Tweaking classification schemes</h3>
 <p>You can control the classification type, color scheme, and bin numbers via the <code>tm_polygons</code> function. For example, to apply a quantile scheme with 6 bins and varying shades of green type,</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-9-1.png" width="480" /></p>
 <p>Other <code>style</code> classification schemes include <code>fixed</code>, <code>equal</code>, <code>jenks</code>, <code>kmeans</code> and <code>sd</code>. If you want to control the breaks manually set <code>style=fixed</code> and specify the classification breaks using the <code>breaks</code> parameter. For example,</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</a>
-<a class="sourceLine" id="cb65-3" data-line-number="3">              <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">23000</span> ,<span class="dv">27000</span>,<span class="dv">100000</span> )) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb65-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,
+              <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">23000</span> ,<span class="dv">27000</span>,<span class="dv">100000</span> )) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-10-1.png" width="480" /></p>
 <p>If you want a bit more control over the legend elements, you can tweak the <code>labels</code> parameter as in,</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,</a>
-<a class="sourceLine" id="cb66-3" data-line-number="3">              <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">23000</span> ,<span class="dv">27000</span>,<span class="dv">100000</span> ),</a>
-<a class="sourceLine" id="cb66-4" data-line-number="4">              <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;under $23,000&quot;</span>, <span class="st">&quot;$23,000 to $27,000&quot;</span>, <span class="st">&quot;above $27,000&quot;</span>),</a>
-<a class="sourceLine" id="cb66-5" data-line-number="5">              <span class="dt">text.size =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb66-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;Income&quot;</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>,<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>,
+              <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">23000</span> ,<span class="dv">27000</span>,<span class="dv">100000</span> ),
+              <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;under $23,000&quot;</span>, <span class="st">&quot;$23,000 to $27,000&quot;</span>, <span class="st">&quot;above $27,000&quot;</span>),
+              <span class="dt">text.size =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
 </div>
 <div id="tweaking-colors" class="section level3 unnumbered">
@@ -493,15 +497,15 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>For <strong>categorical</strong> color schemes, you can choose from the following palettes.</p>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-14-1.png" width="384" /></p>
 <p>For example, to map the county names using the <code>Pastel1</code> categorical color scheme, type:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb67-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-15-1.png" width="480" /></p>
 <p>To map the percentage of the population not having attained a high school degree (column labeled <code>NoSchool</code> in <code>s.sf</code>) using a <code>YlOrBr</code> palette with 8 bins while modifying the legend title to read <em>“Fraction without a HS degree”</em>, type:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NoSchool&quot;</span>, <span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlOrBr&quot;</span>, <span class="dt">n=</span><span class="dv">8</span>, </a>
-<a class="sourceLine" id="cb68-3" data-line-number="3">              <span class="dt">title=</span><span class="st">&quot;Fraction without </span><span class="ch">\n</span><span class="st">a HS degree&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb68-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NoSchool&quot;</span>, <span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlOrBr&quot;</span>, <span class="dt">n=</span><span class="dv">8</span>, 
+              <span class="dt">title=</span><span class="st">&quot;Fraction without </span><span class="ch">\n</span><span class="st">a HS degree&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-16-1.png" width="480" /></p>
 <p>The character <code>\n</code> in the “<code>Fraction without \na HS degree</code>” string is interpreted by R as a <em>new line</em> (carriage return).</p>
 <p>If you want to reverse the color scheme simply add the minus symbol <code>-</code> in front of the palette name as in <code>palette = &quot;-YlOrBr&quot;</code></p>
@@ -509,99 +513,99 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="adding-labels" class="section level3 unnumbered">
 <h3>Adding labels</h3>
 <p>You can add text and labels using the <code>tm_text</code> function. In the following example, point labels are added to the right of the points (<code>just=&quot;left&quot;</code>) with an x offset of 0.5 units for added buffer between the point and the text.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="st">    </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>, <span class="dt">border.col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb69-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_shape</span>(p.sf) <span class="op">+</span><span class="st">   </span></a>
-<a class="sourceLine" id="cb69-5" data-line-number="5"><span class="st">    </span><span class="kw">tm_dots</span>(<span class="dt">size=</span>.<span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb69-6" data-line-number="6"><span class="st">    </span><span class="kw">tm_text</span>(<span class="st">&quot;Name&quot;</span>, <span class="dt">just=</span><span class="st">&quot;left&quot;</span>, <span class="dt">xmod=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="fl">0.8</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>, <span class="dt">border.col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_shape</span>(p.sf) <span class="op">+</span><span class="st">   </span>
+<span class="st">    </span><span class="kw">tm_dots</span>(<span class="dt">size=</span>.<span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">tm_text</span>(<span class="st">&quot;Name&quot;</span>, <span class="dt">just=</span><span class="st">&quot;left&quot;</span>, <span class="dt">xmod=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="fl">0.8</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-17-1.png" width="480" /></p>
 <p>The <code>tm_text</code> function also accepts an auto placement option via the parameter <code>auto.placement = TRUE</code>. This uses a simulated annealing algorithm. Note that this automated approach may not generate the same text placement after reach run.</p>
 </div>
 <div id="adding-a-grid-or-graticule" class="section level3 unnumbered">
 <h3>Adding a grid or graticule</h3>
 <p>You can add a grid or graticule to the map using the <code>tm_grid</code> function. You will need to modify the map’s default viewport setting via the <code>tm_layout</code> function to provide space for the grid labels. In the following example, the grid is generated using the layer’s UTM coordinate system and is divided into roughly four segments along the x-axis and five segments along the y-axis. The function will adjust the grid placement so as to generate “pretty” label values.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb70-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb70-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">outer.margins =</span> <span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb70-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_grid</span>(<span class="dt">labels.inside.frame =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb70-6" data-line-number="6">          <span class="dt">n.x =</span> <span class="dv">4</span>, <span class="dt">n.y =</span> <span class="dv">5</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">outer.margins =</span> <span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_grid</span>(<span class="dt">labels.inside.frame =</span> <span class="ot">FALSE</span>,
+          <span class="dt">n.x =</span> <span class="dv">4</span>, <span class="dt">n.y =</span> <span class="dv">5</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-18-1.png" width="480" /></p>
 <p>To generate a graticule (lines of latitude and longitude), simply modify the grid’s coordinate system to a geographic one using a <a href="https://proj4.org/apps/proj.html">PROJ4</a> formatted string. We can also modify the grid placement by explicitly specifying the lat/long grid values.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb71-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb71-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">outer.margins =</span> <span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb71-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_grid</span>(<span class="dt">labels.inside.frame =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb71-6" data-line-number="6">          <span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">70.5</span>, <span class="dv">-69</span>, <span class="fl">-67.5</span>),</a>
-<a class="sourceLine" id="cb71-7" data-line-number="7">          <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">45</span>, <span class="dv">46</span>, <span class="dv">47</span>),</a>
-<a class="sourceLine" id="cb71-8" data-line-number="8">          <span class="dt">projection =</span> <span class="st">&quot;+proj=longlat&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">outer.margins =</span> <span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_grid</span>(<span class="dt">labels.inside.frame =</span> <span class="ot">FALSE</span>, 
+          <span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">70.5</span>, <span class="dv">-69</span>, <span class="fl">-67.5</span>),
+          <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">45</span>, <span class="dv">46</span>, <span class="dv">47</span>),
+          <span class="dt">projection =</span> <span class="st">&quot;+proj=longlat&quot;</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-19-1.png" width="480" /></p>
 <p>Adding the ° symbol to the lat/long values requires a bit more code:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb72-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb72-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">outer.margins =</span> <span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb72-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_grid</span>(<span class="dt">labels.inside.frame =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb72-6" data-line-number="6">          <span class="dt">x =</span>  <span class="kw">c</span>(<span class="op">-</span><span class="fl">70.5</span>, <span class="dv">-69</span>, <span class="fl">-67.5</span>) ,</a>
-<a class="sourceLine" id="cb72-7" data-line-number="7">          <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">45</span>, <span class="dv">46</span>, <span class="dv">47</span>),</a>
-<a class="sourceLine" id="cb72-8" data-line-number="8">          <span class="dt">projection =</span> <span class="st">&quot;+proj=longlat&quot;</span>,</a>
-<a class="sourceLine" id="cb72-9" data-line-number="9">          <span class="dt">labels.format =</span> <span class="kw">list</span>(<span class="dt">fun=</span><span class="cf">function</span>(x) {<span class="kw">paste0</span>(x,<span class="kw">intToUtf8</span>(<span class="dv">176</span>))} ) )</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NAME&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">outer.margins =</span> <span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_grid</span>(<span class="dt">labels.inside.frame =</span> <span class="ot">FALSE</span>, 
+          <span class="dt">x =</span>  <span class="kw">c</span>(<span class="op">-</span><span class="fl">70.5</span>, <span class="dv">-69</span>, <span class="fl">-67.5</span>) ,
+          <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">45</span>, <span class="dv">46</span>, <span class="dv">47</span>),
+          <span class="dt">projection =</span> <span class="st">&quot;+proj=longlat&quot;</span>,
+          <span class="dt">labels.format =</span> <span class="kw">list</span>(<span class="dt">fun=</span><span class="cf">function</span>(x) {<span class="kw">paste0</span>(x,<span class="kw">intToUtf8</span>(<span class="dv">176</span>))} ) )</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-20-1.png" width="480" /></p>
 </div>
 </div>
 <div id="adding-statistical-plot" class="section level2 unnumbered">
 <h2>Adding statistical plot</h2>
 <p>A histogram of the variables being mapped can be added to the legend element. By default, the histogram will inherit the colors used in the classification scheme.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb73-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NoSchool&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlOrBr&quot;</span>, <span class="dt">n=</span><span class="dv">6</span>, <span class="dt">legend.hist =</span> <span class="ot">TRUE</span>, <span class="dt">title=</span><span class="st">&quot;% no school&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb73-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">hist.width=</span><span class="dv">2</span>) </a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;NoSchool&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;YlOrBr&quot;</span>, <span class="dt">n=</span><span class="dv">6</span>, <span class="dt">legend.hist =</span> <span class="ot">TRUE</span>, <span class="dt">title=</span><span class="st">&quot;% no school&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">hist.width=</span><span class="dv">2</span>) </code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-21-1.png" width="480" /></p>
 </div>
 <div id="mapping-raster-files" class="section level2 unnumbered">
 <h2>Mapping raster files</h2>
 <p>Raster objects can be mapped by specifying the <code>tm_raster</code> function. For example to plot the elevation raster and assign 64 continuous shades of the built-in terrain color ramp, type:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">tm_shape</span>(elev.r) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;cont&quot;</span>, </a>
-<a class="sourceLine" id="cb74-3" data-line-number="3">            <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">64</span>))<span class="op">+</span></a>
-<a class="sourceLine" id="cb74-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(elev.r) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;cont&quot;</span>, 
+            <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">64</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-22-1.png" width="480" /></p>
 <p>Note the use of another <code>style</code> parameter option: <code>cont</code> for <em>continuous</em> color scheme.</p>
 <p>You can choose to symbolize the raster using classification breaks instead of continuous colors. For example, to manually set the breaks to 50, 100, 500, 750, 1000, and 15000 meters, type:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="kw">tm_shape</span>(elev.r) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb75-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, </a>
-<a class="sourceLine" id="cb75-3" data-line-number="3">            <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">750</span>, <span class="dv">1000</span>, <span class="dv">15000</span>),</a>
-<a class="sourceLine" id="cb75-4" data-line-number="4">            <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">5</span>))<span class="op">+</span></a>
-<a class="sourceLine" id="cb75-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(elev.r) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, 
+            <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">750</span>, <span class="dv">1000</span>, <span class="dv">15000</span>),
+            <span class="dt">palette =</span> <span class="kw">terrain.colors</span>(<span class="dv">5</span>))<span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-23-1.png" width="480" /></p>
 <p>Other color gradients that R offers include, <code>heat.colors</code>, <code>rainbow</code>, and <code>topo.colors</code>. You can also create your own color ramp via the <code>colorRampPalette</code> function. For example, to generate a 12 bin quantile classification scheme using a color ramp that changes from <code>darkolivegreen4</code> to <code>yellow</code> to <code>brown</code> (these are built-in R colors), and adding a histogram to view the distribution of colors across pixels, type:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">tm_shape</span>(elev.r) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">n =</span> <span class="dv">12</span>,</a>
-<a class="sourceLine" id="cb76-3" data-line-number="3">            <span class="dt">palette =</span> <span class="kw">colorRampPalette</span>( <span class="kw">c</span>(<span class="st">&quot;darkolivegreen4&quot;</span>,<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;brown&quot;</span>))(<span class="dv">12</span>),</a>
-<a class="sourceLine" id="cb76-4" data-line-number="4">            <span class="dt">legend.hist =</span> <span class="ot">TRUE</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb76-5" data-line-number="5"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>, <span class="dt">hist.width=</span><span class="dv">2</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(elev.r) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">n =</span> <span class="dv">12</span>,
+            <span class="dt">palette =</span> <span class="kw">colorRampPalette</span>( <span class="kw">c</span>(<span class="st">&quot;darkolivegreen4&quot;</span>,<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;brown&quot;</span>))(<span class="dv">12</span>),
+            <span class="dt">legend.hist =</span> <span class="ot">TRUE</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>, <span class="dt">hist.width=</span><span class="dv">2</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-24-1.png" width="480" /></p>
 <p>Note that the Brewer palette names can also be used with rasters.</p>
 </div>
 <div id="changing-coordinate-systems" class="section level2 unnumbered">
 <h2>Changing coordinate systems</h2>
 <p><code>tmap</code> can change the output’s coordinate system without needing to reproject the data layers. In the following example, the elevation raster, railroad layer and point city layer are mapped onto a <em>USA Contiguous Albers Equal Area Conic</em> projection. A lat/long grid is added as a reference.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="co"># Define the Albers coordinate system</span></a>
-<a class="sourceLine" id="cb77-2" data-line-number="2">aea &lt;-<span class="st">  &quot;+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +ellps=GRS80 +datum=NAD83&quot;</span></a>
-<a class="sourceLine" id="cb77-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb77-4" data-line-number="4"><span class="co"># Map the data</span></a>
-<a class="sourceLine" id="cb77-5" data-line-number="5"><span class="kw">tm_shape</span>(elev.r, <span class="dt">projection =</span> aea) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb77-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">n =</span> <span class="dv">12</span>,</a>
-<a class="sourceLine" id="cb77-7" data-line-number="7">            <span class="dt">palette =</span> <span class="kw">colorRampPalette</span>( <span class="kw">c</span>(<span class="st">&quot;darkolivegreen4&quot;</span>,<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;brown&quot;</span>))(<span class="dv">12</span>),</a>
-<a class="sourceLine" id="cb77-8" data-line-number="8">            <span class="dt">legend.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb77-9" data-line-number="9"><span class="st">  </span><span class="kw">tm_shape</span>(rail.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;grey70&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb77-10" data-line-number="10"><span class="st">  </span><span class="kw">tm_shape</span>(p.sf) <span class="op">+</span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb77-11" data-line-number="11"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">outer.margins =</span> <span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb77-12" data-line-number="12"><span class="st">  </span><span class="kw">tm_grid</span>(<span class="dt">labels.inside.frame =</span> <span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb77-13" data-line-number="13">          <span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">70.5</span>, <span class="dv">-69</span>, <span class="fl">-67.5</span>),</a>
-<a class="sourceLine" id="cb77-14" data-line-number="14">          <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">45</span>, <span class="dv">46</span>, <span class="dv">47</span>),</a>
-<a class="sourceLine" id="cb77-15" data-line-number="15">          <span class="dt">projection =</span> <span class="st">&quot;+proj=longlat&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Define the Albers coordinate system</span>
+aea &lt;-<span class="st">  &quot;+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +ellps=GRS80 +datum=NAD83&quot;</span>
+
+<span class="co"># Map the data</span>
+<span class="kw">tm_shape</span>(elev.r, <span class="dt">projection =</span> aea) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">n =</span> <span class="dv">12</span>,
+            <span class="dt">palette =</span> <span class="kw">colorRampPalette</span>( <span class="kw">c</span>(<span class="st">&quot;darkolivegreen4&quot;</span>,<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;brown&quot;</span>))(<span class="dv">12</span>),
+            <span class="dt">legend.show =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_shape</span>(rail.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;grey70&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_shape</span>(p.sf) <span class="op">+</span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">outer.margins =</span> <span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>,.<span class="dv">1</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_grid</span>(<span class="dt">labels.inside.frame =</span> <span class="ot">FALSE</span>, 
+          <span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">70.5</span>, <span class="dv">-69</span>, <span class="fl">-67.5</span>),
+          <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">44</span>, <span class="dv">45</span>, <span class="dv">46</span>, <span class="dv">47</span>),
+          <span class="dt">projection =</span> <span class="st">&quot;+proj=longlat&quot;</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-25-1.png" width="480" /></p>
 <p>The first data layer’s <code>projection=</code> parameter will define the map’s coordinate system. Note that this parameter does not need to be specified in the other layers taking part in the output map.</p>
 <p>If a projection is not explicitly defined in the first call to <code>tm_shape</code>, then the output map will default to the first layer’s reference system.</p>
@@ -609,22 +613,22 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="side-by-side-maps" class="section level2 unnumbered">
 <h2>Side-by-side maps</h2>
 <p>You can piece maps together side-by-side using the <code>tmap_arrange</code> function. You first need to save each map to a separate object before combining them. For example:</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">inc.map &lt;-<span class="st"> </span><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb78-3" data-line-number="3">school.map &lt;-<span class="st"> </span><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;NoSchool&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb78-4" data-line-number="4"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb78-5" data-line-number="5">name.map &lt;-<span class="st"> </span><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;NAME&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb78-6" data-line-number="6"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb78-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb78-8" data-line-number="8"><span class="kw">tmap_arrange</span>(inc.map, school.map, name.map)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">inc.map &lt;-<span class="st"> </span><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>) 
+school.map &lt;-<span class="st"> </span><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;NoSchool&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>) 
+name.map &lt;-<span class="st"> </span><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;NAME&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>) 
+
+<span class="kw">tmap_arrange</span>(inc.map, school.map, name.map)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-26-1.png" width="1248" /></p>
 </div>
 <div id="splitting-data-by-polygons-or-group-of-polygons" class="section level2 unnumbered">
 <h2>Splitting data by polygons or group of polygons</h2>
 <p>You can split the output into groups of features based on a column attribute. For example, to split the income map into individual polygons via the <code>NAME</code> attribute, type:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb79-2" data-line-number="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb79-3" data-line-number="3"><span class="st">  </span><span class="kw">tm_facets</span>( <span class="dt">by =</span> <span class="st">&quot;NAME&quot;</span>, <span class="dt">nrow =</span><span class="dv">2</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tm_shape</span>(s.sf) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">tm_facets</span>( <span class="dt">by =</span> <span class="st">&quot;NAME&quot;</span>, <span class="dt">nrow =</span><span class="dv">2</span>)</code></pre>
 <p><img src="A02-Mapping-data_files/figure-html/unnamed-chunk-27-1.png" width="1248" /></p>
 <p>The order of the faceted plot follows the alphanumeric order of the faceting attribute values.</p>
 
@@ -656,9 +660,10 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": false
+"all": false,
+"instapper": false
 },
 "fontsettings": {
 "theme": "white",
@@ -666,6 +671,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -685,7 +694,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

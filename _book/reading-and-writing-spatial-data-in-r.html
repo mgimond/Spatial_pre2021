@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Intro to GIS and Spatial Analysis</title>
+  <title>Reading and writing spatial data in R | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Intro to GIS and Spatial Analysis" />
+  <meta property="og:title" content="Reading and writing spatial data in R | Intro to GIS and Spatial Analysis />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Intro to GIS and Spatial Analysis" />
+  <meta name="twitter:title" content="Reading and writing spatial data in R | Intro to GIS and Spatial Analysis />
   
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
@@ -35,6 +35,7 @@
 <link rel="next" href="mapping-data-in-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -328,8 +329,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-raster"><i class="fa fa-check"></i>Unary operations and functions (applied to single raster)</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-layers-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two layers are used)</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-rasters"><i class="fa fa-check"></i>Unary operations and functions (applied to single rasters)</a></li>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-rasters-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two rasters are used)</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
@@ -339,22 +340,25 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#sample-files-for-this-exercise-3"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li><a href="point-pattern-analysis-in-r.html#getting-external-data-into-a-spatstat-format">Getting external data into a <code>spatstat</code> format</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tesselated-surface"><i class="fa fa-check"></i>Quadrat density on a tesselated surface</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tessellated-surface"><i class="fa fa-check"></i>Quadrat density on a tessellated surface</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel Density Adjusted for Covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#the-pair-correlation-function-g-1"><i class="fa fa-check"></i>The Pair Correlation Function g</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pair-correlation-function-g"><i class="fa fa-check"></i>Pair correlation function g</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-clustering"><i class="fa fa-check"></i>Test for clustering</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#computing-a-pseudo-p-value"><i class="fa fa-check"></i>Computing a pseudo p-value</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#testing-for-a-covariate-effect"><i class="fa fa-check"></i>Testing for a covariate effect</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-clusteringdispersion"><i class="fa fa-check"></i>Test for clustering/dispersion</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#computing-a-pseudo-p-value-from-the-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from the simulation</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#test-for-a-poisson-point-process-model-with-a-covariate-effect"><i class="fa fa-check"></i>Test for a poisson point process model with a covariate effect</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial Autocorrelation in R</a><ul>
@@ -421,14 +425,14 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="sample-files-for-this-exercise" class="section level2 unnumbered">
 <h2>Sample files for this exercise</h2>
 <p>First, you will need to download some sample files from the github repository. Make sure to set your R session folder to the directory where you will want to save the sample files before running the following code chunks.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/Income_schooling.zip&quot;</span>, </a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">              <span class="dt">destfile =</span> <span class="st">&quot;Income_schooling.zip&quot;</span> , <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">unzip</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>, <span class="dt">exdir =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">file.remove</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/rail_inters.gpkg&quot;</span>, </a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">              <span class="dt">destfile =</span> <span class="st">&quot;./rail_inters.gpkg&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/elev.img&quot;</span>,  </a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">              <span class="dt">destfile =</span> <span class="st">&quot;./elev.img&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)               </a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/Income_schooling.zip&quot;</span>, 
+              <span class="dt">destfile =</span> <span class="st">&quot;Income_schooling.zip&quot;</span> , <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)
+<span class="kw">unzip</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>, <span class="dt">exdir =</span> <span class="st">&quot;.&quot;</span>)
+<span class="kw">file.remove</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/rail_inters.gpkg&quot;</span>, 
+              <span class="dt">destfile =</span> <span class="st">&quot;./rail_inters.gpkg&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/elev.img&quot;</span>,  
+              <span class="dt">destfile =</span> <span class="st">&quot;./elev.img&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)               </code></pre>
 </div>
 <div id="introduction-1" class="section level2 unnumbered">
 <h2>Introduction</h2>
@@ -564,10 +568,10 @@ NA
 <pre><code>[1] &quot;Income_schooling.dbf&quot; &quot;Income_schooling.prj&quot; &quot;Income_schooling.sbn&quot; &quot;Income_schooling.sbx&quot;
 [5] &quot;Income_schooling.shp&quot; &quot;Income_schooling.shx&quot;</code></pre>
 <p>Note that the number of files associated with a shapefile can vary. <code>sf</code> only needs to be given the <code>*.shp</code> name. It will then know which other files to read into R such as projection information and attribute table.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">s.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Income_schooling.shp&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+s.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Income_schooling.shp&quot;</span>)</code></pre>
 <p>Let’s view the first few records in the spatial data object.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">head</span>(s.sf, <span class="dt">n=</span><span class="dv">4</span>)  <span class="co"># List spatial object and the first 4 attribute records</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.sf, <span class="dt">n=</span><span class="dv">4</span>)  <span class="co"># List spatial object and the first 4 attribute records</span></code></pre>
 <pre><code>Simple feature collection with 4 features and 5 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
@@ -584,33 +588,33 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 <div id="reading-a-geopackage" class="section level3 unnumbered">
 <h3>Reading a GeoPackage</h3>
 <p>A geopackage can store more than one layer. To list the layers available in the geopackage, type:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">st_layers</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_layers</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>)</code></pre>
 <pre><code>Driver: GPKG 
 Available layers:
   layer_name     geometry_type features fields
 1 Interstate Multi Line String       35      1
 2       Rail Multi Line String      730      3</code></pre>
 <p>In this example, we have two separate layers: <code>Interstate</code> and <code>Rail</code>. We can extract each layer separately via the <code>layer=</code> parameter.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">inter.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Interstate&quot;</span>)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">rail.sf  &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Rail&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">inter.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Interstate&quot;</span>)
+rail.sf  &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Rail&quot;</span>)</code></pre>
 </div>
 <div id="reading-a-raster" class="section level3 unnumbered">
 <h3>Reading a raster</h3>
 <p>The <code>raster</code> package will read many different raster file formats such as geoTiff, Imagine and HDF5 just to name a few. To see a list of supported raster file formats simply run <code>rgdal::gdalDrivers()</code> at a command prompt. The <code>rgdal</code> package is normally installed with your installation of <code>raster</code>.</p>
 <p>In the following example, an <em>Imagine</em> raster file is read into R.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">elev.r &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+elev.r &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>)</code></pre>
 <p>What sets a <code>raster</code> object apart from other R data file objects is its storage. By default, data files are loaded into memory but <code>raster</code> objects are not. This can be convenient when working with raster files too large to load into memory. But this comes at a performance cost. If your RAM is large enough to handle your raster file, it’s best to load the entire dataset into memory.</p>
 <p>To check if the <code>elev.r</code> object is loaded into memory, run:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">inMemory</span>(elev.r)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inMemory</span>(elev.r)</code></pre>
 <pre><code>[1] FALSE</code></pre>
 <p>To force the raster into memory use <code>readAll()</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">elev.r &lt;-<span class="st"> </span><span class="kw">readAll</span>( <span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>) )</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">elev.r &lt;-<span class="st"> </span><span class="kw">readAll</span>( <span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>) )</code></pre>
 <p>Let’s check that the raster is indeed loaded into memory:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">inMemory</span>(elev.r)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inMemory</span>(elev.r)</code></pre>
 <pre><code>[1] TRUE</code></pre>
 <p>Now let’s look at the raster’s properties:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">elev.r</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">elev.r</code></pre>
 <pre><code>class       : RasterLayer 
 dimensions  : 994, 651, 647094  (nrow, ncol, ncell)
 resolution  : 500, 500  (x, y)
@@ -624,16 +628,16 @@ values      : -19, 252  (min, max)</code></pre>
 <div id="creating-a-spatial-object-from-a-data-frame" class="section level3 unnumbered">
 <h3>Creating a spatial object from a data frame</h3>
 <p>Geographic point data locations recorded in a spreadsheet can be converted to a spatial point object. Note that it’s important that you specify the coordinate system used to record the coordinate pairs since such information is not stored in a data frame. In the following example, the coordinate values are recorded in a WGS 1984 geographic coordinate system (<code>crs = 4326</code>).</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># Create a simple dataframe with lat/long values</span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">68.783</span>, <span class="fl">-69.6458</span>, <span class="fl">-69.7653</span>),</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">                 <span class="dt">lat =</span> <span class="kw">c</span>(<span class="fl">44.8109</span>, <span class="fl">44.5521</span>, <span class="fl">44.3235</span>),</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">                 <span class="dt">Name=</span> <span class="kw">c</span>(<span class="st">&quot;Bangor&quot;</span>, <span class="st">&quot;Waterville&quot;</span>, <span class="st">&quot;Augusta&quot;</span>))</a>
-<a class="sourceLine" id="cb22-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="co"># Convert the dataframe to a spatial object. Note that the</span></a>
-<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="co"># crs= 4326 parameter assigns a WGS84 coordinate system to the </span></a>
-<a class="sourceLine" id="cb22-8" data-line-number="8"><span class="co"># spatial object</span></a>
-<a class="sourceLine" id="cb22-9" data-line-number="9">p.sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(df, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) </a>
-<a class="sourceLine" id="cb22-10" data-line-number="10">p.sf  </a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a simple dataframe with lat/long values</span>
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">68.783</span>, <span class="fl">-69.6458</span>, <span class="fl">-69.7653</span>),
+                 <span class="dt">lat =</span> <span class="kw">c</span>(<span class="fl">44.8109</span>, <span class="fl">44.5521</span>, <span class="fl">44.3235</span>),
+                 <span class="dt">Name=</span> <span class="kw">c</span>(<span class="st">&quot;Bangor&quot;</span>, <span class="st">&quot;Waterville&quot;</span>, <span class="st">&quot;Augusta&quot;</span>))
+
+<span class="co"># Convert the dataframe to a spatial object. Note that the</span>
+<span class="co"># crs= 4326 parameter assigns a WGS84 coordinate system to the </span>
+<span class="co"># spatial object</span>
+p.sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(df, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) 
+p.sf  </code></pre>
 <pre><code>Simple feature collection with 3 features and 1 field
 geometry type:  POINT
 dimension:      XY
@@ -649,18 +653,18 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 <h3>Geocoding street addresses</h3>
 <p>The <code>ggmap</code> package offers a geocoding function called <code>mutate_geocode</code> which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of the <a href="http://www.datasciencetoolkit.org/"><em>Data Science Toolkit</em></a> API.</p>
 <p>Let’s first create a new data table with addresses for a few liberal arts colleges in the State of Maine.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">addr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Address =</span> <span class="kw">c</span>(<span class="st">&quot;4000 mayflower Hill, Waterville, Maine&quot;</span>, </a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">                               <span class="st">&quot;2 Andrews Rd, Lewiston, ME 04240&quot;</span>,</a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">                               <span class="st">&quot;255 Maine St, Brunswick, ME 04011&quot;</span>,</a>
-<a class="sourceLine" id="cb24-4" data-line-number="4">                               <span class="st">&quot;90 Quaker Hill Rd, Unity, ME 04988&quot;</span>,</a>
-<a class="sourceLine" id="cb24-5" data-line-number="5">                               <span class="st">&quot;105 Eden St, Bar Harbor, ME 04609&quot;</span>),</a>
-<a class="sourceLine" id="cb24-6" data-line-number="6">                   <span class="dt">College =</span> <span class="kw">c</span>(<span class="st">&quot;Colby&quot;</span>, <span class="st">&quot;Bates&quot;</span>, <span class="st">&quot;Bowdoin&quot;</span>, <span class="st">&quot;Unity&quot;</span>, <span class="st">&quot;CoA&quot;</span>),</a>
-<a class="sourceLine" id="cb24-7" data-line-number="7">                   <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">addr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Address =</span> <span class="kw">c</span>(<span class="st">&quot;4000 mayflower Hill, Waterville, Maine&quot;</span>, 
+                               <span class="st">&quot;2 Andrews Rd, Lewiston, ME 04240&quot;</span>,
+                               <span class="st">&quot;255 Maine St, Brunswick, ME 04011&quot;</span>,
+                               <span class="st">&quot;90 Quaker Hill Rd, Unity, ME 04988&quot;</span>,
+                               <span class="st">&quot;105 Eden St, Bar Harbor, ME 04609&quot;</span>),
+                   <span class="dt">College =</span> <span class="kw">c</span>(<span class="st">&quot;Colby&quot;</span>, <span class="st">&quot;Bates&quot;</span>, <span class="st">&quot;Bowdoin&quot;</span>, <span class="st">&quot;Unity&quot;</span>, <span class="st">&quot;CoA&quot;</span>),
+                   <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre>
 <p>Next, we’ll geocode the addresses and save the output to a new data table called <code>addr.geo</code>.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">library</span>(ggmap)</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2">addr.geo &lt;-<span class="st"> </span><span class="kw">mutate_geocode</span>(addr, <span class="dt">location=</span>Address, <span class="dt">output=</span><span class="st">&quot;latlona&quot;</span> , <span class="dt">source=</span><span class="st">&quot;dsk&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggmap)
+addr.geo &lt;-<span class="st"> </span><span class="kw">mutate_geocode</span>(addr, <span class="dt">location=</span>Address, <span class="dt">output=</span><span class="st">&quot;latlona&quot;</span> , <span class="dt">source=</span><span class="st">&quot;dsk&quot;</span>)</code></pre>
 <p>The <code>location</code> parameter is assigned the column with the addresses. The <code>output</code> parameter is given instructions on <em>what</em> to output. Here, the option <code>latlona</code> instructs the function to output both the lat/lon coordinate values as well as all other attributes. It also adds another column called <code>address</code> (note the lower case <code>a</code>) with the nearest address match. Note that not all addresses are necessarily matched.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">addr.geo</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">addr.geo</code></pre>
 <pre><code>                                 Address College       lon      lat
 1 4000 mayflower Hill, Waterville, Maine   Colby -69.65208 44.56719
 2       2 Andrews Rd, Lewiston, ME 04240   Bates -70.20540 44.10721
@@ -674,8 +678,8 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 4     90 Quaker Hill Rd, Unity, ME 04988
 5      105 Eden St, Bar Harbor, ME 04609</code></pre>
 <p>Note that <code>addr.geo</code> is not a spatial object; it’s a data frame. It can be converted to an <code>sf</code> object via <code>st_as_sf</code> as outlined in the previous section. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">la.sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(addr.geo, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) </a>
-<a class="sourceLine" id="cb28-2" data-line-number="2">la.sf</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">la.sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(addr.geo, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) 
+la.sf</code></pre>
 <pre><code>Simple feature collection with 5 features and 3 fields
 geometry type:  POINT
 dimension:      XY
@@ -703,8 +707,8 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 <div id="converting-an-sf-object-to-a-spatial-object-spdepsp" class="section level3 unnumbered">
 <h3>Converting an <code>sf</code> object to a <code>Spatial*</code> object (<code>spdep</code>/<code>sp</code>)</h3>
 <p>The following code will convert point, polyline or polygon features to a <code>spatial*</code> object. In this example, an <code>sf</code> polygon feature is converted to a <code>SpatialPolygonsDataFrame</code> object.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">s.sp &lt;-<span class="st"> </span><span class="kw">as</span>(s.sf, <span class="st">&quot;Spatial&quot;</span>)</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">class</span>(s.sp)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">s.sp &lt;-<span class="st"> </span><span class="kw">as</span>(s.sf, <span class="st">&quot;Spatial&quot;</span>)
+<span class="kw">class</span>(s.sp)</code></pre>
 <pre><code>[1] &quot;SpatialPolygonsDataFrame&quot;
 attr(,&quot;package&quot;)
 [1] &quot;sp&quot;</code></pre>
@@ -714,37 +718,37 @@ attr(,&quot;package&quot;)
 <h3>Converting an <code>sf</code> polygon object to an <code>owin</code> object</h3>
 <p>The <code>spatstat</code> package is normally used to analyze point patterns however, in most cases, the study extent needs to be explicitly defined by a polygon object. The polygon should be of class <code>owin</code>. Conversion from <code>sf</code> to <code>owin</code> requires the use of the <code>maptools</code> package.</p>
 <p>Note that the attribute table gets stripped from the polygon data. This is usually fine given that the only reason for converting a polygon to an <code>owin</code> format is for delineating the study boundary.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">library</span>(maptools)</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">s.owin &lt;-<span class="st"> </span><span class="kw">as</span>(s.sp, <span class="st">&quot;owin&quot;</span>)</a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="kw">class</span>(s.owin)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(maptools)
+s.owin &lt;-<span class="st"> </span><span class="kw">as</span>(s.sp, <span class="st">&quot;owin&quot;</span>)
+<span class="kw">class</span>(s.owin)</code></pre>
 <pre><code>[1] &quot;owin&quot;</code></pre>
 </div>
 <div id="converting-an-sf-point-object-to-a-ppp-object" class="section level3 unnumbered">
 <h3>Converting an <code>sf</code> point object to a <code>ppp</code> object</h3>
 <p>As of this writing, it seems that you need to first convert the <code>sf</code> object to a <code>SpatialPoints*</code> before creating a <code>ppp</code> object as shown in the following code chunk. Note that the <code>maptools</code> package is required for this step.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">p.sp  &lt;-<span class="st"> </span><span class="kw">as</span>(p.sf, <span class="st">&quot;Spatial&quot;</span>)  <span class="co"># Create Spatial* object</span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">p.ppp &lt;-<span class="st"> </span><span class="kw">as</span>(p.sp, <span class="st">&quot;ppp&quot;</span>)      <span class="co"># Create ppp object</span></a>
-<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="kw">class</span>(p.ppp)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">p.sp  &lt;-<span class="st"> </span><span class="kw">as</span>(p.sf, <span class="st">&quot;Spatial&quot;</span>)  <span class="co"># Create Spatial* object</span>
+p.ppp &lt;-<span class="st"> </span><span class="kw">as</span>(p.sp, <span class="st">&quot;ppp&quot;</span>)      <span class="co"># Create ppp object</span>
+<span class="kw">class</span>(p.ppp)</code></pre>
 <pre><code>[1] &quot;ppp&quot;</code></pre>
 <p>If the point layer has an attribute table, its attributes will be converted to <code>ppp</code> <em>marks</em>.</p>
 </div>
 <div id="converting-a-raster-object-to-an-im-object-spatstat" class="section level3 unnumbered">
 <h3>Converting a <code>raster</code> object to an <code>im</code> object (<code>spatstat</code>)</h3>
 <p>The <code>maptools</code> package will readily convert a <code>raster</code> object to an <code>im</code> object using the <code>as.im.RasterLayer()</code> function.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">elev.im &lt;-<span class="st"> </span><span class="kw">as.im.RasterLayer</span>(elev.r) <span class="co"># From the maptools package</span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">class</span>(elev.im)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">elev.im &lt;-<span class="st"> </span><span class="kw">as.im.RasterLayer</span>(elev.r) <span class="co"># From the maptools package</span>
+<span class="kw">class</span>(elev.im)</code></pre>
 <pre><code>[1] &quot;im&quot;</code></pre>
 </div>
 </div>
 <div id="converting-to-an-sf-object" class="section level2 unnumbered">
 <h2>Converting to an <code>sf</code> object</h2>
 <p>All aforementioned spatial formats, except <code>owin</code>, can be coerced to an <code>sf</code> object via the <code>st_as_sf</code> function. for example:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">st_as_sf</span>(p.ppp)  <span class="co"># For converting a ppp object to an sf object</span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">st_as_sf</span>(s.sp)   <span class="co"># For converting a Spatial* object to an sf object</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_as_sf</span>(p.ppp)  <span class="co"># For converting a ppp object to an sf object</span>
+<span class="kw">st_as_sf</span>(s.sp)   <span class="co"># For converting a Spatial* object to an sf object</span></code></pre>
 </div>
 <div id="dissecting-the-sf-file-object" class="section level2 unnumbered">
 <h2>Dissecting the <code>sf</code> file object</h2>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">head</span>(s.sf,<span class="dv">3</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.sf,<span class="dv">3</span>)</code></pre>
 <pre><code>Simple feature collection with 3 features and 5 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
@@ -758,16 +762,16 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 <p>The first line of output gives us the geometry type, <code>MULTIPOLYGON</code>, a multi-polygon data type. This is also referred to as a multipart polygon. A single-part <code>sf</code> polygon object will adopt the <code>POLYGON</code> geometry.</p>
 <p>The next few lines of output give us the layer’s bounding extent in the layer’s native coordinate system units. You can extract the extent via the <code>extent()</code> function as in <code>extent(s.sf)</code>.</p>
 <p>The next lines indicate the coordinate system used to define the polygon feature locations. It’s offered in two formats: <strong>epsg</strong> code (when available) and <strong>PROJ4</strong> string format. You can extract the coordinate system information from an <code>sf</code> object via:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">st_crs</span>(s.sf)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(s.sf)</code></pre>
 <pre><code>Coordinate Reference System:
   EPSG: 26919 
   proj4string: &quot;+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs&quot;</code></pre>
 <p>The output of this call is an object of class <code>crs</code>. Extracting the reference system from a spatial object can prove useful in certain workflows.</p>
 <p>What remains of the <code>sf</code> summary output is the first few records of the attribute table. You can extract the object’s table to a dedicated data frame via:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">s.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(s.sf)</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">class</span>(s.df)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">s.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(s.sf)
+<span class="kw">class</span>(s.df)</code></pre>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">head</span>(s.df, <span class="dv">5</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.df, <span class="dv">5</span>)</code></pre>
 <pre><code>         NAME Income   NoSchool  NoSchoolSE IncomeSE                       geometry
 1   Aroostook  21024 0.01338720 0.001406960  250.909 MULTIPOLYGON (((513821.1 51...
 2    Somerset  21025 0.00521153 0.001150020  390.909 MULTIPOLYGON (((379071.8 50...
@@ -775,7 +779,7 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 4   Penobscot  23307 0.00684534 0.001025450  242.424 MULTIPOLYGON (((472271.3 49...
 5  Washington  20015 0.00478188 0.000966036  327.273 MULTIPOLYGON (((645446.5 49...</code></pre>
 <p>The above chunk will also create a geometry column. This column is somewhat unique in that it stores its contents as a <strong>list</strong> of geometry coordinate pairs (polygon vertex coordinate values in this example).</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">str</span>(s.df)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(s.df)</code></pre>
 <pre><code>&#39;data.frame&#39;:   16 obs. of  6 variables:
  $ NAME      : Factor w/ 16 levels &quot;Androscoggin&quot;,..: 2 13 11 10 15 4 9 14 6 1 ...
  $ Income    : int  21024 21025 21292 23307 20015 21744 21885 23020 25652 24268 ...
@@ -787,10 +791,10 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
   .. ..$ : num [1:32, 1:2] 513821 513806 445039 422284 424687 ...
   ..- attr(*, &quot;class&quot;)= chr  &quot;XY&quot; &quot;MULTIPOLYGON&quot; &quot;sfg&quot;</code></pre>
 <p>You can also opt to remove this column prior to creating the dataframe as follows:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">s.nogeom.df &lt;-<span class="st"> </span><span class="kw">st_set_geometry</span>(s.sf, <span class="ot">NULL</span>) </a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">class</span>(s.nogeom.df)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">s.nogeom.df &lt;-<span class="st"> </span><span class="kw">st_set_geometry</span>(s.sf, <span class="ot">NULL</span>) 
+<span class="kw">class</span>(s.nogeom.df)</code></pre>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">head</span>(s.nogeom.df, <span class="dv">5</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.nogeom.df, <span class="dv">5</span>)</code></pre>
 <pre><code>         NAME Income   NoSchool  NoSchoolSE IncomeSE
 1   Aroostook  21024 0.01338720 0.001406960  250.909
 2    Somerset  21025 0.00521153 0.001150020  390.909
@@ -801,8 +805,8 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 <div id="exporting-to-different-data-file-formats" class="section level2 unnumbered">
 <h2>Exporting to different data file formats</h2>
 <p>You can export an <code>sf</code> object to many different spatial file formats such as a shapefile or a geopackage.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">st_write</span>(s.sf, <span class="st">&quot;shapefile_out.shp&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>)  <span class="co"># create to a shapefile </span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">st_write</span>(s.sf, <span class="st">&quot; s.gpkg&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;GPKG&quot;</span>)  <span class="co"># Create a geopackage file</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(s.sf, <span class="st">&quot;shapefile_out.shp&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>)  <span class="co"># create to a shapefile </span>
+<span class="kw">st_write</span>(s.sf, <span class="st">&quot; s.gpkg&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;GPKG&quot;</span>)  <span class="co"># Create a geopackage file</span></code></pre>
 <p>You can see a list of writable vector formats via a call to <code>subset(rgdal::ogrDrivers(), write == TRUE)</code>. Only as subset of the output is shown in the following example. Note that supported file formats will differ from platform to platform.</p>
 <pre><code>             name                       long_name write  copy isVector
 17 ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     TRUE
@@ -814,8 +818,8 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 24           GPKG                      GeoPackage  TRUE  TRUE     TRUE</code></pre>
 <p>The value in the <code>name</code> column is the driver name used in the <code>st_write()</code> function.</p>
 <p>To export a raster to a data file, use <code>writeRaster()</code> from the <code>raster</code> package.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.tif&quot;</span>, <span class="dt">format=</span><span class="st">&quot;GTiff&quot;</span> ) <span class="co"># Create a geoTiff file</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.img&quot;</span>, <span class="dt">format=</span><span class="st">&quot;HFA&quot;</span> )  <span class="co"># Create an Imagine raster file</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.tif&quot;</span>, <span class="dt">format=</span><span class="st">&quot;GTiff&quot;</span> ) <span class="co"># Create a geoTiff file</span>
+<span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.img&quot;</span>, <span class="dt">format=</span><span class="st">&quot;HFA&quot;</span> )  <span class="co"># Create an Imagine raster file</span></code></pre>
 <p>You can see a list of writable raster formats via a call to <code>subset(rgdal::gdalDrivers(), create == TRUE)</code>.</p>
 <pre><code>        name                            long_name create  copy isRaster
 43      GPKG                           GeoPackage   TRUE  TRUE     TRUE
@@ -855,9 +859,10 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": false
+"all": false,
+"instapper": false
 },
 "fontsettings": {
 "theme": "white",
@@ -865,6 +870,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -884,7 +893,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
