@@ -1,15 +1,22 @@
-# Spatial Autocorrelation in R {-}
+# Spatial autocorrelation in R {-}
 
-The `spdep` functions used in this exercise make use of different spatial object classes than those used by the `spatstat` package. Here, we'll load layers as `SpatialPolygonsDataFrame` objects. If we were to work with point data instead, we would store the point shapefiles as `SpatialPointsDataFrame`. 
+For a basic theoretical treatise on spatial autocorrelation the reader is encouraged to review the [lecture notes](./spatial-autocorrelation.html). This section is intended to supplement the lecture notes by implementing spatial autocorrelation techniques in the R programming environment.
 
-We'll first load the spatial object used in this exercise from a remote website--income and education data aggregated at the county level for the state of Maine. This object will be loaded as a `SpatialPolygonsDataFrame` and will therefore not require conversion.
+## Sample files for this exercise {-}
+
+Data used in the following exercises can be loaded into your current R session by running the following chunk of code.
 
 ```{r}
-z <- gzcon(url("http://colby.edu/~mgimond/Spatial/Data/Income_schooling.rds"))
-s1 <- readRDS(z)
+load(url("http://github.com/mgimond/Spatial/raw/master/Data/moransI.RData"))
 ```
 
-The spatial object has five attributes. The one of interest for this exercise is `Income` (per capita, in dollars).
+The data object consists of a `SpatialPolygonsDataFrame` vector layer, `s1`, representing income and education data aggregated at the county level for the state of Maine.
+
+The `spdep` package used in this exercise makes use of `sp` objects including `SpatialPoints*` and `SpatialPolygons*` classes. For more information on converting to/from this format revert back to the [Reading and writing spatial data in R](./reading-and-writing-spatial-data-in-r.html) Appendix section.
+
+## Introduction {-}
+
+The spatial object `s1` has five attributes. The one of interest for this exercise is `Income` (per capita, in units of dollars).
 
 ```{r echo=FALSE, results='asis', out.width=500}
 library(gridExtra)
@@ -19,7 +26,7 @@ grid.arrange(tb.me)
 ```
 
 
-Let's map the income distribution using a quantile classification scheme.
+Let's map the income distribution using a quantile classification scheme. We'll make use of the `tmap` package.
 
 ```{r fig.height=3}
 library(tmap)
@@ -41,25 +48,27 @@ nb <- poly2nb(s1, queen=TRUE)
 For each polygon in our polygon object, `nb` lists all neighboring polygons. For example, to see the neighbors for the first polygon in the object, type:
 
 ```{r}
-nb[1]
+nb[[1]]
 ```
 
-Polygon `1` has 4 neighbors. The first polygon is associated with the attribute name `Aroostook`:
+Polygon `1` has 4 neighbors. The numbers represent the polygon IDs as stored in the spatial object `s1`. Polygon `1` is associated with the County attribute name `Aroostook`:
 
 ```{r}
 s1$NAME[1]
 ```
 
-The four neighboring polygons are associated with the names:
+Its four neighboring polygons are associated with the counties:
 
 ```{r}
 s1$NAME[c(2,3,4,5)]
 ```
-Next, we need to assign weights to each neighboring polygon. In our case, each polygon will be assigned equal weight when computing the neighboring mean values.
+Next, we need to assign weights to each neighboring polygon. In our case, each neighboring polygon will be assigned equal weight (`style="W"`). This is accomplished by assigning the fraction $1/ (\# of neighbors)$ to each neighboring county then summing the weighted income values. While this is the most intuitive way to summaries the neighbors' values it has one drawback in that polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data. For this example, we'll stick with the `style="W"` option for simplicity's sake but note that other more robust options are available, notably `style="B"`.
 
 ```{r}
 lw <- nb2listw(nb, style="W", zero.policy=TRUE)
 ```
+
+The `zero.policy=TRUE` option allows for lists of non-neighbors. This should be used with caution since the user may not be aware of missing neighbors in their dataset however, a `zero.policy` of `FALSE` would return an `error`.
 
 To see the weight of the first polygon's four neighbors type:
 ```{r}
@@ -78,7 +87,7 @@ The following table shows the average neighboring income values (stored in the `
 
 ```{r echo=FALSE, results='asis', out.width=500}
 library(gridExtra)
-df.tmp <- data.frame(County = s1$NAME, `Lagged income`=Inc.lag,
+df.tmp <- data.frame(County = s1$NAME, Income = s1$Income, `Inc.lag`=Inc.lag,
                      check.names = FALSE)
 tb.me  <- tableGrob( df.tmp,  
                      theme = ttheme_default(base_size = 11))
@@ -89,65 +98,67 @@ grid.arrange(tb.me)
 
 We can plot *lagged income* vs. *income* and fit a linear regression model to the data.
 
-```{r, fig.height=3.5}
+```{r, fig.height=2, fig.width=3, echo=2:6}
+OP <- par(mar=c(2,1.6,0,0), mgp=c(3.3,0.8,0), cex=0.8, pty="s")
 # Create a regression model
 M <- lm(Inc.lag ~ s1$Income)
 
 # Plot the data
-OP <- par(pty="s")  # Force a square plot
- plot( Inc.lag ~ s1$Income, pch=20, asp=1)
- abline(M, col="red") # Add the regression line from model M
-par(OP) # Revert back to default plot settings
+plot( Inc.lag ~ s1$Income, pch=20, asp=1, las=1)
+abline(M, col="red") # Add the regression line from model M
+par(OP) 
 ```
 
-The slope of the regression line is the Moran's I coefficient
+The slope of the regression line is the Moran's I coefficient.
 
 ```{r}
 coef(M)[2]
 ```
 
-To assess if the slope is significantly different from zero, we can *randomly* permute the income values (i.e. we are not imposing any spatial autocorrelation) across all counties then fit a regression model to each permuted set of values.  We then tally the slope values and compare our observed slope (i.e. the Moran's I value) to the distribution of Moran's I values from the simulation.
+To assess if the slope is significantly different from zero, we can *randomly* permute the income values across all counties (i.e. we are not imposing any spatial autocorrelation structure), then fit a regression model to each permuted set of values.  The slope values from the regression give us the distribution of Moran's I values we could expect to get under the null hypothesis that the income values are randomly distributed across the counties. We then compare the observed Moran's I value to this distribution.
 
-```{r fig.height=2.5, echo=2:13}
-par(mar=c(4,4,0,1))
-n <- 599   # Define the number of simulations
-I.r <- vector()  # Create an empty vector
+```{r}
+n <- 599L   # Define the number of simulations
+I.r <- vector(length=n)  # Create an empty vector
 
 for (i in 1:n){
   # Randomly shuffle income values
   x <- sample(s1$Income, replace=FALSE)
   # Compute new set of lagged values
   x.lag <- lag.listw(lw, x)
-  # Compute the regression slope
-  M.r <- lm(x.lag ~ x)
+  # Compute the regression slope and store its value
+  M.r    <- lm(x.lag ~ x)
   I.r[i] <- coef(M.r)[2]
 }
+```
 
-# Plot histogram of simulated Moran's I values
+```{r fig.height=2, fig.width=3, echo=2:5}
+OP <- par(mar=c(3,3,0.1,0), mgp=c(2.1,0.8,0), cex=0.8)
+# Plot the histogram of simulated Moran's I values
 # then add our observed Moran's I value to the plot
-hist(I.r, main=NULL)
+hist(I.r, main=NULL, xlab="Moran's I", las=1)
 abline(v=coef(M)[2], col="red")
 par(OP)
 ```
 
-The simulation suggests that our observed Moran's I value is not consistent with a Moran's I value one would expect to get if the income values were not spatially correlated. In the next step, we'll compute a pseudo p-value.
+The simulation suggests that our observed Moran's I value is not consistent with a Moran's I value one would expect to get if the income values were not spatially autocorrelated. In the next step, we'll compute a pseudo p-value from this simulation.
 
 ### Computing a pseudo p-value from an MC simulation {-}
 
-First, we need to find the number of simulated ANN values greater than our observed ANN value
+First, we need to find the number of simulated Moran's I values values greater than our observed Moran's I value.
 
 ```{r}
 N.greater <- sum(coef(M)[2] > I.r)
 ```
 
-To compute the p-value, find the end of the distribution closest to the observed ANN value, then divide that count by the total count. Note that this is a so-called one-side P-value. See lecture notes for more information.
+To compute the p-value, find the end of the distribution closest to the observed Moran's I value, then divide that count by the total count. Note that this is a so-called one-sided P-value. See lecture notes for more information.
 
 ```{r}
 p <- min(N.greater + 1, n + 1 - N.greater) / (n + 1)
 p
 ```
 
-In our working example, the p-value suggests that there is a small chance (~ 2%) of being wrong in stating that the income values are not clustered at the county level.
+In our working example, the p-value suggests that there is a small chance (`r round(p,3)`%) of being wrong in stating that the income values are not clustered at the county level.
 
 ## Computing the Moran's I statistic: the easy way {-}
 
@@ -157,23 +168,25 @@ To get the Moran's I value, simply use the `moran.test` function.
 moran.test(s1$Income,lw)
 ```
 
-Note that the p-value computed from the `moran.test` function is not computed from an MC silumation but *analytically* instead. This may not always prove to be the most accurate measure of significance. To test for significance using the *MC simulation* method instead, use the `moran.mc` function.
+Note that the p-value computed from the `moran.test` function is not computed from an MC simulation but *analytically* instead. This may not always prove to be the most accurate measure of significance. To test for significance using the *MC simulation* method instead, use the `moran.mc` function.
 
-```{r fig.height=3}
+```{r fig.height=2, fig.width=3, echo=2:8}
+OP <- par(mar=c(3,3,0.1,0), mgp=c(2.1,0.8,0), cex=0.8)
 MC<- moran.mc(s1$Income, lw, nsim=599)
 
 # View results (including p-value)
 MC
 
 # Plot the distribution (note that this is a density plot instead of a histogram)
-plot(MC, main=NULL)
+plot(MC, main="", las=1)
+par(OP)
 ```
 
 ## Moran's I as a function of a distance band {-}
 
 In this section, we will explore spatial autocorrelation as a function of distance bands. 
 
-Instead of defining neighbors as contiguous polygons, we will define neighbors based on distances to polygon centers. We therefore need to extract the center of each polygon
+Instead of defining neighbors as contiguous polygons, we will define neighbors based on distances to polygon centers. We therefore need to extract the center of each polygon.
 
 ```{r}
 coo <- coordinates(s1)
@@ -188,9 +201,9 @@ Next, we will define the search radius to include all neighboring polygon center
 S.dist  <-  dnearneigh(coo, 0, 50000)  
 ```
 
-The `dnearneigh` function takes on three parameters: the coordinate values `coo`, the radius for the inner radius of the annulus band, and the radius for the outer  annulus band. In our example, the inner annulus radius is `0` which implies that all polygon centers up to  50km are considered neighbors. 
+The `dnearneigh` function takes on three parameters: the coordinate values `coo`, the radius for the inner radius of the annulus band, and the radius for the outer  annulus band. In our example, the inner annulus radius is `0` which implies that **all** polygon centers **up to**  50km are considered neighbors. 
 
-Note that if we chose to restrict the neighbors to all polygon centers between 50 km and 100 km, then we would define a search annulus (instead of a circle) as `dnearneigh(coo, 50000, 100000)`.
+Note that if we chose to restrict the neighbors to all polygon centers between 50 km and 100 km, for example, then we would define a search annulus (instead of a circle) as `dnearneigh(coo, 50000, 100000)`.
 
 Now that we defined our search circle, we need to identify all neighboring polygons for each polygon in the dataset.
 
@@ -206,8 +219,10 @@ MI  <-  moran.mc(s1$Income, lw, nsim=599,zero.policy=T)
 
 Plot the results.
 
-```{r fig.height=3}
-plot(MI) 
+```{r fig.height=2, fig.width=3, echo=2}
+OP <- par(mar=c(3,3,0.1,0), mgp=c(2.1,0.8,0), cex=0.8)
+plot(MI, main="", las=1) 
+par(OP)
 ```
 
 Display p-value and other summary statistics.
