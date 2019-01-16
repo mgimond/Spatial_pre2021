@@ -1,6 +1,6 @@
 # Map Algebra
 
-Dana Tomlin is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework *map algebra*. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: **local**, **focal**, **zonal** and **global**. Each is explored in the following
+ **Dana Tomlin** [@DTomlin] is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework *map algebra*. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: **local**, **focal**, **zonal** and **global**. Each is explored in the following
 sections.
 
 ```{r echo=FALSE}
@@ -245,7 +245,7 @@ Not equal	         | `!=`
 
 For example, the following figure shows the output of the comparison between two rasters where we are assessing if cells in `R1` are *greater than* those in `R2` (on a cell-by-cell basis).
 
-```{r f10-logical01, echo=FALSE, fig.cap = "Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.", fig.height=2, fig.width=5}
+```{r f10-logical01, echo=FALSE, fig.cap = "Output of the operation R1 > R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.", fig.height=2, fig.width=5}
 
 ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=0, ymx=100)
 ras2 <- ras1
@@ -287,7 +287,7 @@ NOT	    | `~`	   | `!` | `~R2`
 For example, if `cell1=0` and `cell2=1`, the Boolean operation `cell1 AND cell2` results in a `FALSE` (or 0) output cell value. This Boolean operation can be translated into plain English as "are the cells 1 and 2 both TRUE?" to which we answer "No they are not" (cell1 is FALSE). The **OR** operator can be interpreted as "is x *or* y TRUE?" so that `cell1 OR cell2` would return `TRUE`. The **NOT** interpreter can be interpreted as "is x not TRUE?" so that `NOT cell1` would return `TRUE`. 
 
 
-```{r f10-boolean01, echo=FALSE, fig.cap = "Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. ", fig.height=2, fig.width=5}
+```{r f10-boolean01, echo=FALSE, fig.cap = "Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. Note that many programming environments treat *any* none 0 values as TRUE so that `-3 AND -4` will return `TRUE`.", fig.height=2, fig.width=5}
  
 ras1 <- raster(ncol=3, nrow=3, xmn=0, xmx=100, ymn=0, ymx=100)
 ras2 <- ras1
@@ -323,10 +323,7 @@ gp(sg,1, sfmt="%2.0f", fnts=4)
 
 ### Combining operations
 
-> Note that most software environments assign the AND Boolean operator the ampersand character, `&`.
-
-
-Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: $0<R1<4$  and $R2>0$. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a `0` (FALSE) or a `1` (TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses if R2>0 is TRUE or FALSE. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
+Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: e.g. `0<R1<4`  AND  `R2>0`. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a `0` (FALSE) or a `1` (TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses the criterion R2>0. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
   
 ```{r f10-combining01, echo=FALSE, fig.height=2, fig.width=5, fig.cap = "Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false."}
 
@@ -344,4 +341,5 @@ names(sg) <- c("R1","R2", "output")
 gp(sg,1, sfmt="%2.0f", fnts=4)
 
 ```
- 
+
+> Note that most software environments assign the `AND` Boolean operator the ampersand character, `&`.

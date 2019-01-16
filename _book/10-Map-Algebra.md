@@ -1,7 +1,7 @@
 
 # Map Algebra
 
-Dana Tomlin is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework *map algebra*. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: **local**, **focal**, **zonal** and **global**. Each is explored in the following
+ **Dana Tomlin** [@DTomlin] is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework *map algebra*. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: **local**, **focal**, **zonal** and **global**. Each is explored in the following
 sections.
 
 
@@ -126,8 +126,8 @@ Not equal	         | `!=`
 For example, the following figure shows the output of the comparison between two rasters where we are assessing if cells in `R1` are *greater than* those in `R2` (on a cell-by-cell basis).
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/f10-logical01-1.png" alt="Output of the operation R1&amp;amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
-<p class="caption">(\#fig:f10-logical01)Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-logical01-1.png" alt="Output of the operation R1 &gt; R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
+<p class="caption">(\#fig:f10-logical01)Output of the operation R1 > R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.</p>
 </div>
 
 When assessing whether two cells are equal, some programming environments such as R and ArcMap's *Raster Calculator* require the use of the *double equality* syntax, `==`, as in `R1 == R2`. In these programming environments, the single equality syntax is usually interpreted as an *assignment operator* so `R1 = R2` would instruct the computer to assign the cell values in R2 to R1 (which is not what we want to do here). 
@@ -156,8 +156,8 @@ For example, if `cell1=0` and `cell2=1`, the Boolean operation `cell1 AND cell2`
 
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/f10-boolean01-1.png" alt="Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. " width="480" />
-<p class="caption">(\#fig:f10-boolean01)Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. </p>
+<img src="10-Map-Algebra_files/figure-html/f10-boolean01-1.png" alt="Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. Note that many programming environments treat *any* none 0 values as TRUE so that `-3 AND -4` will return `TRUE`." width="480" />
+<p class="caption">(\#fig:f10-boolean01)Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. Note that many programming environments treat *any* none 0 values as TRUE so that `-3 AND -4` will return `TRUE`.</p>
 </div>
 
 <div class="figure">
@@ -167,13 +167,11 @@ For example, if `cell1=0` and `cell2=1`, the Boolean operation `cell1 AND cell2`
 
 ### Combining operations
 
-> Note that most software environments assign the AND Boolean operator the ampersand character, `&`.
-
-
-Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: $0<R1<4$  and $R2>0$. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a `0` (FALSE) or a `1` (TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses if R2>0 is TRUE or FALSE. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
+Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: e.g. `0<R1<4`  AND  `R2>0`. To satisfy the first requirement, we can write out the expression as `(R1>0) & (R1<4)`. Both comparisons (delimited by parentheses) return a `0` (FALSE) or a `1` (TRUE). The ampersand, `&`, is a Boolean operator that checks that both conditions are met and returns a 1 if yes  or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses the criterion R2>0. The amalgamated expression is thus `((R1>0) & (R1<4)) & (R2>0)`.
   
 <div class="figure">
 <img src="10-Map-Algebra_files/figure-html/f10-combining01-1.png" alt="Output of the operation ((R1&amp;gt;0) &amp;amp; (R1&amp;lt;4)) &amp;amp; (R2&amp;gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
 <p class="caption">(\#fig:f10-combining01)Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.</p>
 </div>
- 
+
+> Note that most software environments assign the `AND` Boolean operator the ampersand character, `&`.

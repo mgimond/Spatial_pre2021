@@ -424,7 +424,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
             <section class="normal" id="section-">
 <div id="map-algebra" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> Map Algebra</h1>
-<p>Dana Tomlin is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework <em>map algebra</em>. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: <strong>local</strong>, <strong>focal</strong>, <strong>zonal</strong> and <strong>global</strong>. Each is explored in the following
+<p><strong>Dana Tomlin</strong> <span class="citation">(Tomlin <a href="#ref-DTomlin">1990</a>)</span> is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework <em>map algebra</em>. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: <strong>local</strong>, <strong>focal</strong>, <strong>zonal</strong> and <strong>global</strong>. Each is explored in the following
 sections.</p>
 <div id="local-operations-and-functions" class="section level2">
 <h2><span class="header-section-number">10.1</span> Local operations and functions</h2>
@@ -608,9 +608,9 @@ Figure 10.9: Example of a global function: the Euclidean distance. Each pixel is
 </table>
 <p>For example, the following figure shows the output of the comparison between two rasters where we are assessing if cells in <code>R1</code> are <em>greater than</em> those in <code>R2</code> (on a cell-by-cell basis).</p>
 <div class="figure"><span id="fig:f10-logical01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-logical01-1.png" alt="Output of the operation R1&amp;amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
+<img src="10-Map-Algebra_files/figure-html/f10-logical01-1.png" alt="Output of the operation R1 &gt; R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
 <p class="caption">
-Figure 10.10: Output of the operation R1&amp;R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
+Figure 10.10: Output of the operation R1 &gt; R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
 </p>
 </div>
 <p>When assessing whether two cells are equal, some programming environments such as R and ArcMap’s <em>Raster Calculator</em> require the use of the <em>double equality</em> syntax, <code>==</code>, as in <code>R1 == R2</code>. In these programming environments, the single equality syntax is usually interpreted as an <em>assignment operator</em> so <code>R1 = R2</code> would instruct the computer to assign the cell values in R2 to R1 (which is not what we want to do here).</p>
@@ -656,9 +656,9 @@ Figure 10.10: Output of the operation R1&amp;R2. A value of 1 in the output rast
 </blockquote>
 <p>For example, if <code>cell1=0</code> and <code>cell2=1</code>, the Boolean operation <code>cell1 AND cell2</code> results in a <code>FALSE</code> (or 0) output cell value. This Boolean operation can be translated into plain English as “are the cells 1 and 2 both TRUE?” to which we answer “No they are not” (cell1 is FALSE). The <strong>OR</strong> operator can be interpreted as “is x <em>or</em> y TRUE?” so that <code>cell1 OR cell2</code> would return <code>TRUE</code>. The <strong>NOT</strong> interpreter can be interpreted as “is x not TRUE?” so that <code>NOT cell1</code> would return <code>TRUE</code>.</p>
 <div class="figure"><span id="fig:f10-boolean01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-boolean01-1.png" alt="Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. " width="480" />
+<img src="10-Map-Algebra_files/figure-html/f10-boolean01-1.png" alt="Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. Note that many programming environments treat *any* none 0 values as TRUE so that `-3 AND -4` will return `TRUE`." width="480" />
 <p class="caption">
-Figure 10.11: Output of the operation <code>R1 AND R2</code>. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
+Figure 10.11: Output of the operation <code>R1 AND R2</code>. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. Note that many programming environments treat <em>any</em> none 0 values as TRUE so that <code>-3 AND -4</code> will return <code>TRUE</code>.
 </p>
 </div>
 <div class="figure"><span id="fig:f10-boolean02"></span>
@@ -670,16 +670,16 @@ Figure 10.12: Output of the operation <code>NOT R2</code>. A value of 1 in the o
 </div>
 <div id="combining-operations" class="section level3">
 <h3><span class="header-section-number">10.5.4</span> Combining operations</h3>
-<blockquote>
-<p>Note that most software environments assign the AND Boolean operator the ampersand character, <code>&amp;</code>.</p>
-</blockquote>
-<p>Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: <span class="math inline">\(0&lt;R1&lt;4\)</span> and <span class="math inline">\(R2&gt;0\)</span>. To satisfy the first requirement, we can write out the expression as <code>(R1&gt;0) &amp; (R1&lt;4)</code>. Both comparisons (delimited by parentheses) return a <code>0</code> (FALSE) or a <code>1</code> (TRUE). The ampersand, <code>&amp;</code>, is a Boolean operator that checks that both conditions are met and returns a 1 if yes or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses if R2&gt;0 is TRUE or FALSE. The amalgamated expression is thus <code>((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0)</code>.</p>
+<p>Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: e.g. <code>0&lt;R1&lt;4</code> AND <code>R2&gt;0</code>. To satisfy the first requirement, we can write out the expression as <code>(R1&gt;0) &amp; (R1&lt;4)</code>. Both comparisons (delimited by parentheses) return a <code>0</code> (FALSE) or a <code>1</code> (TRUE). The ampersand, <code>&amp;</code>, is a Boolean operator that checks that both conditions are met and returns a 1 if yes or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses the criterion R2&gt;0. The amalgamated expression is thus <code>((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0)</code>.</p>
 <div class="figure"><span id="fig:f10-combining01"></span>
 <img src="10-Map-Algebra_files/figure-html/f10-combining01-1.png" alt="Output of the operation ((R1&amp;gt;0) &amp;amp; (R1&amp;lt;4)) &amp;amp; (R2&amp;gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
 <p class="caption">
 Figure 10.13: Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
 </p>
 </div>
+<blockquote>
+<p>Note that most software environments assign the <code>AND</code> Boolean operator the ampersand character, <code>&amp;</code>.</p>
+</blockquote>
 
 </div>
 </div>
@@ -687,6 +687,12 @@ Figure 10.13: Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0
 
 
 
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-DTomlin">
+<p>Tomlin, Dana C. 1990. <em>GIS and Cartographic Modeling</em>. New Jersey: Prentice Hall.</p>
+</div>
+</div>
             </section>
 
           </div>
