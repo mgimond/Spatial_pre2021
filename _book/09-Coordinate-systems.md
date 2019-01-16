@@ -23,7 +23,7 @@ A GCS is defined by an **ellipsoid**, **geoid** and **datum**. These elements ar
 
 ### Sphere and Ellipsoid
 
-Assuming that the earth is a perfect sphere greatly simplifies mathematical calculations and works well for small-scale maps (maps that show a *large* area of the earth). However, when working at larger scales, an ellipsoid representation of earth may be desired if accurate measurements are needed. An ellipsoid is defined by two radii: the semi-major axis (the polar radius) and the semi-minor axis (the equatorial radius). 
+Assuming that the earth is a perfect sphere greatly simplifies mathematical calculations and works well for small-scale maps (maps that show a *large* area of the earth). However, when working at larger scales, an ellipsoid representation of earth may be desired if accurate measurements are needed. An ellipsoid is defined by two radii: the semi-major axis (the equatorial radius) and the semi-minor axis (the polar radius). 
 
 ![](img/Ellipsoid.svg)<!-- -->
 
@@ -36,16 +36,16 @@ The reason the earth has a slightly ellipsoidal shape has to do with its rotatio
 
 Our estimate of these radii is quite precise thanks to satellite and computational capabilities. The semi-major axis is 6,378,137 meters and the semi-minor axis is 6,356,752 meters.
 
-Differences in distance measurements along the surfaces of ellipsoid vs. a sphere are small but measurable (the difference can be as high as 20 km) as illustrated in the following lattice plots.
+Differences in distance measurements along the surfaces of an ellipsoid vs. a sphere are small but measurable (the difference can be as high as 20 km) as illustrated in the following lattice plots.
 
 <div class="figure">
-<img src="img/Ellipsoid_vs_sphere_distances.svg" alt="Differences in distance measurements along the surface of a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0&amp;deg; meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90&amp;deg; north (along the prime meridian) to a range of latitudinal locations along the 45&amp;deg; meridian."  />
-<p class="caption">(\#fig:f09-dist-diff)Differences in distance measurements along the surface of a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0&deg; meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90&deg; north (along the prime meridian) to a range of latitudinal locations along the 45&deg; meridian.</p>
+<img src="img/Ellipsoid_vs_sphere_distances.svg" alt="Differences in distance measurements between the surface of a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0&amp;deg; meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90&amp;deg; north (along the prime meridian) to a range of latitudinal locations along the 45&amp;deg; meridian."  />
+<p class="caption">(\#fig:f09-dist-diff)Differences in distance measurements between the surface of a sphere and an ellipsoid. Each graphic plots the differences in distance measurements made from a single point location along the 0&deg; meridian identified by the green colored box (latitude value) to various latitudinal locations along a longitude (whose value is listed in the bisque colored box). For example, the second plot from the top-left corner plot shows the differences in distance measurements made from a location at 90&deg; north (along the prime meridian) to a range of latitudinal locations along the 45&deg; meridian.</p>
 </div>
 
 ### Geoid
 
-Representing the earth's surface as a mathematical model is crucial for a GIS environment. However, the earth's shape is not a perfectly smooth surface. It has undulations resulting from changes in gravitational pull across its surface. These undulations may not be visible with the naked eye, but it is measurable and can influence locational measurements. Note that we are not including mountains and ocean bottoms in our discussion, instead we are focusing solely on the earth's gravitational potential which can be best visualized by imagining the earth's surface completely immersed in water and measuring the sea surface level over the entire earth surface.
+Representing the earth's true shape, the *geoid*, as a mathematical model is crucial for a GIS environment. However, the earth's shape is not a perfectly smooth surface. It has undulations resulting from changes in gravitational pull across its surface. These undulations may not be visible with the naked eye, but they are measurable and can influence locational measurements. Note that we are not including mountains and ocean bottoms in our discussion, instead we are focusing solely on the earth's gravitational potential which can be best visualized by imagining the earth's surface completely immersed in water and measuring the sea surface level over the entire earth surface.
 
 <div class="figure">
 <img src="img/Geoids_sm_NASA.jpg" alt="Earth's geoid with gravitational field shown in rainbow colors. The ondulations depicted in the graphics are exaggerated for visual effects. (source: NASA)" width="300" />
@@ -56,7 +56,7 @@ The earth's gravitational field is dynamic and is tied to the flow of the earth'
 
 ### Datum
 
-So how are we to reconcile our need to work with a (simple) mathematical model of the earth's shape with the ondulating nature of the earth's surface (i.e. its geoid)? The solution is to align the geoid with the ellipsoid (or sphere) representation of the earth and to map the earth's surface features onto this ellipsoid. The alignment can be local where the ellipsoid surface is closely fit to the geoid at a particular location on the earth's surface (such as the state of Kansas) or **geocentric** where the ellipsoid is aligned with the center of the earth. How one chooses to align the ellipsoid to the geoid defines a **datum**. 
+So how are we to reconcile our need to work with a (simple) mathematical model of the earth's shape with the ondulating nature of the earth's surface (i.e. its geoid)? The solution is to align the geoid with the ellipsoid (or sphere) representation of the earth and to map the earth's surface features onto this ellipsoid/sphere. The alignment can be local where the ellipsoid surface is closely fit to the geoid at a particular location on the earth's surface (such as the state of Kansas) or **geocentric** where the ellipsoid is aligned with the center of the earth. How one chooses to align the ellipsoid to the geoid defines a **datum**. 
 
 #### Local Datum
 
@@ -65,7 +65,7 @@ So how are we to reconcile our need to work with a (simple) mathematical model o
 <p class="caption">(\#fig:f09-datum-local)A local datum couples a geoid with the ellipsoid at a location on each element's surface.</p>
 </div>
 
-There are many local datums to choose from, some are old while others are more recently defined. The choice of datum is largely driven by the location of interest. For example, when working in the US, a popular local datum to choose from is the North American Datum of 1927 (or NAD27 for short). NAD27 works well for the US but is not well suited for other parts of the world. For example, a far better local datum for Europe is the European Datum of 1950 (ED50 for short). Examples of common local datums are shown in the following table:
+There are many local datums to choose from, some are old while others are more recently defined. The choice of datum is largely driven by the location of interest. For example, when working in the US, a popular local datum to choose from is the North American Datum of 1927 (or NAD27 for short). NAD27 works well for the US but it's not well suited for other parts of the world. For example, a far better local datum for Europe is the European Datum of 1950 (ED50 for short). Examples of common local datums are shown in the following table:
 
 Local datum	       | Acronym | Best for|	Comment
 -------------------|---------|--------|-------------------------------
@@ -80,7 +80,7 @@ World Geodetic System 1972	| WGS72 |	Global |	Developed by the Department of Def
 <p class="caption">(\#fig:f09-datum-geocentric)A geocentric  datum couples a geoid with the ellipsoid at each element's center of mass.</p>
 </div>
 
-Many of the modern datums use a geocentric alignment. These include the popular World Geodetic Survey for 1984 (WGS84) and North American Datums of 1983 (NAD83) datums. Most popular geocentric datums use the WGS84 ellipsoid or the GRS80 ellipsoid. These ellipsoids' semi-major and semi-minor axes are nearly identical: 6,378,137 meters and 6,356,752 meters respectively. Examples of popular geocentric datums are shown in the following table:
+Many of the modern datums use a geocentric alignment. These include the popular World Geodetic Survey for 1984 (WGS84) and the North American Datums of 1983 (NAD83). Most of the popular geocentric datums use the WGS84 ellipsoid or the GRS80 ellipsoid. These ellipsoids' semi-major and semi-minor axes are nearly identical: 6,378,137 meters and 6,356,752 meters respectively. Examples of popular geocentric datums are shown in the following table:
 
 Geocentric datum	       | Acronym | Best for|	Comment
 -------------------|---------|--------|-------------------------------
@@ -90,11 +90,11 @@ World Geodetic System 1984 | WGS84 | Global | Developed by the Department of Def
 
 ### Building the Geographic Coordinate System
 
-A Geographic Coordinate System (GCS) is therefore defined by the ellipsoid model and by the way this ellipsoid is aligned with the geoid (defining the datum). It is important to know which GCS is associated with a GIS file or map document reference system. This is particularly true when overlapping layers are tied to different datums (and therefore GCS'). This is because a location on the earth's surface can take on different coordinate values. For example, a location recorded in an NAD 1927 GCS having a coordinate pair of 44.56698&deg; north and 69.65939&deg; west will register a coordinate value of 44.56704&deg; north and 69.65888&deg; west in a NAD83 GCS and a coordinate value of 44.37465&deg; north and -69.65888&deg; west in a sphere based WGS84 GCS. If the coordinate systems for these point coordinate values were not properly defined, then they could be misplaced on a map.  This is analogous to recording temperature using different units of measure (degrees Celsius, Fahrenheit and Kelvin)--each unit of measure will produce a different numeric value. 
+A Geographic Coordinate System (GCS) is defined by the ellipsoid model and by the way this ellipsoid is aligned with the geoid (defining the datum). It is important to know which GCS is associated with a GIS file or a map document reference system. This is particularly true when the overlapping layers are tied to different datums (and therefore GCS'). This is because a location on the earth's surface can take on different coordinate values. For example, a location recorded in an NAD 1927 GCS having a coordinate pair of 44.56698&deg; north and 69.65939&deg; west will register a coordinate value of 44.56704&deg; north and 69.65888&deg; west in a NAD83 GCS and a coordinate value of 44.37465&deg; north and -69.65888&deg; west in a sphere based WGS84 GCS. If the coordinate systems for these point coordinate values were not properly defined, then they could be misplaced on a map.  This is analogous to recording temperature using different units of measure (degrees Celsius, Fahrenheit and Kelvin)--each unit of measure will produce a different numeric value. 
 
 <div class="figure">
-<img src="img/GCS_diff_coord_values.png" alt="Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems." width="400" />
-<p class="caption">(\#fig:f09-GCS-offsets)Three points, each representing the same location but recorded in three different coordinate systems, are mapped in a same underlying coordinate system to highlight the different coordinate values a geographic location can acquire in differing coordinate systems.</p>
+<img src="img/GCS_diff_coord_values.png" alt="Map of the Colby flagpole in two different geographic coordinate systems (*GCS NAD 1983* on the left and *GCS NAD 1927* on the right). Note the offset in the 44.5639&amp;deg; line of latitude relative to the flagpole. Also note the 0.0005&amp;deg; longitudinal offset between both reference systems." width="440" />
+<p class="caption">(\#fig:f09-GCS-offsets)Map of the Colby flagpole in two different geographic coordinate systems (*GCS NAD 1983* on the left and *GCS NAD 1927* on the right). Note the offset in the 44.5639&deg; line of latitude relative to the flagpole. Also note the 0.0005&deg; longitudinal offset between both reference systems.</p>
 </div>
 
 
@@ -131,7 +131,7 @@ A cylindrical map projection maps the earth surface onto a map rolled into a cyl
 
 ![](img/Cylindrical_projection_secant.svg)<!-- -->
 
-The cylinder can be tangent to the equator or it can be oblique. A special case is the Transverse aspect which is tangent to lines of longitude. This is a popular projection used in defining the Universal Transverse Mercator (UTM) and State Plane coordinate systems. The UTM PCS covers the entire globe and is a popular coordinate system in the US. It's important to note that the UTM PCS is broken down into zones and therefore limits its extent to these zones that are 6&deg; wide. For example, the State of Maine uses the UTM coordinate system (Zone 19 North) for most of its statewide GIS maps. Most USGS quad maps are also presented in a UTM coordinate system. Popular datums tied to the UTM coordinate system include NAD27 and NAD83. There is also a WGS84 based UTM coordinate system. 
+The cylinder can be tangent to the equator or it can be oblique. A special case is the Transverse aspect which is tangent to lines of longitude. This is a popular projection used in defining the Universal Transverse Mercator (UTM) and State Plane coordinate systems. The UTM PCS covers the entire globe and is a popular coordinate system in the US. It's important to note that the UTM PCS is broken down into zones and therefore limits its extent to these zones that are 6&deg; wide. For example, the State of Maine (USA) uses the UTM coordinate system (Zone 19 North) for most of its statewide GIS maps. Most USGS quad maps are also presented in a UTM coordinate system. Popular datums tied to the UTM coordinate system in the US include NAD27 and NAD83. There is also a WGS84 based UTM coordinate system. 
 
 Distortion is minimized along the tangent or secant lines and increases as the distance from these lines increases. 
 
@@ -162,11 +162,11 @@ Conical projections are also popular PCS' in European maps such as Europe Albers
 ## Spatial Properties
 
 
-All projections distort real-world geographic features to some degree. The four spatial properties on a map that are subject to distortion are: **shape**, **area**, **distance** and **direction**. A map that preserves shape is called conformal; one that preserves area is called equal-area; one that preserves distance is called equidistant; and one that preserves direction is called azimuthal.
+All projections distort real-world geographic features to some degree. The four spatial properties that are subject to distortion are: **shape**, **area**, **distance** and **direction**. A map that preserves shape is called conformal; one that preserves area is called equal-area; one that preserves distance is called equidistant; and one that preserves direction is called azimuthal.
 
 > For most GIS applications (e.g. ArcGIS and QGIS), many of the built-in projections are named after the spatial properties they preserve.
 
-Each map projection is good at preserving only one or two of the four spatial properties. So when working with small-scale (large area) maps and multiple spatial properties are to be preserved, it is best to break the analyses across different projections to minimize error associated with spatial distortion.
+Each map projection is good at preserving only one or two of the four spatial properties. So when working with small-scale (large area) maps and when multiple spatial properties are to be preserved, it is best to break the analyses across different projections to minimize error associated with spatial distortion.
 
 If you want to assess a projection's spatial distortion across your study region, you can generate Tissot indicatrix (TI) ellipses. The idea is to project a small circle (i.e. small enough so that the distortion remains relatively uniform across the circle's extent) and to measure its distorted shape on the projected map. For example, in assessing the type of distortion one could expect with a Mollweide projection across the continental US, a grid of circles could be generated at regular latitudinal and longitudinal intervals.
 
@@ -183,7 +183,7 @@ Projections can distort scale, but this does not necessarily mean that area is d
 
 The north-south dashed line in the graphic shows the orientation of the meridian. The east-west dotted line shows the orientation of the parallel.
 
-> It's important to recall that these distortions occur at the point where the TI is centered and not across the region covered by the TI circle.
+> It's important to recall that these distortions occur at the point where the TI is centered and not necessarily across the region covered by the TI circle.
 
 ## Geodesic geometries
 
