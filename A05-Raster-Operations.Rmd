@@ -1,5 +1,7 @@
 # Raster operations in R{-}
 
+## Sample files for this exercise{-}
+
 We'll first load spatial objects used in this exercise from a remote website: an elevation `raster` object, a bathymetry `raster` object and a continents `SpatialPolygonsDataFrame` vector layer. 
 
 ```{r}
@@ -92,7 +94,7 @@ tm_shape(elevation) + tm_raster(palette="-RdBu",n=6) +
 
 ## Focal operations and functions {-}
 
-Operations or functions applied focally to rasters involve all user defined neighboring cells. For example, a cell output value can be the average of all 121 cells--an 11x11 kernel--centered on the cell whose value is being estimated (this is an example of a _smoothing function_).
+Operations or functions applied focally to rasters involve user defined neighboring cells. For example, a cell output value can be the average of all 121 cells--an 11x11 kernel--centered on the cell whose value is being estimated (this is an example of a _smoothing function_).
 
 ```{r}
 f1 <- focal(elevation, w=matrix(1,nrow=11,ncol=11)  , fun=mean)
@@ -103,7 +105,7 @@ tm_shape(f1) + tm_raster(palette="-RdBu",n=6) +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-Notice that the edge cells have been assigned a value of `NA`. This is because cells outside of the extent have no value. You can remedy this by passing the parameters `na.rm=TRUE` and `pad=TRUE` .
+By default edge cells are assigned a value of `NA`. This is because cells outside of the input raster extent have no value but may fall inside the kernel window when edge cells are computed. You can remedy this by passing the parameters `na.rm=TRUE` and `pad=TRUE` to the function.
 
 ```{r}
 f1 <- focal(elevation, w=matrix(1,nrow=11,ncol=11)  , 
@@ -115,14 +117,61 @@ tm_shape(f1) + tm_raster(palette="-RdBu",n=6) +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-The _neighbors_ matrix (or _kernel_) that defines the moving window can be customized. For example if we wanted to compute the average of all 8 neighboring cells _excluding_ the central cell we could write the following:
+But, you must be careful when making use of the `na.rm=TRUE`/`pad=TRUE` combination. In the above example, we are passing the values from the kernel window as *a vector element* to the `mean` function.  So the number of valid (non NA) values being passed to the `mean` function does not matter since the function will sort out the weights based on the number of input values.
+
+If, however, the smoothing function makes use of explicitly defined weights, then setting `pad=TRUE` will be problematic since the edge pixels will succumb to unbalanced weights. In the following example, we'll compare the output of three 3x3 smoothing operations as follows: 
+
+```{r}
+# Using the mean function
+f_mean     <- focal(elevation, w=matrix(1,nrow=3,ncol=3), fun=mean, na.rm=TRUE, pad=TRUE)
+
+# Using explicitly defined weights
+f_wt_nopad <- focal(elevation, w=matrix(1/9,nrow=3,ncol=3), na.rm=TRUE, pad=FALSE)
+f_wt_pad   <- focal(elevation, w=matrix(1/9,nrow=3,ncol=3), na.rm=TRUE, pad=TRUE)
+```
+
+The following images are zoomed in on the upper left-hand set of pixels of each raster output. The `elevation` raster is the input raster.
+
+```{r echo=FALSE, fig.width = 8, fig.height=1.5}
+zoom1 <- extent(-180, -179, 89,90)
+OP <- par(pty="s",  mfrow=c(1,4), mar=c(0,0,3,0), bty="n")
+plot(crop(elevation, zoom1), colNA="bisque", asp=1, axes=FALSE, legend=FALSE,
+     zlim=c(-4150, -2700), col=grey(1:9/12))
+title("Elevation", line=1)
+text(crop(elevation, zoom1), col="yellow")  
+grid(nx=3, ny=3, lty=1)
+plot(crop(f_mean, zoom1), colNA="bisque", asp=1, axes=FALSE, legend=FALSE,
+     zlim=c(-4150, -2700), col=grey(1:9/12))
+title("f_mean", line=1)
+text(crop(f_mean, zoom1), col="yellow")  
+grid(nx=3, ny=3, lty=1)
+plot(crop(f_wt_nopad, zoom1), colNA="bisque", asp=1, axes=FALSE,  legend=FALSE,
+     zlim=c(-4150, -2700), col=grey(1:9/12))
+title("f_wt_nopad", line=1)
+text(crop(f_wt_nopad, zoom1), col="yellow")             
+grid(nx=3, ny=3, lty=1)
+plot(crop(f_wt_pad, zoom1), colNA="bisque", asp=1, axes=FALSE, legend=FALSE,
+     zlim=c(-4150, -2700), col=grey(1:9/12))
+title("f_wt_nopad", line=1)
+text(crop(f_wt_pad, zoom1), col="yellow")             
+grid(nx=3, ny=3, lty=1)
+par(OP)
+
+```
+
+The left-most image shows the original upper left-hand corner elevation pixel values. The second image shows the output using the mean function with the `pad=TRUE` option. The third image shows the output using the weighted kernel window with the `pad=FALSE` option (note the upper row of `NA` pixels highlighted in *bisque* color). The last image shows the output from the same weighted kernel window using the `pad=TRUE` option. This last outcome is not desirable. For example, the middle top pixel is computed from `1/9(-4113 -4113 -4112 -4107 -4104 -4103)`, which results in dividing the sum of *six* values by *nine*--hence the unbalanced weight effect. Note that we do not have that problem using the mean function. 
+
+You might have noticed the lack of edge effect issues along the western edge of the raster outputs. This is because the `focal` function will wrap the eastern edge of the raster to the western edge of that same raster if the input raster layer spans the entire globe (i.e from -180 &deg; to +180 &deg;).
+
+
+The _neighbors_ matrix (or _kernel_) that defines the moving window can be customized. For example if we wanted to compute the average of all 8 neighboring cells _excluding_ the central cell we could define the matrix as follows:
 
 ```{r eval=FALSE}
 m  <- matrix(c(1,1,1,1,0,1,1,1,1)/8,nrow = 3) 
 f2 <- focal(elevation, w=m, fun=sum)
 ```
 
-More complicated kernels can be defined. In the following example, a [Sobel][2] filter (used for edge detection in image processing) is defined then applied to the raster layer `elev`.
+More complicated kernels can be defined. In the following example, a [Sobel][2] filter (used for edge detection in image processing) is defined then applied to the raster layer `elevation`.
 
 ```{r fig.height=3}
 Sobel <- matrix(c(-1,0,1,-2,0,2,-1,0,1) / 4, nrow=3) 
@@ -134,7 +183,7 @@ tm_shape(f3) + tm_raster(palette="Greys") +
 
 ## Zonal operations and functions {-}
 
-A common zonal operation is the aggregation of cells. In the following example, raster layer `elev` is aggregated to a 5x5 raster layer.
+A common zonal operation is the aggregation of cells. In the following example, raster layer `elevation` is aggregated to a 5x5 raster layer.
 
 ```{r fig.height=3}
 z1 <- aggregate(elevation, fact=2, fun=mean, expand=TRUE)

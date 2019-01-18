@@ -1,6 +1,8 @@
 
 # Raster operations in R{-}
 
+## Sample files for this exercise{-}
+
 We'll first load spatial objects used in this exercise from a remote website: an elevation `raster` object, a bathymetry `raster` object and a continents `SpatialPolygonsDataFrame` vector layer. 
 
 
@@ -120,7 +122,7 @@ tm_shape(elevation) + tm_raster(palette="-RdBu",n=6) +
 
 ## Focal operations and functions {-}
 
-Operations or functions applied focally to rasters involve all user defined neighboring cells. For example, a cell output value can be the average of all 121 cells--an 11x11 kernel--centered on the cell whose value is being estimated (this is an example of a _smoothing function_).
+Operations or functions applied focally to rasters involve user defined neighboring cells. For example, a cell output value can be the average of all 121 cells--an 11x11 kernel--centered on the cell whose value is being estimated (this is an example of a _smoothing function_).
 
 
 ```r
@@ -135,7 +137,7 @@ tm_shape(f1) + tm_raster(palette="-RdBu",n=6) +
 
 <img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
-Notice that the edge cells have been assigned a value of `NA`. This is because cells outside of the extent have no value. You can remedy this by passing the parameters `na.rm=TRUE` and `pad=TRUE` .
+By default edge cells are assigned a value of `NA`. This is because cells outside of the input raster extent have no value but may fall inside the kernel window when edge cells are computed. You can remedy this by passing the parameters `na.rm=TRUE` and `pad=TRUE` to the function.
 
 
 ```r
@@ -151,7 +153,30 @@ tm_shape(f1) + tm_raster(palette="-RdBu",n=6) +
 
 <img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
-The _neighbors_ matrix (or _kernel_) that defines the moving window can be customized. For example if we wanted to compute the average of all 8 neighboring cells _excluding_ the central cell we could write the following:
+But, you must be careful when making use of the `na.rm=TRUE`/`pad=TRUE` combination. In the above example, we are passing the values from the kernel window as *a vector element* to the `mean` function.  So the number of valid (non NA) values being passed to the `mean` function does not matter since the function will sort out the weights based on the number of input values.
+
+If, however, the smoothing function makes use of explicitly defined weights, then setting `pad=TRUE` will be problematic since the edge pixels will succumb to unbalanced weights. In the following example, we'll compare the output of three 3x3 smoothing operations as follows: 
+
+
+```r
+# Using the mean function
+f_mean     <- focal(elevation, w=matrix(1,nrow=3,ncol=3), fun=mean, na.rm=TRUE, pad=TRUE)
+
+# Using explicitly defined weights
+f_wt_nopad <- focal(elevation, w=matrix(1/9,nrow=3,ncol=3), na.rm=TRUE, pad=FALSE)
+f_wt_pad   <- focal(elevation, w=matrix(1/9,nrow=3,ncol=3), na.rm=TRUE, pad=TRUE)
+```
+
+The following images are zoomed in on the upper left-hand set of pixels of each raster output. The `elevation` raster is the input raster.
+
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-18-1.png" width="768" />
+
+The left-most image shows the original upper left-hand corner elevation pixel values. The second image shows the output using the mean function with the `pad=TRUE` option. The third image shows the output using the weighted kernel window with the `pad=FALSE` option (note the upper row of `NA` pixels highlighted in *bisque* color). The last image shows the output from the same weighted kernel window using the `pad=TRUE` option. This last outcome is not desirable. For example, the middle top pixel is computed from `1/9(-4113 -4113 -4112 -4107 -4104 -4103)`, which results in dividing the sum of *six* values by *nine*--hence the unbalanced weight effect. Note that we do not have that problem using the mean function. 
+
+You might have noticed the lack of edge effect issues along the western edge of the raster outputs. This is because the `focal` function will wrap the eastern edge of the raster to the western edge of that same raster if the input raster layer spans the entire globe (i.e from -180 &deg; to +180 &deg;).
+
+
+The _neighbors_ matrix (or _kernel_) that defines the moving window can be customized. For example if we wanted to compute the average of all 8 neighboring cells _excluding_ the central cell we could define the matrix as follows:
 
 
 ```r
@@ -159,7 +184,7 @@ m  <- matrix(c(1,1,1,1,0,1,1,1,1)/8,nrow = 3)
 f2 <- focal(elevation, w=m, fun=sum)
 ```
 
-More complicated kernels can be defined. In the following example, a [Sobel][2] filter (used for edge detection in image processing) is defined then applied to the raster layer `elev`.
+More complicated kernels can be defined. In the following example, a [Sobel][2] filter (used for edge detection in image processing) is defined then applied to the raster layer `elevation`.
 
 
 ```r
@@ -170,11 +195,11 @@ tm_shape(f3) + tm_raster(palette="Greys") +
   tm_legend(legend.show = FALSE) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-18-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 ## Zonal operations and functions {-}
 
-A common zonal operation is the aggregation of cells. In the following example, raster layer `elev` is aggregated to a 5x5 raster layer.
+A common zonal operation is the aggregation of cells. In the following example, raster layer `elevation` is aggregated to a 5x5 raster layer.
 
 
 ```r
@@ -184,7 +209,7 @@ tm_shape(z1) + tm_raster(palette="-RdBu",n=6) +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 The image may not look much different from the original, but a look at the image properties will show a difference in pixel sizes.
 
@@ -242,7 +267,7 @@ tm_shape(cont.elev) + tm_polygons(col="layer") +
   tm_legend(outside = TRUE, text.size = .8)
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 Many custom functions can be applied to `extract`. For example, to extract the maximum elevation value by continent, type:
 
@@ -279,7 +304,7 @@ tm_shape(r1) + tm_raster(palette="red") +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 Next, we'll compute a Euclidean distance raster from these two cells. The output extent will default to the input raster extent.
 
@@ -295,7 +320,7 @@ tm_shape(r1.d) + tm_raster(palette = "Greens", style="order", title="Distance") 
   tm_shape(r1) + tm_raster(palette="red", title="Points") 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 
 You can also compute a distance raster using `SpatialPoints` objects or a simple x,y data table. In the following example, distances to points (25,30) and (87,80) are computed for each output cell. However, since we are working off of point objects (and not an existing raster as was the case in the previous example), we will need to create a blank raster layer which will define the extent of the Euclidean distance raster output. 
 
@@ -325,7 +350,7 @@ tm_shape(r2.d) + tm_raster(palette = "Greens", style="order") +
   tm_shape(p1) + tm_bubbles(col="red") 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-34-1.png" width="672" />
 
 ## Computing cumulative distances {-}
 
@@ -360,7 +385,7 @@ There are four different ways in which 'adjacency' can be defined using the `tra
 
 In this example, adjacency is defined as a **four node** (vertical and horizontal) connection (i.e. a "rook" move). 
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-37-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-39-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
@@ -369,7 +394,7 @@ h4   <- transition(r, transitionFunction = function(x){1}, directions = 4)
 
 In this example, adjacency is defined as an **eight node** connection (i.e. a single cell "queen" move).
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-39-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-41-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
@@ -378,7 +403,7 @@ h8   <- transition(r, transitionFunction = function(x){1}, directions = 8)
 
 In this example, adjacency is defined as a  **sixteen node** connection (i.e. a single cell "queen" move combined with a "knight" move).
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-41-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
@@ -387,7 +412,7 @@ h16  <- transition(r, transitionFunction=function(x){1},16,symm=FALSE)
 
 In this example, adjacency is defined as a **four node diagonal** connection (i.e. a single cell "bishop" move).
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-45-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
@@ -426,11 +451,11 @@ If the `geoCorrection` function had not been applied in the previous steps, the 
 
 Uncorrected (i.e. `geoCorrection` _not_ applied to h16):
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-48-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-50-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 Corrected (i.e. `geoCorrection`  applied to h16):
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-49-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-51-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 The "bishop" case offers a unique problem: only cells in the diagonal direction are identified as being adjacent. This leaves many undefined cells (labeled as `Inf`). We will change the `Inf` cells to `NA` cells. 
 
@@ -441,18 +466,18 @@ hb.acc[hb.acc == Inf] <- NA
 
 Now let's compare a 7x7 subset (centered on point A) between the four different cumulative distance rasters. 
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-51-1.png" width="576" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto auto auto 0;" />
 
 To highlight the differences between all four rasters, we will assign a red color to all cells that are within 20 cell units of point A.
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-52-1.png" width="576" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto auto auto 0;" />
 
 
 
 
 It's obvious that the accuracy of the cumulative distance raster can be greatly influenced by how we define adjacent nodes. The number of red cells (i.e. area identified as being within a 20 units cumulative distance) ranges from 925 to 2749 cells.
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-56-1.png" width="672" />
 
 ### Working example {-}
 In the following example, we will generate a raster layer with barriers (defined as `NA` cell values). The goal will be to identify all cells that fall within a 290 km traveling distance from the upper left-hand corner of the raster layer. Results between an 8-node and 16-node adjacency definition will be compared.
@@ -501,7 +526,7 @@ h8.acc[h8.acc   == Inf] <- NA
 h16.acc[h16.acc == Inf] <- NA
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto auto auto 0;" />
 
 Let's plot the results. Yellow cells will identify cumulative distances within 290 km.
 
@@ -516,7 +541,7 @@ tm_shape(h16.acc) + tm_raster(n=2, style="fixed", breaks=c(0,290000,Inf)) +
   tm_legend(outside = TRUE, text.size = .8)
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto auto auto 0;" /><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-56-2.png" width="672" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto auto auto 0;" /><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-58-2.png" width="672" style="display: block; margin: auto auto auto 0;" />
 
 We can compute the difference between the 8-node and 16-node cumulative distance rasters:
 
