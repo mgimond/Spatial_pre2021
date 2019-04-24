@@ -56,65 +56,48 @@
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39623718-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-39623718-2');
+</script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { } /* Constant */
-code span.co { color: #008000; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #008080; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #0000ff; } /* Keyword */
+code > span.ch { color: #008080; } /* Char */
+code > span.st { color: #008080; } /* String */
+code > span.co { color: #008000; } /* Comment */
+code > span.ot { color: #ff4000; } /* Other */
+code > span.al { color: #ff0000; } /* Alert */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #008000; font-weight: bold; } /* Warning */
+code > span.cn { } /* Constant */
+code > span.sc { color: #008080; } /* SpecialChar */
+code > span.vs { color: #008080; } /* VerbatimString */
+code > span.ss { color: #008080; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #0000ff; } /* ControlFlow */
+code > span.op { } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ff4000; } /* Preprocessor */
+code > span.do { color: #008000; } /* Documentation */
+code > span.an { color: #008000; } /* Annotation */
+code > span.cv { color: #008000; } /* CommentVar */
+code > span.at { } /* Attribute */
+code > span.in { color: #008000; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -429,7 +412,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="sample-files-for-this-exercise-5" class="section level2 unnumbered">
 <h2>Sample files for this exercise</h2>
 <p>Data used in the following exercises can be loaded into your current R session by running the following chunk of code.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/moransI.RData&quot;</span>))</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/moransI.RData&quot;</span>))</code></pre></div>
 <p>The data object consists of a <code>SpatialPolygonsDataFrame</code> vector layer, <code>s1</code>, representing income and education data aggregated at the county level for the state of Maine.</p>
 <p>The <code>spdep</code> package used in this exercise makes use of <code>sp</code> objects including <code>SpatialPoints*</code> and <code>SpatialPolygons*</code> classes. For more information on converting to/from this format revert back to the <a href="./reading-and-writing-spatial-data-in-r.html">Reading and writing spatial data in R</a> Appendix section.</p>
 </div>
@@ -438,56 +421,56 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>The spatial object <code>s1</code> has five attributes. The one of interest for this exercise is <code>Income</code> (per capita, in units of dollars).</p>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="500" /></p>
 <p>Let’s map the income distribution using a quantile classification scheme. We’ll make use of the <code>tmap</code> package.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
 <span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;Income&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </code></pre>
+<span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> .<span class="dv">8</span>) </code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="define-neighboring-polygons" class="section level2 unnumbered">
 <h2>Define neighboring polygons</h2>
 <p>The first step requires that we define “neighboring” polygons. This could refer to contiguous polygons, polygons within a certain distance band, or it could be non-spatial in nature and defined by social, political or cultural “neighbors”.</p>
 <p>Here, we’ll adopt a contiguous neighbor definition where we’ll accept any contiguous polygon that shares at least on vertex (this is the “queen” case and is defined by setting the parameter <code>queen=TRUE</code>). If we required that at least one <em>edge</em> be shared between polygons then we would set <code>queen=FALSE</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spdep)
-nb &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(s1, <span class="dt">queen=</span><span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spdep)
+nb &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(s1, <span class="dt">queen=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>For each polygon in our polygon object, <code>nb</code> lists all neighboring polygons. For example, to see the neighbors for the first polygon in the object, type:</p>
-<pre class="sourceCode r"><code class="sourceCode r">nb[[<span class="dv">1</span>]]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nb[[<span class="dv">1</span>]]</code></pre></div>
 <pre><code>[1] 2 3 4 5</code></pre>
 <p>Polygon <code>1</code> has 4 neighbors. The numbers represent the polygon IDs as stored in the spatial object <code>s1</code>. Polygon <code>1</code> is associated with the County attribute name <code>Aroostook</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>NAME[<span class="dv">1</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>NAME[<span class="dv">1</span>]</code></pre></div>
 <pre><code>[1] Aroostook
 16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock ... York</code></pre>
 <p>Its four neighboring polygons are associated with the counties:</p>
-<pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>NAME[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>NAME[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</code></pre></div>
 <pre><code>[1] Somerset    Piscataquis Penobscot   Washington 
 16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock ... York</code></pre>
 <p>Next, we need to assign weights to each neighboring polygon. In our case, each neighboring polygon will be assigned equal weight (<code>style=&quot;W&quot;</code>). This is accomplished by assigning the fraction <span class="math inline">\(1/ (\# of neighbors)\)</span> to each neighboring county then summing the weighted income values. While this is the most intuitive way to summaries the neighbors’ values it has one drawback in that polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data. For this example, we’ll stick with the <code>style=&quot;W&quot;</code> option for simplicity’s sake but note that other more robust options are available, notably <code>style=&quot;B&quot;</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(nb, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>, <span class="dt">zero.policy=</span><span class="ot">TRUE</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(nb, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>, <span class="dt">zero.policy=</span><span class="ot">TRUE</span>)</code></pre></div>
 <p>The <code>zero.policy=TRUE</code> option allows for lists of non-neighbors. This should be used with caution since the user may not be aware of missing neighbors in their dataset however, a <code>zero.policy</code> of <code>FALSE</code> would return an <code>error</code>.</p>
 <p>To see the weight of the first polygon’s four neighbors type:</p>
-<pre class="sourceCode r"><code class="sourceCode r">lw<span class="op">$</span>weights[<span class="dv">1</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw<span class="op">$</span>weights[<span class="dv">1</span>]</code></pre></div>
 <pre><code>[[1]]
 [1] 0.25 0.25 0.25 0.25</code></pre>
 <p>Each neighbor is assigned a quarter of the total weight. This means that when R computes the average neighboring income values, each neighbor’s income will be multiplied by <code>0.25</code> before being tallied.</p>
 <p>Finally, we’ll compute the average neighbor income value for each polygon. These values are often referred to as <strong>spatially lagged</strong> values.</p>
-<pre class="sourceCode r"><code class="sourceCode r">Inc.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, s1<span class="op">$</span>Income)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Inc.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, s1<span class="op">$</span>Income)</code></pre></div>
 <p>The following table shows the average neighboring income values (stored in the <code>Inc.lag</code> object) for each county.</p>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="500" /></p>
 </div>
 <div id="computing-the-morans-i-statistic-the-hard-way" class="section level2 unnumbered">
 <h2>Computing the Moran’s I statistic: the hard way</h2>
 <p>We can plot <em>lagged income</em> vs. <em>income</em> and fit a linear regression model to the data.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a regression model</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a regression model</span>
 M &lt;-<span class="st"> </span><span class="kw">lm</span>(Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income)
 
 <span class="co"># Plot the data</span>
-<span class="kw">plot</span>( Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">las=</span><span class="dv">1</span>)</code></pre>
+<span class="kw">plot</span>( Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">las=</span><span class="dv">1</span>)</code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-13-1.png" width="288" /></p>
 <p>The slope of the regression line is the Moran’s I coefficient.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(M)[<span class="dv">2</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(M)[<span class="dv">2</span>]</code></pre></div>
 <pre><code>s1$Income 
 0.2828111 </code></pre>
 <p>To assess if the slope is significantly different from zero, we can <em>randomly</em> permute the income values across all counties (i.e. we are not imposing any spatial autocorrelation structure), then fit a regression model to each permuted set of values. The slope values from the regression give us the distribution of Moran’s I values we could expect to get under the null hypothesis that the income values are randomly distributed across the counties. We then compare the observed Moran’s I value to this distribution.</p>
-<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span>599L   <span class="co"># Define the number of simulations</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span>599L   <span class="co"># Define the number of simulations</span>
 I.r &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length=</span>n)  <span class="co"># Create an empty vector</span>
 
 <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
@@ -498,20 +481,20 @@ I.r &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt
   <span class="co"># Compute the regression slope and store its value</span>
   M.r    &lt;-<span class="st"> </span><span class="kw">lm</span>(x.lag <span class="op">~</span><span class="st"> </span>x)
   I.r[i] &lt;-<span class="st"> </span><span class="kw">coef</span>(M.r)[<span class="dv">2</span>]
-}</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the histogram of simulated Moran&#39;s I values</span>
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the histogram of simulated Moran&#39;s I values</span>
 <span class="co"># then add our observed Moran&#39;s I value to the plot</span>
 <span class="kw">hist</span>(I.r, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">xlab=</span><span class="st">&quot;Moran&#39;s I&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)
-<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">coef</span>(M)[<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre>
+<span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">coef</span>(M)[<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-16-1.png" width="288" /></p>
 <p>The simulation suggests that our observed Moran’s I value is not consistent with a Moran’s I value one would expect to get if the income values were not spatially autocorrelated. In the next step, we’ll compute a pseudo p-value from this simulation.</p>
 <div id="computing-a-pseudo-p-value-from-an-mc-simulation" class="section level3 unnumbered">
 <h3>Computing a pseudo p-value from an MC simulation</h3>
 <p>First, we need to find the number of simulated Moran’s I values values greater than our observed Moran’s I value.</p>
-<pre class="sourceCode r"><code class="sourceCode r">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">coef</span>(M)[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>I.r)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">coef</span>(M)[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>I.r)</code></pre></div>
 <p>To compute the p-value, find the end of the distribution closest to the observed Moran’s I value, then divide that count by the total count. Note that this is a so-called one-sided P-value. See lecture notes for more information.</p>
-<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
-p</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
+p</code></pre></div>
 <pre><code>[1] 0.02333333</code></pre>
 <p>In our working example, the p-value suggests that there is a small chance (0.023%) of being wrong in stating that the income values are not clustered at the county level.</p>
 </div>
@@ -519,7 +502,7 @@ p</code></pre>
 <div id="computing-the-morans-i-statistic-the-easy-way" class="section level2 unnumbered">
 <h2>Computing the Moran’s I statistic: the easy way</h2>
 <p>To get the Moran’s I value, simply use the <code>moran.test</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(s1<span class="op">$</span>Income,lw)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(s1<span class="op">$</span>Income,lw)</code></pre></div>
 <pre><code>
     Moran I test under randomisation
 
@@ -532,10 +515,10 @@ sample estimates:
 Moran I statistic       Expectation          Variance 
        0.28281108       -0.06666667        0.02418480 </code></pre>
 <p>Note that the p-value computed from the <code>moran.test</code> function is not computed from an MC simulation but <em>analytically</em> instead. This may not always prove to be the most accurate measure of significance. To test for significance using the <em>MC simulation</em> method instead, use the <code>moran.mc</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">MC&lt;-<span class="st"> </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MC&lt;-<span class="st"> </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>)
 
 <span class="co"># View results (including p-value)</span>
-MC</code></pre>
+MC</code></pre></div>
 <pre><code>
     Monte-Carlo simulation of Moran I
 
@@ -545,29 +528,29 @@ number of simulations + 1: 600
 
 statistic = 0.28281, observed rank = 588, p-value = 0.02
 alternative hypothesis: greater</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the distribution (note that this is a density plot instead of a histogram)</span>
-<span class="kw">plot</span>(MC, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the distribution (note that this is a density plot instead of a histogram)</span>
+<span class="kw">plot</span>(MC, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-20-1.png" width="288" /></p>
 </div>
 <div id="morans-i-as-a-function-of-a-distance-band" class="section level2 unnumbered">
 <h2>Moran’s I as a function of a distance band</h2>
 <p>In this section, we will explore spatial autocorrelation as a function of distance bands.</p>
 <p>Instead of defining neighbors as contiguous polygons, we will define neighbors based on distances to polygon centers. We therefore need to extract the center of each polygon.</p>
-<pre class="sourceCode r"><code class="sourceCode r">coo &lt;-<span class="st"> </span><span class="kw">coordinates</span>(s1)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coo &lt;-<span class="st"> </span><span class="kw">coordinates</span>(s1)</code></pre></div>
 <p>The object <code>coo</code> stores all sixteen pairs of coordinate values.</p>
 <p>Next, we will define the search radius to include all neighboring polygon centers within 50 km (or 50,000 meters)</p>
-<pre class="sourceCode r"><code class="sourceCode r">S.dist  &lt;-<span class="st">  </span><span class="kw">dnearneigh</span>(coo, <span class="dv">0</span>, <span class="dv">50000</span>)  </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">S.dist  &lt;-<span class="st">  </span><span class="kw">dnearneigh</span>(coo, <span class="dv">0</span>, <span class="dv">50000</span>)  </code></pre></div>
 <p>The <code>dnearneigh</code> function takes on three parameters: the coordinate values <code>coo</code>, the radius for the inner radius of the annulus band, and the radius for the outer annulus band. In our example, the inner annulus radius is <code>0</code> which implies that <strong>all</strong> polygon centers <strong>up to</strong> 50km are considered neighbors.</p>
 <p>Note that if we chose to restrict the neighbors to all polygon centers between 50 km and 100 km, for example, then we would define a search annulus (instead of a circle) as <code>dnearneigh(coo, 50000, 100000)</code>.</p>
 <p>Now that we defined our search circle, we need to identify all neighboring polygons for each polygon in the dataset.</p>
-<pre class="sourceCode r"><code class="sourceCode r">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(S.dist, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>,<span class="dt">zero.policy=</span>T) </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(S.dist, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>,<span class="dt">zero.policy=</span>T) </code></pre></div>
 <p>Run the MC simulation.</p>
-<pre class="sourceCode r"><code class="sourceCode r">MI  &lt;-<span class="st">  </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>,<span class="dt">zero.policy=</span>T) </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MI  &lt;-<span class="st">  </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>,<span class="dt">zero.policy=</span>T) </code></pre></div>
 <p>Plot the results.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(MI, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>) </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(MI, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>) </code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-25-1.png" width="288" /></p>
 <p>Display p-value and other summary statistics.</p>
-<pre class="sourceCode r"><code class="sourceCode r">MI</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MI</code></pre></div>
 <pre><code>
     Monte-Carlo simulation of Moran I
 
@@ -639,7 +622,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
