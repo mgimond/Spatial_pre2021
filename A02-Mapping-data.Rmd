@@ -165,7 +165,7 @@ tm_shape(s.sf) +
 
 ```
 
-The `tm_text` function also accepts an auto placement option via the parameter `auto.placement = TRUE`. This uses a simulated annealing algorithm. Note that this automated approach may not generate the same text placement after reach run.
+The `tm_text` function also accepts an auto placement option via the parameter `auto.placement = TRUE`. This uses a simulated annealing algorithm. Note that this automated approach may not generate the same text placement after each run.
 
 ### Adding a grid or graticule {-}
 
