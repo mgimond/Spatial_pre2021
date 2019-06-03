@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Spatial Interpolation | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Spatial Interpolation | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="spatial-autocorrelation.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -419,7 +444,7 @@ Figure 14.1: Average yearly precipitation (reported in inches) for several meteo
 <p>Another class of techniques used with points that represent samples of a <strong>continuous field</strong> are <strong>interpolation</strong> methods. There are many interpolation tools available, but these tools can usually be grouped into two categories: <strong>deterministic</strong> and <strong>statistical</strong> interpolation methods.</p>
 <div id="deterministic-approach-to-interpolation" class="section level2">
 <h2><span class="header-section-number">14.1</span> Deterministic Approach to Interpolation</h2>
-<p>We will explore two deterministic methods: <strong>proximity</strong> (aka <strong>Thiessen</strong>) techniques and <strong>inverse distance weighted</strong> techniques. (<strong>IDW</strong> for short).</p>
+<p>We will explore two deterministic methods: <strong>proximity</strong> (aka <strong>Thiessen</strong>) techniques and <strong>inverse distance weighted</strong> techniques (<strong>IDW</strong> for short).</p>
 <div id="proximity-interpolation" class="section level3">
 <h3><span class="header-section-number">14.1.1</span> Proximity interpolation</h3>
 <p>This is probably the simplest (and possibly one of the oldest) interpolation method. It was introduced by Alfred H. Thiessen more than a century ago. The goal is simple: Assign to all unsampled locations the value of the closest sampled location. This generates a <em>tessellated</em> surface whereby lines that split the midpoint between each sampled location are connected thus enclosing an area. Each area ends up enclosing a sample point whose value it inherits.</p>
@@ -437,7 +462,8 @@ Figure 14.2: Tessellated surface generated from discrete point samples. This is 
 <p>The IDW technique computes an average value for unsampled locations using values from nearby weighted locations. The weights are proportional to the proximity of the sampled points to the unsampled location and can be specified by the IDW power coefficient. The larger the power coefficient, the stronger the weight of nearby points as can be gleaned from the following equation that estimates the value <span class="math inline">\(z\)</span> at an unsampled location <span class="math inline">\(j\)</span>:</p>
 <p><span class="math display">\[
 \hat{Z_j} = \frac{\sum_i{Z_i/d^n_{ij}}}{\sum_i{1/d^n_{ij}}}
-\]</span> The carat <span class="math inline">\(\hat{}\)</span> above the variable <span class="math inline">\(z\)</span> reminds us that we are estimating the value at <span class="math inline">\(j\)</span>. The parameter <span class="math inline">\(n\)</span> is the weight parameter that is applied as an exponent to the distance thus amplifying the irrelevance of a point at location <span class="math inline">\(i\)</span> as distance to <span class="math inline">\(j\)</span> increases. So a large <span class="math inline">\(n\)</span> results in nearby points wielding a much greater influence on the unsampled location than a point further away resulting in an interpolated output looking like a Thiessen interpolation. On the other hand, a very small value of <span class="math inline">\(n\)</span> will give all points within the search radius equal weight such that all unsampled locations will represent nothing more than the mean values of all sampled points within the search radius.</p>
+\]</span>
+The carat <span class="math inline">\(\hat{}\)</span> above the variable <span class="math inline">\(z\)</span> reminds us that we are estimating the value at <span class="math inline">\(j\)</span>. The parameter <span class="math inline">\(n\)</span> is the weight parameter that is applied as an exponent to the distance thus amplifying the irrelevance of a point at location <span class="math inline">\(i\)</span> as distance to <span class="math inline">\(j\)</span> increases. So a large <span class="math inline">\(n\)</span> results in nearby points wielding a much greater influence on the unsampled location than a point further away resulting in an interpolated output looking like a Thiessen interpolation. On the other hand, a very small value of <span class="math inline">\(n\)</span> will give all points within the search radius equal weight such that all unsampled locations will represent nothing more than the mean values of all sampled points within the search radius.</p>
 <p>In the following figure, the sampled points and values are superimposed on top of an (IDW) interpolated raster generated with a <span class="math inline">\(n\)</span> value of <code>2</code>.</p>
 <div class="figure"><span id="fig:f14-idw1"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-idw1-1.png" alt="An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 2 was used in this example." width="672" />
@@ -456,20 +482,20 @@ Figure 14.4: An IDW interpolation of the average yearly precipitation (reported 
 <div id="fine-tuning-the-interpolation-parameters" class="section level3">
 <h3><span class="header-section-number">14.1.3</span> Fine tuning the interpolation parameters</h3>
 <p>Finding the best set of input parameters to create an interpolated surface can be a subjective proposition. Other than <em>eyeballing</em> the results, how can you quantify the <em>accuracy</em> of the estimated values? One option is to split the points into two sets: the points used in the interpolation operation and the points used to validate the results. While this method is easily implemented (even via a pen and paper adoption) it does suffer from significant loss in power–i.e. we are using just half of the information to estimate the unsampled locations.</p>
-<p>A better approach (and one easily implemented in a computing environment) is to remove one data point from the dataset and interpolate its value using <em>all other</em> points in the dataset then repeating this process for each and every point the dataset (while making sure that the interpolator parameters remain constant across each interpolation). The interpolated values are then compared with the actual values from the omitted point. This method is sometimes referred to as <strong>jackknifing</strong> or <strong>leave-one-out cross-validation</strong>.</p>
+<p>A better approach (and one easily implemented in a computing environment) is to remove one data point from the dataset and interpolate its value using <em>all other</em> points in the dataset then repeating this process for each point in that dataset (while making sure that the interpolator parameters remain constant across each interpolation). The interpolated values are then compared with the actual values from the omitted point. This method is sometimes referred to as <strong>jackknifing</strong> or <strong>leave-one-out cross-validation</strong>.</p>
 <p>The performance of the interpolator can be summarized by computing the root-mean of squared residuals (RMSE) from the errors as follows:</p>
 <p><span class="math display">\[
 RMSE = \sqrt{\frac{\sum_{i=1}^n (\hat {Z_{i}} - Z_i)^2}{n}}
 \]</span></p>
 <p>where <span class="math inline">\(\hat {Z_{i}}\)</span> is the interpolated value at the unsampled location <em>i</em> (i.e. location where the sample point was removed), <span class="math inline">\(Z_i\)</span> is the true value at location <em>i</em> and <span class="math inline">\(n\)</span> is the number of points in the dataset.</p>
-<p>We can create a scatterplot of the predicted vs. expected precipitation values from our dataset. The solid diagonal line represents the one-to-one slope (i.e. of the predicted values match the true value exactly, then the points would fall on this line). The red dashed line is a linear fit to the points which is here to help <em>guide</em> our eyes along the pattern generated by these points.</p>
+<p>We can create a scatterplot of the predicted vs. expected precipitation values from our dataset. The solid diagonal line represents the one-to-one slope (i.e. if the predicted values matched the true values exactly, then the points would fall on this line). The red dashed line is a linear fit to the points which is here to help <em>guide</em> our eyes along the pattern generated by these points.</p>
 <div class="figure"><span id="fig:f14-rmse-plot"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-rmse-plot-1.png" alt="Scatter plot pitting predicted values vs. the observed values at each sampled location following a leave-one-out cross validation analysis." width="672" />
 <p class="caption">
 Figure 14.5: Scatter plot pitting predicted values vs. the observed values at each sampled location following a leave-one-out cross validation analysis.
 </p>
 </div>
-<p>The computed RMSE from the above working example is 6.989. We can extend our exploration of the interpolator’s accuracy by creating a map of the confidence intervals. This involves <em>layering</em> all <span class="math inline">\(n\)</span> interpolated surfaces from the aforementioned jackknife technique, then computing the confidence interval for each location ( pixel) in the output map (raster). If the range of interpolated values from the jackknife technique for an unsampled location <span class="math inline">\(i\)</span> is high, then this implies that this location is highly sensitive to the presence or absence of a single point from the sample point locations thus producing a large confidence interval (i.e. we can’t be very confident of the predicted value). Conversely, if the range of values estimated for location <span class="math inline">\(i\)</span> is low, then a small confidence interval is producing (providing us with greater confidence in the interpolated value). The following map shows the 95% confidence interval for each unsampled location (pixel) in the study extent.</p>
+<p>The computed RMSE from the above working example is 6.989 inches. We can extend our exploration of the interpolator’s accuracy by creating a map of the confidence intervals. This involves <em>layering</em> all <span class="math inline">\(n\)</span> interpolated surfaces from the aforementioned jackknife technique, then computing the confidence interval for each location ( pixel) in the output map (raster). If the range of interpolated values from the jackknife technique for an unsampled location <span class="math inline">\(i\)</span> is high, then this implies that this location is highly sensitive to the presence or absence of a single point from the sample point locations thus producing a large confidence interval (i.e. we can’t be very confident of the predicted value). Conversely, if the range of values estimated for location <span class="math inline">\(i\)</span> is low, then a small confidence interval is computed (providing us with greater confidence in the interpolated value). The following map shows the 95% confidence interval for each unsampled location (pixel) in the study extent.</p>
 <div class="figure"><span id="fig:f13-confidence-map"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f13-confidence-map-1.png" alt="In this example an IDW  power coefficient of 2 was used and the search parameters was confined to a minimum number of points of 10 and a maximum number of points of 15. The search window was isotropic. Each pixel represents the range of precipitation values (in inches) around the expected value given a 95% confidence interval." width="672" />
 <p class="caption">
@@ -484,10 +510,10 @@ Figure 14.6: In this example an IDW power coefficient of 2 was used and the sear
 <p>The statistical interpolation methods include <strong>surface trend</strong> and <strong>Kriging</strong>.</p>
 <div id="trend-surfaces" class="section level3">
 <h3><span class="header-section-number">14.2.1</span> Trend Surfaces</h3>
-<p>It may help to think of trend surface modeling as a regression on spatial coordinates where the coefficients apply to those coordinate values and (for more complicated surface trends) to the interplay of the coordinate values. We will explore a 0th order, 1st order and 2nd order surface trends in the following sub-sections.</p>
+<p>It may help to think of trend surface modeling as a regression on spatial coordinates where the coefficients apply to those coordinate values and (for more complicated surface trends) to the interplay of the coordinate values. We will explore a 0th order, 1st order and 2nd order surface trend in the following sub-sections.</p>
 <div id="th-order-trend-surface" class="section level4">
 <h4><span class="header-section-number">14.2.1.1</span> 0<sup>th</sup> Order Trend Surface</h4>
-<p>The first model (and simplest model), is the 0<sup>th</sup> order model which takes on the following expression: <code>Z = a</code> where the intercept <code>a</code> is the mean value of all sample points (27.1 in our working example). This is simply a level (horizontal) surface whose cell values all equal 27.1.</p>
+<p>The first model (and simplest model), is the 0<sup>th</sup> order model which takes on the following expression: <code>Z = a</code> where the intercept <code>a</code> is the mean precipitation value of all sample points (27.1 in our working example). This is simply a level (horizontal) surface whose cell values all equal 27.1.</p>
 <div class="figure" style="text-align: center"><span id="fig:f13-poly0"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f13-poly0-1.png" alt="The simplest model where all interpolated surface values are equal to the mean precipitation." width="672" />
 <p class="caption">
@@ -516,7 +542,7 @@ Figure 14.8: Result of a first order interpolation.
 Figure 14.9: Result of a second order interpolation
 </p>
 </div>
-<p>This interpolation picks up a slight curvature in the east-west trend. But it’s not a significant improvement on the 1st order trend.</p>
+<p>This interpolation picks up a slight curvature in the east-west trend. But it’s not a significant improvement over the 1st order trend.</p>
 </div>
 </div>
 <div id="ordinary-kriging" class="section level3">
@@ -556,7 +582,7 @@ Figure 2.4: Locations of two sample sites used to demonstrate the calculation of
 <p><span class="math display">\[
 \gamma = \frac{(Z_2 - Z_1)^2}{2} = \frac{(-1.2 - (1.6))^2}{2} = 3.92
 \]</span></p>
-<p>We can compute <span class="math inline">\(\gamma\)</span> for <em>all</em> point pairs then plot these values as a function of the distance that separate these points:</p>
+<p>We can compute <span class="math inline">\(\gamma\)</span> for <em>all</em> point pairs then plot these values as a function of the distances that separate these points:</p>
 <div class="figure"><span id="fig:f14-variogram"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-variogram-1.png" alt="Experimental variogram plot of precipitation residual values." width="672" />
 <p class="caption">
@@ -602,7 +628,7 @@ Figure 14.15: A spherical model fit to our residual variogram.
 </div>
 <div id="kriging-interpolation" class="section level4">
 <h4><span class="header-section-number">14.2.2.5</span> Kriging Interpolation</h4>
-<p>The variogram model is used by the kriging interpolator to provide <em>localized</em> weighting parameters. Recall that with the IDW, the interpolated value at an unsampled site is determined by summarizing weighted neighboring points where the weighting parameter (the power parameter) is defined by the user and is applied uniformly to the entire study extent. Kriging use the variogram model to compute the weights of neighboring points based on the distribution of those values–in essence, kriging is letting the localized pattern produced by the sample points define the weights (in a systematic way). The exact mathematical implementation will not be covered here (it’s quite involved), but the resulting output is shown in the following figure:</p>
+<p>The variogram model is used by the kriging interpolator to provide <em>localized</em> weighting parameters. Recall that with the IDW, the interpolated value at an unsampled site is determined by summarizing weighted neighboring points where the weighting parameter (the power parameter) is defined by the user and is applied uniformly to the entire study extent. Kriging uses the variogram model to compute the weights of neighboring points based on the distribution of those values–in essence, kriging is letting the localized pattern produced by the sample points define the weights (in a systematic way). The exact mathematical implementation will not be covered here (it’s quite involved), but the resulting output is shown in the following figure:</p>
 <div class="figure" style="text-align: center"><span id="fig:f14-krige01"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-krige01-1.png" alt="Krige interpolation of the residual (detrended) precipitation values." width="672" />
 <p class="caption">
@@ -690,7 +716,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

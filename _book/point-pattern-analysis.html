@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 11 Point Pattern Analysis | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 11 Point Pattern Analysis | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="map-algebra.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -437,7 +462,7 @@ Figure 11.1: An example of a point pattern where n = 20 and the study area (defi
 </div>
 <div id="local-density" class="section level3">
 <h3><span class="header-section-number">11.2.2</span> Local density</h3>
-<p>A point pattern’s density can be measured at different locations within the study area. Such an approach helps us assess if the density–and, by extension, the underlying process’ local intensity <span class="math inline">\(\widehat{\lambda}_i\)</span>–is constant across the study area. This can be an important property of the data since it may need to be mitigated for when using distance based analysis tools. Several techniques to measure local density are available, here we will focus on two such methods: <em>quadrat density</em> and <em>kernel density</em>.</p>
+<p>A point pattern’s density can be measured at different locations within the study area. Such an approach helps us assess if the density–and, by extension, the underlying process’ local (modeled) intensity <span class="math inline">\(\widehat{\lambda}_i\)</span>–is constant across the study area. This can be an important property of the data since it may need to be mitigated for when using the distance based analysis tools covered later in this chapter. Several techniques for measuring local density are available, here we will focus on two such methods: <em>quadrat density</em> and <em>kernel density</em>.</p>
 <div id="quadrat-density" class="section level4">
 <h4><span class="header-section-number">11.2.2.1</span> Quadrat density</h4>
 <p>This technique requires that the study area be divided into sub-regions (aka <em>quadrats</em>). Then, the point density is computed for each quadrat by dividing the number of points in each quadrat by the quadrat’s area. Quadrats can take on many different shapes such as hexagons and triangles, here we use square shaped quadrats to demonstrate the procedure.</p>
@@ -461,7 +486,7 @@ Converting a continuous field into discretized areas is sometimes referred to as
 Figure 11.3: Example of a covariate. Figure on the left shows the elevation map. Figure on the right shows elevation broken down into four sub-regions (a tessellated surface) for which local density values will be computed.
 </p>
 </div>
-<p>If the local intensity changes across all regions of the tessellated covariate as a function of the covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of 17.08, 50.45, 26.76, 5.71 map units respectively. To compute these regions’ point densities, we simply divide the number of points by the respective area values.</p>
+<p>If the local intensity changes across the tessellated covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of 17.08, 50.45, 26.76, 5.71 map units respectively. To compute these regions’ point densities, we simply divide the number of points by the respective area values.</p>
 <div class="figure"><span id="fig:f11-quad03"></span>
 <img src="11-Point-Patterns_files/figure-html/f11-quad03-1.png" alt="Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by the area of the sub-region)." width="576" />
 <p class="caption">
@@ -506,12 +531,12 @@ Figure 11.8: An example of a kernel function is the 3x3 quartic kernel function 
 </div>
 <div id="kernel-density-adjusted-for-covariate" class="section level4">
 <h4><span class="header-section-number">11.2.2.3</span> Kernel Density Adjusted for Covariate</h4>
-<p>In the previous section, we learned that we could use a covariate, like elevation, to define the sub-regions (quadrats) within which densities were computed. In essence, a form of <em>normalization</em> was applied to the density calculations whereby each sub-region was assumed to represent a unique underlying process (if this were the case, then the density values would have been the same across each sub-region). The idea of <em>normalizing</em> the data to some underlying covariate can be extended to kernel density analysis. Here, instead of <em>dividing</em> the study region into discrete sub-regions (as was done with quadrat analysis), we normalize the computed density (from our observed point pattern) to a <em>measure</em> of density expected from the underlying covariate. This normalized density, which we’ll denote as <span class="math inline">\(\rho\)</span>, can be estimated in one of three different ways– by <em>ratio</em>, <em>re-weight</em> and <em>transform</em> methods. We will not delve into the differences between these methods, but note that there is more than one way to estimate <span class="math inline">\(\rho\)</span>.</p>
+<p>In the previous section, we learned that we could use a covariate, like elevation, to define the sub-regions (quadrats) within which densities were computed. In essence, a form of <em>normalization</em> was applied to the density calculations whereby each sub-region was assumed to represent a unique underlying process (if this were the case, then the density values would have been the same across each sub-region). The idea of <em>normalizing</em> the data to some underlying covariate can be extended to kernel density analysis. Here, instead of <em>dividing</em> the study region into discrete sub-regions (as was done with quadrat analysis), we normalize the computed density (from our observed point pattern) to a <em>measure</em> of density expected from the underlying covariate. This normalized density, which we’ll denote as <span class="math inline">\(\rho\)</span>, can be estimated in one of three different ways– by <em>ratio</em>, <em>re-weight</em> and <em>transform</em> methods. We will not delve into the differences between these methods, but note that there is more than one way to estimate <span class="math inline">\(\rho\)</span> in the presence of a covariate.</p>
 <p>In the following example, the elevation raster is used as the covariate by <em>normalizing</em> the density values using the <em>ratio</em> method. The density plot (right-most plot) shows the density distribution when controlled for elevation.</p>
 <div class="figure"><span id="fig:f11-kernel03"></span>
 <img src="11-Point-Patterns_files/figure-html/f11-kernel03-1.png" alt="An estimate of $\rho$ using the ratio method. The figure on the left shows the point distribution superimposed on the elevation layer. The middle figure plots the estimated $\rho$ as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of $\widehat{\lambda}$ which is a function of the elevation raster (i.e. $\widehat{\lambda}=\widehat{\rho}_{elevation}$)." width="787.2" />
 <p class="caption">
-Figure 11.9: An estimate of <span class="math inline">\(\rho\)</span> using the ratio method. The figure on the left shows the point distribution superimposed on the elevation layer. The middle figure plots the estimated <span class="math inline">\(\rho\)</span> as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of <span class="math inline">\(\widehat{\lambda}\)</span> which is a function of the elevation raster (i.e. <span class="math inline">\(\widehat{\lambda}=\widehat{\rho}_{elevation}\)</span>).
+Figure 11.9: An estimate of <span class="math inline">\(\rho\)</span> using the ratio method. The figure on the left shows the point distribution superimposed on the elevation layer. The middle figure plots the estimated <span class="math inline">\(\rho\)</span> as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the spatial distribution of <span class="math inline">\(\widehat{\lambda}\)</span> which is a function of the elevation raster (i.e. <span class="math inline">\(\widehat{\lambda}=\widehat{\rho}_{elevation}\)</span>).
 </p>
 </div>
 <p>If the density distribution, <span class="math inline">\(\rho\)</span>, can be explained by the elevation layer, we would expect a constant <span class="math inline">\(\rho\)</span> value across all elevation values in the <span class="math inline">\(\rho\)</span> vs. elevation plot and across the entire spatial extent in the density map. This appears to be the case with our working example except near the higher elevation values. This can be explained by the small area covered by these high elevation locations which result in fewer observation opportunities and thus higher uncertainty for that corner of the study extent. This uncertainty is very apparent in the <span class="math inline">\(\rho\)</span> vs. elevation plot where the 95% confidence interval envelope widens at higher elevation values (indicating the greater uncertainty in our estimated <span class="math inline">\(\rho\)</span> value at those high elevation values).</p>
@@ -526,10 +551,10 @@ Figure 11.9: An estimate of <span class="math inline">\(\rho\)</span> using the 
 \label{eq:density-covariate}
 \end{equation}
 \]</span></p>
-<p>where <span class="math inline">\(\lambda(i)\)</span> is the modeled intensity at location <span class="math inline">\(i\)</span>, <span class="math inline">\(e^{\alpha}\)</span> (the exponent of <span class="math inline">\(\alpha\)</span>) is the base intensity when the covariate is <em>zero</em> and <span class="math inline">\(e^{\beta}\)</span> is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate. This is a form of the <em>logistic regression</em> model–popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a <strong>loglinear</strong> function of the underlying covariate (i.e. one where the process’ intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where <span class="math inline">\(\alpha + \beta Z(i)\)</span> is the <em>linear predictor</em>.</p>
+<p>where <span class="math inline">\(\lambda(i)\)</span> is the modeled intensity at location <span class="math inline">\(i\)</span>, <span class="math inline">\(e^{\alpha}\)</span> (the exponent of <span class="math inline">\(\alpha\)</span>) is the base intensity when the covariate is <em>zero</em> and <span class="math inline">\(e^{\beta}\)</span> is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate <span class="math inline">\(Z(i)\)</span>. This is a form of the <em>logistic regression</em> model–popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a <strong>loglinear</strong> function of the underlying covariate (i.e. one where the process’ intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where <span class="math inline">\(\alpha + \beta Z(i)\)</span> is the <em>linear predictor</em>.</p>
 <div class="note">
 <p>
-Note: The left-hand side of a logisitic regression model is often presented as the <em>probability</em>, <span class="math inline"><span class="math inline">\(P\)</span></span>, of occurrence and is related to <span class="math inline"><span class="math inline">\(\lambda\)</span></span> as <span class="math inline">\(\lambda=P/(1-P)\)</span> which is the <em>ratio of probability of occurrence</em>. Solving for <span class="math inline"><span class="math inline">\(P\)</span></span> gives us <span class="math inline">\(P = \lambda/(1 + \lambda)\)</span> which yields the following equation: <span class="math display"><span class="math display">\[
+Note: The left-hand side of a logistic regression model is often presented as the <em>probability</em>, <span class="math inline"><span class="math inline">\(P\)</span></span>, of occurrence and is related to <span class="math inline"><span class="math inline">\(\lambda\)</span></span> as <span class="math inline">\(\lambda=P/(1-P)\)</span> which is the <em>ratio of probability of occurrence</em>. Solving for <span class="math inline"><span class="math inline">\(P\)</span></span> gives us <span class="math inline">\(P = \lambda/(1 + \lambda)\)</span> which yields the following equation: <span class="math display"><span class="math display">\[
 P(i) = \frac{e^{\alpha + \beta Z(i)}}{1 + e^{\alpha + \beta Z(i)}}
 \]</span></span>
 </p>
@@ -568,6 +593,7 @@ A <em>second order</em> property of a pattern concerns itself with the observati
 </p>
 </div>
 <p><br></p>
+<p>Three distance based approaches are covered next: The average nearest neighbor (ANN), the K and L functions, and the pair correlation function.</p>
 <div id="average-nearest-neighbor" class="section level3">
 <h3><span class="header-section-number">11.3.1</span> Average Nearest Neighbor</h3>
 <p>An average nearest neighbor (ANN) analysis measures the average distance from each point in the study area to its nearest point. In the following example, the average nearest neighbor for all points is 1.52 units.</p>
@@ -598,13 +624,14 @@ Figure 11.14: Three different point patterns: a single cluster, a dual cluster a
 Figure 11.15: Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern.
 </p>
 </div>
-<p>The bottom line (black line) indicates that the cluster (left plot) is tight and that the distances between a point and all other points is very short. This is in stark contrast with the top line (red line) which indicates that the distances between points is much greater. Note that the way we describe these patterns is heavily influenced by the size and shape of the study region. If the region was defined as the smallest rectangle encompassing the cluster of points, the cluster of points would no longer look clustered.</p>
+<p>The bottom line (black dotted line) indicates that the cluster (left plot) is tight and that the distances between a point and all other points is very short. This is in stark contrast with the top line (red dotted line) which indicates that the distances between points is much greater. Note that the way we describe these patterns is heavily influenced by the size and shape of the study region. If the region was defined as the smallest rectangle encompassing the cluster of points, the cluster of points would no longer look clustered.</p>
 <div class="figure"><span id="fig:f11-diff-ppp02"></span>
 <img src="11-Point-Patterns_files/figure-html/f11-diff-ppp02-1.png" alt="The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?" width="384" />
 <p class="caption">
 Figure 11.16: The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?
 </p>
 </div>
+<p>An important assumption that underlies our interpretation of the ANN results is that of stationarity of the underlying point process (i.e. that there is no overall drift or trend in the process’ intensity). If the point is not stationary, then it will be difficult to assess if the results from the ANN analysis are due to interactions between the points or due to changes in some underlying factor that changes as a function of location.</p>
 </div>
 <div id="k-and-l-functions" class="section level3">
 <h3><span class="header-section-number">11.3.2</span> K and L functions</h3>
@@ -730,12 +757,12 @@ K
 Figure 11.17: The K-function calculated from the Walmart stores point distribution in MA (shown in black) compared to<span class="math inline">\(K_{expected}\)</span> under the IRP/CSR assumption (shown in red).
 </p>
 </div>
-<p>K values greater than <span class="math inline">\(K_{expected}\)</span> indicate clustering of points at a given distance band; K values less than <span class="math inline">\(K_{expected}\)</span> indicate dispersion of points at a given distance band. In our example, the stores appear to be more clustered than expected at distances greater than 12 km.</p>
+<p><span class="math inline">\(K\)</span> values greater than <span class="math inline">\(K_{expected}\)</span> indicate clustering of points at a given distance band; K values less than <span class="math inline">\(K_{expected}\)</span> indicate dispersion of points at a given distance band. In our example, the stores appear to be more clustered than expected at distances greater than 12 km.</p>
 <p>Note that like the ANN analysis, the <span class="math inline">\(K\)</span>-function assumes stationarity in the underlying point process (i.e. that there is no overall drift or trend in the process’ intensity).</p>
 </div>
 <div id="l-function" class="section level4">
 <h4><span class="header-section-number">11.3.2.2</span> L function</h4>
-<p>One problem with the <span class="math inline">\(K_{expected}\)</span> is that the shape of the function tends to curve upward making it difficult to see small differences between <span class="math inline">\(K\)</span> and <span class="math inline">\(K_{expected}\)</span>. A workaround is to transform the values in such a way that the expected values, <span class="math inline">\(K_{expected}\)</span>, lie horizontal. The transformation is calculated as follows:</p>
+<p>One problem with the <span class="math inline">\(K\)</span> function is that the shape of the function tends to curve upward making it difficult to see small differences between <span class="math inline">\(K\)</span> and <span class="math inline">\(K_{expected}\)</span>. A workaround is to transform the values in such a way that the expected values, <span class="math inline">\(K_{expected}\)</span>, lie horizontal. The transformation is calculated as follows:</p>
 <p><span class="math display">\[
 \begin{equation}
 L=\sqrt{\dfrac{K(d)}{\pi}}-d
@@ -768,7 +795,7 @@ Figure 11.20: <span class="math inline">\(g\)</span>-function of the Massachuset
 </p>
 </div>
 <p>If <span class="math inline">\(g(r)\)</span> = 1, then the inter-point distances (at and around distance <span class="math inline">\(r\)</span>) are consistent with CSR. If <span class="math inline">\(g(r)\)</span> &gt; 1, then the points are more clustered than expected under CSR. If <span class="math inline">\(g(r)\)</span> &lt; 1, then the points are more dispersed than expected under CSR. Note that <span class="math inline">\(g\)</span> can never be less than 0.</p>
-<p>Like its <span class="math inline">\(K\)</span>/<span class="math inline">\(L\)</span> counterparts, the <span class="math inline">\(g\)</span>-function assumes stationarity in the underlying point process (i.e. that there is no overall drift or trend in the process’ intensity).</p>
+<p>Like its <span class="math inline">\(K\)</span> and ANN counterparts, the <span class="math inline">\(g\)</span>-function assumes stationarity in the underlying point process (i.e. that there is no overall drift or trend in the process’ intensity).</p>
 </div>
 </div>
 <div id="first-and-second-order-effects" class="section level2">
@@ -844,7 +871,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

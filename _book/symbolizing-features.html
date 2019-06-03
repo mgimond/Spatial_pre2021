@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Symbolizing features | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Symbolizing features | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="gis-data-management.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -413,22 +438,22 @@ code > span.in { color: #008000; } /* Information */
 <p>Each color is a combination of three perceptual dimensions: <strong>hue</strong>, <strong>lightness</strong> and <strong>saturation</strong>.</p>
 <div id="hue" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Hue</h3>
-<p><strong>Hue</strong> is the perceptual dimension associated with color names.</p>
+<p><strong>Hue</strong> is the perceptual dimension associated with color names. Typically, we use different hues to represent different <em>categories</em> of data.</p>
 <div class="figure"><span id="fig:f04-hue"></span>
 <img src="04-Symbolizing-features_files/figure-html/f04-hue-1.png" alt="An example of eight different hues. Hues are associated with color names such as green, red or blue." width="288" />
 <p class="caption">
 Figure 4.1: An example of eight different hues. Hues are associated with color names such as green, red or blue.
 </p>
 </div>
-<p>Note that magentas and purples are not part of the natural visible light spectrum; instead they are a mix of reds and blues (or violets) from the spectrum’s tail ends. Typically, we use different hues to represent different <em>categories</em> of data.</p>
+<p>Note that magentas and purples are not part of the natural visible light spectrum; instead they are a mix of reds and blues (or violets) from the spectrum’s tail ends.</p>
 </div>
 <div id="lightness" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Lightness</h3>
 <p><strong>Lightness</strong> (sometimes referred to as <em>value</em>) describes how much light reflects (or is emitted) off of a surface. Lightness is an important dimension for representing ordinal/interval/ratio data.</p>
 <div class="figure"><span id="fig:f04-lightness"></span>
-<img src="04-Symbolizing-features_files/figure-html/f04-lightness-1.png" alt="Eight different hues with decreasing lightness values." width="288" />
+<img src="04-Symbolizing-features_files/figure-html/f04-lightness-1.png" alt="Eight different hues (across columns) with decreasing lightness values (across rows)." width="288" />
 <p class="caption">
-Figure 4.2: Eight different hues with decreasing lightness values.
+Figure 4.2: Eight different hues (across columns) with decreasing lightness values (across rows).
 </p>
 </div>
 </div>
@@ -436,9 +461,9 @@ Figure 4.2: Eight different hues with decreasing lightness values.
 <h3><span class="header-section-number">4.1.3</span> Saturation</h3>
 <p><strong>Saturation</strong> (sometimes referred to as <em>chroma</em>) is a measure of a color’s vividness. You can use saturated colors to help distinguish map symbols. But be careful when manipulating saturation, its property should be modified sparingly in most maps.</p>
 <div class="figure"><span id="fig:f04-saturation"></span>
-<img src="04-Symbolizing-features_files/figure-html/f04-saturation-1.png" alt="Eight different hues with decreasing saturation values." width="288" />
+<img src="04-Symbolizing-features_files/figure-html/f04-saturation-1.png" alt="Eight different hues (across columns) with decreasing saturation values (across rows)." width="288" />
 <p class="caption">
-Figure 4.3: Eight different hues with decreasing saturation values.
+Figure 4.3: Eight different hues (across columns) with decreasing saturation values (across rows).
 </p>
 </div>
 </div>
@@ -456,14 +481,14 @@ Figure 4.4: This is how the software defines the color space. But does this matc
 <p>The color space implemented in most software is symmetrical about the value/lightness axis. However, this is not how we “perceive” color space: our perceptual view of the color space is <em>not</em> perfectly symmetrical.</p>
 <p>Let’s examine a slice of the symmetrical color space along the blue/yellow hue axis at a lightness value of about 90%.</p>
 <div class="figure"><span id="fig:f04-munsell"></span>
-<img src="04-Symbolizing-features_files/figure-html/f04-munsell-1.png" alt="A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge." width="384" />
+<img src="04-Symbolizing-features_files/figure-html/f04-munsell-1.png" alt="A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge." width="768" />
 <p class="caption">
 Figure 4.5: A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge.
 </p>
 </div>
 <p>Now, how many distinct yellows can you make out? How many distinct blues can you make out? Do the numbers match? Unless you have incredible color perception, you will probably observe that the number of distinct colors do not match when in fact they do! There are exactly 30 distinct blues and 30 distinct yellows. Let’s add a border to each color to convince ourselves that the software did indeed generate the same number of distinct colors.</p>
 <div class="figure"><span id="fig:f04-munsell-bis"></span>
-<img src="04-Symbolizing-features_files/figure-html/f04-munsell-bis-1.png" alt="A cross section of the color space with each color distinctly outlined." width="384" />
+<img src="04-Symbolizing-features_files/figure-html/f04-munsell-bis-1.png" alt="A cross section of the color space with each color distinctly outlined." width="768" />
 <p class="caption">
 Figure 4.6: A cross section of the color space with each color distinctly outlined.
 </p>
@@ -482,14 +507,14 @@ Figure 4.7: A slice of the Munsell color space.
 <h2><span class="header-section-number">4.3</span> Classification</h2>
 <div id="qualitative-color-scheme" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Qualitative color scheme</h3>
-<p>Qualitative schemes are used to symbolize data having no inherent order (i.e. categorical data). Different hues are normally used to distinguish different categorical values. When possible, use commonly associated hues for land features such as vegetation and water.</p>
+<p>Qualitative schemes are used to symbolize data having no inherent order (i.e. categorical data). Different hues with equal lightness and saturation values are normally used to distinguish different categorical values.</p>
 <div class="figure"><span id="fig:f04-qualitative"></span>
 <img src="04-Symbolizing-features_files/figure-html/f04-qualitative-1.png" alt="Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette." width="384" />
 <p class="caption">
 Figure 4.8: Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette.
 </p>
 </div>
-<p>Election results can be displayed using a qualitative color scheme. But be careful in your choice of hues if a cultural bias exists (i.e. it may not make sense to assign “blue” to republican or “red”&quot; to democratic regions).</p>
+<p>Election results is an example of a dataset that can be displayed using a qualitative color scheme. But be careful in your choice of hues if a cultural bias exists (i.e. it may not make sense to assign “blue” to republican or “red”" to democratic regions).</p>
 <div class="figure"><span id="fig:f04-qualitative-map"></span>
 <img src="04-Symbolizing-features_files/figure-html/f04-qualitative-map-1.png" alt="Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation." width="432" />
 <p class="caption">
@@ -534,7 +559,7 @@ Figure 4.13: This map of household income uses a divergent color scheme where tw
 </div>
 <div id="so-how-do-i-find-a-proper-color-scheme-for-my-data" class="section level2">
 <h2><span class="header-section-number">4.4</span> So how do I find a proper color scheme for my data?</h2>
-<p>Fortunately, there is a wonderful online resource that will guide you through the process of picking a proper set of color swatches given the nature of your data (i.e. sequential, diverging, and qualitative) and the number of intervals (aka classes). The website is <a href="http://colorbrewer2.org/" class="uri">http://colorbrewer2.org/</a> and was developed by Cynthia Brewer <em>et. al</em> at the Pennsylvania State University.</p>
+<p>Fortunately, there is a wonderful online resource that will guide you through the process of picking a proper set of color swatches given the nature of your data (i.e. sequential, diverging, and qualitative) and the number of intervals (aka classes). The website is <a href="http://colorbrewer2.org/">http://colorbrewer2.org/</a> and was developed by Cynthia Brewer <em>et. al</em> at the Pennsylvania State University.</p>
 <p><img src="img/ColorBrewer.png" width="414" /></p>
 <p>You’ll note that the ColorBrewer website limits the total number of color swatches to 12 or less. There is a good reason for this in that our eyes can only associate so many different colors with value ranges/bins. Try matching 9 different shades of green in a map to the legend box swatches!</p>
 <p>Additional features available on that website include choosing colorblind safe colors and color schemes that translate well into grayscale colors (useful if your work is to be published in journals that do not offer color prints).</p>
@@ -616,7 +641,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

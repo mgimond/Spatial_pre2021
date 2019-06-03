@@ -4,5 +4,4 @@ sp
 gridExtra
 raster
 dplyr
-bindrcpp
 rgeos

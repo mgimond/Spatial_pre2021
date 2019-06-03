@@ -27,12 +27,12 @@ More than one raster can be involved in a local operation. For example, two rast
 
 Local operations also include **reclassification** of values. This is where a range of values from the input raster are assigned a new (common) value. For example, we might want to reclassify the input raster values as follows:
 
-Original values | Reclassified values
-----------------|--------------------
-0-25 |  25
-26-50 | 50
-51-75 | 75
-76-100 | 100
+ Original values  Reclassified values
+----------------  --------------------
+            0-25  25
+           26-50  50
+           51-75  75
+          76-100  100
 
 <div class="figure">
 <img src="10-Map-Algebra_files/figure-html/f10-local03-1.png" alt="Example of a local operation where the output results from the reclassification of input values." width="480" />
@@ -47,8 +47,8 @@ Original values | Reclassified values
 Focal operations assign to the output cells some summary value (such as the mean) of the neighboring cells from the input raster. For example, a cell output value can be the average of all 9 neighboring input cells (including the center cell); this acts as a *smoothing function*.
 
 <div class="figure">
-<img src="10-Map-Algebra_files/figure-html/f10-focal01-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA." width="480" />
-<p class="caption">(\#fig:f10-focal01)Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.</p>
+<img src="10-Map-Algebra_files/figure-html/f10-focal01-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Focal cells surrounded by non-existent cells are assigned an `NA` in this example." width="480" />
+<p class="caption">(\#fig:f10-focal01)Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Focal cells surrounded by non-existent cells are assigned an `NA` in this example.</p>
 </div>
 
 Notice how, in the above example, the edge cells from the output raster have been assigned a value of `NA` (No Data). This is because cells outside of the extent have no value. Some GIS applications will ignore the missing surrounding values and just compute the average of the available cells as demonstrated in the next example.
@@ -74,7 +74,7 @@ In addition to defining the neighborhood shape and dimension, a kernel also defi
 
 ## Zonal operations and functions
 
-A zonal operation computes a new summary value (such as the mean) from cells aggregated for some zonal unit. In the following example, the cell values from the raster layer are aggregated into three zones whose boundaries are delineated in red. Each output zone shows the average cell value within that zone.
+A zonal operation computes a new summary value (such as the mean) from cells aggregated for some zonal unit. In the following example, the cell values from the raster layer are aggregated into three zones whose boundaries are delineated in red. Each output zone shows the average value of the cells within that zone.
 
 <div class="figure">
 <img src="10-Map-Algebra_files/figure-html/f10-zonal01-1.png" alt="Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red." width="576" />
@@ -102,15 +102,15 @@ Operations and functions applied to gridded data can be broken down into three g
 
 ### Mathematical operators and functions
 
-Two mathematical operators have already been demonstrated in earlier sections: the *multiplier* and the *addition* operators. Other operators include division and the modulo (aka the modulus) which is the remainder of a division. Mathematical *functions* can also be applied to gridded data manipulation. Examples are square root and sine functions. The following tables showcases a few examples with ArcGIS syntax.
+Two mathematical operators have already been demonstrated in earlier sections: the *multiplier* and the *addition* operators. Other operators include division and the modulo (aka the modulus) which is the remainder of a division. Mathematical *functions* can also be applied to gridded data manipulation. Examples are square root and sine functions. The following table showcases a few examples with ArcGIS and R syntax.
 
-Operation |	Syntax | Example
-----------|--------|--------
-Addition | `+`     | `R1 + R2`		
-Subtraction | `-`  | `R1 - R2`		
-Division		| `/`  | `R1 / R2`
-Modulo		  | `Mod()` | `Mod(R1, 100)`
-Square root		| `SquareRoot()` | `SquareRoot(R1)`
+Operation |	ArcGIS Syntax | R Syntax | Example
+----------|--------|--------|--------
+Addition | `+`     | `+` |  `R1 + R2`		
+Subtraction | `-`  | `-` | `R1 - R2`		
+Division		| `/`  | `/`  | `R1 / R2`
+Modulo		  | `Mod()` | `%%` | `Mod(R1, 100)`, `R1 %% 10`
+Square root		| `SquareRoot()` | `sqrt()`| `SquareRoot(R1)`, `sqrt(R1)`
 
 ### Logical comparison
 
@@ -137,18 +137,18 @@ Some applications make use of special functions to test a condition. For example
 ```
 Con( R1 > R2, 1, 0)
 ```
-outputs a value of `1` if `R1` is greater than `R2` and `0` if not. It generates the same output as the one shown in the above figure. Note that in most programming environments (including ArcMap), the expression `R1 > R2` produces the same output because the value `1` is the numeric representation of  `TRUE` and `0` of `FALSE`. 
+outputs a value of `1` if `R1` is greater than `R2` and `0` if not. It generates the same output as the one shown in the above figure. Note that in most programming environments (including ArcMap), the expression `R1 > R2` produces the same output because the value `1` is the numeric representation of  `TRUE` and `0` that of `FALSE`. 
 
 
 ### Boolean (or Logical) operators
  
 In map algebra, *Boolean* operators are used to compare conditional states of a cell (i.e. TRUE or FALSE). The three Boolean operators are **AND**, **OR** and **NOT**. 
 
-Boolean | ArcGIS | R |	Example
---------|--------|----|------
-AND     |	&      |	&	| `R1 & R2`
-OR	    |	`|`    |	`|` | `R1 | R2`, `R1 or R2`
-NOT	    | `~`	   | `!` | `~R2`
+Boolean  ArcGIS   R          Example
+-------- -------- ---------  ------
+AND      &       	&	         `R1 & R2`
+OR	     `|`     	`|`        `R1 | R2`
+NOT	     `~`	    `!`        `~R2`, `!R2`
 
 > A "TRUE" state is usually encoded as a `1` or any *non-zero* integer while a "FALSE" state is usually encoded as a `0`.
 

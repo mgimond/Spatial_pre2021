@@ -16,7 +16,7 @@ One approach to mapping both estimates *and* SE's is to display both as side-by-
 <p class="caption">(\#fig:f07-map1)Maps of income estimates (left) and associated standard errors (right).</p>
 </div>
 
-While there is nothing inherently wrong in doing this, it can prove to be difficult to mentally process the two maps, particularly if the data consists of hundreds or thousands of small polygons.
+While there is nothing inherently wrong in doing this, it can prove to be difficult to mentally process the two maps, particularly if the data consist of hundreds or thousands of small polygons.
 
 Another approach is to overlay the measure of uncertainty (SE or MoE) as a textured layer on top of the income layer.
 
@@ -25,7 +25,7 @@ Another approach is to overlay the measure of uncertainty (SE or MoE) as a textu
 <p class="caption">(\#fig:f07-map2)Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE.</p>
 </div>
 
-Or, one could map both ends of the MoE range side by side.
+Or, one could map both the upper and lower ends of the MoE range side by side.
 
 <div class="figure">
 <img src="07-Data-uncertainty_files/figure-html/f07-map-MoE-1.png" alt="Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right)." width="672" />
@@ -51,7 +51,7 @@ Note, for example, how Piscataquis county's income estimate (grey point in the g
 <p class="caption">(\#fig:f07-sim-values)Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot.</p>
 </div>
 
-Note how, in this sample, Oxford's income drops in ranking below that of Piscataquis. A similar change in ranking could occur for York county which drops down *two* counties (Hancock and Lincoln).
+Note how, in this sample, Oxford's income drops in ranking below that of Piscataquis and Franklin counties. A similar change in ranking is observed for Sagadahoc county which drops down *two* counties: Hancock and Lincoln.
 
 How does the *estimated income* map compare with the *simulated income* map?
 
@@ -71,7 +71,7 @@ A few more simulated samples (using the 90% confidence interval) are shown below
 
 
 
-There is no single solution to effectively convey both estimates *and* associated uncertainty in a map. Sun and Wong [@DataQuality2010] offer several suggestions dependent on the context of the problem. One approach adopts a class comparison method whereby a map displays both the estimate and a measure of whether the MoE surrounding that estimate extends beyond the assigned class. For example, if we adopt the classification breaks [0 , 20600 , 22800 , 25000 , 27000 , 34000 ], we will find that many of the estimates' MoE extend beyond the classification breaks assigned to those estimates.
+There is no single solution to effectively convey both estimates *and* associated uncertainty in a map. Sun and Wong [@DataQuality2010] offer several suggestions dependent on the context of the problem. One approach adopts a class comparison method whereby a map displays both the estimate and a measure of whether the MoE surrounding that estimate extends beyond the assigned class. For example, if we adopt the classification breaks [0 , 20600 , 22800 , 25000 , 27000 , 34000 ], we will find that many of the estimates' MoE extend beyond the classification breaks assigned to them.
 
 <div class="figure">
 <img src="07-Data-uncertainty_files/figure-html/compInt-1.png" alt="Income estimates by county with 90 percent confidence interval. Note that many of the counties' MoE have ranges that cross into an adjacent class." width="480" />

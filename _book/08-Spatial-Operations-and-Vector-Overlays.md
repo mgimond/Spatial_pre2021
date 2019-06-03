@@ -1,4 +1,5 @@
 
+
 # Spatial Operations and Vector Overlays
 
 
@@ -17,11 +18,10 @@ Set algebra consists of four basic operators:
  * equal to (`=`)
  * not equal to (`<>`).
 
-<div class="warning">
-<p>Note that in some programming environments (such as R and Python), the equality condition is presented as <strong>two</strong> equal signs, <code>==</code>, and not one. In such an environment <code>x = 3</code> in interpreted as &quot;<em>pass the value 3 to x</em>&quot; and <code>x == 3</code> is interpreted as &quot;<em>is x equal to 3?</em>&quot;.</p>
-</div>
+> In some programming environments (such as R and Python), the equality condition is presented as **two** equal signs, `==`, and not one. In such an environment `x = 3` is interpreted as "*pass the value 3 to x*" and `x == 3` is interpreted as "*is x equal to 3?*.
 
-For example, if you have a GIS layer of major cities and you want to identify all census tracts having a population count greater than 50000, you would write the expression as `"POP" > 50000` (of course, this assumes that the attribute field name for population count is `POP`).
+
+If you have a GIS layer of major cities and you want to identify all census tracts having a population count greater than 50000, you would write the expression as `"POP" > 50000` (of course, this assumes that the attribute field name for population count is `POP`).
 
 <div class="figure">
 <img src="img/Select_attribute_1.jpg" alt="An example of *selection by attributes* tool in ArcMap  where it is accessed from the *Selection* pull-down menu." width="358" />
@@ -91,7 +91,7 @@ Map overlay refers to a group of procedures and techniques used in combining inf
 
 ### Intersect
 
-**Intersecting** takes both layers as inputs then outputs the features from both layers that share the same spatial extent. Note that the output attribute table inherits attributes from *both* input layers (this differs from *clipping* where attributes from just one layer a carried through).
+**Intersecting** takes both layers as inputs then outputs the features from both layers that share the same spatial extent. Note that the output attribute table inherits attributes from *both* input layers (this differs from *clipping* where attributes from just one layer are carried through).
 
 ![](img/Intersect.svg)<!-- -->
 

@@ -1,4 +1,5 @@
 
+
 # Pitfalls to avoid
 
 
@@ -28,7 +29,7 @@ The maps highlight how non-uniform aerial units can fool us into thinking a patt
 
 ## MAUP
 
-Continuing with the uniform point distribution from the last section, let's assume that as part of the survey, two variables (v1 and v2) were recorded for each point (symbolized as varying shades of green and reds in the two left-hand maps of Figure  \@ref(fig:v1-and-v2-raw)). We might be interested in assessing if the variables v1 and v2 are correlated (i.e. as variable v1 increases in value, does this trigger a monotonic increase or decrease in variable v2?). One way to visualize the relationship between two variables is to generate a bivariate scatter plot (left plot of Figure  \@ref(fig:v1-and-v2-raw)).
+Continuing with the uniform point distribution from the last section, let's assume that as part of the survey, two variables (v1 and v2) were recorded for each point (symbolized as varying shades of green and reds in the two left-hand maps of Figure  \@ref(fig:v1-and-v2-raw)). We might be interested in assessing if the variables v1 and v2 are correlated (i.e. as variable v1 increases in value, does this trigger a monotonic increase or decrease in variable v2?). One way to visualize the relationship between two variables is to generate a bivariate scatter plot (right plot of Figure  \@ref(fig:v1-and-v2-raw)).
 
 <div class="figure">
 <img src="img/v1_and_v2_raw.png" alt="Plots of variables v1 and v2 for each individual in the survey. The color scheme is sequential with darker colors depicting higher values and lighter colors depicting lower values." width="550" />
@@ -58,15 +59,15 @@ This problem is often referred to as the **modifiable aerial unit problem (MAUP)
 
 ## Ecological Fallacy
 
-But, as is often the case, our analysis is constrained by the data at hand. So when analyzing aggregated data, you must be careful in how you frame the results. For example, if your analysis was conducted with the data summarized using the non-uniform aggregation scheme, you might be tempted to state that there is a strong relationship between variables v1 and v2 at the *individual* level. But doing so leads to the **ecological fallacy** where the statistical relationship at one level of aggregation is (wrongly) assumed to hold at any other levels of aggregation (including at the individual level). In fact, all you can really say is that "*at this level of aggregation, we observe a strong relationship between v1 and v2*" and nothing more!
+But, as is often the case, our analysis is constrained by the data at hand. So when analyzing aggregated data, you must be careful in how you frame the results. For example, if your analysis was conducted with the data summarized using the non-uniform aggregation scheme shown in Figure  \@ref(fig:v1-and-v2-nonunif), you might be tempted to state that there is a strong relationship between variables v1 and v2 at the *individual* level. But doing so leads to the **ecological fallacy** where the statistical relationship at one level of aggregation is (wrongly) assumed to hold at any other levels of aggregation (including at the individual level). In fact, all you can really say is that "*at this level of aggregation, we observe a strong relationship between v1 and v2*" and nothing more!
 
 ## Mapping rates
 
-One of the first pitfalls you've been taught to avoid is the mapping of counts when the aerial units associated with these values are not uniform in size and shape. Two options in resolving this problem are: normalizing counts to area and normalizing counts to some underlying population count. An example of the latter is the mapping of infection rates or mortality rates. For example, the following map displays the distribution of kidney cancer death rates (by county) for the period 1980 to 1984.
+One of the first pitfalls you've been taught to avoid is the mapping of counts when the aerial units associated with these values are not uniform in size and shape. Two options in resolving this problem are: normalizing counts to area or normalizing counts to some underlying population count. An example of the latter is the mapping of infection rates or mortality rates. For example, the following map displays the distribution of kidney cancer death rates (by county) for the period 1980 to 1984.
 
 <div class="figure">
 <img src="img/raw_rates.png" alt="Kidney cancer death rates for the period spanning 1980-1984." width="504" />
-<p class="caption">(\#fig:unnamed-chunk-2)Kidney cancer death rates for the period spanning 1980-1984.</p>
+<p class="caption">(\#fig:unnamed-chunk-3)Kidney cancer death rates for the period spanning 1980-1984.</p>
 </div>
 
 Now let's look at the top 10% of counties with the highest death rates.
@@ -88,8 +89,8 @@ A quick glance of these maps suggests clustering of high and low rates around th
 Let's first look at a population count map (note that we are purposely not normalizing the count data).
 
 <div class="figure">
-<img src="img/Population.png" alt="Population count for each county. Note that a quantile classification scheme is adopted force a large range of values to be assigned a single color swatch" width="504" />
-<p class="caption">(\#fig:f05-kidney3)Population count for each county. Note that a quantile classification scheme is adopted force a large range of values to be assigned a single color swatch</p>
+<img src="img/Population.png" alt="Population count for each county. Note that a quantile classification scheme is adopted forcing a large range of values to be assigned a single color swatch." width="504" />
+<p class="caption">(\#fig:f05-kidney3)Population count for each county. Note that a quantile classification scheme is adopted forcing a large range of values to be assigned a single color swatch.</p>
 </div>
 
 The central part of the states where we are observing both very high and very low cancer death rates seem to have low population counts. Could population count have something to do with this odd congruence of high and low cancer rates? Let's explore the relationship between death rates and population counts outside of a GIS environment and focus solely on the two batches of numbers. The following plot is a scatterplot of death rates and population counts.
@@ -114,7 +115,7 @@ Rates that are computed using relatively small "at risk” population counts are
 
 ## Coping with Unstable Rates
 
-To compensate for the small population counts, we can minimize the influence those counties have on the representation of the spatial distribution of rates. One such technique, empirical Bayes (EB) method, does just that. Where county population counts are small, the "rates" are modified to match the overall expected rate (which is an average value of all rates in the map). This minimizes the counties' influence on the range of rate values. EB techniques for rate smoothing aren't available in ArcGIS (as of version 10.2) but are available in a couple of free and open source applications such as [GeoDa](http://geodacenter.asu.edu/projects/opengeoda) and [R](http://www.r-project.org/).
+To compensate for the small population counts, we can minimize the influence those counties have on the representation of the spatial distribution of rates. One such technique, empirical Bayes (EB) method, does just that. Where county population counts are small, the "rates" are modified to match the overall expected rate (which is an average value of all rates in the map). This minimizes the counties' influence on the range of rate values. EB techniques for rate smoothing aren't available in ArcGIS  but are available in a couple of free and open source applications such as [GeoDa](http://geodacenter.github.io/) and [R](http://www.r-project.org/). An example implementation in R is shown in the Appendix section.
 
 An EB smoothed representation of kidney cancer deaths gives us the following rate vs population plot:
 
@@ -137,7 +138,7 @@ Maps of the top 10% and bottom 10% EB smoothed rates are shown in the next two f
 <p class="caption">(\#fig:f05-bottom10-EB)Bottom 10% of counties with the lowest kidney cancer death rates using EB smoothing technique.</p>
 </div>
 
-Note the differences in rate distribution. For example, higher rates now show up in Florida which would be expected given the large retirement population, and clusters are now contiguous which could suggest local effects. But it's important to remember that EB smoothing does not reveal the true underlying rate; it only masks those that are unreliable. Also, EB smoothing does not completely eliminate unstable rates--note the slighlty higher rates for low population counts in Figure \@ref(fig:EBRate-vs-pop-log). 
+Note the differences in rate distribution. For example, higher rates now show up in Florida which would be expected given the large retirement population, and clusters are now contiguous which could suggest local effects. But it's important to remember that EB smoothing does not reveal the true underlying rate; it only masks those that are unreliable. Also, EB smoothing does not completely eliminate unstable rates--note the slighlty higher rates for low population counts in Figure \@ref(fig:f05-bottom10-EB). 
 
 Other solutions to the unstable rate problem include:
 

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Coordinate Systems | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Coordinate Systems | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="spatial-operations-and-vector-overlays.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -448,7 +473,7 @@ Figure 9.4: Differences in distance measurements between the surface of a sphere
 </div>
 <div id="geoid" class="section level3">
 <h3><span class="header-section-number">9.1.2</span> Geoid</h3>
-<p>Representing the earth’s true shape, the <em>geoid</em>, as a mathematical model is crucial for a GIS environment. However, the earth’s shape is not a perfectly smooth surface. It has undulations resulting from changes in gravitational pull across its surface. These undulations may not be visible with the naked eye, but they are measurable and can influence locational measurements. Note that we are not including mountains and ocean bottoms in our discussion, instead we are focusing solely on the earth’s gravitational potential which can be best visualized by imagining the earth’s surface completely immersed in water and measuring the sea surface level over the entire earth surface.</p>
+<p>Representing the earth’s true shape, the <em>geoid</em>, as a mathematical model is crucial for a GIS environment. However, the earth’s shape is not a perfectly smooth surface. It has undulations resulting from changes in gravitational pull across its surface. These undulations may not be visible with the naked eye, but they are measurable and can influence locational measurements. Note that we are not including mountains and ocean bottoms in our discussion, instead we are focusing solely on the earth’s gravitational potential which can be best visualized by imagining the earth’s surface completely immersed in water and measuring the distance from the earth’s center to the water surface over the entire earth surface.</p>
 <div class="figure"><span id="fig:f09-geoid"></span>
 <img src="img/Geoids_sm_NASA.jpg" alt="Earth's geoid with gravitational field shown in rainbow colors. The ondulations depicted in the graphics are exaggerated for visual effects. (source: NASA)" width="300" />
 <p class="caption">
@@ -469,12 +494,12 @@ Figure 9.6: A local datum couples a geoid with the ellipsoid at a location on ea
 </p>
 </div>
 <p>There are many local datums to choose from, some are old while others are more recently defined. The choice of datum is largely driven by the location of interest. For example, when working in the US, a popular local datum to choose from is the North American Datum of 1927 (or NAD27 for short). NAD27 works well for the US but it’s not well suited for other parts of the world. For example, a far better local datum for Europe is the European Datum of 1950 (ED50 for short). Examples of common local datums are shown in the following table:</p>
-<table style="width:99%;">
+<table>
 <colgroup>
-<col width="27%" />
+<col width="28%" />
 <col width="13%" />
-<col width="12%" />
-<col width="44%" />
+<col width="11%" />
+<col width="46%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -514,13 +539,13 @@ Figure 9.6: A local datum couples a geoid with the ellipsoid at a location on ea
 Figure 9.7: A geocentric datum couples a geoid with the ellipsoid at each element’s center of mass.
 </p>
 </div>
-<p>Many of the modern datums use a geocentric alignment. These include the popular World Geodetic Survey for 1984 (WGS84) and the North American Datums of 1983 (NAD83). Most of the popular geocentric datums use the WGS84 ellipsoid or the GRS80 ellipsoid. These ellipsoids’ semi-major and semi-minor axes are nearly identical: 6,378,137 meters and 6,356,752 meters respectively. Examples of popular geocentric datums are shown in the following table:</p>
-<table style="width:99%;">
+<p>Many of the modern datums use a geocentric alignment. These include the popular World Geodetic Survey for 1984 (WGS84) and the North American Datums of 1983 (NAD83). Most of the popular geocentric datums use the WGS84 ellipsoid or the GRS80 ellipsoid. These two ellipsoids share nearly identical semi-major and semi-minor axes: 6,378,137 meters and 6,356,752 meters respectively. Examples of popular geocentric datums are shown in the following table:</p>
+<table>
 <colgroup>
-<col width="27%" />
+<col width="28%" />
 <col width="13%" />
-<col width="12%" />
-<col width="44%" />
+<col width="11%" />
+<col width="46%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -602,7 +627,7 @@ Figure 9.10: Examples of two cylindrical projections: Mercator (preserves shape 
 <p><img src="img/Conical_projection_tangent.svg" /><!-- --></p>
 <p>or along two lines of tangency (a <strong>secant</strong> case).</p>
 <p><img src="img/Conical_projection_secant.svg" /><!-- --></p>
-<p>Distortion is minimized along the tangent or secant lines and increases as the distance from these lines increases. When distance or area measurements are needed for the contiguous 48 states use one of the conical projections such as Equidistant Conic (distance preserving) or Albers Equal Area Conic (area preserving).</p>
+<p>Distortion is minimized along the tangent or secant lines and increases as the distance from these lines increases. When distance or area measurements are needed for the contiguous 48 states, use one of the conical projections such as Equidistant Conic (distance preserving) or Albers Equal Area Conic (area preserving).</p>
 <p>Conical projections are also popular PCS’ in European maps such as Europe Albers Equal Area Conic and Europe Lambert Conformal Conic.</p>
 <div class="figure"><span id="fig:f09-conical-examples"></span>
 <img src="img/Conical_Examples.svg" alt="Examples of three conical projections: Albers equal area (preserves area), equidistant (preserves distance) and conformal (preserves shape)." width="600" />
@@ -618,7 +643,7 @@ Figure 9.11: Examples of three conical projections: Albers equal area (preserves
 <blockquote>
 <p>For most GIS applications (e.g. ArcGIS and QGIS), many of the built-in projections are named after the spatial properties they preserve.</p>
 </blockquote>
-<p>Each map projection is good at preserving only one or two of the four spatial properties. So when working with small-scale (large area) maps and when multiple spatial properties are to be preserved, it is best to break the analyses across different projections to minimize error associated with spatial distortion.</p>
+<p>Each map projection is good at preserving only one or two of the four spatial properties. So when working with small-scale (large area) maps and when multiple spatial properties are to be preserved, it is best to break the analyses across different projections to minimize errors associated with spatial distortion.</p>
 <p>If you want to assess a projection’s spatial distortion across your study region, you can generate Tissot indicatrix (TI) ellipses. The idea is to project a small circle (i.e. small enough so that the distortion remains relatively uniform across the circle’s extent) and to measure its distorted shape on the projected map. For example, in assessing the type of distortion one could expect with a Mollweide projection across the continental US, a grid of circles could be generated at regular latitudinal and longitudinal intervals.</p>
 <p><img src="img/Moll_Tissot.png" width="430" /></p>
 <p>Note the varying levels of distortion type and magnitude across the region. Let’s explore a Tissot circle at 44.5°N and 69.5°W (near Waterville Maine):</p>
@@ -632,7 +657,8 @@ Figure 9.11: Examples of three conical projections: Albers equal area (preserves
 </div>
 <div id="geodesic-geometries" class="section level2">
 <h2><span class="header-section-number">9.4</span> Geodesic geometries</h2>
-<p>The reason projected coordinate systems introduce errors in their geometric measurements has to do with the nature of the projection whereby the distance between two points on a sphere or ellipsoid will be difficult to replicate on a projected coordinate system unless these points are relatively close to one another. In most cases, such errors can be tolerated if the expected level of precision is met; many other sources of error in the spatial representation of the features can often usurp any measurement errors made in a projected coordinate system. However, if the scale of analysis is small (i.e. the spatial extent covers a large proportion of the earth’s surface such as the North American continent), then the measurement errors associated with a projected coordinate system may no longer be acceptable. A way to circumvent projected coordinate system limitations is to adopt a geodesic solution. A <strong>geodesic distance</strong> is the shortest distance between two points on an ellipsoid (or spheroid). Likewise, a <strong>geodesic area</strong> measurement is one that is measured on an ellipsoid. Such measurements are independent of the underlying projected coordinate system. The Tissot circles presented in figures from the last section were all generated using geodesic geometry.</p>
+<p>The reason projected coordinate systems introduce errors in their geometric measurements has to do with the nature of the projection whereby the distance between two points on a sphere or ellipsoid will be difficult to replicate on a projected coordinate system unless these points are relatively close to one another. In most cases, such errors can be tolerated if the expected level of precision is met; many other sources of error in the spatial representation of the features can often usurp any measurement errors made in a projected coordinate system. However, if the scale of analysis is small (i.e. the spatial extent covers a large proportion of the earth’s surface such as the North American continent), then the measurement errors associated with a projected coordinate system may no longer be acceptable. A way to circumvent projected coordinate system limitations is to adopt a geodesic solution.
+A <strong>geodesic distance</strong> is the shortest distance between two points on an ellipsoid (or spheroid). Likewise, a <strong>geodesic area</strong> measurement is one that is measured on an ellipsoid. Such measurements are independent of the underlying projected coordinate system. The Tissot circles presented in figures from the last section were all generated using geodesic geometry.</p>
 <p>If you are not convinced of the benefits afforded by geodesic geometry, compare the distances measured between two points located on either sides of the Atlantic in the following map. The blue dashed line represents the shortest distance between the two points on a <em>planar</em> coordinate system. The red line represents the shortest distance between the two points as measured on a <em>spheroid</em>.</p>
 <p><img src="09-Coordinate-systems_files/figure-html/unnamed-chunk-10-1.png" width="480" /></p>
 <p>At first glance, the geodesic distance may seem nonsensical given its curved appearance on the projected map. However, this curvature is a byproduct of the current reference system’s increasing distance distortion as one progresses poleward. If you are still not convinced, you can display the geodesic and planar distance layers on a 3D globe (or a projection that mimics the view of the 3D earth as viewed from space centered on the mid-point of the geodesic line segment).</p>
@@ -701,7 +727,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

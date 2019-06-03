@@ -18,7 +18,7 @@ The `tmap` functions will recognize `sf`, `raster` and `Spatial*` objects.
 
 ## The basics {-}
 
-To map the counties polygon layer using a uniform grey color color scheme, type:
+To map the counties polygon layer using a uniform grey color scheme, type:
   
   
   ```r
@@ -28,7 +28,7 @@ To map the counties polygon layer using a uniform grey color color scheme, type:
   
   <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-3-1.png" width="336" />
 
-The `tm_shape` function loads the spatial object (it can be vector or raster) and the `tm_polygons`  function is one of many `tmap` functions that dictates how the spatial object is to be mapped. The `col` parameter defines either the polygon fill color or the spatial object's attribute column to be used to define the polygons' color scheme (thus generating a choropleth map). For example, to use the `Income` attribute value to define the color scheme, type:
+The `tm_shape` function loads the spatial object (it can be a vector or a raster). The `tm_polygons`  function is one of many `tmap` functions that dictates how the spatial object is to be mapped. The `col` parameter defines either the polygon fill color or the spatial object's attribute column to be used to define the polygons' color scheme (thus generating a choropleth map). For example, to use the `Income` attribute value to define the color scheme, type:
   
   
   ```r
@@ -47,7 +47,7 @@ tm_shape(s.sf) + tm_polygons("Income",  border.col = "white") +
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-5-1.png" width="480" />
 
-You can also choose to omit the legend box (via the `legend.show=FALSE` parameter) and the data frame border (via the `tm_layout(frame = FALSE)` parameter:
+You can also choose to omit the legend box (via the `legend.show = FALSE` parameter) and the data frame border (via the `tm_layout(frame = FALSE)` parameter:
 
 
 
@@ -97,7 +97,7 @@ You can control the classification type, color scheme, and bin numbers via the `
 
 ```r
 tm_shape(s.sf) + 
-  tm_polygons("Income", style="quantile", n = 6, palette = "Greens") + 
+  tm_polygons("Income", style = "quantile", n = 6, palette = "Greens") + 
   tm_legend(outside = TRUE)
 ```
 
@@ -109,8 +109,8 @@ Other `style` classification schemes include  `fixed`, `equal`, `jenks`, `kmeans
 
 ```r
 tm_shape(s.sf) + 
-  tm_polygons("Income", style="fixed",palette = "Greens",
-              breaks=c(0,23000 ,27000,100000 )) + 
+  tm_polygons("Income", style = "fixed",palette = "Greens",
+              breaks = c(0, 23000, 27000, 100000 )) + 
   tm_legend(outside = TRUE)
 ```
 
@@ -121,9 +121,9 @@ If you want a bit more control over the legend elements, you can tweak the `labe
 
 ```r
 tm_shape(s.sf) + 
-  tm_polygons("Income", style="fixed",palette = "Greens",
-              breaks=c(0,23000 ,27000,100000 ),
-              labels=c("under $23,000", "$23,000 to $27,000", "above $27,000"),
+  tm_polygons("Income", style = "fixed",palette = "Greens",
+              breaks = c(0, 23000, 27000, 100000 ),
+              labels = c("under $23,000", "$23,000 to $27,000", "above $27,000"),
               text.size = 1) + 
   tm_legend(outside = TRUE)
 ```
@@ -132,7 +132,7 @@ tm_shape(s.sf) +
 
 ### Tweaking colors {-}
 
-There are various color schemes to choose from, but you will probably want to stick to color swatches established by [Cynthia Brewer](http://colorbrewer2.org). These palettes are available in `tmap` and their names are listed below.
+There are many color schemes to choose from, but you will probably want to stick to color swatches established by [Cynthia Brewer](http://colorbrewer2.org). These palettes are available in `tmap` and their names are listed below.
 
 For **sequential** color schemes, you can choose from the following palettes.
 
@@ -175,7 +175,7 @@ If you want to reverse the color scheme simply add the minus symbol `-` in front
 
 ### Adding labels {-}
 
-You can add text and labels using the `tm_text` function. In the following example, point labels are added to the right of the points (`just="left"`) with an x offset of 0.5 units for added buffer between the point and the text.
+You can add text and labels using the `tm_text` function. In the following example, point labels are added to the right of the points with the text left justified (`just = "left"`) with an x offset of 0.5 units for added buffer between the point and the text.
 
 
 ```r
@@ -183,13 +183,13 @@ tm_shape(s.sf) +
     tm_polygons("NAME", palette = "Pastel1", border.col = "white") + 
   tm_legend(outside = TRUE) +
   tm_shape(p.sf) +   
-    tm_dots(size=.3, col="red") +
-    tm_text("Name", just="left", xmod=0.5, size=0.8)
+    tm_dots(size=  .3, col = "red") +
+    tm_text("Name", just = "left", xmod = 0.5, size = 0.8)
 ```
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-17-1.png" width="480" />
 
-The `tm_text` function also accepts an auto placement option via the parameter `auto.placement = TRUE`. This uses a simulated annealing algorithm. Note that this automated approach may not generate the same text placement after reach run.
+The `tm_text` function also accepts an auto placement option via the parameter `auto.placement = TRUE`. This uses a simulated annealing algorithm. Note that this automated approach may not generate the same text placement after each run.
 
 ### Adding a grid or graticule {-}
 
@@ -241,15 +241,18 @@ tm_shape(s.sf) +
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-20-1.png" width="480" />
 
-## Adding statistical plot {-}
+Here, we use the unicode *decimal* representation of the &deg; symbol (unicode *176*) and pass it to the `intToUtf8` function. A list of unicode characters and their decimal representation can be found on this [Wikipedia](https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin-1_Supplement) page.
+
+## Adding statistical plots {-}
 
 A histogram of the variables being mapped can be added to the legend element. By default, the histogram will inherit the colors used in the classification scheme.
 
 
 ```r
 tm_shape(s.sf) + 
-  tm_polygons("NoSchool", palette = "YlOrBr", n=6, legend.hist = TRUE, title="% no school") + 
-  tm_legend(outside = TRUE, hist.width=2) 
+  tm_polygons("NoSchool", palette = "YlOrBr", n = 6, 
+              legend.hist = TRUE, title = "% no school") + 
+  tm_legend(outside = TRUE, hist.width = 2) 
 ```
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-21-1.png" width="480" />
@@ -261,9 +264,9 @@ Raster objects can be mapped by specifying the `tm_raster` function. For example
 
 ```r
 tm_shape(elev.r) + 
-  tm_raster(style="cont", 
+  tm_raster(style = "cont", title = "Elevation (m)",
             palette = terrain.colors(64))+
-  tm_legend(outside=TRUE)
+  tm_legend(outside = TRUE)
 ```
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-22-1.png" width="480" />
@@ -275,10 +278,10 @@ You can choose to symbolize the raster using classification breaks instead of co
 
 ```r
 tm_shape(elev.r) + 
-  tm_raster(style="fixed", 
+  tm_raster(style = "fixed", title = "Elevation (m)",
             breaks = c(0, 50, 100, 500, 750, 1000, 15000),
             palette = terrain.colors(5))+
-  tm_legend(outside=TRUE)
+  tm_legend(outside = TRUE)
 ```
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-23-1.png" width="480" />
@@ -288,10 +291,10 @@ Other color gradients that R offers include, `heat.colors`, `rainbow`, and `topo
 
 ```r
 tm_shape(elev.r) + 
-  tm_raster(style="quantile", n = 12,
+  tm_raster(style = "quantile", n = 12, title = "Elevation (m)",
             palette = colorRampPalette( c("darkolivegreen4","yellow", "brown"))(12),
             legend.hist = TRUE)+
-  tm_legend(outside=TRUE, hist.width=2)
+  tm_legend(outside = TRUE, hist.width = 2)
 ```
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-24-1.png" width="480" />
@@ -311,10 +314,10 @@ aea <-  "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +ellps=GRS80 +
 
 # Map the data
 tm_shape(elev.r, projection = aea) + 
-  tm_raster(style="quantile", n = 12,
+  tm_raster(style = "quantile", n = 12,
             palette = colorRampPalette( c("darkolivegreen4","yellow", "brown"))(12),
             legend.show = FALSE) +
-  tm_shape(rail.sf) + tm_lines(col="grey70")+
+  tm_shape(rail.sf) + tm_lines(col = "grey70")+
   tm_shape(p.sf) +tm_dots(size=0.5) +
   tm_layout(outer.margins = c(.1,.1,.1,.1)) +
   tm_grid(labels.inside.frame = FALSE, 
@@ -354,11 +357,11 @@ You can split the output into groups of features based on a column attribute. Fo
 
 
 ```r
-tm_shape(s.sf) + tm_polygons(col="Income")+
-  tm_legend(outside=TRUE) +
-  tm_facets( by = "NAME", nrow =2)
+tm_shape(s.sf) + tm_polygons(col = "Income")+
+  tm_legend(outside = TRUE) +
+  tm_facets( by = "NAME", nrow = 2)
 ```
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-27-1.png" width="1248" />
 
-The order of the faceted plot follows the alphanumeric order of the faceting attribute values.
+The order of the faceted plot follows the alphanumeric order of the faceting attribute values. If you want to change the faceted order, you will need to change the attribute's [level order](https://mgimond.github.io/ES218/Week02a.html#rearranging_level_order).

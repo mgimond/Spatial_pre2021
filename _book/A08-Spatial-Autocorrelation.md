@@ -188,10 +188,10 @@ p
 ```
 
 ```
-[1] 0.02333333
+[1] 0.02666667
 ```
 
-In our working example, the p-value suggests that there is a small chance (0.023%) of being wrong in stating that the income values are not clustered at the county level.
+In our working example, the p-value suggests that there is a small chance (0.027%) of being wrong in stating that the income values are not clustered at the county level.
 
 ## Computing the Moran's I statistic: the easy way {-}
 
@@ -234,7 +234,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.28281, observed rank = 588, p-value = 0.02
+statistic = 0.28281, observed rank = 593, p-value = 0.01167
 alternative hypothesis: greater
 ```
 
@@ -308,7 +308,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.31361, observed rank = 596, p-value = 0.006667
+statistic = 0.31361, observed rank = 595, p-value = 0.008333
 alternative hypothesis: greater
 ```
 

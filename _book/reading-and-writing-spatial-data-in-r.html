@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Reading and writing spatial data in R | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Reading and writing spatial data in R | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="spatial-interpolation.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -411,14 +436,14 @@ code > span.in { color: #008000; } /* Information */
 <div id="sample-files-for-this-exercise" class="section level2 unnumbered">
 <h2>Sample files for this exercise</h2>
 <p>First, you will need to download some sample files from the github repository. Make sure to set your R session folder to the directory where you will want to save the sample files before running the following code chunks.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/Income_schooling.zip&quot;</span>, 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/Income_schooling.zip&quot;</span>, 
               <span class="dt">destfile =</span> <span class="st">&quot;Income_schooling.zip&quot;</span> , <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)
 <span class="kw">unzip</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>, <span class="dt">exdir =</span> <span class="st">&quot;.&quot;</span>)
-<span class="kw">file.remove</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/rail_inters.gpkg&quot;</span>, 
-              <span class="dt">destfile =</span> <span class="st">&quot;./rail_inters.gpkg&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/elev.img&quot;</span>,  
-              <span class="dt">destfile =</span> <span class="st">&quot;./elev.img&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)               </code></pre></div>
+<span class="kw">file.remove</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/rail_inters.gpkg&quot;</span>, 
+              <span class="dt">destfile =</span> <span class="st">&quot;./rail_inters.gpkg&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/elev.img&quot;</span>,  
+              <span class="dt">destfile =</span> <span class="st">&quot;./elev.img&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)               </code></pre>
 </div>
 <div id="introduction-1" class="section level2 unnumbered">
 <h2>Introduction</h2>
@@ -426,19 +451,19 @@ code > span.in { color: #008000; } /* Information */
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; ">
 <thead>
 <tr>
-<th style="text-align:right;color: white;background-color: #6E6E6E;text-align: center;">
+<th style="text-align:right;color: white !important;background-color: #6E6E6E !important;text-align: center;">
 Data format
 </th>
-<th style="text-align:center;color: white;background-color: #6E6E6E;text-align: center;">
+<th style="text-align:center;color: white !important;background-color: #6E6E6E !important;text-align: center;">
 Used with…
 </th>
-<th style="text-align:center;color: white;background-color: #6E6E6E;text-align: center;">
+<th style="text-align:center;color: white !important;background-color: #6E6E6E !important;text-align: center;">
 Used in package…
 </th>
-<th style="text-align:left;color: white;background-color: #6E6E6E;text-align: center;">
+<th style="text-align:left;color: white !important;background-color: #6E6E6E !important;text-align: center;">
 Used for…
 </th>
-<th style="text-align:left;color: white;background-color: #6E6E6E;text-align: center;">
+<th style="text-align:left;color: white !important;background-color: #6E6E6E !important;text-align: center;">
 Comment
 </th>
 </tr>
@@ -480,7 +505,10 @@ This is the most versatile raster format
 </tr>
 <tr>
 <td style="text-align:right;">
-<code>SpatialPoints*</code> <code>SpatialPolygons*</code> <code>SpatialLines*</code> <code>SpatialGrid*</code>
+<code>SpatialPoints*</code>
+<code>SpatialPolygons*</code>
+<code>SpatialLines*</code>
+<code>SpatialGrid*</code>
 </td>
 <td style="text-align:center;">
 vector and raster
@@ -538,8 +566,7 @@ NA
 </tr>
 </tfoot>
 </table>
-<p>There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as <a href="https://en.wikipedia.org/wiki/Simple_Features">simple features</a>. This effort results in a recently developed package called <a href="https://r-spatial.github.io/sf/"><code>sf</code></a>.</p>
-<p>It is therefore recommended that you work in an <code>sf</code> framework when possible. As of this writing, most of the <em>basic</em> data manipulation and visualization operations can be successfully conducted using <code>sf</code> spatial objects.</p>
+<p>There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as <a href="https://en.wikipedia.org/wiki/Simple_Features">simple features</a>. This effort results in a recently developed package called <a href="https://r-spatial.github.io/sf/"><code>sf</code></a>. It is therefore recommended that you work in an <code>sf</code> framework when possible. As of this writing, most of the <em>basic</em> data manipulation and visualization operations can be successfully conducted using <code>sf</code> spatial objects.</p>
 <p>Some packages such as <code>spdep</code> and <code>spatstat</code> require specialized data object types. This tutorial will highlight some useful conversion functions for this purpose.</p>
 </div>
 <div id="creating-spatial-objects" class="section level2 unnumbered">
@@ -551,10 +578,10 @@ NA
 <pre><code>[1] &quot;Income_schooling.dbf&quot; &quot;Income_schooling.prj&quot; &quot;Income_schooling.sbn&quot; &quot;Income_schooling.sbx&quot;
 [5] &quot;Income_schooling.shp&quot; &quot;Income_schooling.shx&quot;</code></pre>
 <p>Note that the number of files associated with a shapefile can vary. <code>sf</code> only needs to be given the <code>*.shp</code> name. It will then know which other files to read into R such as projection information and attribute table.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
-s.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Income_schooling.shp&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+s.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Income_schooling.shp&quot;</span>)</code></pre>
 <p>Let’s view the first few records in the spatial data object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.sf, <span class="dt">n=</span><span class="dv">4</span>)  <span class="co"># List spatial object and the first 4 attribute records</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.sf, <span class="dt">n=</span><span class="dv">4</span>)  <span class="co"># List spatial object and the first 4 attribute records</span></code></pre>
 <pre><code>Simple feature collection with 4 features and 5 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
@@ -571,48 +598,48 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 <div id="reading-a-geopackage" class="section level3 unnumbered">
 <h3>Reading a GeoPackage</h3>
 <p>A geopackage can store more than one layer. To list the layers available in the geopackage, type:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_layers</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_layers</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>)</code></pre>
 <pre><code>Driver: GPKG 
 Available layers:
   layer_name     geometry_type features fields
 1 Interstate Multi Line String       35      1
 2       Rail Multi Line String      730      3</code></pre>
 <p>In this example, we have two separate layers: <code>Interstate</code> and <code>Rail</code>. We can extract each layer separately via the <code>layer=</code> parameter.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inter.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Interstate&quot;</span>)
-rail.sf  &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Rail&quot;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">inter.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Interstate&quot;</span>)
+rail.sf  &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Rail&quot;</span>)</code></pre>
 </div>
 <div id="reading-a-raster" class="section level3 unnumbered">
 <h3>Reading a raster</h3>
 <p>The <code>raster</code> package will read many different raster file formats such as geoTiff, Imagine and HDF5 just to name a few. To see a list of supported raster file formats simply run <code>rgdal::gdalDrivers()</code> at a command prompt. The <code>rgdal</code> package is normally installed with your installation of <code>raster</code>.</p>
 <p>In the following example, an <em>Imagine</em> raster file is read into R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-elev.r &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>)</code></pre></div>
-<p>What sets a <code>raster</code> object apart from other R data file objects is its storage. By default, data files are loaded into memory but <code>raster</code> objects are not. This can be convenient when working with raster files too large to load into memory. But this comes at a performance cost. If your RAM is large enough to handle your raster file, it’s best to load the entire dataset into memory.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+elev.r &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>)</code></pre>
+<p>What sets a <code>raster</code> object apart from other R data file objects is its storage. By default, data files are loaded into memory but <code>raster</code> objects are not. This can be convenient when working with raster files too large for memory. But this comes at a performance cost. If your RAM is large enough to handle your raster file, it’s best to load the entire dataset into memory.</p>
 <p>To check if the <code>elev.r</code> object is loaded into memory, run:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inMemory</span>(elev.r)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inMemory</span>(elev.r)</code></pre>
 <pre><code>[1] FALSE</code></pre>
 <p>To force the raster into memory use <code>readAll()</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">elev.r &lt;-<span class="st"> </span><span class="kw">readAll</span>( <span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>) )</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">elev.r &lt;-<span class="st"> </span><span class="kw">readAll</span>(<span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>))</code></pre>
 <p>Let’s check that the raster is indeed loaded into memory:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inMemory</span>(elev.r)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inMemory</span>(elev.r)</code></pre>
 <pre><code>[1] TRUE</code></pre>
 <p>Now let’s look at the raster’s properties:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">elev.r</code></pre></div>
-<pre><code>class       : RasterLayer 
-dimensions  : 994, 651, 647094  (nrow, ncol, ncell)
-resolution  : 500, 500  (x, y)
-extent      : 336630.3, 662130.3, 4759297, 5256297  (xmin, xmax, ymin, ymax)
-coord. ref. : +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0 
-data source : in memory
-names       : elev 
-values      : -19, 252  (min, max)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">elev.r</code></pre>
+<pre><code>class      : RasterLayer 
+dimensions : 994, 652, 648088  (nrow, ncol, ncell)
+resolution : 500, 500  (x, y)
+extent     : 336630.3, 662630.3, 4759303, 5256303  (xmin, xmax, ymin, ymax)
+crs        : +proj=utm +zone=19 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+source     : memory
+names      : elev 
+values     : 0, 1546  (min, max)</code></pre>
 <p>The raster object returns its grid dimensions (number of rows and columns), pixel size/resolution (in the layer’s coordinate system units), geographic extent, native coordinate system (UTM NAD83 Zone 19 with units of meters) and min/max raster values.</p>
 </div>
 <div id="creating-a-spatial-object-from-a-data-frame" class="section level3 unnumbered">
 <h3>Creating a spatial object from a data frame</h3>
 <p>Geographic point data locations recorded in a spreadsheet can be converted to a spatial point object. Note that it’s important that you specify the coordinate system used to record the coordinate pairs since such information is not stored in a data frame. In the following example, the coordinate values are recorded in a WGS 1984 geographic coordinate system (<code>crs = 4326</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a simple dataframe with lat/long values</span>
-df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">68.783</span>, <span class="op">-</span><span class="fl">69.6458</span>, <span class="op">-</span><span class="fl">69.7653</span>),
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a simple dataframe with lat/long values</span>
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">68.783</span>, <span class="fl">-69.6458</span>, <span class="fl">-69.7653</span>),
                  <span class="dt">lat =</span> <span class="kw">c</span>(<span class="fl">44.8109</span>, <span class="fl">44.5521</span>, <span class="fl">44.3235</span>),
                  <span class="dt">Name=</span> <span class="kw">c</span>(<span class="st">&quot;Bangor&quot;</span>, <span class="st">&quot;Waterville&quot;</span>, <span class="st">&quot;Augusta&quot;</span>))
 
@@ -620,7 +647,7 @@ df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 <span class="co"># crs= 4326 parameter assigns a WGS84 coordinate system to the </span>
 <span class="co"># spatial object</span>
 p.sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(df, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) 
-p.sf  </code></pre></div>
+p.sf  </code></pre>
 <pre><code>Simple feature collection with 3 features and 1 field
 geometry type:  POINT
 dimension:      XY
@@ -634,54 +661,9 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 </div>
 <div id="geocoding-street-addresses" class="section level3 unnumbered">
 <h3>Geocoding street addresses</h3>
-<p>The <code>ggmap</code> package offers a geocoding function called <code>mutate_geocode</code> which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of the <a href="http://www.datasciencetoolkit.org/"><em>Data Science Toolkit</em></a> API.</p>
-<p>Let’s first create a new data table with addresses for a few liberal arts colleges in the State of Maine.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">addr &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Address =</span> <span class="kw">c</span>(<span class="st">&quot;4000 mayflower Hill, Waterville, Maine&quot;</span>, 
-                               <span class="st">&quot;2 Andrews Rd, Lewiston, ME 04240&quot;</span>,
-                               <span class="st">&quot;255 Maine St, Brunswick, ME 04011&quot;</span>,
-                               <span class="st">&quot;90 Quaker Hill Rd, Unity, ME 04988&quot;</span>,
-                               <span class="st">&quot;105 Eden St, Bar Harbor, ME 04609&quot;</span>),
-                   <span class="dt">College =</span> <span class="kw">c</span>(<span class="st">&quot;Colby&quot;</span>, <span class="st">&quot;Bates&quot;</span>, <span class="st">&quot;Bowdoin&quot;</span>, <span class="st">&quot;Unity&quot;</span>, <span class="st">&quot;CoA&quot;</span>),
-                   <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Next, we’ll geocode the addresses and save the output to a new data table called <code>addr.geo</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggmap)
-addr.geo &lt;-<span class="st"> </span><span class="kw">mutate_geocode</span>(addr, <span class="dt">location=</span>Address, <span class="dt">output=</span><span class="st">&quot;latlona&quot;</span> , <span class="dt">source=</span><span class="st">&quot;dsk&quot;</span>)</code></pre></div>
-<p>The <code>location</code> parameter is assigned the column with the addresses. The <code>output</code> parameter is given instructions on <em>what</em> to output. Here, the option <code>latlona</code> instructs the function to output both the lat/lon coordinate values as well as all other attributes. It also adds another column called <code>address</code> (note the lower case <code>a</code>) with the nearest address match. Note that not all addresses are necessarily matched.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">addr.geo</code></pre></div>
-<pre><code>                                 Address College       lon      lat
-1 4000 mayflower Hill, Waterville, Maine   Colby -69.65208 44.56719
-2       2 Andrews Rd, Lewiston, ME 04240   Bates -70.20540 44.10721
-3      255 Maine St, Brunswick, ME 04011 Bowdoin -69.96525 43.90702
-4     90 Quaker Hill Rd, Unity, ME 04988   Unity -69.33315 44.60612
-5      105 Eden St, Bar Harbor, ME 04609     CoA -68.22009 44.39235
-                                 address
-1 4000 mayflower Hill, Waterville, Maine
-2       2 Andrews Rd, Lewiston, ME 04240
-3      255 Maine St, Brunswick, ME 04011
-4     90 Quaker Hill Rd, Unity, ME 04988
-5      105 Eden St, Bar Harbor, ME 04609</code></pre>
-<p>Note that <code>addr.geo</code> is not a spatial object; it’s a data frame. It can be converted to an <code>sf</code> object via <code>st_as_sf</code> as outlined in the previous section. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">la.sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(addr.geo, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) 
-la.sf</code></pre></div>
-<pre><code>Simple feature collection with 5 features and 3 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -70.2054 ymin: 43.90702 xmax: -68.22009 ymax: 44.60612
-epsg (SRID):    4326
-proj4string:    +proj=longlat +datum=WGS84 +no_defs
-                                 Address College                                address
-1 4000 mayflower Hill, Waterville, Maine   Colby 4000 mayflower Hill, Waterville, Maine
-2       2 Andrews Rd, Lewiston, ME 04240   Bates       2 Andrews Rd, Lewiston, ME 04240
-3      255 Maine St, Brunswick, ME 04011 Bowdoin      255 Maine St, Brunswick, ME 04011
-4     90 Quaker Hill Rd, Unity, ME 04988   Unity     90 Quaker Hill Rd, Unity, ME 04988
-5      105 Eden St, Bar Harbor, ME 04609     CoA      105 Eden St, Bar Harbor, ME 04609
-                    geometry
-1 POINT (-69.65208 44.56719)
-2  POINT (-70.2054 44.10721)
-3 POINT (-69.96525 43.90702)
-4 POINT (-69.33315 44.60612)
-5 POINT (-68.22009 44.39235)</code></pre>
-<p>You can also use the US Census Bureau’s <a href="https://geocoding.geo.census.gov/geocoder/locations/addressbatch?form">geocoding service</a> for creating lat/lon values from US street addresses. This needs to be completed via their website and the resulting data table (a CSV file) would then need to be loaded in R as a data frame.</p>
+<p>The <code>ggmap</code> package offers a geocoding function called <code>mutate_geocode</code> which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. However, as of Spring 2019, <code>ggmap</code> will only access Google’s API which requires that a key be created on the Google Cloud (the latter will also require that a paid account be created with Google Cloud). The Data Science Toolkit, a previously free API alternative, has (as of May 2019) terminated its mapping services.</p>
+<p>The Google API option will not be covered here, instead, the reader is encouraged to read the detailed instructions on <code>ggmap</code>’s <a href="https://github.com/dkahle/ggmap">Github page</a>.</p>
+<p>For a free (but manual) alternative, you can use the US Census Bureau’s <a href="https://geocoding.geo.census.gov/geocoder/locations/addressbatch?form">geocoding service</a> for creating lat/lon values from US street addresses. This needs to be completed via their web interface and the resulting data table (a CSV file) would then need to be loaded into R as a data frame.</p>
 </div>
 </div>
 <div id="converting-from-an-sf-object" class="section level2 unnumbered">
@@ -690,48 +672,48 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 <div id="converting-an-sf-object-to-a-spatial-object-spdepsp" class="section level3 unnumbered">
 <h3>Converting an <code>sf</code> object to a <code>Spatial*</code> object (<code>spdep</code>/<code>sp</code>)</h3>
 <p>The following code will convert point, polyline or polygon features to a <code>spatial*</code> object. In this example, an <code>sf</code> polygon feature is converted to a <code>SpatialPolygonsDataFrame</code> object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s.sp &lt;-<span class="st"> </span><span class="kw">as</span>(s.sf, <span class="st">&quot;Spatial&quot;</span>)
-<span class="kw">class</span>(s.sp)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">s.sp &lt;-<span class="st"> </span><span class="kw">as</span>(s.sf, <span class="st">&quot;Spatial&quot;</span>)
+<span class="kw">class</span>(s.sp)</code></pre>
 <pre><code>[1] &quot;SpatialPolygonsDataFrame&quot;
 attr(,&quot;package&quot;)
 [1] &quot;sp&quot;</code></pre>
-<p>Note that if you wish to create a <code>Spatial*</code> object directly from a shapefile (and bypass the <code>sf</code> object creation), you could run the <code>maptools</code> function <code>readShapeSpatial(&quot;Income_schooling.shp&quot;)</code>. However, this approach <em>strips</em> the coordinate system information from the spatial object.</p>
+<p>Note that if you wish to create a <code>Spatial*</code> object directly from a shapefile (and bypass the <code>sf</code> object creation), you could run the <code>maptools</code> function <code>readShapeSpatial("Income_schooling.shp")</code>. However, this approach <em>strips</em> the coordinate system information from the spatial object.</p>
 </div>
 <div id="converting-an-sf-polygon-object-to-an-owin-object" class="section level3 unnumbered">
 <h3>Converting an <code>sf</code> polygon object to an <code>owin</code> object</h3>
 <p>The <code>spatstat</code> package is normally used to analyze point patterns however, in most cases, the study extent needs to be explicitly defined by a polygon object. The polygon should be of class <code>owin</code>. Conversion from <code>sf</code> to <code>owin</code> requires the use of the <code>maptools</code> package.</p>
 <p>Note that the attribute table gets stripped from the polygon data. This is usually fine given that the only reason for converting a polygon to an <code>owin</code> format is for delineating the study boundary.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(maptools)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(maptools)
 s.owin &lt;-<span class="st"> </span><span class="kw">as</span>(s.sp, <span class="st">&quot;owin&quot;</span>)
-<span class="kw">class</span>(s.owin)</code></pre></div>
+<span class="kw">class</span>(s.owin)</code></pre>
 <pre><code>[1] &quot;owin&quot;</code></pre>
 </div>
 <div id="converting-an-sf-point-object-to-a-ppp-object" class="section level3 unnumbered">
 <h3>Converting an <code>sf</code> point object to a <code>ppp</code> object</h3>
 <p>As of this writing, it seems that you need to first convert the <code>sf</code> object to a <code>SpatialPoints*</code> before creating a <code>ppp</code> object as shown in the following code chunk. Note that the <code>maptools</code> package is required for this step.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p.sp  &lt;-<span class="st"> </span><span class="kw">as</span>(p.sf, <span class="st">&quot;Spatial&quot;</span>)  <span class="co"># Create Spatial* object</span>
+<pre class="sourceCode r"><code class="sourceCode r">p.sp  &lt;-<span class="st"> </span><span class="kw">as</span>(p.sf, <span class="st">&quot;Spatial&quot;</span>)  <span class="co"># Create Spatial* object</span>
 p.ppp &lt;-<span class="st"> </span><span class="kw">as</span>(p.sp, <span class="st">&quot;ppp&quot;</span>)      <span class="co"># Create ppp object</span>
-<span class="kw">class</span>(p.ppp)</code></pre></div>
+<span class="kw">class</span>(p.ppp)</code></pre>
 <pre><code>[1] &quot;ppp&quot;</code></pre>
 <p>If the point layer has an attribute table, its attributes will be converted to <code>ppp</code> <em>marks</em>.</p>
 </div>
 <div id="converting-a-raster-object-to-an-im-object-spatstat" class="section level3 unnumbered">
 <h3>Converting a <code>raster</code> object to an <code>im</code> object (<code>spatstat</code>)</h3>
 <p>The <code>maptools</code> package will readily convert a <code>raster</code> object to an <code>im</code> object using the <code>as.im.RasterLayer()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">elev.im &lt;-<span class="st"> </span><span class="kw">as.im.RasterLayer</span>(elev.r) <span class="co"># From the maptools package</span>
-<span class="kw">class</span>(elev.im)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">elev.im &lt;-<span class="st"> </span><span class="kw">as.im.RasterLayer</span>(elev.r) <span class="co"># From the maptools package</span>
+<span class="kw">class</span>(elev.im)</code></pre>
 <pre><code>[1] &quot;im&quot;</code></pre>
 </div>
 </div>
 <div id="converting-to-an-sf-object" class="section level2 unnumbered">
 <h2>Converting to an <code>sf</code> object</h2>
 <p>All aforementioned spatial formats, except <code>owin</code>, can be coerced to an <code>sf</code> object via the <code>st_as_sf</code> function. for example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_as_sf</span>(p.ppp)  <span class="co"># For converting a ppp object to an sf object</span>
-<span class="kw">st_as_sf</span>(s.sp)   <span class="co"># For converting a Spatial* object to an sf object</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_as_sf</span>(p.ppp)  <span class="co"># For converting a ppp object to an sf object</span>
+<span class="kw">st_as_sf</span>(s.sp)   <span class="co"># For converting a Spatial* object to an sf object</span></code></pre>
 </div>
 <div id="dissecting-the-sf-file-object" class="section level2 unnumbered">
 <h2>Dissecting the <code>sf</code> file object</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.sf,<span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.sf,<span class="dv">3</span>)</code></pre>
 <pre><code>Simple feature collection with 3 features and 5 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
@@ -745,16 +727,16 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 <p>The first line of output gives us the geometry type, <code>MULTIPOLYGON</code>, a multi-polygon data type. This is also referred to as a multipart polygon. A single-part <code>sf</code> polygon object will adopt the <code>POLYGON</code> geometry.</p>
 <p>The next few lines of output give us the layer’s bounding extent in the layer’s native coordinate system units. You can extract the extent via the <code>extent()</code> function as in <code>extent(s.sf)</code>.</p>
 <p>The next lines indicate the coordinate system used to define the polygon feature locations. It’s offered in two formats: <strong>epsg</strong> code (when available) and <strong>PROJ4</strong> string format. You can extract the coordinate system information from an <code>sf</code> object via:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(s.sf)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(s.sf)</code></pre>
 <pre><code>Coordinate Reference System:
   EPSG: 26919 
   proj4string: &quot;+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs&quot;</code></pre>
 <p>The output of this call is an object of class <code>crs</code>. Extracting the reference system from a spatial object can prove useful in certain workflows.</p>
 <p>What remains of the <code>sf</code> summary output is the first few records of the attribute table. You can extract the object’s table to a dedicated data frame via:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(s.sf)
-<span class="kw">class</span>(s.df)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">s.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(s.sf)
+<span class="kw">class</span>(s.df)</code></pre>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.df, <span class="dv">5</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.df, <span class="dv">5</span>)</code></pre>
 <pre><code>         NAME Income   NoSchool  NoSchoolSE IncomeSE                       geometry
 1   Aroostook  21024 0.01338720 0.001406960  250.909 MULTIPOLYGON (((513821.1 51...
 2    Somerset  21025 0.00521153 0.001150020  390.909 MULTIPOLYGON (((379071.8 50...
@@ -762,7 +744,7 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 4   Penobscot  23307 0.00684534 0.001025450  242.424 MULTIPOLYGON (((472271.3 49...
 5  Washington  20015 0.00478188 0.000966036  327.273 MULTIPOLYGON (((645446.5 49...</code></pre>
 <p>The above chunk will also create a geometry column. This column is somewhat unique in that it stores its contents as a <strong>list</strong> of geometry coordinate pairs (polygon vertex coordinate values in this example).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(s.df)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(s.df)</code></pre>
 <pre><code>&#39;data.frame&#39;:   16 obs. of  6 variables:
  $ NAME      : Factor w/ 16 levels &quot;Androscoggin&quot;,..: 2 13 11 10 15 4 9 14 6 1 ...
  $ Income    : int  21024 21025 21292 23307 20015 21744 21885 23020 25652 24268 ...
@@ -774,10 +756,10 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
   .. ..$ : num [1:32, 1:2] 513821 513806 445039 422284 424687 ...
   ..- attr(*, &quot;class&quot;)= chr  &quot;XY&quot; &quot;MULTIPOLYGON&quot; &quot;sfg&quot;</code></pre>
 <p>You can also opt to remove this column prior to creating the dataframe as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s.nogeom.df &lt;-<span class="st"> </span><span class="kw">st_set_geometry</span>(s.sf, <span class="ot">NULL</span>) 
-<span class="kw">class</span>(s.nogeom.df)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">s.nogeom.df &lt;-<span class="st"> </span><span class="kw">st_set_geometry</span>(s.sf, <span class="ot">NULL</span>) 
+<span class="kw">class</span>(s.nogeom.df)</code></pre>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.nogeom.df, <span class="dv">5</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(s.nogeom.df, <span class="dv">5</span>)</code></pre>
 <pre><code>         NAME Income   NoSchool  NoSchoolSE IncomeSE
 1   Aroostook  21024 0.01338720 0.001406960  250.909
 2    Somerset  21025 0.00521153 0.001150020  390.909
@@ -788,8 +770,8 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 <div id="exporting-to-different-data-file-formats" class="section level2 unnumbered">
 <h2>Exporting to different data file formats</h2>
 <p>You can export an <code>sf</code> object to many different spatial file formats such as a shapefile or a geopackage.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(s.sf, <span class="st">&quot;shapefile_out.shp&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>)  <span class="co"># create to a shapefile </span>
-<span class="kw">st_write</span>(s.sf, <span class="st">&quot; s.gpkg&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;GPKG&quot;</span>)  <span class="co"># Create a geopackage file</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(s.sf, <span class="st">&quot;shapefile_out.shp&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>)  <span class="co"># create to a shapefile </span>
+<span class="kw">st_write</span>(s.sf, <span class="st">&quot; s.gpkg&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;GPKG&quot;</span>)  <span class="co"># Create a geopackage file</span></code></pre>
 <p>You can see a list of writable vector formats via a call to <code>subset(rgdal::ogrDrivers(), write == TRUE)</code>. Only as subset of the output is shown in the following example. Note that supported file formats will differ from platform to platform.</p>
 <pre><code>             name                       long_name write  copy isVector
 17 ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     TRUE
@@ -801,8 +783,8 @@ proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
 24           GPKG                      GeoPackage  TRUE  TRUE     TRUE</code></pre>
 <p>The value in the <code>name</code> column is the driver name used in the <code>st_write()</code> function.</p>
 <p>To export a raster to a data file, use <code>writeRaster()</code> from the <code>raster</code> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.tif&quot;</span>, <span class="dt">format=</span><span class="st">&quot;GTiff&quot;</span> ) <span class="co"># Create a geoTiff file</span>
-<span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.img&quot;</span>, <span class="dt">format=</span><span class="st">&quot;HFA&quot;</span> )  <span class="co"># Create an Imagine raster file</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.tif&quot;</span>, <span class="dt">format=</span><span class="st">&quot;GTiff&quot;</span> ) <span class="co"># Create a geoTiff file</span>
+<span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.img&quot;</span>, <span class="dt">format=</span><span class="st">&quot;HFA&quot;</span> )  <span class="co"># Create an Imagine raster file</span></code></pre>
 <p>You can see a list of writable raster formats via a call to <code>subset(rgdal::gdalDrivers(), create == TRUE)</code>.</p>
 <pre><code>        name                            long_name create  copy isRaster
 43      GPKG                           GeoPackage   TRUE  TRUE     TRUE
@@ -875,7 +857,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

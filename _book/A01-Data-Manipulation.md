@@ -39,11 +39,11 @@ There are several different R spatial formats to choose from. Your choice of for
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; ">
  <thead>
   <tr>
-   <th style="text-align:right;color: white;background-color: #6E6E6E;text-align: center;"> Data format </th>
-   <th style="text-align:center;color: white;background-color: #6E6E6E;text-align: center;"> Used with... </th>
-   <th style="text-align:center;color: white;background-color: #6E6E6E;text-align: center;"> Used in package... </th>
-   <th style="text-align:left;color: white;background-color: #6E6E6E;text-align: center;"> Used for... </th>
-   <th style="text-align:left;color: white;background-color: #6E6E6E;text-align: center;"> Comment </th>
+   <th style="text-align:right;color: white !important;background-color: #6E6E6E !important;text-align: center;"> Data format </th>
+   <th style="text-align:center;color: white !important;background-color: #6E6E6E !important;text-align: center;"> Used with... </th>
+   <th style="text-align:center;color: white !important;background-color: #6E6E6E !important;text-align: center;"> Used in package... </th>
+   <th style="text-align:left;color: white !important;background-color: #6E6E6E !important;text-align: center;"> Used for... </th>
+   <th style="text-align:left;color: white !important;background-color: #6E6E6E !important;text-align: center;"> Comment </th>
   </tr>
  </thead>
 <tbody>
@@ -91,9 +91,7 @@ There are several different R spatial formats to choose from. Your choice of for
 </table>
 
 
-There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called   [`sf`](https://r-spatial.github.io/sf/).
-
-It is therefore recommended that you work in an `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
+There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called   [`sf`](https://r-spatial.github.io/sf/). It is therefore recommended that you work in an `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
 
 Some packages such as `spdep` and `spatstat` require specialized data object types. This tutorial will highlight some useful conversion functions for this purpose.
 
@@ -181,7 +179,7 @@ library(raster)
 elev.r <- raster("elev.img")
 ```
 
-What sets a `raster` object apart from other R data file objects is its storage. By default, data files are loaded into memory but `raster` objects are not. This can be convenient when working with raster files too large to load into memory. But this comes at a performance cost. If your RAM is large enough to handle your raster file, it's best to load the entire dataset into memory.
+What sets a `raster` object apart from other R data file objects is its storage. By default, data files are loaded into memory but `raster` objects are not. This can be convenient when working with raster files too large for memory. But this comes at a performance cost. If your RAM is large enough to handle your raster file, it's best to load the entire dataset into memory.
 
 To check if the `elev.r` object is loaded into memory, run:
 
@@ -198,7 +196,7 @@ To force the raster into memory use `readAll()`:
 
 
 ```r
-elev.r <- readAll( raster("elev.img") )
+elev.r <- readAll(raster("elev.img"))
 ```
 
 Let's check that the raster is indeed loaded into memory:
@@ -220,14 +218,14 @@ elev.r
 ```
 
 ```
-class       : RasterLayer 
-dimensions  : 994, 651, 647094  (nrow, ncol, ncell)
-resolution  : 500, 500  (x, y)
-extent      : 336630.3, 662130.3, 4759297, 5256297  (xmin, xmax, ymin, ymax)
-coord. ref. : +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0 
-data source : in memory
-names       : elev 
-values      : -19, 252  (min, max)
+class      : RasterLayer 
+dimensions : 994, 652, 648088  (nrow, ncol, ncell)
+resolution : 500, 500  (x, y)
+extent     : 336630.3, 662630.3, 4759303, 5256303  (xmin, xmax, ymin, ymax)
+crs        : +proj=utm +zone=19 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+source     : memory
+names      : elev 
+values     : 0, 1546  (min, max)
 ```
 
 The raster object returns its grid dimensions (number of rows and columns), pixel size/resolution (in the layer's coordinate system units), geographic extent, native coordinate system (UTM NAD83 Zone 19 with units of meters) and min/max raster values.
@@ -265,82 +263,11 @@ proj4string:    +proj=longlat +datum=WGS84 +no_defs
 
 ### Geocoding street addresses {-}
 
-The `ggmap` package offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of the [*Data Science Toolkit*](http://www.datasciencetoolkit.org/) API.
+The `ggmap` package offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. However, as of Spring 2019, `ggmap` will only access Google's API  which requires that a key be created on the Google Cloud (the latter will also require that a paid account be created with Google Cloud). The Data Science Toolkit, a previously free API alternative, has (as of May 2019) terminated its mapping services.
 
-Let's first create a new data table with addresses for a few liberal arts colleges in the State of Maine.
+The Google API option will not be covered here, instead, the reader is encouraged to read the detailed instructions on `ggmap`'s [Github page](https://github.com/dkahle/ggmap).
 
-
-```r
-addr <- data.frame(Address = c("4000 mayflower Hill, Waterville, Maine", 
-                               "2 Andrews Rd, Lewiston, ME 04240",
-                               "255 Maine St, Brunswick, ME 04011",
-                               "90 Quaker Hill Rd, Unity, ME 04988",
-                               "105 Eden St, Bar Harbor, ME 04609"),
-                   College = c("Colby", "Bates", "Bowdoin", "Unity", "CoA"),
-                   stringsAsFactors = FALSE)
-```
-
-Next, we'll geocode the addresses and save the output to a new data table called `addr.geo`.
-
-
-```r
-library(ggmap)
-addr.geo <- mutate_geocode(addr, location=Address, output="latlona" , source="dsk")
-```
-
-The `location` parameter is assigned the column with the addresses. The `output` parameter is given instructions on _what_ to output. Here, the option `latlona` instructs the function to output both the lat/lon coordinate values as well as all other attributes. It also adds another column called `address` (note the lower case `a`) with the nearest address match. Note that not all addresses are necessarily matched.
-
-
-```r
-addr.geo
-```
-
-```
-                                 Address College       lon      lat
-1 4000 mayflower Hill, Waterville, Maine   Colby -69.65208 44.56719
-2       2 Andrews Rd, Lewiston, ME 04240   Bates -70.20540 44.10721
-3      255 Maine St, Brunswick, ME 04011 Bowdoin -69.96525 43.90702
-4     90 Quaker Hill Rd, Unity, ME 04988   Unity -69.33315 44.60612
-5      105 Eden St, Bar Harbor, ME 04609     CoA -68.22009 44.39235
-                                 address
-1 4000 mayflower Hill, Waterville, Maine
-2       2 Andrews Rd, Lewiston, ME 04240
-3      255 Maine St, Brunswick, ME 04011
-4     90 Quaker Hill Rd, Unity, ME 04988
-5      105 Eden St, Bar Harbor, ME 04609
-```
-
-Note that `addr.geo` is not a spatial object; it's a data frame. It can be converted to an `sf` object via `st_as_sf` as outlined in the previous section. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.
-
-
-```r
-la.sf <- st_as_sf(addr.geo, coords = c("lon", "lat"), crs = 4326) 
-la.sf
-```
-
-```
-Simple feature collection with 5 features and 3 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -70.2054 ymin: 43.90702 xmax: -68.22009 ymax: 44.60612
-epsg (SRID):    4326
-proj4string:    +proj=longlat +datum=WGS84 +no_defs
-                                 Address College                                address
-1 4000 mayflower Hill, Waterville, Maine   Colby 4000 mayflower Hill, Waterville, Maine
-2       2 Andrews Rd, Lewiston, ME 04240   Bates       2 Andrews Rd, Lewiston, ME 04240
-3      255 Maine St, Brunswick, ME 04011 Bowdoin      255 Maine St, Brunswick, ME 04011
-4     90 Quaker Hill Rd, Unity, ME 04988   Unity     90 Quaker Hill Rd, Unity, ME 04988
-5      105 Eden St, Bar Harbor, ME 04609     CoA      105 Eden St, Bar Harbor, ME 04609
-                    geometry
-1 POINT (-69.65208 44.56719)
-2  POINT (-70.2054 44.10721)
-3 POINT (-69.96525 43.90702)
-4 POINT (-69.33315 44.60612)
-5 POINT (-68.22009 44.39235)
-```
-
-
-You can also use the US Census Bureau's [geocoding service](https://geocoding.geo.census.gov/geocoder/locations/addressbatch?form) for creating lat/lon values from US street addresses. This needs to be completed via their website and the resulting data table (a CSV file) would then need to be loaded in R as a data frame.
+For a free (but manual) alternative, you can use the US Census Bureau's [geocoding service](https://geocoding.geo.census.gov/geocoder/locations/addressbatch?form) for creating lat/lon values from US street addresses. This needs to be completed via their web interface and the resulting data table (a CSV file) would then need to be loaded into R as a data frame.
 
 ## Converting from an `sf` object {-}
 

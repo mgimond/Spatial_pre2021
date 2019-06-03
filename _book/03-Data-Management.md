@@ -60,7 +60,7 @@ A popular public domain raster data format is the **GeoTIFF** format. If maximum
 
 #### File Geodatabase
 
-A raster file can also be stored in a file geodatabase alongside vector files. Geodatabases have the benefit of defining image mosaic structures thus allowing the user to create “stitched” images from multiple image files stored in the geodatabase. Also, processing very large raster files can be computationally more efficient when stored in a file geodatabase as opposed to an Imagine file format.
+A raster file can also be stored in a file geodatabase alongside vector files. Geodatabases have the benefit of defining image mosaic structures thus allowing the user to create “stitched” images from multiple image files stored in the geodatabase. Also, processing very large raster files can be computationally more efficient when stored in a file geodatabase as opposed to an Imagine or GeoTiff file format.
 
 ## Managing GIS Files
 
@@ -89,13 +89,12 @@ If the **"Store relative pathnames to data sources"** is not checked in the map'
 
 ![](img/Directory_full.svg)<!-- -->
 
+Your choice of full vs relative pathnames matters if you find yourself having to move or copy your project folder to another directory structure. For example, if you share you HW05/ project folder with another user and that user places the project folder under a different directory structure such as C:/User/Jdoe/GIS/, ArcMap will not find the shapefiles if the pathnames is set to full (i.e. the _Store relative pathnames_ option is not checked). This will result in **exclamation marks** in your map document TOC. This problem can be avoided by making sure that the map document is set to use relative pathnames and by placing all GIS files (raster and vector) in a common project folder.
+
 <div class="warning">
 <p>NOTE: Exclamation marks in your map document indicate that the GIS files are missing or that the directory structure has changed.</p>
 </div>
 
 <img src="img/Exclamation_marks.jpg" width="100" />
-
-Your choice of full vs relative pathnames matters if you find yourself having to move or copy your project folder to another directory structure. For example, if you share you HW05/ project folder with another user and that user places the project folder under a different directory structure such as C:/User/Jdoe/GIS/, ArcMap will not find the shapefiles if the pathnames is set to full (i.e. the _Store relative pathnames_ option is not checked). This will result in exclamation marks in your map document TOC. This problem can be avoided by making sure that the map document is set to use relative pathnames and by placing all GIS files (raster and vector) in a common project folder.
-
 
 

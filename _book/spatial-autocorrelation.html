@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Spatial Autocorrelation | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Spatial Autocorrelation | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="hypothesis-testing.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -410,7 +435,7 @@ code > span.in { color: #008000; } /* Information */
 <h1><span class="header-section-number">Chapter 13</span> Spatial Autocorrelation</h1>
 <div class="note">
 <p>
-<em>“The first law of geography: Everything is related to everything else, but near things are more related than distant things.”</em> Waldo R. Tobler <span class="citation"><span class="citation">(Tobler <a href="#ref-Tobler1970">1970</a>)</span></span>
+<em>“The first law of geography: Everything is related to everything else, but near things are more related than distant things.”</em> Waldo R. Tobler <span class="citation"><span class="citation">(Tobler <a href="#ref-Tobler1970" role="doc-biblioref">1970</a>)</span></span>
 </p>
 </div>
 <p>Mapped events or entities can have non-spatial information attached to them (some GIS software tag these as attributes). A question often asked is whether or not features with similar values are clustered, randomly distributed or dispersed. In most cases, the distribution of attribute values will seldom show evidence of complete spatial randomness.</p>
@@ -428,18 +453,18 @@ Figure 13.1: 2010 median per capita income aggregated at the county level.
 </p>
 </div>
 <p>It may seem apparent that, when aggregated at the county level, the income distribution follows a north-south trend (i.e. high values appear clustered near the southern end of the state and low values seem clustered near the north and east). But a qualitative description may not be sufficient; we might want to quantify the degree to which similar (or dissimilar) counties are clustered. One measure of this type or relationship is the Moran’s I statistic.</p>
-<p>The Moran’s I index is the correlation coefficient for the relationship between a variable (like income) and its surrounding values. But before we go about computing this correlation, we need to come up with a way to define a neighbor. One approach is to define a neighbor as being any contiguous polygon. For example, the northern most county (Aroostook), has four contiguous neighbors while the southern most county (York) has two contiguous counties. Other neighborhood definitions include distance bands (e.g. counties within 100 km) and k nearest neighbors (e.g. the 2 closest neighbors). Note that distance bands and k nearest neighbors are usually measured using the polygon’s centroids and not their boundaries.</p>
+<p>The Moran’s I statistic is the correlation coefficient for the relationship between a variable (like income) and its surrounding values. But before we go about computing this correlation, we need to come up with a way to define a neighbor. One approach is to define a neighbor as being any contiguous polygon. For example, the northern most county (Aroostook), has four contiguous neighbors while the southern most county (York) has two contiguous counties. Other neighborhood definitions include distance bands (e.g. counties within 100 km) and k nearest neighbors (e.g. the 2 closest neighbors). Note that distance bands and k nearest neighbors are usually measured using the polygon’s centroids and not their boundaries.</p>
 <div class="figure" style="text-align: center"><span id="fig:f13-diff-neighbor"></span>
 <img src="img/Diff_neighbors.png" alt="Maps show the links between each polygon and their respective neighbor(s) based on the neighborhood definition. A contiguous neighbor is defined as one that shares a boundary or a vertex with the polygon of interest.  Orange numbers indicate the number of neighbors for each polygon. Note that the top most county has no neighbors when a neighborhood definition of a 100 km distance band is used (i.e. no centroids are within a 100 km search radius)" width="600" />
 <p class="caption">
 Figure 13.2: Maps show the links between each polygon and their respective neighbor(s) based on the neighborhood definition. A contiguous neighbor is defined as one that shares a boundary or a vertex with the polygon of interest. Orange numbers indicate the number of neighbors for each polygon. Note that the top most county has no neighbors when a neighborhood definition of a 100 km distance band is used (i.e. no centroids are within a 100 km search radius)
 </p>
 </div>
-<p>Once we define a neighborhood for our analysis we identify the neighbors for each polygon in our dataset then summaries the values for each neighborhood cluster (by computing their mean values, for example). This summarized neighbor value is sometimes referred to as a lagging value (<em>X<sub>lag</sub></em>). In our working example, we adopt a contiguity neighborhood and compute the average neighboring income value (<em>Income<sub>lag</sub></em>) for each county in our dataset. We then plot <em>Income<sub>lag</sub></em> vs. <em>Income</em> for each county. The Moran’s I coefficient between <em>Income<sub>lag</sub></em> and <em>Income</em> is nothing more than the slope of the least squares regression line that best fits the points <em>after</em> having equalized the spread between both sets of data.</p>
+<p>Once we define a neighborhood for our analysis we identify the neighbors for each polygon in our dataset then summaries the values for each neighborhood cluster (by computing their mean values, for example). This summarized neighbor value is sometimes referred to as a lagging value (<em>X<sub>lag</sub></em>). In our working example, we adopt a contiguity neighborhood and compute the average neighboring income value (<em>Income<sub>lag</sub></em>) for each county in our dataset. We then plot <em>Income<sub>lag</sub></em> vs. <em>Income</em> for each county. The Moran’s I coefficient between <em>Income<sub>lag</sub></em> and <em>Income</em> is nothing more than the slope of the least squares regression line that best fits the points <em>after</em> having equalized the spread between both sets of data.</p>
 <div class="figure" style="text-align: center"><span id="fig:f13-scatter-plot"></span>
 <img src="img/MoranI_scatter_plot.png" alt="Scatter plot of *Income~lag~* vs. *Income*. If we equalize the spread between both axes (i.e. convert to a z-score) the slope of the regression line represents the Moran's I statistic." width="400" />
 <p class="caption">
-Figure 13.3: Scatter plot of <em>Income<sub>lag</sub></em> vs. <em>Income</em>. If we equalize the spread between both axes (i.e. convert to a z-score) the slope of the regression line represents the Moran’s I statistic.
+Figure 13.3: Scatter plot of <em>Income<sub>lag</sub></em> vs. <em>Income</em>. If we equalize the spread between both axes (i.e. convert to a z-score) the slope of the regression line represents the Moran’s I statistic.
 </p>
 </div>
 <p>If there is no relationship between <em>Income</em> and <em>Income<sub>lag</sub></em>, the slope will be close to flat (resulting in a Moran’s I value near 0). In our working example, the Moran’s I value is 0.377. So this begs the question, how significant is this Moran’s I value (i.e. is the computed slope significantly different from 0)? There are two approaches to estimating the significance: an analytical solution and a Monte Carlo solution. The analytical solution makes some restrictive assumptions about the data and thus cannot always be reliable. Another approach (and the one favored here) is a Monte Carlo test which makes <em>no</em> assumptions about the dataset including the shape and layout of each polygon.</p>
@@ -448,16 +473,16 @@ Figure 13.3: Scatter plot of <em>Income<sub>lag</sub></em> vs. <em>Income</em>. 
 <h3><span class="header-section-number">13.1.2</span> Monte Carlo approach to estimating significance</h3>
 <p>In a Monte Carlo test (a permutation bootstrap test, to be exact), the attribute values are randomly assigned to polygons in the data set and for each permutation of the attribute values, a Moran’s I value is computed. The output is a sampling distribution of Moran’s I values under the (null) hypothesis that attribute values are randomly distributed across the study area. We then compare our observed Moran’s I value to this sampling distribution.</p>
 <div class="figure" style="text-align: center"><span id="fig:f13-MC-result"></span>
-<img src="img/MC_sim_1.png" alt="Results from 199 permutations. Left plot shows Moran's I slopes (in gray) from each random permutation of income values superimposed with the observed Moran's I slope. Right plot shows the distribution of Moran's I values for all 199 permutations; red vertical line shows our observed Moran's I value of 0.377." width="400" />
+<img src="img/MC_sim_1.png" alt="Results from 199 permutations. Left plot shows Moran's I slopes (in gray) from each random permutation of income values superimposed with the observed Moran's I slope (in red). Right plot shows the distribution of Moran's I values for all 199 permutations; red vertical line shows our observed Moran's I value of 0.377." width="400" />
 <p class="caption">
-Figure 13.4: Results from 199 permutations. Left plot shows Moran’s I slopes (in gray) from each random permutation of income values superimposed with the observed Moran’s I slope. Right plot shows the distribution of Moran’s I values for all 199 permutations; red vertical line shows our observed Moran’s I value of 0.377.
+Figure 13.4: Results from 199 permutations. Left plot shows Moran’s I slopes (in gray) from each random permutation of income values superimposed with the observed Moran’s I slope (in red). Right plot shows the distribution of Moran’s I values for all 199 permutations; red vertical line shows our observed Moran’s I value of 0.377.
 </p>
 </div>
 <p>In our working example, 199 simulations indicate that out observed Moran’s I value of 0.377 is not a value we would expect to compute if the income values were randomly distributed across each county. A (pseudo) <em>P-value</em> can easily be computed from the simulation results:</p>
 <p><span class="math display">\[
 \dfrac{N_{extreme}+1}{N+1}
 \]</span></p>
-<p>where <span class="math inline">\(N_{extreme}\)</span> is the number of simulated Moran’s I values more extreme than our observed statistic and <span class="math inline">\(N\)</span> is the total number of simulations. In our working example of 199 simulations where just one simulation result is more extreme than our observed statisic (i.e. <span class="math inline">\(N_{extreme}\)</span> = 1), <span class="math inline">\(p\)</span> = (1 + 1) / (199 + 1) = 0.01. This is interpreted as “<em>there is a 1% probability that we would be wrong in rejecting the null hypothesis H<sub>o</sub>.</em>”</p>
+<p>where <span class="math inline">\(N_{extreme}\)</span> is the number of simulated Moran’s I values more extreme than our observed statistic and <span class="math inline">\(N\)</span> is the total number of simulations. Here, out of 199 simulations, just one simulation result was more extreme than our observed statisic, <span class="math inline">\(N_{extreme}\)</span> = 1, so <span class="math inline">\(p\)</span> is equal to (1 + 1) / (199 + 1) = 0.01. This is interpreted as “<em>there is a 1% probability that we would be wrong in rejecting the null hypothesis H<sub>o</sub>.</em>”</p>
 </div>
 </div>
 <div id="morans-i-at-different-lags" class="section level2">
@@ -499,7 +524,7 @@ Figure 13.7: Significantly High-High and Low-Low clusters with P-values less tha
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-Tobler1970">
-<p>Tobler, Waldo R. 1970. “A Computer Movie Simulating Urban Growth in the Detroit Region.” <em>Economic Geography</em> 46 (2): 234–40. <a href="http://www.geog.ucsb.edu/~tobler/publications/pdf_docs/A-Computer-Movie.pdf" class="uri">http://www.geog.ucsb.edu/~tobler/publications/pdf_docs/A-Computer-Movie.pdf</a>.</p>
+<p>Tobler, Waldo R. 1970. “A Computer Movie Simulating Urban Growth in the Detroit Region.” <em>Economic Geography</em> 46 (2): 234–40. <a href="http://www.geog.ucsb.edu/~tobler/publications/pdf_docs/A-Computer-Movie.pdf">http://www.geog.ucsb.edu/~tobler/publications/pdf_docs/A-Computer-Movie.pdf</a>.</p>
 </div>
 </div>
             </section>
@@ -561,7 +586,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

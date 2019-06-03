@@ -2,8 +2,8 @@ base
 ggplot2
 sp
 raster
-Matrix
 spData
+sf
 spdep
 maptools
 RColorBrewer

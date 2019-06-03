@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Map Algebra | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Map Algebra | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="coordinate-systems.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -408,7 +433,8 @@ code > span.in { color: #008000; } /* Information */
             <section class="normal" id="section-">
 <div id="map-algebra" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> Map Algebra</h1>
-<p><strong>Dana Tomlin</strong> <span class="citation">(Tomlin <a href="#ref-DTomlin">1990</a>)</span> is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework <em>map algebra</em>. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: <strong>local</strong>, <strong>focal</strong>, <strong>zonal</strong> and <strong>global</strong>. Each is explored in the following sections.</p>
+<p><strong>Dana Tomlin</strong> <span class="citation">(Tomlin <a href="#ref-DTomlin" role="doc-biblioref">1990</a>)</span> is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework <em>map algebra</em>. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: <strong>local</strong>, <strong>focal</strong>, <strong>zonal</strong> and <strong>global</strong>. Each is explored in the following
+sections.</p>
 <div id="local-operations-and-functions" class="section level2">
 <h2><span class="header-section-number">10.1</span> Local operations and functions</h2>
 <p>Local operations and functions are applied to each individual cell and only involve those cells sharing the same location.</p>
@@ -430,26 +456,26 @@ Figure 10.2: Example of a local operation where <code>output=(raster1+raster2)</
 <table>
 <thead>
 <tr class="header">
-<th>Original values</th>
-<th>Reclassified values</th>
+<th align="right">Original values</th>
+<th align="left">Reclassified values</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>0-25</td>
-<td>25</td>
+<td align="right">0-25</td>
+<td align="left">25</td>
 </tr>
 <tr class="even">
-<td>26-50</td>
-<td>50</td>
+<td align="right">26-50</td>
+<td align="left">50</td>
 </tr>
 <tr class="odd">
-<td>51-75</td>
-<td>75</td>
+<td align="right">51-75</td>
+<td align="left">75</td>
 </tr>
 <tr class="even">
-<td>76-100</td>
-<td>100</td>
+<td align="right">76-100</td>
+<td align="left">100</td>
 </tr>
 </tbody>
 </table>
@@ -467,9 +493,9 @@ Figure 10.3: Example of a local operation where the output results from the recl
 </blockquote>
 <p>Focal operations assign to the output cells some summary value (such as the mean) of the neighboring cells from the input raster. For example, a cell output value can be the average of all 9 neighboring input cells (including the center cell); this acts as a <em>smoothing function</em>.</p>
 <div class="figure"><span id="fig:f10-focal01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-focal01-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA." width="480" />
+<img src="10-Map-Algebra_files/figure-html/f10-focal01-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Focal cells surrounded by non-existent cells are assigned an `NA` in this example." width="480" />
 <p class="caption">
-Figure 10.4: Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. If a focal cell is surrounded by non-existent cells, the output will be NA.
+Figure 10.4: Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Focal cells surrounded by non-existent cells are assigned an <code>NA</code> in this example.
 </p>
 </div>
 <p>Notice how, in the above example, the edge cells from the output raster have been assigned a value of <code>NA</code> (No Data). This is because cells outside of the extent have no value. Some GIS applications will ignore the missing surrounding values and just compute the average of the available cells as demonstrated in the next example.</p>
@@ -496,7 +522,7 @@ Figure 10.7: Example of a focal operation where the kernel is defined by a Gauss
 </div>
 <div id="zonal-operations-and-functions" class="section level2">
 <h2><span class="header-section-number">10.3</span> Zonal operations and functions</h2>
-<p>A zonal operation computes a new summary value (such as the mean) from cells aggregated for some zonal unit. In the following example, the cell values from the raster layer are aggregated into three zones whose boundaries are delineated in red. Each output zone shows the average cell value within that zone.</p>
+<p>A zonal operation computes a new summary value (such as the mean) from cells aggregated for some zonal unit. In the following example, the cell values from the raster layer are aggregated into three zones whose boundaries are delineated in red. Each output zone shows the average value of the cells within that zone.</p>
 <div class="figure"><span id="fig:f10-zonal01"></span>
 <img src="10-Map-Algebra_files/figure-html/f10-zonal01-1.png" alt="Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red." width="576" />
 <p class="caption">
@@ -522,12 +548,13 @@ Figure 10.9: Example of a global function: the Euclidean distance. Each pixel is
 <p>Operations and functions applied to gridded data can be broken down into three groups: <strong>mathematical</strong>, <strong>logical comparison</strong> and <strong>Boolean</strong>.</p>
 <div id="mathematical-operators-and-functions" class="section level3">
 <h3><span class="header-section-number">10.5.1</span> Mathematical operators and functions</h3>
-<p>Two mathematical operators have already been demonstrated in earlier sections: the <em>multiplier</em> and the <em>addition</em> operators. Other operators include division and the modulo (aka the modulus) which is the remainder of a division. Mathematical <em>functions</em> can also be applied to gridded data manipulation. Examples are square root and sine functions. The following tables showcases a few examples with ArcGIS syntax.</p>
+<p>Two mathematical operators have already been demonstrated in earlier sections: the <em>multiplier</em> and the <em>addition</em> operators. Other operators include division and the modulo (aka the modulus) which is the remainder of a division. Mathematical <em>functions</em> can also be applied to gridded data manipulation. Examples are square root and sine functions. The following table showcases a few examples with ArcGIS and R syntax.</p>
 <table>
 <thead>
 <tr class="header">
 <th>Operation</th>
-<th>Syntax</th>
+<th>ArcGIS Syntax</th>
+<th>R Syntax</th>
 <th>Example</th>
 </tr>
 </thead>
@@ -535,27 +562,32 @@ Figure 10.9: Example of a global function: the Euclidean distance. Each pixel is
 <tr class="odd">
 <td>Addition</td>
 <td><code>+</code></td>
+<td><code>+</code></td>
 <td><code>R1 + R2</code></td>
 </tr>
 <tr class="even">
 <td>Subtraction</td>
+<td><code>-</code></td>
 <td><code>-</code></td>
 <td><code>R1 - R2</code></td>
 </tr>
 <tr class="odd">
 <td>Division</td>
 <td><code>/</code></td>
+<td><code>/</code></td>
 <td><code>R1 / R2</code></td>
 </tr>
 <tr class="even">
 <td>Modulo</td>
 <td><code>Mod()</code></td>
-<td><code>Mod(R1, 100)</code></td>
+<td><code>%%</code></td>
+<td><code>Mod(R1, 100)</code>, <code>R1 %% 10</code></td>
 </tr>
 <tr class="odd">
 <td>Square root</td>
 <td><code>SquareRoot()</code></td>
-<td><code>SquareRoot(R1)</code></td>
+<td><code>sqrt()</code></td>
+<td><code>SquareRoot(R1)</code>, <code>sqrt(R1)</code></td>
 </tr>
 </tbody>
 </table>
@@ -599,7 +631,7 @@ Figure 10.10: Output of the operation R1 &gt; R2. A value of 1 in the output ras
 <p>When assessing whether two cells are equal, some programming environments such as R and ArcMap’s <em>Raster Calculator</em> require the use of the <em>double equality</em> syntax, <code>==</code>, as in <code>R1 == R2</code>. In these programming environments, the single equality syntax is usually interpreted as an <em>assignment operator</em> so <code>R1 = R2</code> would instruct the computer to assign the cell values in R2 to R1 (which is not what we want to do here).</p>
 <p>Some applications make use of special functions to test a condition. For example, ArcMap has a function called <code>Con(condition, out1, out2)</code> which assigns the value <code>out1</code> if the condition is met and a value of <code>out2</code> if it’s not. For example, ArcMap’s raster calculator expression</p>
 <pre><code>Con( R1 &gt; R2, 1, 0)</code></pre>
-<p>outputs a value of <code>1</code> if <code>R1</code> is greater than <code>R2</code> and <code>0</code> if not. It generates the same output as the one shown in the above figure. Note that in most programming environments (including ArcMap), the expression <code>R1 &gt; R2</code> produces the same output because the value <code>1</code> is the numeric representation of <code>TRUE</code> and <code>0</code> of <code>FALSE</code>.</p>
+<p>outputs a value of <code>1</code> if <code>R1</code> is greater than <code>R2</code> and <code>0</code> if not. It generates the same output as the one shown in the above figure. Note that in most programming environments (including ArcMap), the expression <code>R1 &gt; R2</code> produces the same output because the value <code>1</code> is the numeric representation of <code>TRUE</code> and <code>0</code> that of <code>FALSE</code>.</p>
 </div>
 <div id="boolean-or-logical-operators" class="section level3">
 <h3><span class="header-section-number">10.5.3</span> Boolean (or Logical) operators</h3>
@@ -607,30 +639,30 @@ Figure 10.10: Output of the operation R1 &gt; R2. A value of 1 in the output ras
 <table>
 <thead>
 <tr class="header">
-<th>Boolean</th>
-<th>ArcGIS</th>
-<th>R</th>
+<th align="left">Boolean</th>
+<th align="left">ArcGIS</th>
+<th align="left">R</th>
 <th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>AND</td>
-<td>&amp;</td>
-<td>&amp;</td>
+<td align="left">AND</td>
+<td align="left">&amp;</td>
+<td align="left">&amp;</td>
 <td><code>R1 &amp; R2</code></td>
 </tr>
 <tr class="even">
-<td>OR</td>
-<td><code>|</code></td>
-<td><code>|</code></td>
-<td><code>R1 | R2</code>, <code>R1 or R2</code></td>
+<td align="left">OR</td>
+<td align="left"><code>|</code></td>
+<td align="left"><code>|</code></td>
+<td><code>R1 | R2</code></td>
 </tr>
 <tr class="odd">
-<td>NOT</td>
-<td><code>~</code></td>
-<td><code>!</code></td>
-<td><code>~R2</code></td>
+<td align="left">NOT</td>
+<td align="left"><code>~</code></td>
+<td align="left"><code>!</code></td>
+<td><code>~R2</code>, <code>!R2</code></td>
 </tr>
 </tbody>
 </table>
@@ -653,7 +685,7 @@ Figure 10.12: Output of the operation <code>NOT R2</code>. A value of 1 in the o
 </div>
 <div id="combining-operations" class="section level3">
 <h3><span class="header-section-number">10.5.4</span> Combining operations</h3>
-<p>Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: e.g. <code>0&lt;R1&lt;4</code> AND <code>R2&gt;0</code>. To satisfy the first requirement, we can write out the expression as <code>(R1&gt;0) &amp; (R1&lt;4)</code>. Both comparisons (delimited by parentheses) return a <code>0</code> (FALSE) or a <code>1</code> (TRUE). The ampersand, <code>&amp;</code>, is a Boolean operator that checks that both conditions are met and returns a 1 if yes or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses the criterion R2&gt;0. The amalgamated expression is thus <code>((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0)</code>.</p>
+<p>Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: e.g. <code>0&lt;R1&lt;4</code> AND <code>R2&gt;0</code>. To satisfy the first requirement, we can write out the expression as <code>(R1&gt;0) &amp; (R1&lt;4)</code>. Both comparisons (delimited by parentheses) return a <code>0</code> (FALSE) or a <code>1</code> (TRUE). The ampersand, <code>&amp;</code>, is a Boolean operator that checks that both conditions are met and returns a 1 if yes or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses the criterion R2&gt;0. The amalgamated expression is thus <code>((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0)</code>.</p>
 <div class="figure"><span id="fig:f10-combining01"></span>
 <img src="10-Map-Algebra_files/figure-html/f10-combining01-1.png" alt="Output of the operation ((R1&amp;gt;0) &amp;amp; (R1&amp;lt;4)) &amp;amp; (R2&amp;gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
 <p class="caption">
@@ -735,7 +767,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

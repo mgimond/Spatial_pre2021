@@ -2,7 +2,7 @@
 # Spatial Autocorrelation
 
 <div class="note">
-<p><em>&quot;The first law of geography: Everything is related to everything else, but near things are more related than distant things.&quot;</em> Waldo R. Tobler <span class="citation">[@Tobler1970]</span></p>
+<p><em>“The first law of geography: Everything is related to everything else, but near things are more related than distant things.”</em> Waldo R. Tobler <span class="citation">[@Tobler1970]</span></p>
 </div>
 
 Mapped events or entities can have non-spatial information attached to them (some GIS software tag these as attributes).  A question often asked is whether or not features with similar values are clustered, randomly distributed or dispersed. In most cases, the distribution of attribute values will seldom show evidence of complete spatial randomness. 
@@ -24,7 +24,7 @@ Let's start with a working example: 2010 per capita income for the state of Main
 
 It may seem apparent that, when aggregated at the county level, the income distribution follows a north-south trend (i.e. high values appear clustered near the southern end of the state and low values seem clustered near the north and east). But a qualitative description may not be sufficient; we might want to quantify the degree to which similar (or dissimilar) counties are clustered. One measure of this type or relationship is the Moran's I statistic.
 
-The Moran's I index is the correlation coefficient for the relationship between a variable (like income) and its surrounding values. But before we go about computing this correlation, we need to come up with a way to define a neighbor. One approach is to define a neighbor as being any contiguous polygon. For example, the northern most county (Aroostook), has four contiguous neighbors while the southern most county (York) has two contiguous counties. Other neighborhood definitions include distance bands (e.g. counties within 100 km) and k nearest neighbors (e.g. the 2 closest neighbors). Note that distance bands and k nearest neighbors are usually measured using the polygon's centroids and not their boundaries.
+The Moran's I statistic is the correlation coefficient for the relationship between a variable (like income) and its surrounding values. But before we go about computing this correlation, we need to come up with a way to define a neighbor. One approach is to define a neighbor as being any contiguous polygon. For example, the northern most county (Aroostook), has four contiguous neighbors while the southern most county (York) has two contiguous counties. Other neighborhood definitions include distance bands (e.g. counties within 100 km) and k nearest neighbors (e.g. the 2 closest neighbors). Note that distance bands and k nearest neighbors are usually measured using the polygon's centroids and not their boundaries.
 
 
 <div class="figure" style="text-align: center">
@@ -46,8 +46,8 @@ If there is no relationship between *Income* and *Income~lag~*, the slope will b
 In a Monte Carlo test (a permutation bootstrap test, to be exact), the attribute values are randomly assigned to polygons in the data set and for each permutation of the attribute values, a Moran's I value is computed. The output is a sampling distribution of Moran's I values under the (null) hypothesis that attribute values are randomly distributed across the study area. We then compare our observed Moran's I value to this sampling distribution.
 
 <div class="figure" style="text-align: center">
-<img src="img/MC_sim_1.png" alt="Results from 199 permutations. Left plot shows Moran's I slopes (in gray) from each random permutation of income values superimposed with the observed Moran's I slope. Right plot shows the distribution of Moran's I values for all 199 permutations; red vertical line shows our observed Moran's I value of 0.377." width="400" />
-<p class="caption">(\#fig:f13-MC-result)Results from 199 permutations. Left plot shows Moran's I slopes (in gray) from each random permutation of income values superimposed with the observed Moran's I slope. Right plot shows the distribution of Moran's I values for all 199 permutations; red vertical line shows our observed Moran's I value of 0.377.</p>
+<img src="img/MC_sim_1.png" alt="Results from 199 permutations. Left plot shows Moran's I slopes (in gray) from each random permutation of income values superimposed with the observed Moran's I slope (in red). Right plot shows the distribution of Moran's I values for all 199 permutations; red vertical line shows our observed Moran's I value of 0.377." width="400" />
+<p class="caption">(\#fig:f13-MC-result)Results from 199 permutations. Left plot shows Moran's I slopes (in gray) from each random permutation of income values superimposed with the observed Moran's I slope (in red). Right plot shows the distribution of Moran's I values for all 199 permutations; red vertical line shows our observed Moran's I value of 0.377.</p>
 </div>
 
 In our working example, 199 simulations indicate that out observed Moran's I value of 0.377 is not a value we would expect to compute if the income values were randomly distributed across each county. A (pseudo) *P-value* can easily be computed from the simulation results:
@@ -56,7 +56,7 @@ $$
 \dfrac{N_{extreme}+1}{N+1}
 $$ 
 
-where $N_{extreme}$ is the number of simulated Moran's I values more extreme than our observed statistic and $N$ is the total number of simulations. In our working example of 199 simulations where just one simulation result is more extreme than our observed statisic (i.e. $N_{extreme}$ = 1), $p$ = (1 + 1) / (199 + 1) = 0.01. This is interpreted as "*there is a 1% probability that we would be wrong in rejecting the null hypothesis H~o~.*"
+where $N_{extreme}$ is the number of simulated Moran's I values more extreme than our observed statistic and $N$ is the total number of simulations. Here, out of 199 simulations, just one simulation result was more extreme than our observed statisic,  $N_{extreme}$ = 1, so $p$  is equal to (1 + 1) / (199 + 1) = 0.01. This is interpreted as "*there is a 1% probability that we would be wrong in rejecting the null hypothesis H~o~.*"
 
 ## Moran's I at different lags
 

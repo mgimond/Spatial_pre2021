@@ -1,3 +1,27 @@
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  comment = "",
+  message = FALSE,
+  tidy = FALSE,
+  cache = TRUE,
+  warning = FALSE,
+  encoding = "UTF-8",
+  fig.show='hold')
+
+knitr::opts_knit$set(list(width = 80))
+
+# Set margins
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+  if (before) par(mar = c(4, 4, 1, 1))  # smaller margin on top and right
+})
+
+knitr::knit_hooks$set(no.mar = function(before, options, envir) {
+  if (before) par(mar = c(0, 0, 0, 0))  # no margins
+})
+
+
+
+```
 # Spatial Operations and Vector Overlays
 
 
@@ -16,11 +40,10 @@ Set algebra consists of four basic operators:
  * equal to (`=`)
  * not equal to (`<>`).
 
-```{block, type="warning"}
-Note that in some programming environments (such as R and Python), the equality condition is presented as **two** equal signs, `==`, and not one. In such an environment `x = 3` in interpreted as "*pass the value 3 to x*" and `x == 3` is interpreted as "*is x equal to 3?*".
-```
+> In some programming environments (such as R and Python), the equality condition is presented as **two** equal signs, `==`, and not one. In such an environment `x = 3` is interpreted as "*pass the value 3 to x*" and `x == 3` is interpreted as "*is x equal to 3?*.
 
-For example, if you have a GIS layer of major cities and you want to identify all census tracts having a population count greater than 50000, you would write the expression as `"POP" > 50000` (of course, this assumes that the attribute field name for population count is `POP`).
+
+If you have a GIS layer of major cities and you want to identify all census tracts having a population count greater than 50000, you would write the expression as `"POP" > 50000` (of course, this assumes that the attribute field name for population count is `POP`).
 
 ```{r f08-sel1, echo=FALSE, fig.cap = "An example of *selection by attributes* tool in ArcMap  where it is accessed from the *Selection* pull-down menu.", out.width=358}
 
@@ -91,7 +114,7 @@ knitr::include_graphics("img/Clip.svg")
 
 ### Intersect
 
-**Intersecting** takes both layers as inputs then outputs the features from both layers that share the same spatial extent. Note that the output attribute table inherits attributes from *both* input layers (this differs from *clipping* where attributes from just one layer a carried through).
+**Intersecting** takes both layers as inputs then outputs the features from both layers that share the same spatial extent. Note that the output attribute table inherits attributes from *both* input layers (this differs from *clipping* where attributes from just one layer are carried through).
 
 ```{r echo=FALSE}
 knitr::include_graphics("img/Intersect.svg")

@@ -45,7 +45,7 @@ Differences in distance measurements along the surfaces of an ellipsoid vs. a sp
 
 ### Geoid
 
-Representing the earth's true shape, the *geoid*, as a mathematical model is crucial for a GIS environment. However, the earth's shape is not a perfectly smooth surface. It has undulations resulting from changes in gravitational pull across its surface. These undulations may not be visible with the naked eye, but they are measurable and can influence locational measurements. Note that we are not including mountains and ocean bottoms in our discussion, instead we are focusing solely on the earth's gravitational potential which can be best visualized by imagining the earth's surface completely immersed in water and measuring the sea surface level over the entire earth surface.
+Representing the earth's true shape, the *geoid*, as a mathematical model is crucial for a GIS environment. However, the earth's shape is not a perfectly smooth surface. It has undulations resulting from changes in gravitational pull across its surface. These undulations may not be visible with the naked eye, but they are measurable and can influence locational measurements. Note that we are not including mountains and ocean bottoms in our discussion, instead we are focusing solely on the earth's gravitational potential which can be best visualized by imagining the earth's surface completely immersed in water and measuring the distance from the earth's center to the water surface over the entire earth surface.
 
 <div class="figure">
 <img src="img/Geoids_sm_NASA.jpg" alt="Earth's geoid with gravitational field shown in rainbow colors. The ondulations depicted in the graphics are exaggerated for visual effects. (source: NASA)" width="300" />
@@ -80,7 +80,7 @@ World Geodetic System 1972	| WGS72 |	Global |	Developed by the Department of Def
 <p class="caption">(\#fig:f09-datum-geocentric)A geocentric  datum couples a geoid with the ellipsoid at each element's center of mass.</p>
 </div>
 
-Many of the modern datums use a geocentric alignment. These include the popular World Geodetic Survey for 1984 (WGS84) and the North American Datums of 1983 (NAD83). Most of the popular geocentric datums use the WGS84 ellipsoid or the GRS80 ellipsoid. These ellipsoids' semi-major and semi-minor axes are nearly identical: 6,378,137 meters and 6,356,752 meters respectively. Examples of popular geocentric datums are shown in the following table:
+Many of the modern datums use a geocentric alignment. These include the popular World Geodetic Survey for 1984 (WGS84) and the North American Datums of 1983 (NAD83). Most of the popular geocentric datums use the WGS84 ellipsoid or the GRS80 ellipsoid. These two ellipsoids share nearly identical semi-major and semi-minor axes: 6,378,137 meters and 6,356,752 meters respectively. Examples of popular geocentric datums are shown in the following table:
 
 Geocentric datum	       | Acronym | Best for|	Comment
 -------------------|---------|--------|-------------------------------
@@ -150,7 +150,7 @@ A conical map projection maps the earth surface onto a map rolled into a cone. L
 
 ![](img/Conical_projection_secant.svg)<!-- -->
 
-Distortion is minimized along the tangent or secant lines and increases as the distance from these lines increases. When distance or area measurements are needed for the contiguous 48 states use one of the conical projections such as Equidistant Conic (distance preserving) or Albers Equal Area Conic (area preserving). 
+Distortion is minimized along the tangent or secant lines and increases as the distance from these lines increases. When distance or area measurements are needed for the contiguous 48 states, use one of the conical projections such as Equidistant Conic (distance preserving) or Albers Equal Area Conic (area preserving). 
 
 Conical projections are also popular PCS' in European maps such as Europe Albers Equal Area Conic and Europe Lambert Conformal Conic.
 
@@ -166,7 +166,7 @@ All projections distort real-world geographic features to some degree. The four 
 
 > For most GIS applications (e.g. ArcGIS and QGIS), many of the built-in projections are named after the spatial properties they preserve.
 
-Each map projection is good at preserving only one or two of the four spatial properties. So when working with small-scale (large area) maps and when multiple spatial properties are to be preserved, it is best to break the analyses across different projections to minimize error associated with spatial distortion.
+Each map projection is good at preserving only one or two of the four spatial properties. So when working with small-scale (large area) maps and when multiple spatial properties are to be preserved, it is best to break the analyses across different projections to minimize errors associated with spatial distortion.
 
 If you want to assess a projection's spatial distortion across your study region, you can generate Tissot indicatrix (TI) ellipses. The idea is to project a small circle (i.e. small enough so that the distortion remains relatively uniform across the circle's extent) and to measure its distorted shape on the projected map. For example, in assessing the type of distortion one could expect with a Mollweide projection across the continental US, a grid of circles could be generated at regular latitudinal and longitudinal intervals.
 

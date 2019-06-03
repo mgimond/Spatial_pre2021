@@ -16,7 +16,7 @@ These point pattern analysis techniques were popular before computers were  ubiq
 Density based techniques characterize the pattern in terms of its distribution *vis-a-vis* the study area--a **first-order** property of the pattern. 
 
 <div class="note">
-<p>A <em>first order</em> property of a pattern concerns itself with the variation of the observations' density across a study area. For example, the distribution of oaks will vary across a landscape based on underlying soil characteristics (resulting in areas having dense clusters of oaks and other areas not).</p>
+<p>A <em>first order</em> property of a pattern concerns itself with the variation of the observations’ density across a study area. For example, the distribution of oaks will vary across a landscape based on underlying soil characteristics (resulting in areas having dense clusters of oaks and other areas not).</p>
 </div>
 <br>
 
@@ -40,7 +40,7 @@ $\begin{equation}
 
 ### Local density
 
-A point pattern's density can be measured at different locations within the study area. Such an approach helps us assess if the density--and, by extension, the underlying process' local intensity $\widehat{\lambda}_i$--is constant across the study area. This can be an important property of the data since it may need to be mitigated for when using distance based analysis tools. Several techniques to measure local density are available, here we will focus on two such methods: *quadrat density* and *kernel density*.
+A point pattern's density can be measured at different locations within the study area. Such an approach helps us assess if the density--and, by extension, the underlying process' local (modeled) intensity $\widehat{\lambda}_i$--is constant across the study area. This can be an important property of the data since it may need to be mitigated for when using the distance based analysis tools covered later in this chapter. Several techniques for measuring local density are available, here we will focus on two such methods: *quadrat density* and *kernel density*.
 
 #### Quadrat density
 
@@ -68,7 +68,7 @@ Quadrat regions do not have to take on a uniform pattern across the study area, 
 </div>
 
 
-If the local intensity changes across all regions of the tessellated covariate as a function of the covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of 17.08, 50.45, 26.76, 5.71 map units respectively. To compute these regions' point densities, we simply divide the number of points by the respective area values.
+If the local intensity changes across the tessellated covariate, then there is evidence of a dependence between the process that generated the point pattern and the covariate. In our example, sub-regions 1 through 4 have surface areas of 17.08, 50.45, 26.76, 5.71 map units respectively. To compute these regions' point densities, we simply divide the number of points by the respective area values.
 
 <div class="figure">
 <img src="11-Point-Patterns_files/figure-html/f11-quad03-1.png" alt="Figure on the left displays the number of points in each elevation sub-region (sub-regions are coded as values ranging from 1 to 4). Figure on the right shows the density of points (number of points divided by the area of the sub-region)." width="576" />
@@ -117,7 +117,7 @@ Some of the most popular **kernel functions** assign weights to points that are 
 
 #### Kernel Density Adjusted for Covariate
 
-In the previous section, we learned that we could use a covariate, like elevation, to define the sub-regions (quadrats) within which densities were computed. In essence, a form of *normalization* was applied to the density calculations whereby each sub-region was assumed to represent a unique underlying process (if this were the case, then the density values would have been the same across each sub-region). The idea of *normalizing* the data to some underlying covariate can be extended to kernel density analysis. Here, instead of *dividing* the study region into discrete sub-regions (as was done with quadrat analysis), we normalize the computed density (from our observed point pattern) to a *measure* of density expected from the underlying covariate. This normalized density, which we'll denote as $\rho$, can be estimated in one of three different ways-- by *ratio*, *re-weight* and *transform* methods. We will not delve into the differences between these methods, but note that there is more than one way to estimate $\rho$.
+In the previous section, we learned that we could use a covariate, like elevation, to define the sub-regions (quadrats) within which densities were computed. In essence, a form of *normalization* was applied to the density calculations whereby each sub-region was assumed to represent a unique underlying process (if this were the case, then the density values would have been the same across each sub-region). The idea of *normalizing* the data to some underlying covariate can be extended to kernel density analysis. Here, instead of *dividing* the study region into discrete sub-regions (as was done with quadrat analysis), we normalize the computed density (from our observed point pattern) to a *measure* of density expected from the underlying covariate. This normalized density, which we'll denote as $\rho$, can be estimated in one of three different ways-- by *ratio*, *re-weight* and *transform* methods. We will not delve into the differences between these methods, but note that there is more than one way to estimate $\rho$ in the presence of a covariate.
 
 In the following example, the elevation raster is used as the covariate by _normalizing_ the density values using the _ratio_ method. The density plot (right-most plot) shows the density distribution when controlled for elevation. 
 
@@ -140,10 +140,10 @@ $$
 $$
 
 
-where $\lambda(i)$ is the modeled intensity at location $i$, $e^{\alpha}$ (the exponent of $\alpha$) is the base intensity when the covariate is *zero* and $e^{\beta}$ is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate. This is a form of the *logistic regression* model--popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a **loglinear** function of the underlying covariate (i.e. one where the process' intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where $\alpha + \beta Z(i)$ is the *linear predictor*.
+where $\lambda(i)$ is the modeled intensity at location $i$, $e^{\alpha}$ (the exponent of $\alpha$) is the base intensity when the covariate is *zero* and $e^{\beta}$ is the multiplier by which the intensity increases (or decreases) for each 1 unit increase in the covariate $Z(i)$. This is a form of the *logistic regression* model--popular in the field of statistics. This equation implies that the relationship between the process that lead to the observed point pattern is a **loglinear** function of the underlying covariate (i.e. one where the process' intensity is exponentially increasing or decreasing as a function of the covariate). Note that taking the log of both sides of the equation yields the more familiar linear regression model where $\alpha + \beta Z(i)$ is the *linear predictor*.
 
 <div class="note">
-<p>Note: The left-hand side of a logisitic regression model is often presented as the <em>probability</em>, <span class="math inline">\(P\)</span>, of occurrence and is related to <span class="math inline">\(\lambda\)</span> as $\lambda=P/(1-P)$ which is the <em>ratio of probability of occurrence</em>. Solving for <span class="math inline">\(P\)</span> gives us $P = \lambda/(1 + \lambda)$ which yields the following equation: <span class="math display">\[
+<p>Note: The left-hand side of a logistic regression model is often presented as the <em>probability</em>, <span class="math inline">\(P\)</span>, of occurrence and is related to <span class="math inline">\(\lambda\)</span> as $\lambda=P/(1-P)$ which is the <em>ratio of probability of occurrence</em>. Solving for <span class="math inline">\(P\)</span> gives us $P = \lambda/(1 + \lambda)$ which yields the following equation: <span class="math display">\[
 P(i) = \frac{e^{\alpha + \beta Z(i)}}{1 + e^{\alpha + \beta Z(i)}}
 \]</span></p>
 </div>
@@ -189,6 +189,8 @@ An alternative to the density based methods explored thus far are the **distance
 </div>
 <br>
 
+Three distance based approaches are covered next: The average nearest neighbor (ANN), the K and L functions, and the pair correlation function.
+
 ### Average Nearest Neighbor
 
 An average nearest neighbor (ANN) analysis measures the average distance from each point in the study area to its nearest point. In the following example, the average nearest neighbor for all points is 1.52 units.
@@ -219,12 +221,14 @@ Each point pattern offers different ANN vs. neighbor order plots.
 <p class="caption">(\#fig:f11-diff-ANN-plots)Three different ANN vs. neighbor order plots. The black ANN line is for the first point pattern (single cluster); the blue line is for the second point pattern (double cluster) and the red line is for the third point pattern.</p>
 </div>
 
-The bottom line (black line) indicates that the cluster (left plot) is tight and that the distances between a point and all other points is very short. This is in stark contrast with the top line (red line) which indicates that the distances between points is much greater. Note that the way we describe these patterns is heavily influenced by the size and shape of the study region. If the region was defined as the smallest rectangle encompassing the cluster of points, the cluster of points would no longer look clustered.
+The bottom line (black dotted line) indicates that the cluster (left plot) is tight and that the distances between a point and all other points is very short. This is in stark contrast with the top line (red dotted line) which indicates that the distances between points is much greater. Note that the way we describe these patterns is heavily influenced by the size and shape of the study region. If the region was defined as the smallest rectangle encompassing the cluster of points, the cluster of points would no longer look clustered.
 
 <div class="figure">
 <img src="11-Point-Patterns_files/figure-html/f11-diff-ppp02-1.png" alt="The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?" width="384" />
 <p class="caption">(\#fig:f11-diff-ppp02)The same point pattern presented with two different study areas. How differently would you describe the point pattern in both cases?</p>
 </div>
+
+An important assumption that underlies our interpretation of the ANN results is that of stationarity of the underlying point process (i.e. that there is no overall drift or trend in the process’ intensity). If the point is not stationary, then it will be difficult to assess if the results from the ANN analysis are due to interactions between the points or due to changes in some underlying factor that changes as a function of location.
 
 
 ### K and L functions
@@ -269,13 +273,13 @@ We can then plot K and compare that plot to a plot we would expect to get if an 
 <p class="caption">(\#fig:f11-K)The K-function calculated from the Walmart stores point distribution in MA (shown in black) compared to$K_{expected}$ under the IRP/CSR assumption (shown in red). </p>
 </div>
 
-K values greater than $K_{expected}$ indicate clustering of points at a given distance band; K values less than $K_{expected}$ indicate dispersion of points at a given distance band. In our example, the stores appear to be more clustered than expected at distances greater than 12 km.
+$K$ values greater than $K_{expected}$ indicate clustering of points at a given distance band; K values less than $K_{expected}$ indicate dispersion of points at a given distance band. In our example, the stores appear to be more clustered than expected at distances greater than 12 km.
 
 Note that like the ANN analysis, the $K$-function assumes stationarity in the underlying point process (i.e. that there is no overall drift or trend in the  process' intensity). 
 
 #### L function
 
-One problem with the $K_{expected}$ is that the shape of the function tends to curve upward making it difficult to see small differences between $K$ and $K_{expected}$. A workaround is to transform the values in such a way that the expected values, $K_{expected}$, lie horizontal. The transformation is calculated as follows:
+One problem with the $K$ function is that the shape of the function tends to curve upward making it difficult to see small differences between $K$ and $K_{expected}$. A workaround is to transform the values in such a way that the expected values, $K_{expected}$, lie horizontal. The transformation is calculated as follows:
 
 $$
 \begin{equation}
@@ -311,7 +315,7 @@ The plot of the $g$ function follows.
 
 If $g(r)$ = 1, then the inter-point distances (at and around distance $r$) are consistent with CSR. If $g(r)$ > 1, then the points are more clustered than expected under CSR. If $g(r)$ < 1, then the points are more dispersed than expected under CSR. Note that $g$ can never be less than 0.
 
-Like its $K$/$L$ counterparts, the $g$-function assumes stationarity in the underlying point process (i.e. that there is no overall drift or trend in the  process' intensity). 
+Like its $K$ and ANN counterparts, the $g$-function assumes stationarity in the underlying point process (i.e. that there is no overall drift or trend in the  process' intensity). 
 
 ## First and second order effects
 

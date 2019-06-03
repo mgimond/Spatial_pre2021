@@ -8,22 +8,22 @@ Each color is a combination of three perceptual dimensions: **hue**, **lightness
 
 ### Hue
 
-**Hue** is the perceptual dimension associated with color names. 
+**Hue** is the perceptual dimension associated with color names. Typically, we use different hues to represent different *categories* of data.
 
 <div class="figure">
 <img src="04-Symbolizing-features_files/figure-html/f04-hue-1.png" alt="An example of eight different hues. Hues are associated with color names such as green, red or blue." width="288" />
 <p class="caption">(\#fig:f04-hue)An example of eight different hues. Hues are associated with color names such as green, red or blue.</p>
 </div>
 
-Note that magentas and purples are not part of the natural visible light spectrum; instead they are a mix of reds and blues (or violets) from the spectrum's tail ends. Typically, we use different hues to represent different *categories* of data.
+Note that magentas and purples are not part of the natural visible light spectrum; instead they are a mix of reds and blues (or violets) from the spectrum's tail ends. 
 
 ### Lightness
 
 **Lightness** (sometimes referred to as *value*) describes how much light reflects (or is emitted) off of a surface. Lightness is an important dimension for representing ordinal/interval/ratio data. 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/f04-lightness-1.png" alt="Eight different hues with decreasing lightness values." width="288" />
-<p class="caption">(\#fig:f04-lightness)Eight different hues with decreasing lightness values.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-lightness-1.png" alt="Eight different hues (across columns) with decreasing lightness values (across rows)." width="288" />
+<p class="caption">(\#fig:f04-lightness)Eight different hues (across columns) with decreasing lightness values (across rows).</p>
 </div>
 
 ### Saturation
@@ -31,8 +31,8 @@ Note that magentas and purples are not part of the natural visible light spectru
 **Saturation** (sometimes referred to as *chroma*) is a measure of a color's vividness. You can use saturated colors to help distinguish map symbols. But be careful when manipulating saturation, its property should be modified sparingly in most maps. 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/f04-saturation-1.png" alt="Eight different hues with decreasing saturation values." width="288" />
-<p class="caption">(\#fig:f04-saturation)Eight different hues with decreasing saturation values.</p>
+<img src="04-Symbolizing-features_files/figure-html/f04-saturation-1.png" alt="Eight different hues (across columns) with decreasing saturation values (across rows)." width="288" />
+<p class="caption">(\#fig:f04-saturation)Eight different hues (across columns) with decreasing saturation values (across rows).</p>
 </div>
 
 
@@ -53,7 +53,7 @@ Let's examine a slice of the symmetrical color space along the blue/yellow hue a
 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/f04-munsell-1.png" alt="A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge." width="384" />
+<img src="04-Symbolizing-features_files/figure-html/f04-munsell-1.png" alt="A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge." width="768" />
 <p class="caption">(\#fig:f04-munsell)A cross section of the color space with constant hues and lightness values and decreasing saturation values where the two hues merge.</p>
 </div>
 
@@ -61,7 +61,7 @@ Now, how many distinct yellows can you make out? How many distinct blues can you
 
 
 <div class="figure">
-<img src="04-Symbolizing-features_files/figure-html/f04-munsell-bis-1.png" alt="A cross section of the color space with each color distinctly outlined." width="384" />
+<img src="04-Symbolizing-features_files/figure-html/f04-munsell-bis-1.png" alt="A cross section of the color space with each color distinctly outlined." width="768" />
 <p class="caption">(\#fig:f04-munsell-bis)A cross section of the color space with each color distinctly outlined.</p>
 </div>
 
@@ -81,14 +81,14 @@ So how do we leverage our understanding of color spaces when choosing colors for
 
 ### Qualitative color scheme
 
-Qualitative schemes are used to symbolize data having no inherent order (i.e. categorical data). Different hues are normally used to distinguish different categorical values. When possible, use commonly associated hues for land features such as vegetation and water. 
+Qualitative schemes are used to symbolize data having no inherent order (i.e. categorical data). Different hues with equal lightness and saturation values are normally used to distinguish different categorical values.  
 
 <div class="figure">
 <img src="04-Symbolizing-features_files/figure-html/f04-qualitative-1.png" alt="Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette." width="384" />
 <p class="caption">(\#fig:f04-qualitative)Example of four different qualitative color schemes. Color hex numbers are superimposed on each palette.</p>
 </div>
 
-Election results can be displayed using a qualitative color scheme. But be careful in your choice of hues if a cultural bias exists (i.e. it may not make sense to assign "blue" to republican or "red"" to democratic regions).
+Election results is an example of a dataset that can be displayed using a qualitative color scheme. But be careful in your choice of hues if a cultural bias exists (i.e. it may not make sense to assign "blue" to republican or "red"" to democratic regions).
 
 <div class="figure">
 <img src="04-Symbolizing-features_files/figure-html/f04-qualitative-map-1.png" alt="Map of 2012 election results shown in a qualitative color scheme. Note the use of three hues (red, blue and gray) of equal lightness and saturation." width="432" />

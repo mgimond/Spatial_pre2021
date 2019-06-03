@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Hypothesis testing | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Hypothesis testing | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="point-pattern-analysis.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -416,12 +441,15 @@ code > span.in { color: #008000; } /* Information */
 Figure 12.1: Could the distribution of Walmart stores in MA have been the result of a CSR/IRP process?
 </p>
 </div>
-<p>Popular spatial analysis techniques compare observed point patterns to ones generated by an <strong>independent random process</strong> (IRP) also called <strong>complete spatial randomness</strong> (CSR). CSR/IRP satisfy two conditions:</p>
+<p>Popular spatial analysis techniques compare observed point patterns
+to ones generated by an <strong>independent random process</strong> (IRP) also called
+<strong>complete spatial randomness</strong> (CSR). CSR/IRP satisfy two conditions:</p>
 <ul>
-<li><p>Any event has equal probability of being in any location, a <strong>1st order effect</strong>.</p></li>
+<li><p>Any event has equal probability of occurring in any location, a <strong>1st order effect</strong>.</p></li>
 <li><p>The location of one event is independent of the location of another event, a <strong>2nd order effect</strong>.</p></li>
 </ul>
 <p><img src="img/IRP_CSR.png" width="300" /></p>
+<p>In the next section, you will learn how to test for complete spatial randomness. In later sections, you will also learn how to test for other non-CSR processes.</p>
 </div>
 <div id="testing-for-csr-with-the-ann-tool" class="section level2">
 <h2><span class="header-section-number">12.2</span> Testing for CSR with the ANN tool</h2>
@@ -461,7 +489,7 @@ Figure 12.3: ANN results indicating that the pattern is consistent with a random
 Figure 12.4: ArcGIS’ ANN tool. The size of the study <strong>is</strong> defined in this example.
 </p>
 </div>
-<p>Here, we <em>explicitly</em> tell ArcGIS that the study area (Massachusetts) covers 21,089,917,382 m² (note that this is the MA shapefile’s surface area and not necessarily representative of MA’s actual surface area). ArcGIS’ ANN tool now returns a different output with a completely different conclusion. This time, the analysis suggests that the points are strongly dispersed across the state of Massachusetts and the very small p-value (p = 0.006) tells us that there is less than a 0.6% chance that an ANN value from a CSR point pattern would have been more extreme than the one we observed with the Walmart point pattern.</p>
+<p>Here, we <em>explicitly</em> tell ArcGIS that the study area (Massachusetts) covers 21,089,917,382 m² (note that this is the MA shapefile’s surface area and not necessarily representative of MA’s actual surface area). ArcGIS’ ANN tool now returns a different output with a completely different conclusion. This time, the analysis suggests that the points are strongly dispersed across the state of Massachusetts and the very small p-value (p = 0.006) tells us that there is less than a 0.6% chance that a CSR process could have generated our observed point pattern. (Note that the p-value displayed by ArcMap is for a two-sided test).</p>
 <div class="figure"><span id="fig:f12-arcgis-ann04"></span>
 <img src="img/ANN_graphic4.jpg" alt="ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP."  />
 <p class="caption">
@@ -501,7 +529,7 @@ Figure 12.7: Histogram of simulated ANN values (from 1000 simulations). This is 
 <p>Note that by using the same study region (the state of Massachusetts) in the simulations we take care of problems like study area boundary and shape issues since each simulated point pattern is confined to the exact same study area each and every time.</p>
 <div id="extracting-a-p-value-from-a-monte-carlo-test" class="section level4">
 <h4><span class="header-section-number">12.2.2.1</span> Extracting a <span class="math inline">\(p\)</span>-value from a Monte Carlo test</h4>
-<p>The <em>p-value</em> can be computed from a Monte Carlo test. The procedure is quite simple. It consists of counting the number of simulated test statistic values more extreme than the one observed (in our example, counting the number of simulated ANN values that were more extreme than ours). If we are interested in knowing the <strong>probability of having simulated values more extreme than ours</strong>, we identify the side of the distribution of simulated values closest to our observed statistic, count the number of simulated values <em>more extreme</em> than the observed statistic then compute <span class="math inline">\(p\)</span> as follows:</p>
+<p>The <em>p-value</em> can be computed from a Monte Carlo test. The procedure is quite simple. It consists of counting the number of simulated test statistic values more extreme than the one observed. If we are interested in knowing the <strong>probability of having simulated values more extreme than ours</strong>, we identify the side of the distribution of simulated values closest to our observed statistic, count the number of simulated values <em>more extreme</em> than the observed statistic then compute <span class="math inline">\(p\)</span> as follows:</p>
 <p><span class="math display">\[
 \dfrac{N_{extreme}+1}{N+1}
 \]</span></p>
@@ -523,19 +551,19 @@ Figure 12.7: Histogram of simulated ANN values (from 1000 simulations). This is 
 <div id="alternatives-to-csrirp" class="section level2">
 <h2><span class="header-section-number">12.3</span> Alternatives to CSR/IRP</h2>
 <div class="figure"><span id="fig:f12-walmart-pop"></span>
-<img src="img/Pop_dens.png" alt="Walmart store distribution shown on top of a population density layer." width="492" />
+<img src="img/Pop_dens.png" alt="Walmart store distribution shown on top of a population density layer. Could population density distribution explain the distribution of Walmart stores?" width="492" />
 <p class="caption">
-Figure 12.8: Walmart store distribution shown on top of a population density layer.
+Figure 12.8: Walmart store distribution shown on top of a population density layer. Could population density distribution explain the distribution of Walmart stores?
 </p>
 </div>
-<p>The assumption of CSR is a good starting point, but it’s often unrealistic. Most real-world processes exhibit 1<sup>st</sup> and/or 2<sup>nd</sup> order effects.</p>
+<p>The assumption of CSR is a good starting point, but it’s often unrealistic. Most real-world processes exhibit 1<sup>st</sup> and/or 2<sup>nd</sup> order effects. We can simulate the placement of Walmart stores using the population density layer as our inhomogeneous point process. We can test this hypothesis by generating random points that follow the population density distribution.</p>
 <div class="figure"><span id="fig:f12-walmart-pop-sim"></span>
 <img src="img/Non_hom_2.png" alt="Examples of two randomly generated point patterns using population density as the underlying process." width="267" />
 <p class="caption">
 Figure 12.9: Examples of two randomly generated point patterns using population density as the underlying process.
 </p>
 </div>
-<p>We can simulate the placement of Walmart stores using the population density layer as our inhomogeneous point process. We can test this hypothesis by generating random points that follow the population density distribution. Note that even though we are not referring to a CSR/IRP point process, we are still treating this as a random point process since the points are randomly located <em>following</em> the underlying population density distribution. Using the same Monte Carlo (MC) techniques used with IRP/CSR processes, we can simulate thousands of point patterns (following the population density) and compare our observed ANN value to those computed from our MC simulations.</p>
+<p>Note that even though we are not referring to a CSR/IRP point process, we are still treating this as a random point process since the points are randomly located <em>following</em> the underlying population density distribution. Using the same Monte Carlo (MC) techniques used with IRP/CSR processes, we can simulate thousands of point patterns (following the population density) and compare our observed ANN value to those computed from our MC simulations.</p>
 <div class="figure"><span id="fig:f12-ann-hetero-hist"></span>
 <img src="img/ANN_pop_dens.png" alt="Histogram showing the distribution of ANN values one would expect to get if population density distribution were to influence the placement of Walmart stores." width="438" />
 <p class="caption">
@@ -550,19 +578,19 @@ Figure 12.10: Histogram showing the distribution of ANN values one would expect 
 Figure 12.11: Walmart store distribution shown on top of a median income distribution layer.
 </p>
 </div>
-<p>Running a MC simulation using median income distribution as the underlying density layer yields an ANN distribution where about 16% of the simulated values are more extreme than our observed ANN value (i.e. p-value = 0.16):</p>
+<p>Running an MC simulation using median income distribution as the underlying density layer yields an ANN distribution where about 16% of the simulated values are more extreme than our observed ANN value (i.e. p-value = 0.16):</p>
 <div class="figure"><span id="fig:f12-ann-income-hist"></span>
 <img src="img/Median_income_results.png" alt="Histogram showing the distribution of ANN values one would expect to get if income  distribution were to influence the placement of Walmart stores." width="466" />
 <p class="caption">
 Figure 12.12: Histogram showing the distribution of ANN values one would expect to get if income distribution were to influence the placement of Walmart stores.
 </p>
 </div>
-<p>Note that we now have two competing hypotheses: a CSR/IRP process and median income distribution. Both cannot be rejected. This serves as a reminder that a hypothesis test cannot tell us if a <em>particular</em> process is <em>the</em> process involved in the generation of our observed point pattern; instead, it tells us that the hypothesis is one of <em>many</em> plausible processes.</p>
-<p>It’s important to remember that the ANN tool is a <em>distance</em> based approach to point pattern analysis. Even though we are randomly generating points following some underlying probability distribution map we are still concerning ourselves with the <em>repulsive</em>/<em>attractive</em> forces that might dictate the placement of Walmarts <em>relative</em> to one another–i.e. we are <em>not</em> addressing the question “can some underlying process explain the X and Y placement of the stores”. The latter is addressed in section <a href="hypothesis-testing.html#PPM">12.5</a>.</p>
+<p>Note that we now have two competing hypotheses: a CSR/IRP process and median income distribution process. Both cannot be rejected. This serves as a reminder that a hypothesis test cannot tell us if a <em>particular</em> process is <em>the</em> process involved in the generation of our observed point pattern; instead, it tells us that the hypothesis is one of <em>many</em> plausible processes.</p>
+<p>It’s important to remember that the ANN tool is a <em>distance</em> based approach to point pattern analysis. Even though we are randomly generating points following some underlying probability distribution map we are still concerning ourselves with the <em>repulsive</em>/<em>attractive</em> forces that might dictate the placement of Walmarts <em>relative</em> to one another–i.e. we are <em>not</em> addressing the question “can some underlying process explain the X and Y placement of the stores” (addressed in section <a href="hypothesis-testing.html#PPM">12.5</a>). Instead, we are controlling for the 1<sup>st</sup> order effect defined by population density and income distributons.</p>
 </div>
 <div id="monte-carlo-test-with-k-and-l-functions" class="section level2">
 <h2><span class="header-section-number">12.4</span> Monte Carlo test with K and L functions</h2>
-<p>MC techniques are not unique to average nearest neighbor analysis. In fact, they can be implemented with many other statistical measure as with the K and L functions. However, unlike the ANN analysis, the K and L functions consist of multiple test statistics (one for each distance <span class="math inline">\(r\)</span>). This results in not one but <span class="math inline">\(r\)</span> number of simulated distributions. Typically, these distributions are presented as <em>envelopes</em> superimposed on the estimated <span class="math inline">\(K\)</span> or <span class="math inline">\(L\)</span> functions. However, since we cannot easily display the full distribution at each <span class="math inline">\(r\)</span> interval, we usually limit the envelope to a pre-defined acceptance interval. For example, if we choose a two-sided significance level of 0.05, then we eliminate the smallest and largest 2.5% of the simulated K values computed for <strong>for each <span class="math inline">\(r\)</span> intervals</strong> (hence the reason you might sometimes see such envelopes referred to as <strong>pointwise</strong> envelopes). This tends to generate a saw-tooth like envelope.</p>
+<p>MC techniques are not unique to average nearest neighbor analysis. In fact, they can be implemented with many other statistical measures as with the K and L functions. However, unlike the ANN analysis, the K and L functions consist of multiple test statistics (one for each distance <span class="math inline">\(r\)</span>). This results in not one but <span class="math inline">\(r\)</span> number of simulated distributions. Typically, these distributions are presented as <em>envelopes</em> superimposed on the estimated <span class="math inline">\(K\)</span> or <span class="math inline">\(L\)</span> functions. However, since we cannot easily display the full distribution at each <span class="math inline">\(r\)</span> interval, we usually limit the envelope to a pre-defined acceptance interval. For example, if we choose a two-sided significance level of 0.05, then we eliminate the smallest and largest 2.5% of the simulated K values computed for <strong>for each <span class="math inline">\(r\)</span> intervals</strong> (hence the reason you might sometimes see such envelopes referred to as <strong>pointwise</strong> envelopes). This tends to generate a saw-tooth like envelope.</p>
 <div class="figure"><span id="fig:f12-k-l-MC-IRP"></span>
 <img src="img/K_MC_sim_results_CSR.png" alt="Simulation results for the IRP/CSR hypothesized process. The gray envelope in the plot covers the 95% significance level. If the observed L lies outside of this envelope at distance $r$, then there is less than a 5% chance that our observed point pattern resulted from the simulated process at that distance." width="664" />
 <p class="caption">
@@ -581,9 +609,10 @@ Figure 12.14: Simulation results for an inhomogeneous hypothesized process. When
 </div>
 <div id="PPM" class="section level2">
 <h2><span class="header-section-number">12.5</span> Testing for a covariate effect</h2>
+<p>The last two sections covered distance based approaches to point pattern analysis. In this section, we explore hypothesis testing on a density based approach to point pattern analysis: The Poisson point process model.</p>
 <p>Any Poisson point process model can be fit to an observed point pattern, but just because we can <em>fit</em> a model does not imply that the model does a good job in explaining the observed pattern. To test how well a model can explain the observed point pattern, we need to compare it to a base model (such as one where we assume that the points are randomly distributed across the study area–i.e. IRP). The latter is defined as the null hypothesis and the former is defined as the alternate hypothesis.</p>
 <p>For example, we may want to assess if the Poisson point process model that pits the placement of Walmarts as a function of population distribution (the alternate hypothesis) does a better job than the null model that assumes homogeneous intensity (i.e. a Walmart has no preference as to where it is to be placed). This requires that we first derive estimates for both models.</p>
-<p>A Poisson point process model implemented in a statisitcal software such as R produces the following output for the null model (using the Walmart data),</p>
+<p>A Poisson point process model (of the the Walmart point pattern) implemented in a statisitcal software such as R produces the following output for the null model:</p>
 <pre><code>Stationary Poisson process
 Intensity: 2.1276e-09
              Estimate      S.E.   CI95.lo  CI95.hi Ztest      Zval
@@ -618,29 +647,28 @@ of the quadrature points</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="right">Npar</th>
-<th align="right">Df</th>
-<th align="right">Deviance</th>
-<th align="right">Pr(&gt;Chi)</th>
+<th align="left">Npar</th>
+<th align="left">Df</th>
+<th align="left">Deviance</th>
+<th align="center">Pr(&gt;Chi)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">5</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="left">5</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="center">NA</td>
 </tr>
 <tr class="even">
-<td align="right">6</td>
-<td align="right">1</td>
-<td align="right">4.253072</td>
-<td align="right">0.0391794</td>
+<td align="left">6</td>
+<td align="left">1</td>
+<td align="left">4.253072</td>
+<td align="center">0.0391794</td>
 </tr>
 </tbody>
 </table>
-<p>The value under the heading <code>PR(&gt;Chi)</code> is the p-value which gives us the probability we would be wrong in rejecting the null. Here p=0.039 suggesting that there is an 3.9% chance that we would be remiss to reject the base model in favor of the alternate model–put another way, the alternate model may be an improvement over the null (note that what is deemed <em>significant</em> can be subjective and will vary based on circumstances).</p>
-<p>Note that if the p-value was very small (such as 0.001), then we would be far more confident in rejecting the null model in favor of the alternate model.</p>
+<p>The value under the heading <code>PR(&gt;Chi)</code> is the p-value which gives us the probability we would be wrong in rejecting the null. Here p=0.039 suggests that there is an 3.9% chance that we would be remiss to reject the base model in favor of the alternate model–put another way, the alternate model may be an improvement over the null.</p>
 
 </div>
 </div>
@@ -703,7 +731,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

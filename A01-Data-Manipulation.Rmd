@@ -58,9 +58,7 @@ kable_styling(
 ```
 
 
-There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called   [`sf`](https://r-spatial.github.io/sf/).
-
-It is therefore recommended that you work in an `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
+There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called   [`sf`](https://r-spatial.github.io/sf/). It is therefore recommended that you work in an `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
 
 Some packages such as `spdep` and `spatstat` require specialized data object types. This tutorial will highlight some useful conversion functions for this purpose.
 
@@ -119,7 +117,7 @@ library(raster)
 elev.r <- raster("elev.img")
 ```
 
-What sets a `raster` object apart from other R data file objects is its storage. By default, data files are loaded into memory but `raster` objects are not. This can be convenient when working with raster files too large to load into memory. But this comes at a performance cost. If your RAM is large enough to handle your raster file, it's best to load the entire dataset into memory.
+What sets a `raster` object apart from other R data file objects is its storage. By default, data files are loaded into memory but `raster` objects are not. This can be convenient when working with raster files too large for memory. But this comes at a performance cost. If your RAM is large enough to handle your raster file, it's best to load the entire dataset into memory.
 
 To check if the `elev.r` object is loaded into memory, run:
 
@@ -130,7 +128,7 @@ inMemory(elev.r)
 To force the raster into memory use `readAll()`:
 
 ```{r}
-elev.r <- readAll( raster("elev.img") )
+elev.r <- readAll(raster("elev.img"))
 ```
 
 Let's check that the raster is indeed loaded into memory:
@@ -166,42 +164,11 @@ p.sf
 
 ### Geocoding street addresses {-}
 
-The `ggmap` package offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. The new table also contains all other columns of the input table. The function makes use of the [*Data Science Toolkit*](http://www.datasciencetoolkit.org/) API.
+The `ggmap` package offers a geocoding function called `mutate_geocode` which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. However, as of Spring 2019, `ggmap` will only access Google's API  which requires that a key be created on the Google Cloud (the latter will also require that a paid account be created with Google Cloud). The Data Science Toolkit, a previously free API alternative, has (as of May 2019) terminated its mapping services.
 
-Let's first create a new data table with addresses for a few liberal arts colleges in the State of Maine.
+The Google API option will not be covered here, instead, the reader is encouraged to read the detailed instructions on `ggmap`'s [Github page](https://github.com/dkahle/ggmap).
 
-```{r}
-addr <- data.frame(Address = c("4000 mayflower Hill, Waterville, Maine", 
-                               "2 Andrews Rd, Lewiston, ME 04240",
-                               "255 Maine St, Brunswick, ME 04011",
-                               "90 Quaker Hill Rd, Unity, ME 04988",
-                               "105 Eden St, Bar Harbor, ME 04609"),
-                   College = c("Colby", "Bates", "Bowdoin", "Unity", "CoA"),
-                   stringsAsFactors = FALSE)
-```
-
-Next, we'll geocode the addresses and save the output to a new data table called `addr.geo`.
-
-```{r}
-library(ggmap)
-addr.geo <- mutate_geocode(addr, location=Address, output="latlona" , source="dsk")
-```
-
-The `location` parameter is assigned the column with the addresses. The `output` parameter is given instructions on _what_ to output. Here, the option `latlona` instructs the function to output both the lat/lon coordinate values as well as all other attributes. It also adds another column called `address` (note the lower case `a`) with the nearest address match. Note that not all addresses are necessarily matched.
-
-```{r}
-addr.geo
-```
-
-Note that `addr.geo` is not a spatial object; it's a data frame. It can be converted to an `sf` object via `st_as_sf` as outlined in the previous section. The lat/lon values are assumed to be recorded in a WGS84 geographic coordinate system.
-
-```{r}
-la.sf <- st_as_sf(addr.geo, coords = c("lon", "lat"), crs = 4326) 
-la.sf
-```
-
-
-You can also use the US Census Bureau's [geocoding service](https://geocoding.geo.census.gov/geocoder/locations/addressbatch?form) for creating lat/lon values from US street addresses. This needs to be completed via their website and the resulting data table (a CSV file) would then need to be loaded in R as a data frame.
+For a free (but manual) alternative, you can use the US Census Bureau's [geocoding service](https://geocoding.geo.census.gov/geocoder/locations/addressbatch?form) for creating lat/lon values from US street addresses. This needs to be completed via their web interface and the resulting data table (a CSV file) would then need to be loaded into R as a data frame.
 
 ## Converting from an `sf` object {-}
 

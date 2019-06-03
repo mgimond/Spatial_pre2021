@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Uncertainty in Census Data | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Uncertainty in Census Data | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="good-map-making-tips.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -410,7 +435,7 @@ code > span.in { color: #008000; } /* Information */
 <h1><span class="header-section-number">Chapter 7</span> Uncertainty in Census Data</h1>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">7.1</span> Introduction</h2>
-<p>Many census datasets such as the U.S. Census Bureau’s American Community Survey (ACS) data<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> are based on surveys from small samples. This entails that the variables provided by the Census Bureau are only estimates with a level of uncertainty often provided as a margin of error (MoE) or a standard error (SE). Note that the Bureau’s MoE encompasses a 90% confidence interval<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> (i.e. there is a 90% chance that the MoE range covers the true value being estimated). This poses a challenge to both the visual exploration of the data as well as any statistical analyses of that data.</p>
+<p>Many census datasets such as the U.S. Census Bureau’s American Community Survey (ACS) data<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> are based on surveys from small samples. This entails that the variables provided by the Census Bureau are only estimates with a level of uncertainty often provided as a margin of error (MoE) or a standard error (SE). Note that the Bureau’s MoE encompasses a 90% confidence interval<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> (i.e. there is a 90% chance that the MoE range covers the true value being estimated). This poses a challenge to both the visual exploration of the data as well as any statistical analyses of that data.</p>
 </div>
 <div id="mapping-uncertainty" class="section level2">
 <h2><span class="header-section-number">7.2</span> Mapping uncertainty</h2>
@@ -421,7 +446,7 @@ code > span.in { color: #008000; } /* Information */
 Figure 7.1: Maps of income estimates (left) and associated standard errors (right).
 </p>
 </div>
-<p>While there is nothing inherently wrong in doing this, it can prove to be difficult to mentally process the two maps, particularly if the data consists of hundreds or thousands of small polygons.</p>
+<p>While there is nothing inherently wrong in doing this, it can prove to be difficult to mentally process the two maps, particularly if the data consist of hundreds or thousands of small polygons.</p>
 <p>Another approach is to overlay the measure of uncertainty (SE or MoE) as a textured layer on top of the income layer.</p>
 <div class="figure"><span id="fig:f07-map2"></span>
 <img src="img/Income_and_uncertainty.jpg" alt="Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE." width="400" />
@@ -429,7 +454,7 @@ Figure 7.1: Maps of income estimates (left) and associated standard errors (righ
 Figure 7.2: Map of estimated income (in shades of green) superimposed with different hash marks representing the ranges of income SE.
 </p>
 </div>
-<p>Or, one could map both ends of the MoE range side by side.</p>
+<p>Or, one could map both the upper and lower ends of the MoE range side by side.</p>
 <div class="figure"><span id="fig:f07-map-MoE"></span>
 <img src="07-Data-uncertainty_files/figure-html/f07-map-MoE-1.png" alt="Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right)." width="672" />
 <p class="caption">
@@ -439,7 +464,8 @@ Figure 7.3: Maps of top end of 90 percent income estimate (left) and bottom end 
 </div>
 <div id="problems-in-mapping-uncertainty" class="section level2">
 <h2><span class="header-section-number">7.3</span> Problems in mapping uncertainty</h2>
-<p>Attempting to convey uncertainty using the aforementioned maps fails to highlight the reason one chooses to map values in the first place: that is to compare values across a spatial domain. More specifically, we are interested in identifying spatial patterns of high or low values. What is implied in the above maps is that the estimates will always maintain their order across the polygons. In other words, if one polygon’s estimate is greater than all neighboring estimates, this order will always hold true if another sample was surveyed. But this assumption is incorrect. Each polygon (or county in the above example) can derive different estimates independently from its neighboring polygon. Let’s look at a bar plot of our estimates.</p>
+<p>Attempting to convey uncertainty using the aforementioned maps fails to highlight the reason one chooses to map values in the first place: that is to compare values across a spatial domain. More specifically, we are interested in identifying spatial patterns of high or low values. What is implied in the above maps is that the estimates will always maintain their order across the polygons. In other words, if one polygon’s estimate is greater than all neighboring estimates, this order will always hold true if another sample was surveyed. But this assumption is incorrect. Each polygon (or county in the above example) can derive different estimates independently from its neighboring polygon.
+Let’s look at a bar plot of our estimates.</p>
 <div class="figure"><span id="fig:f07-MoE-plot1"></span>
 <img src="07-Data-uncertainty_files/figure-html/f07-MoE-plot1-1.png" alt="Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges." width="480" />
 <p class="caption">
@@ -453,7 +479,7 @@ Figure 7.4: Income estimates by county with 90 percent confidence interval. Note
 Figure 7.5: Example of income estimates one could expect to sample based on the 90 percent confidence interval shown in the previous plot.
 </p>
 </div>
-<p>Note how, in this sample, Oxford’s income drops in ranking below that of Piscataquis. A similar change in ranking could occur for York county which drops down <em>two</em> counties (Hancock and Lincoln).</p>
+<p>Note how, in this sample, Oxford’s income drops in ranking below that of Piscataquis and Franklin counties. A similar change in ranking is observed for Sagadahoc county which drops down <em>two</em> counties: Hancock and Lincoln.</p>
 <p>How does the <em>estimated income</em> map compare with the <em>simulated income</em> map?</p>
 <div class="figure"><span id="fig:f07-sim-map"></span>
 <img src="07-Data-uncertainty_files/figure-html/f07-sim-map-1.png" alt="Original income estimate (left) and realization of a simulated sample (right)." width="864" />
@@ -471,7 +497,7 @@ Figure 7.7: Original income estimate (left) and realizations from simulated samp
 </div>
 <div id="class-comparison-maps" class="section level2">
 <h2><span class="header-section-number">7.4</span> Class comparison maps</h2>
-<p>There is no single solution to effectively convey both estimates <em>and</em> associated uncertainty in a map. Sun and Wong <span class="citation">(Sun and Wong <a href="#ref-DataQuality2010">2010</a>)</span> offer several suggestions dependent on the context of the problem. One approach adopts a class comparison method whereby a map displays both the estimate and a measure of whether the MoE surrounding that estimate extends beyond the assigned class. For example, if we adopt the classification breaks [0 , 20600 , 22800 , 25000 , 27000 , 34000 ], we will find that many of the estimates’ MoE extend beyond the classification breaks assigned to those estimates.</p>
+<p>There is no single solution to effectively convey both estimates <em>and</em> associated uncertainty in a map. Sun and Wong <span class="citation">(Sun and Wong <a href="#ref-DataQuality2010" role="doc-biblioref">2010</a>)</span> offer several suggestions dependent on the context of the problem. One approach adopts a class comparison method whereby a map displays both the estimate and a measure of whether the MoE surrounding that estimate extends beyond the assigned class. For example, if we adopt the classification breaks [0 , 20600 , 22800 , 25000 , 27000 , 34000 ], we will find that many of the estimates’ MoE extend beyond the classification breaks assigned to them.</p>
 <div class="figure"><span id="fig:compInt"></span>
 <img src="07-Data-uncertainty_files/figure-html/compInt-1.png" alt="Income estimates by county with 90 percent confidence interval. Note that many of the counties' MoE have ranges that cross into an adjacent class." width="480" />
 <p class="caption">
@@ -489,7 +515,7 @@ Figure 7.9: Plot of income with class comparison hatches.
 </div>
 <div id="problem-when-performing-bivariate-analysis" class="section level2">
 <h2><span class="header-section-number">7.5</span> Problem when performing bivariate analysis</h2>
-<p>Data uncertainty issues do not only affect choropleth map presentations but also affect bivariate or multivariate analyses where two or more variables are statistically compared. One popular method in comparing variables is the regression analysis where a line is best fit to a bivariate scatterplot. For example, one can regress “percent not schooled”&quot; to “income”&quot; as follows:</p>
+<p>Data uncertainty issues do not only affect choropleth map presentations but also affect bivariate or multivariate analyses where two or more variables are statistically compared. One popular method in comparing variables is the regression analysis where a line is best fit to a bivariate scatterplot. For example, one can regress “percent not schooled”" to “income”" as follows:</p>
 <div class="figure"><span id="fig:f07-regression1"></span>
 <img src="07-Data-uncertainty_files/figure-html/f07-regression1-1.png" alt="Regression between percent not having completed any school grade and median per capita income for each county." width="672" />
 <p class="caption">
@@ -518,14 +544,14 @@ Figure 7.12: A range of regression lines computed from different samples from ea
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-DataQuality2010">
-<p>Sun, M., and W.S. Wong. 2010. “Incorporating Data Quality Information in Mapping American Community Survey Data.” <em>Cartography and Geography Information Science</em> 37 (4): 285–300.</p>
+<p>Sun, M., and W. S. Wong. 2010. “Incorporating Data Quality Information in Mapping American Community Survey Data.” <em>Cartography and Geography Information Science</em> 37 (4): 285–300.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>The official website is <a href="http://www.census.gov/acs/www/" class="uri">http://www.census.gov/acs/www/</a>, but the data can also be accessed via <a href="http://www.socialexplorer.com/" class="uri">http://www.socialexplorer.com/</a><a href="uncertainty-in-census-data.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>The Bureau’s MoE can be computed from the SE as follows: <span class="math inline">\(MoE = 1.645 \times SE\)</span><a href="uncertainty-in-census-data.html#fnref2">↩</a></p></li>
+<li id="fn1"><p>The official website is <a href="http://www.census.gov/acs/www/" class="uri">http://www.census.gov/acs/www/</a>, but the data can also be accessed via <a href="http://www.socialexplorer.com/" class="uri">http://www.socialexplorer.com/</a><a href="uncertainty-in-census-data.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>The Bureau’s MoE can be computed from the SE as follows: <span class="math inline">\(MoE = 1.645 \times SE\)</span><a href="uncertainty-in-census-data.html#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -587,7 +613,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

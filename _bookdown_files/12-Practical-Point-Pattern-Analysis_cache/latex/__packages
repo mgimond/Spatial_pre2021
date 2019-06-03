@@ -1,8 +1,0 @@
-base
-spatstat.data
-nlme
-rpart
-spatstat
-sp
-maptools
-rgdal

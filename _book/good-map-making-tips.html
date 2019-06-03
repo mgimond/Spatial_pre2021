@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Good Map Making Tips | Intro to GIS and Spatial Analysis</title>
-  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Good Map Making Tips | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -22,13 +21,13 @@
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
 
-<meta name="author" content="Manuel Gimond">
+<meta name="author" content="Manuel Gimond" />
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="pitfalls-to-avoid.html">
@@ -68,36 +67,62 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #0000ff; } /* Keyword */
-code > span.ch { color: #008080; } /* Char */
-code > span.st { color: #008080; } /* String */
-code > span.co { color: #008000; } /* Comment */
-code > span.ot { color: #ff4000; } /* Other */
-code > span.al { color: #ff0000; } /* Alert */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #008000; font-weight: bold; } /* Warning */
-code > span.cn { } /* Constant */
-code > span.sc { color: #008080; } /* SpecialChar */
-code > span.vs { color: #008080; } /* VerbatimString */
-code > span.ss { color: #008080; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { } /* Variable */
-code > span.cf { color: #0000ff; } /* ControlFlow */
-code > span.op { } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #ff4000; } /* Preprocessor */
-code > span.do { color: #008000; } /* Documentation */
-code > span.an { color: #008000; } /* Annotation */
-code > span.cv { color: #008000; } /* CommentVar */
-code > span.at { } /* Attribute */
-code > span.in { color: #008000; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,11 +149,11 @@ code > span.in { color: #008000; } /* Information */
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
 <li class="chapter" data-level="2" data-path="feature-representation.html"><a href="feature-representation.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
-<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
+<li class="chapter" data-level="2.1" data-path="feature-representation.html"><a href="feature-representation.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="feature-representation.html"><a href="feature-representation.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="feature-representation.html"><a href="feature-representation.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
+<li class="chapter" data-level="2.2" data-path="feature-representation.html"><a href="feature-representation.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="feature-representation.html"><a href="feature-representation.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="feature-representation.html"><a href="feature-representation.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
@@ -293,7 +318,7 @@ code > span.in { color: #008000; } /* Information */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-labels"><i class="fa fa-check"></i>Adding labels</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-a-grid-or-graticule"><i class="fa fa-check"></i>Adding a grid or graticule</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plot"><i class="fa fa-check"></i>Adding statistical plot</a></li>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#adding-statistical-plots"><i class="fa fa-check"></i>Adding statistical plots</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#mapping-raster-files"><i class="fa fa-check"></i>Mapping raster files</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#changing-coordinate-systems"><i class="fa fa-check"></i>Changing coordinate systems</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#side-by-side-maps"><i class="fa fa-check"></i>Side-by-side maps</a></li>
@@ -425,15 +450,15 @@ Figure 6.1: Map elements. Note that not all elements are needed, nor are they ap
 <h2><span class="header-section-number">6.2</span> How to create a <em>good</em> map</h2>
 <p>Here’s an example of a map layout that showcases several bad practices.</p>
 <div class="figure"><span id="fig:Bad-map"></span>
-<img src="img/Bad_map.jpg" alt="Example of a *bad* map. Can you identify the many issues with this map? "  />
+<img src="img/Bad_map.jpg" alt="Example of a *bad* map. Can you identify the problematic elements in this map? " width="528" />
 <p class="caption">
-Figure 6.2: Example of a <em>bad</em> map. Can you identify the many issues with this map?
+Figure 6.2: Example of a <em>bad</em> map. Can you identify the problematic elements in this map?
 </p>
 </div>
 <ul>
 <li><p>A good map establishes a <strong>visual hierarchy</strong> that ensures that the most important elements are at the top of this hierarchy and the least important are at the bottom. Typically, the top elements should consist of the main map body, the title (if this is a standalone map) and a legend (when appropriate).</p></li>
 <li><p>When showcasing Choropleth maps, it’s best to limit the <strong>color swatches</strong> to less than a dozen–it becomes difficult for the viewer to tie too many different colors in a map to a color swatch element in the legend. Also, classification breaks should not be chosen at random but should be chosen carefully; for example adopting a quantile classifications scheme to maximize the inclusion of the different color swatches in the map; or a classification system designed based on logical breaks (or easy to interpret breaks) when dictated by theory or cultural predisposition.</p></li>
-<li><p><strong>Scale bars</strong> and <strong>north arrows</strong> should be used judiciously and need not be present in <em>every</em> map. These elements are used to measure orientation and distances. Such elements are critical in reference maps such as USGS Topo maps and navigation maps but serve little purpose in a thematic map where the goal is to highlight <em>differences</em> between aerial units. If, however, these elements are to be placed in a thematic map, reduce their visual prominence (see Figure <a href="good-map-making-tips.html#fig:ScaleBar">6.3</a> for examples of scale bars). The same principle applies to the selection of an orientation indicator (north arrow) element. Use a small north arrow design if it is to be placed low in the hierarchy, larger if it is to be used as a reference (such as a nautical chart).</p></li>
+<li><p><strong>Scale bars</strong> and <strong>north arrows</strong> should be used judiciously and need <em>not</em> be present in <em>every</em> map. These elements are used to measure orientation and distances. Such elements are critical in reference maps such as USGS Topo maps and navigation maps but serve little purpose in a thematic map where the goal is to highlight <em>differences</em> between aerial units. If, however, these elements are to be placed in a thematic map, reduce their visual prominence (see Figure <a href="good-map-making-tips.html#fig:ScaleBar">6.3</a> for examples of scale bars). The same principle applies to the selection of an orientation indicator (north arrow) element. Use a small north arrow design if it is to be placed low in the hierarchy, larger if it is to be used as a reference (such as a nautical chart).</p></li>
 </ul>
 <div class="figure" style="text-align: center"><span id="fig:ScaleBar"></span>
 <img src="img/ScaleBar.svg" alt="Scale bar designs from simplest (top) to more complex (bottom). Use the simpler design if it's to be placed low in the visual hierarchy."  />
@@ -444,11 +469,11 @@ Figure 6.3: Scale bar designs from simplest (top) to more complex (bottom). Use 
 <ul>
 <li><strong>Title</strong> and other <strong>text elements</strong> should be concise and to the point. If the map is to be embedded in a write-up such as a journal article, book or web page, title and text(s) elements should be omitted in favor of figure captions and written description in the accompanying text.</li>
 </ul>
-<p>Following the aforementioned guidelines can go a long way in producing an effective map.</p>
+<p>Following the aforementioned guidelines can go a long way in producing a <em>good</em> map. Here, a divergent color scheme is chosen whereby the two hues converge to the median income value. A coordinate system that minimizes distance error measurements and that preserves “north” orientation across the main map’s extent is chosen since a scale bar and north arrow are present in the map. The inset map (lower left map body) is placed lower in the visual hierarchy and could be omitted if the intended audience was familiar with the New England area. A unique (and unconventional) legend orders the color swatches in the order in which they appear in the map (i.e. following a strong north-south income gradient).</p>
 <div class="figure"><span id="fig:Good-map"></span>
-<img src="img/Good_map.jpg" alt="Example of a *good* map."  />
+<img src="img/Good_map.jpg" alt="Example of an *improved* map." width="528" />
 <p class="caption">
-Figure 6.4: Example of a <em>good</em> map.
+Figure 6.4: Example of an <em>improved</em> map.
 </p>
 </div>
 </div>
@@ -456,9 +481,9 @@ Figure 6.4: Example of a <em>good</em> map.
 <h2><span class="header-section-number">6.3</span> Typefaces and Fonts</h2>
 <p>Maps may include text elements such as labels and ancillary text blocks. The choice of typeface (font family) and font (size, weight and style of a typeface) can impact the legibility of the map. A rule of thumb is to limit the number of fonts to two: a <strong>serif</strong> and a <strong>sans serif</strong> font.</p>
 <div class="figure"><span id="fig:f06-serif"></span>
-<img src="img/Fonts.svg" alt="Serif fonts are characterized by brush strokes at the letter tips (highlighted in red in accompanying figure). Sans Serif fonts are devoid of brush strokes."  />
+<img src="img/Fonts.svg" alt="Serif fonts are characterized by brush strokes at the letter tips (circled in red in the figure). Sans Serif fonts are devoid of brush strokes."  />
 <p class="caption">
-Figure 6.5: Serif fonts are characterized by brush strokes at the letter tips (highlighted in red in accompanying figure). Sans Serif fonts are devoid of brush strokes.
+Figure 6.5: Serif fonts are characterized by brush strokes at the letter tips (circled in red in the figure). Sans Serif fonts are devoid of brush strokes.
 </p>
 </div>
 <p>Serif fonts are generally used to label natural features such as mountain ridges and water body names. Sans serif fonts are usually used to label anthropogenic features such as roads, cities and countries.</p>
@@ -531,7 +556,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
