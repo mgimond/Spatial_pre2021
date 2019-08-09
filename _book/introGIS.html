@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Introduction to GIS | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Introduction to GIS | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -72,7 +72,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -184,7 +183,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="4.3.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#divergent-color-scheme"><i class="fa fa-check"></i><b>4.3.3</b> Divergent color scheme</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="symbolizing-features.html"><a href="symbolizing-features.html#so-how-do-i-find-a-proper-color-scheme-for-my-data"><i class="fa fa-check"></i><b>4.4</b> So how do I find a proper color scheme for my data?</a></li>
-<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a></li>
+<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#an-interactive-example"><i class="fa fa-check"></i><b>4.5.1</b> An Interactive Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html"><i class="fa fa-check"></i><b>5</b> Pitfalls to avoid</a><ul>
 <li class="chapter" data-level="5.1" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#representing-count"><i class="fa fa-check"></i><b>5.1</b> Representing Count</a></li>
@@ -437,7 +438,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <h2><span class="header-section-number">1.1</span> What is a GIS?</h2>
 <p>A Geographic Information System is a multi-component environment used to create, manage, visualize and analyze data and its spatial counterpart. It’s important to note that most datasets you will encounter in your lifetime can all be assigned a spatial location whether on the earth’s surface or within some arbitrary coordinate system (such as a soccer field or a gridded petri dish). So in essence, any dataset can be represented in a GIS: the question then becomes “does it need to be analyzed in a GIS environment?” The answer to this question depends on the purpose of the analysis. If, for example, we are interested in identifying the ten African countries with the highest conflict index scores for the 1966-78 period, a simple table listing those scores by country is all that is needed.</p>
 <table>
-<caption><span id="tab:01-Africa-conflict">Table 1.1: </span>Index of total African conflict for the 1966-78 period <span class="citation">(Anselin and O’Loughlin <a href="#ref-Anselin1992a" role="doc-biblioref">1992</a>)</span>.</caption>
+<caption><span id="tab:01-Africa-conflict">Table 1.1: </span>Index of total African conflict for the 1966-78 period <span class="citation">(Anselin and O’Loughlin <a href="#ref-Anselin1992a">1992</a>)</span>.</caption>
 <thead>
 <tr class="header">
 <th align="left">Country</th>
@@ -628,8 +629,8 @@ Figure 1.2: Distribution of Maple trees in a 1,000 x 1,000 ft study area.
 </div>
 <div id="whats-in-an-acronym" class="section level2">
 <h2><span class="header-section-number">1.3</span> What’s in an Acronym?</h2>
-<p>GIS is a ubiquitous technology. Many of you are taking this course in part because you have seen GIS listed as a “desirable”" or “required” skill in job postings. Many of you will think of GIS as a “map making” environment as do many ancillary users of GIS in the workforce. While “visualizing” data is an important feature of a GIS, one must not lose sight of <em>what</em> data is being visualized and for what purpose. O’Sullivan and Unwin <span class="citation">(O’Sullivan and Unwin <a href="#ref-Unwin1" role="doc-biblioref">2010</a>)</span> use the term <strong>accidental geographer</strong> to refer to those <em>“whose understanding of geographic science is based on the operations made possible by GIS software”</em>. We can expand on this idea and define <strong>accidental data analyst</strong> as one whose understanding of data and its analysis is limited to the point-and-click environment of popular pieces of software such as spreadsheet environments, statistical packages and GIS software. The aggressive marketing of GIS technology has the undesirable effect of placing the <em>technology</em> before <em>purpose</em> and <em>theory</em>. This is not unique to GIS, however. Such concerns were shared decades ago when personal computers made it easier for researchers and employees to graph non-spatial data as well as perform many statistical procedures.</p>
-<p>The different purposes of mapping spatial data have strong parallels to that of graphing (or plotting) non-spatial data. <strong>John Tukey</strong> <span class="citation">(Tukey <a href="#ref-Tukey1972" role="doc-biblioref">1972</a>)</span> offers three broad classes of the latter:</p>
+<p>GIS is a ubiquitous technology. Many of you are taking this course in part because you have seen GIS listed as a “desirable”" or “required” skill in job postings. Many of you will think of GIS as a “map making” environment as do many ancillary users of GIS in the workforce. While “visualizing” data is an important feature of a GIS, one must not lose sight of <em>what</em> data is being visualized and for what purpose. O’Sullivan and Unwin <span class="citation">(O’Sullivan and Unwin <a href="#ref-Unwin1">2010</a>)</span> use the term <strong>accidental geographer</strong> to refer to those <em>“whose understanding of geographic science is based on the operations made possible by GIS software”</em>. We can expand on this idea and define <strong>accidental data analyst</strong> as one whose understanding of data and its analysis is limited to the point-and-click environment of popular pieces of software such as spreadsheet environments, statistical packages and GIS software. The aggressive marketing of GIS technology has the undesirable effect of placing the <em>technology</em> before <em>purpose</em> and <em>theory</em>. This is not unique to GIS, however. Such concerns were shared decades ago when personal computers made it easier for researchers and employees to graph non-spatial data as well as perform many statistical procedures.</p>
+<p>The different purposes of mapping spatial data have strong parallels to that of graphing (or plotting) non-spatial data. <strong>John Tukey</strong> <span class="citation">(Tukey <a href="#ref-Tukey1972">1972</a>)</span> offers three broad classes of the latter:</p>
 <ul>
 <li>"<em>Graphs from which numbers are to be read off- substitutes for tables.</em></li>
 <li><em>Graphs intended to show the reader what has already been learned (by some other technique)–these we shall sometimes impolitely call propaganda graphs.</em></li>
@@ -657,7 +658,7 @@ Figure 1.2: Distribution of Maple trees in a 1,000 x 1,000 ft study area.
 <p>O’Sullivan, David, and David Unwin. 2010. <em>Geographic Information Analysis</em>. New Jersey, USA: Wiley.</p>
 </div>
 <div id="ref-Tukey1972">
-<p>Tukey, John W. 1972. “Some Graphic and Semigraphic Displays.” In <em>Statistical Papers in Honor of George W. Snedecor</em>, edited by T. A. Bancroft, 293–316. August 1969.</p>
+<p>Tukey, John W. 1972. “Some Graphic and Semigraphic Displays.” In <em>Statistical Papers in Honor of George W. Snedecor</em>, edited by T.A. Bancroft, 293–316. August 1969.</p>
 </div>
 </div>
             </section>

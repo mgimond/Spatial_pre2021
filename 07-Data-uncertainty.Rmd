@@ -1,18 +1,9 @@
 # Uncertainty in Census Data
 
 ```{r, message=FALSE,warning=FALSE,echo=FALSE}
-library(maptools)
+library(sf)
 
-# Download and unzip the shapefile into the current working directory
-tmpdir <- getwd()
-url <- 'http://colby.edu/~mgimond/Spatial/Data/Income_schooling.zip'
-file <- basename(url)
-download.file(url, file)
-unzip(file, exdir = tmpdir )
-
-# Read the shapefile into the object S
-shapeFile <- paste(tmpdir,"/Income_schooling", sep="")
-S <- readShapeSpatial(shapeFile)
+load(url("http://github.com/mgimond/Spatial/raw/master/Data/moransI.RData"))
 ```
 
 ## Introduction
@@ -25,12 +16,12 @@ One approach to mapping both estimates *and* SE's is to display both as side-by-
 
 ```{r f07-map1, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 7, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "Maps of income estimates (left) and associated standard errors (right)."}
 library(RColorBrewer)
-brks1 <- quantile(S$Income, seq(0,1,0.2))
+brks1 <- quantile(s1$Income, seq(0,1,0.2))
 brks1[length(brks1)] <- brks1[length(brks1)] + 1
-brks2 <- quantile(S$IncomeSE, seq(0,1,0.2))
+brks2 <- quantile(s1$IncomeSE, seq(0,1,0.2))
 brks2[length(brks2)] <- brks2[length(brks2)] + 1
-P1 <- spplot(S, "Income", at=brks1, col.regions=brewer.pal(7,"Greens"))
-P2 <- spplot(S, "IncomeSE", at=brks2, col.regions=brewer.pal(7,"Reds"))
+P1 <- spplot(s1, "Income", at=brks1, col.regions=brewer.pal(7,"Greens"))
+P2 <- spplot(s1, "IncomeSE", at=brks2, col.regions=brewer.pal(7,"Reds"))
 
 print(P1, split=c(1, 1, 2, 1), more=TRUE) 
 print(P2, split=c(2, 1, 2, 1), more=FALSE) 
@@ -49,12 +40,12 @@ Or, one could map both the upper and lower ends of the MoE range side by side.
 
 ```{r f07-map-MoE, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 7, fig.height = 3, fig.fullwidth = TRUE, fig.cap = "Maps of top end of 90 percent income estimate (left) and bottom end of 90 percent income estimate (right)."}
 library(RColorBrewer)
-S$IncMax <- S$Income + 1.645 * S$IncomeSE
-S$IncMin <- S$Income - 1.645 * S$IncomeSE
-brks <- quantile(c(S$IncMax, S$IncMin), seq(0,1,0.2))
+s1$IncMax <- s1$Income + 1.645 * s1$IncomeSE
+s1$IncMin <- s1$Income - 1.645 * s1$IncomeSE
+brks <- quantile(c(s1$IncMax, s1$IncMin), seq(0,1,0.2))
 brks[length(brks)] <- brks[length(brks)] + 1
-P1 <- spplot(S, "IncMax", at=brks, col.regions=brewer.pal(7,"Greens"))
-P2 <- spplot(S, "IncMin", at=brks, col.regions=brewer.pal(7,"Greens"))
+P1 <- spplot(s1, "IncMax", at=brks, col.regions=brewer.pal(7,"Greens"))
+P2 <- spplot(s1, "IncMin", at=brks, col.regions=brewer.pal(7,"Greens"))
 
 print(P1, split=c(1, 1, 2, 1), more=TRUE) 
 print(P2, split=c(2, 1, 2, 1), more=FALSE) 
@@ -69,9 +60,9 @@ Let's look at a bar plot of our estimates.
 ```{r f07-MoE-plot1, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 5, fig.height = 3.0, fig.fullwidth = FALSE, fig.cap = "Income estimates by county with 90 percent confidence interval. Note that many counties have overlapping estimate ranges."}
 library(gplots)
 # Sort data by INCOME
-Y   = S$Income[order(S$Income)]  # per capita income
-YSE = S$IncomeSE[order(S$Income)] # SE
-lbs = S$NAME[order(S$Income)]
+Y   = s1$Income[order(s1$Income)]  # per capita income
+YSE = s1$IncomeSE[order(s1$Income)] # SE
+lbs = s1$NAME[order(s1$Income)]
 
 # Plot the estimate along with the MoE
 OP <- par(mar=c(3,7,0,1))
@@ -127,11 +118,11 @@ How does the *estimated income* map compare with the *simulated income* map?
 
 ```{r f07-sim-map, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 9, fig.height = 5.0, fig.fullwidth = TRUE, fig.cap = "Original income estimate (left) and realization of a simulated sample (right)."}
 library(RColorBrewer)
-S$R1 <- Yrnd
-brks <- quantile(c(S$Income, S$R1), seq(0,1,0.2))
+s1$R1 <- Yrnd
+brks <- quantile(c(s1$Income, s1$R1), seq(0,1,0.2))
 brks[length(brks)] <- brks[length(brks)] + 1
-P1 <- spplot(S, "Income", at=brks, col.regions=brewer.pal(7,"Greens"))
-P2 <- spplot(S, "R1", at=brks, col.regions=brewer.pal(7,"Greens"))
+P1 <- spplot(s1, "Income", at=brks, col.regions=brewer.pal(7,"Greens"))
+P2 <- spplot(s1, "R1", at=brks, col.regions=brewer.pal(7,"Greens"))
 
 print(P1, split=c(1, 1, 2, 1), more=TRUE) 
 print(P2, split=c(2, 1, 2, 1), more=FALSE) 
@@ -141,13 +132,13 @@ A few more simulated samples (using the 90% confidence interval) are shown below
 
 ```{r f07-5sim-maps, message=FALSE,warning=FALSE,echo=FALSE,fig.width = 10, fig.height = 3.1, fig.fullwidth = TRUE, fig.cap = "Original income estimate (left) and realizations from simulated samples (R1 through R5)."}
 
-set.seed(421); S$R2 <- rnorml(Y, YSE, 1.645)
-set.seed(1231); S$R3 <- rnorml(Y, YSE, 1.645)
-set.seed(326); S$R4 <- rnorml(Y, YSE, 1.645)
-set.seed(5441); S$R5 <- rnorml(Y, YSE, 1.645)
-brks <- quantile(c(S$R1,S$R2,S$R3,S$R4,S$R5), seq(0,1,0.2))
+set.seed(421); s1$R2 <- rnorml(Y, YSE, 1.645)
+set.seed(1231); s1$R3 <- rnorml(Y, YSE, 1.645)
+set.seed(326); s1$R4 <- rnorml(Y, YSE, 1.645)
+set.seed(5441); s1$R5 <- rnorml(Y, YSE, 1.645)
+brks <- quantile(c(s1$R1,s1$R2,s1$R3,s1$R4,s1$R5), seq(0,1,0.2))
 brks[length(brks)] <- brks[length(brks)] + 1
-spplot(S, c("R1","R2","R3","R4","R5"),at=brks, col.regions=brewer.pal(7,"Greens"))
+spplot(s1, c("R1","R2","R3","R4","R5"),at=brks, col.regions=brewer.pal(7,"Greens"))
 ```
 
 ## Class comparison maps 
@@ -177,20 +168,20 @@ This information can be mapped as a hatch mark overlay. For example, income coul
 
 ```{r ComPlot, message=FALSE, warning=FALSE, echo=FALSE, fig.height = 3.5, fig.margin = TRUE, fig.cap = "Plot of income with class comparison hatches."}
 
-IncInt <- findInterval(S$Income, brks)
-LowInt <- findInterval(S$Income - 1.645 * S$IncomeSE, brks )
-HiInt <- findInterval(S$Income + 1.645 * S$IncomeSE, brks )
-S$Comp <- 1 # Both MoE ends are in the same class as estimate
-S$Comp[IncInt > LowInt] <- 2 # lower  MoE end is in a class below that of the estimate
-S$Comp[IncInt > LowInt & IncInt < HiInt] <- 3 # lower  MoE end is in a class below that of the estimate
-S$Comp[IncInt < HiInt]  <- 4 # upper  MoE end is in a class above that of the estimate
+IncInt <- findInterval(s1$Income, brks)
+LowInt <- findInterval(s1$Income - 1.645 * s1$IncomeSE, brks )
+HiInt <- findInterval(s1$Income + 1.645 * s1$IncomeSE, brks )
+s1$Comp <- 1 # Both MoE ends are in the same class as estimate
+s1$Comp[IncInt > LowInt] <- 2 # lower  MoE end is in a class below that of the estimate
+s1$Comp[IncInt > LowInt & IncInt < HiInt] <- 3 # lower  MoE end is in a class below that of the estimate
+s1$Comp[IncInt < HiInt]  <- 4 # upper  MoE end is in a class above that of the estimate
 
 color <- brewer.pal(7,"Greens")
 ang <- (0:3) * 45
 dens <- c(0,10,10, 10)
 OP <- par(mar=c(0,0,0,0))
-plot(S, col = color[findInterval(S$Income, brks)])
-plot(S, density = dens[S$Comp], angle = ang[S$Comp], add=TRUE)
+plot(s1, col = color[findInterval(s1$Income, brks)])
+plot(s1, density = dens[s1$Comp], angle = ang[s1$Comp], add=TRUE)
 par(OP)
 ```
 
@@ -200,7 +191,7 @@ par(OP)
 Data uncertainty issues do not only affect choropleth map presentations but also affect bivariate or multivariate analyses where two or more variables are statistically compared. One popular method in comparing variables is the regression analysis where a line is best fit to a bivariate scatterplot. For example, one can regress "percent not schooled"" to "income"" as follows:
 
 ```{r, echo=FALSE}
-M1  <- lm(S$NoSchool * 100 ~ S$Income)
+M1  <- lm(s1$NoSchool * 100 ~ s1$Income)
 SM1 <- summary(M1)
 AM1 <- anova(M1)
 ```
@@ -229,7 +220,7 @@ SDplot = function(X,Y,x.lab,y.lab) {
 
 ```{r f07-regression1, fig.height=2.5, echo=FALSE, fig.cap="Regression between percent not having completed any school grade and median per capita income for each county."}
 OP <- par(mar=c(2,2,1,1))
-SDplot(S$Income,S$NoSchool * 100,x.lab="Income",y.lab="% No school")
+SDplot(s1$Income,s1$NoSchool * 100,x.lab="Income",y.lab="% No school")
 abline( M1, col="red" )
 par(OP)
 ```
@@ -239,8 +230,8 @@ The $R^2$ value associated with this regression analysis is `r round(SM1$r.squar
 But another realization of the survey could produce the following output:
 
 ```{r, echo=FALSE}
-set.seed(7); S$S1 <- rnorml(S$NoSchool , S$NoSchoolSE, 1.645) # Generate new % not schooled
-M  <- lm(S$S1 * 100 ~ S$R1)
+set.seed(7); s1$S1 <- rnorml(s1$NoSchool , s1$NoSchoolSE, 1.645) # Generate new % not schooled
+M  <- lm(s1$S1 * 100 ~ s1$R1)
 SM <- summary(M)
 AM <- anova(M)
 ```
@@ -248,7 +239,7 @@ AM <- anova(M)
 ```{r f07-regression2, fig.height=2.5, echo=FALSE, fig.cap="Example of what a regression line could look like had another sample been surveyed for each county."}
 OP <- par(mar=c(2,2,1,1))
 #plot(S$S1 ~ S$R1, pch=20, xlab="Income", ylab="% not schooled")
-SDplot(S$R1,S$S1 * 100,x.lab="Income",y.lab="% No school")
+SDplot(s1$R1,s1$S1 * 100,x.lab="Income",y.lab="% No school")
 abline( M, col="red" )
 abline(M1, col="black", lty=2)
 par(OP)
@@ -258,18 +249,18 @@ With this new (simulated) sample, the $R^2$ value dropped to `r round(SM$r.squar
 
 ```{r f07-regression-envelope, fig.height=2.5, echo=FALSE, fig.cap = "A range of regression lines computed from different samples from each county."}
 OP <- par(mar=c(2,2,1,1))
-SDplot(S$Income,S$NoSchool * 100,x.lab="Income",y.lab="% No school")
+SDplot(s1$Income,s1$NoSchool * 100,x.lab="Income",y.lab="% No school")
 
 # Run lm model with randomly sampled data
 for (i in 1:1000){
-  Xi = rnorml(S$Income, S$IncomeSE, 1.645)
-  Yi = rnorml(S$NoSchool, S$NoSchoolSE, 1.645)
+  Xi = rnorml(s1$Income, s1$IncomeSE, 1.645)
+  Yi = rnorml(s1$NoSchool, s1$NoSchoolSE, 1.645)
   Mi = lm(Yi * 100 ~ Xi)
   abline(Mi,col=rgb(0,0,0,0.05))
 }
 
 # Plot regression line
-M1 = lm(S$NoSchool * 100 ~ S$Income)
+M1 = lm(s1$NoSchool * 100 ~ s1$Income)
 abline(M1,col="red")
 par(OP)
 ```

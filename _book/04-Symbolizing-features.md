@@ -161,3 +161,8 @@ It may help to view the breaks when superimposed on top of a distribution of the
 <p class="caption">(\#fig:f04-three-breaks)Three different classification intervals used in the three maps. Note how each interval scheme encompasses different ranges of values (hence the reason all three maps look so different).</p>
 </div>
 
+### An Interactive Example
+
+The following interactive frame demonstrates the different "looks" a map can take given different combinations of classification schemes and class numbers.
+
+<iframe src="https://hobbes.colby.edu/Manny/Classification/?showcase=0" width="780px" height="530px"></iframe>

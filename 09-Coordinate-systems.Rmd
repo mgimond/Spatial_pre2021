@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Coordinate Systems
 
 Implicit with any GIS data is a spatial reference system. It can consist of a simple arbitrary reference system such as a 10 m x 10 m sampling grid in a wood lot or, the boundaries of a soccer field or, it can consist of a geographic reference system, i.e. one where the spatial features are mapped to an earth based reference system. The focus of this topic is on earth reference systems which can be based on a Geographic Coordinate System (GCS) or a Project Coordinate System (PCS). 
@@ -268,7 +273,7 @@ wrld2 <- raster::projectRaster(wrld, crs=w.from.s)
 # Plot on a planar environment
 tm_shape(wrld, bbox=ext) + 
   tm_raster(legend.show = FALSE, palette= c("grey80")) +
-  tm_grid(projection="longlat", col="grey90", labels.size = 0) +
+  tm_graticules(col="grey90", labels.col="white")+
   tm_shape(gc_sf) +tm_lines(col="red", lwd=2) +
   tm_shape(pl_sf) + tm_lines(col="blue", lwd=2, lty=2) +
   tm_shape(pt) +tm_dots(size=0.5) 
@@ -284,7 +289,7 @@ At first glance, the geodesic distance may seem nonsensical given its curved app
 # Plot on an "earth from space" environment
 tm_shape(wrld2) +
   tm_raster(legend.show = FALSE, palette= c("grey80")) +
-  tm_grid(n.x=15,projection="longlat", col="grey90", labels.size = 0) +
+  tm_graticules(col="grey90", labels.col="white")+
   tm_shape(gc_sf) +tm_lines(col="red", lwd=2) +
   tm_shape(pl_sf) + tm_lines(col="blue", lwd=2, lty=2) +
   tm_shape(pt) +tm_dots(size=0.5) 

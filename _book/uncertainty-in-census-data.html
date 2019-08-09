@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Uncertainty in Census Data | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Uncertainty in Census Data | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -72,7 +72,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -184,7 +183,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="4.3.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#divergent-color-scheme"><i class="fa fa-check"></i><b>4.3.3</b> Divergent color scheme</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="symbolizing-features.html"><a href="symbolizing-features.html#so-how-do-i-find-a-proper-color-scheme-for-my-data"><i class="fa fa-check"></i><b>4.4</b> So how do I find a proper color scheme for my data?</a></li>
-<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a></li>
+<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#an-interactive-example"><i class="fa fa-check"></i><b>4.5.1</b> An Interactive Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html"><i class="fa fa-check"></i><b>5</b> Pitfalls to avoid</a><ul>
 <li class="chapter" data-level="5.1" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#representing-count"><i class="fa fa-check"></i><b>5.1</b> Representing Count</a></li>
@@ -497,7 +498,7 @@ Figure 7.7: Original income estimate (left) and realizations from simulated samp
 </div>
 <div id="class-comparison-maps" class="section level2">
 <h2><span class="header-section-number">7.4</span> Class comparison maps</h2>
-<p>There is no single solution to effectively convey both estimates <em>and</em> associated uncertainty in a map. Sun and Wong <span class="citation">(Sun and Wong <a href="#ref-DataQuality2010" role="doc-biblioref">2010</a>)</span> offer several suggestions dependent on the context of the problem. One approach adopts a class comparison method whereby a map displays both the estimate and a measure of whether the MoE surrounding that estimate extends beyond the assigned class. For example, if we adopt the classification breaks [0 , 20600 , 22800 , 25000 , 27000 , 34000 ], we will find that many of the estimates’ MoE extend beyond the classification breaks assigned to them.</p>
+<p>There is no single solution to effectively convey both estimates <em>and</em> associated uncertainty in a map. Sun and Wong <span class="citation">(Sun and Wong <a href="#ref-DataQuality2010">2010</a>)</span> offer several suggestions dependent on the context of the problem. One approach adopts a class comparison method whereby a map displays both the estimate and a measure of whether the MoE surrounding that estimate extends beyond the assigned class. For example, if we adopt the classification breaks [0 , 20600 , 22800 , 25000 , 27000 , 34000 ], we will find that many of the estimates’ MoE extend beyond the classification breaks assigned to them.</p>
 <div class="figure"><span id="fig:compInt"></span>
 <img src="07-Data-uncertainty_files/figure-html/compInt-1.png" alt="Income estimates by county with 90 percent confidence interval. Note that many of the counties' MoE have ranges that cross into an adjacent class." width="480" />
 <p class="caption">
@@ -544,7 +545,7 @@ Figure 7.12: A range of regression lines computed from different samples from ea
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-DataQuality2010">
-<p>Sun, M., and W. S. Wong. 2010. “Incorporating Data Quality Information in Mapping American Community Survey Data.” <em>Cartography and Geography Information Science</em> 37 (4): 285–300.</p>
+<p>Sun, M., and W.S. Wong. 2010. “Incorporating Data Quality Information in Mapping American Community Survey Data.” <em>Cartography and Geography Information Science</em> 37 (4): 285–300.</p>
 </div>
 </div>
 <div class="footnotes">

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Vector operations in R | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Vector operations in R | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -72,7 +72,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -184,7 +183,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="4.3.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#divergent-color-scheme"><i class="fa fa-check"></i><b>4.3.3</b> Divergent color scheme</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="symbolizing-features.html"><a href="symbolizing-features.html#so-how-do-i-find-a-proper-color-scheme-for-my-data"><i class="fa fa-check"></i><b>4.4</b> So how do I find a proper color scheme for my data?</a></li>
-<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a></li>
+<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#an-interactive-example"><i class="fa fa-check"></i><b>4.5.1</b> An Interactive Example</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html"><i class="fa fa-check"></i><b>5</b> Pitfalls to avoid</a><ul>
 <li class="chapter" data-level="5.1" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#representing-count"><i class="fa fa-check"></i><b>5.1</b> Representing Count</a></li>
@@ -434,29 +435,29 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="vector-operations-in-r" class="section level1 unnumbered">
 <h1>Vector operations in R</h1>
 <p>We’ll first load spatial objects used in this exercise from a remote website: a polygon object that delineates Maine counties; another polygon object that delineates distances to Augusta (Maine) as concentric circles; and a line object that shows the highway system that runs through Maine. These data are already stored as R data objects thus eliminating the need for any data conversion.</p>
-<pre class="sourceCode r"><code class="sourceCode r">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/Income_schooling.rds&quot;</span>))
-s1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)
-
-z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/dist.rds&quot;</span>))
-s2 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)
-
-z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/highway.rds&quot;</span>))
-l1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/Income_schooling.rds&quot;</span>))</a>
+<a class="sourceLine" id="cb85-2" title="2">s1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a>
+<a class="sourceLine" id="cb85-3" title="3"></a>
+<a class="sourceLine" id="cb85-4" title="4">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/dist.rds&quot;</span>))</a>
+<a class="sourceLine" id="cb85-5" title="5">s2 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a>
+<a class="sourceLine" id="cb85-6" title="6"></a>
+<a class="sourceLine" id="cb85-7" title="7">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/highway.rds&quot;</span>))</a>
+<a class="sourceLine" id="cb85-8" title="8">l1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a></code></pre></div>
 <p>A map of the above layers is shown below.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
-
-<span class="co"># Get min/max bounding box for both polygon shapes</span>
-<span class="kw">library</span>(sp)
-b1 &lt;-<span class="st"> </span><span class="kw">bbox</span>(s1)
-b2 &lt;-<span class="st"> </span><span class="kw">bbox</span>(s2)
-b3 &lt;-<span class="st"> </span><span class="kw">pmax</span>(b1,b2)
-b3[,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">pmin</span>(b1[,<span class="dv">1</span>],b2[,<span class="dv">1</span>])
-
-<span class="co"># Plot all three features (note the bbox=b3 parameter that ensures that  </span>
-<span class="co"># the map extent encompasses all polygon extents)</span>
-<span class="kw">tm_shape</span>(s1, <span class="dt">bbox =</span> b3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">tm_shape</span>(s2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">tm_shape</span>(l1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;yellow&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="kw">library</span>(tmap)</a>
+<a class="sourceLine" id="cb86-2" title="2"></a>
+<a class="sourceLine" id="cb86-3" title="3"><span class="co"># Get min/max bounding box for both polygon shapes</span></a>
+<a class="sourceLine" id="cb86-4" title="4"><span class="kw">library</span>(sp)</a>
+<a class="sourceLine" id="cb86-5" title="5">b1 &lt;-<span class="st"> </span><span class="kw">bbox</span>(s1)</a>
+<a class="sourceLine" id="cb86-6" title="6">b2 &lt;-<span class="st"> </span><span class="kw">bbox</span>(s2)</a>
+<a class="sourceLine" id="cb86-7" title="7">b3 &lt;-<span class="st"> </span><span class="kw">pmax</span>(b1,b2)</a>
+<a class="sourceLine" id="cb86-8" title="8">b3[,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">pmin</span>(b1[,<span class="dv">1</span>],b2[,<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb86-9" title="9"></a>
+<a class="sourceLine" id="cb86-10" title="10"><span class="co"># Plot all three features (note the bbox=b3 parameter that ensures that  </span></a>
+<a class="sourceLine" id="cb86-11" title="11"><span class="co"># the map extent encompasses all polygon extents)</span></a>
+<a class="sourceLine" id="cb86-12" title="12"><span class="kw">tm_shape</span>(s1, <span class="dt">bbox =</span> b3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb86-13" title="13"><span class="st">  </span><span class="kw">tm_shape</span>(s2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb86-14" title="14"><span class="st">  </span><span class="kw">tm_shape</span>(l1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;yellow&quot;</span>)</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-3-1.png" width="450" /></p>
 <p>The attributes table for both polygon objects are shown next. Note that each shape object has a unique set of attributes as well as a unique number of records</p>
 <div class="figure"><span id="fig:unnamed-chunk-4"></span>
@@ -468,30 +469,30 @@ Figure 2.4: Attribute tables for the Maine spatial object, <code>s1</code>, (lef
 <div id="dissolve-by-contiguous-shape" class="section level2 unnumbered">
 <h2>Dissolve by contiguous shape</h2>
 <p>To dissolve all polygons that share at least one line segment, simply pass the object name to <code>raster</code>’s <code>aggregate</code> function. In this example, we dissolve all polygons to create a single outline of the state of Maine.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-ME &lt;-<span class="st"> </span><span class="kw">aggregate</span>(s1)
-<span class="kw">qtm</span>(ME)</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb87-2" title="2">ME &lt;-<span class="st"> </span><span class="kw">aggregate</span>(s1)</a>
+<a class="sourceLine" id="cb87-3" title="3"><span class="kw">qtm</span>(ME)</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-5-1.png" width="400" /></p>
 </div>
 <div id="dissolve-by-attribute" class="section level2 unnumbered">
 <h2>Dissolve by attribute</h2>
 <p>First, we’ll create a new column whose value is binary (TRUE/FALSE) depending on whether or not the county income is below the counties’ median income value.</p>
-<pre class="sourceCode r"><code class="sourceCode r">s1<span class="op">$</span>med &lt;-<span class="st"> </span>s1<span class="op">$</span>Income <span class="op">&gt;</span><span class="st"> </span><span class="kw">median</span>(s1<span class="op">$</span>Income)
-<span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;med&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1">s1<span class="op">$</span>med &lt;-<span class="st"> </span>s1<span class="op">$</span>Income <span class="op">&gt;</span><span class="st"> </span><span class="kw">median</span>(s1<span class="op">$</span>Income)</a>
+<a class="sourceLine" id="cb88-2" title="2"><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;med&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-6-1.png" width="400" /></p>
 <p>Next, we’ll dissolve all polygons by the <code>med</code> value. Any polygons sharing at least one line segment having the same <code>med</code> value will be dissolved into a single polygon.</p>
-<pre class="sourceCode r"><code class="sourceCode r">ME.inc &lt;-<span class="st"> </span><span class="kw">aggregate</span>(s1, <span class="dt">by=</span> <span class="st">&quot;med&quot;</span>)
-<span class="kw">tm_shape</span>(ME.inc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;med&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1">ME.inc &lt;-<span class="st"> </span><span class="kw">aggregate</span>(s1, <span class="dt">by=</span> <span class="st">&quot;med&quot;</span>)</a>
+<a class="sourceLine" id="cb89-2" title="2"><span class="kw">tm_shape</span>(ME.inc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;med&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-7-1.png" width="450" /></p>
 <p>The aggregation function will, by default, elliminate all other attribute values. If you wish to summarize other attribute values along with the attribute used for aggregation use <code>dplyr</code>’s piping operation. For example, to compute the median <code>Income</code> value for each of the below/above median income groups type the following:</p>
 <p>To summarize education by below/above median income</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-ME.inc<span class="op">$</span>Income &lt;-<span class="st"> </span>s1<span class="op">@</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(med) <span class="op">%&gt;%</span>
-<span class="st">                          </span><span class="kw">summarize</span>(<span class="dt">medinc =</span> <span class="kw">median</span>(Income)) <span class="op">%&gt;%</span><span class="st"> </span>.<span class="op">$</span>medinc
-<span class="kw">tm_shape</span>(ME.inc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb90-2" title="2">ME.inc<span class="op">$</span>Income &lt;-<span class="st"> </span>s1<span class="op">@</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(med) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb90-3" title="3"><span class="st">                          </span><span class="kw">summarize</span>(<span class="dt">medinc =</span> <span class="kw">median</span>(Income)) <span class="op">%&gt;%</span><span class="st"> </span>.<span class="op">$</span>medinc</a>
+<a class="sourceLine" id="cb90-4" title="4"><span class="kw">tm_shape</span>(ME.inc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-9-1.png" width="450" /></p>
 <p>To view the attributes table with both the aggregate variable, <code>med</code>, and the median income variable, <code>Income</code>, type:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ME.inc<span class="op">@</span>data</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1">ME.inc<span class="op">@</span>data</a></code></pre></div>
 <pre><code>    med Income
 1 FALSE  21518
 2  TRUE  27955</code></pre>
@@ -499,10 +500,10 @@ ME.inc<span class="op">$</span>Income &lt;-<span class="st"> </span>s1<span clas
 <div id="calculate-area" class="section level2 unnumbered">
 <h2>Calculate area</h2>
 <p>To calculate a polygon’s area, you can use <code>rgeos</code>’s <code>gArea</code> function. For example, to compute the area in km<sup>2</sup>, type the following:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgeos)
-ME.inc<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw">gArea</span>(ME.inc, <span class="dt">byid=</span><span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span></code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">library</span>(rgeos)</a>
+<a class="sourceLine" id="cb93-2" title="2">ME.inc<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw">gArea</span>(ME.inc, <span class="dt">byid=</span><span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span></a></code></pre></div>
 <p>The <code>gArea</code> function computes the area in map units which happens to be in meters in our example. To convert the area from m<sup>2</sup> to km<sup>2</sup>, we simply divide by <code>1,000,000</code> in the above chunk of code. This produces the following attributes table.</p>
-<pre class="sourceCode r"><code class="sourceCode r">ME.inc<span class="op">@</span>data</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">ME.inc<span class="op">@</span>data</a></code></pre></div>
 <pre><code>    med Income     Area
 1 FALSE  21518 67743.58
 2  TRUE  27955 15503.19</code></pre>
@@ -510,20 +511,20 @@ ME.inc<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="k
 <div id="subsetting" class="section level2 unnumbered">
 <h2>Subsetting</h2>
 <p>You can use conventional R dataframe manipulation operations to subset by attribute values. For example, to subset by county name (e.g. <code>Kennebec</code> county), type:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ME.ken &lt;-<span class="st"> </span>s1[s1<span class="op">$</span>NAME <span class="op">==</span><span class="st"> &quot;Kennebec&quot;</span>,]
-<span class="kw">qtm</span>(ME.ken)</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">ME.ken &lt;-<span class="st"> </span>s1[s1<span class="op">$</span>NAME <span class="op">==</span><span class="st"> &quot;Kennebec&quot;</span>,]</a>
+<a class="sourceLine" id="cb96-2" title="2"><span class="kw">qtm</span>(ME.ken)</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-14-1.png" width="400" /></p>
 <p>To subset by a range of attribute values (e.g. subset by income values that are less than the median value), type:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ME.inc2 &lt;-<span class="st"> </span>s1[s1<span class="op">$</span>Income <span class="op">&lt;</span><span class="st"> </span><span class="kw">median</span>(s1<span class="op">$</span>Income), ]
-<span class="kw">qtm</span>(ME.inc2)</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">ME.inc2 &lt;-<span class="st"> </span>s1[s1<span class="op">$</span>Income <span class="op">&lt;</span><span class="st"> </span><span class="kw">median</span>(s1<span class="op">$</span>Income), ]</a>
+<a class="sourceLine" id="cb97-2" title="2"><span class="kw">qtm</span>(ME.inc2)</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-15-1.png" width="400" /></p>
 </div>
 <div id="intersecting" class="section level2 unnumbered">
 <h2>Intersecting</h2>
 <p>To intersect two polygon objects, you can use <code>raster</code>’s <code>intersect</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-clp1 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,s2)
-<span class="kw">tm_shape</span>(clp1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb98-2" title="2">clp1 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,s2)</a>
+<a class="sourceLine" id="cb98-3" title="3"><span class="kw">tm_shape</span>(clp1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-16-1.png" width="400" /></p>
 <p><code>intersect</code> keeps all features that overlap along with their combined attributes. Note that new polygons are created which can increase the size of the attributes table beyond the size of the combined input attributes table.</p>
 <p><img src="A04-Vector-Operations_files/figure-html/tblgrb2-1.png" width="500" /></p>
@@ -531,16 +532,16 @@ clp1 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,s2)
 <h3>Intersecting polygons with line and point objects</h3>
 <p>This method will also intersect line and point objects with a polygon object, but the output will be either a line/point or a polygon depending on the order in which the objects are passed to <code>intersect</code>. If the line object is passed first, the output will be a line object that falls within the polygons of the input polygon object. If the polygon object is passed first, then all polygons that have a line segment within their boundaries will be returned. For example:</p>
 <p>To output all counties having at least one segment of the line feature running through them, type:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-clp2 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,l1)
-<span class="kw">tm_shape</span>(clp2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">tm_shape</span>(l1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb99-2" title="2">clp2 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,l1)</a>
+<a class="sourceLine" id="cb99-3" title="3"><span class="kw">tm_shape</span>(clp2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb99-4" title="4"><span class="st">  </span><span class="kw">tm_shape</span>(l1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-17-1.png" width="450" /></p>
 <p>To output all line segments that fall within the concentric distance circles of <code>s2</code>, type:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-clp3 &lt;-<span class="st"> </span><span class="kw">intersect</span>(l1,s2)
-<span class="kw">tm_shape</span>(s2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">tm_shape</span>(clp3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb100-2" title="2">clp3 &lt;-<span class="st"> </span><span class="kw">intersect</span>(l1,s2)</a>
+<a class="sourceLine" id="cb100-3" title="3"><span class="kw">tm_shape</span>(s2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb100-4" title="4"><span class="st">  </span><span class="kw">tm_shape</span>(clp3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-18-1.png" width="450" /></p>
 <p>In both cases, the output shape objects inherit both the original attribute values as well as the attributes from the intersecting object.</p>
 </div>
@@ -548,9 +549,9 @@ clp3 &lt;-<span class="st"> </span><span class="kw">intersect</span>(l1,s2)
 <div id="unioning" class="section level2 unnumbered">
 <h2>Unioning</h2>
 <p>To union two polygon objects, use <code>raster</code>’s <code>union</code> function. For example,</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-un1  &lt;-<span class="st"> </span><span class="kw">union</span>(s1,s2)
-<span class="kw">tm_shape</span>(un1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>()</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb101-2" title="2">un1  &lt;-<span class="st"> </span><span class="kw">union</span>(s1,s2)</a>
+<a class="sourceLine" id="cb101-3" title="3"><span class="kw">tm_shape</span>(un1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>()</a></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-19-1.png" width="450" /></p>
 <p>This produces the following attributes table.</p>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-20-1.png" width="500" /></p>

@@ -336,3 +336,10 @@ It may help to view the breaks when superimposed on top of a distribution of the
 knitr::include_graphics("img/Three_hist_intervals.png")
 ```
 
+### An Interactive Example
+
+The following interactive frame demonstrates the different "looks" a map can take given different combinations of classification schemes and class numbers.
+
+```{r echo = FALSE, out.width="780px"}
+knitr::include_app("https://hobbes.colby.edu/Manny/Classification/", height = "530px")
+```

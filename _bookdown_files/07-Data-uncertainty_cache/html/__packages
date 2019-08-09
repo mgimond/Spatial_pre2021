@@ -2,4 +2,5 @@ base
 sp
 maptools
 RColorBrewer
+sf
 gplots
