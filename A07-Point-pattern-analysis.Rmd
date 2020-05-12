@@ -330,7 +330,7 @@ plot(K, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 par(OP)
 ```
 
-The plot returns different estimates of K depending on the the edge correction chosen. By default, the `isotropic`, `translate` and `border`  corrections are implemented. To learn more about these edge correction methods type `?Kest` at the command line. The estimated $K$ functions are listed with a hat `^`. The black line ($K_{pois}$) represents the theoretical $K$ function under the null hypothesis that the points are completely randomly distributed (CSR/IRP). Where K falls under the theoretical $K_{pois}$ line the points are deemed more clustered than expected at distance $r$. Where $K$ falls above the theoretical $K_{pois}$ line the points are deemed more dispersed than expected at distance $r$.
+The plot returns different estimates of $K$ depending on the edge correction chosen. By default, the `isotropic`, `translate` and `border`  corrections are implemented. To learn more about these edge correction methods type `?Kest` at the command line. The estimated $K$ functions are listed with a hat `^`. The black line ($K_{pois}$) represents the theoretical $K$ function under the null hypothesis that the points are completely randomly distributed (CSR/IRP). Where $K$ falls under the theoretical $K_{pois}$ line the points are deemed more dispersed than expected at distance $r$. Where $K$ falls above the theoretical $K_{pois}$ line the points are deemed more clustered than expected at distance $r$.
 
 To compute the L function, type:
 
@@ -410,7 +410,7 @@ par(OP)
 
 It's obvious from the test that the observed ANN value is far smaller than the expected ANN values one could expect under the null hypothesis. A smaller observed value indicates that the stores are far more clustered than expected under the null. 
 
-Next, we'll run the same test but control for the influence due to population density distribution. Recall that the ANN analysis explores the 2nd order process underlying a point pattern thus requiring that we control for the first order process (e.g. population density distribution). This is a non-homogeneous test. Here, we pass the parameter `f=pop.km` to the function `rpoint` telling it that the population density raster `pop.km` should be used to define where a point should be most likely placed (high population density) and least likely placed (low population density) under this new null model. Here, we'll use the non-transformed representation of the population density raster, `pop.km`.
+Next, we'll run the same test but control for the influence due to population density distribution. Recall that the ANN analysis explores the 2^nd^ order process underlying a point pattern thus requiring that we control for the first order process (e.g. population density distribution). This is a non-homogeneous test. Here, we pass the parameter `f=pop.km` to the function `rpoint` telling it that the population density raster `pop.km` should be used to define where a point should be most likely placed (high population density) and least likely placed (low population density) under this new null model. Here, we'll use the non-transformed representation of the population density raster, `pop.km`.
 
 ```{r}
 n     <- 599L
