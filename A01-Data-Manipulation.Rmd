@@ -201,13 +201,24 @@ class(s.owin)
 
 As of this writing, it seems that you need to first convert the `sf` object to a `SpatialPoints*` before creating a `ppp` object as shown in the following code chunk. Note that the `maptools` package is required for this step.
 
-```{r}
+```{r error=TRUE}
 p.sp  <- as(p.sf, "Spatial")  # Create Spatial* object
 p.ppp <- as(p.sp, "ppp")      # Create ppp object
+```
+
+
+A `ppp` object is associated with the `spatstat` package which is designed to work off of a projected (cartesian) coordinate system. The error message reminds us that a geographic coordinate system (i.e. one that uses angular measurements such as latitude/longitude) cannot be used with this package. If you encounter this error, you will need to project the `p.sp` or `ps.f` layer to a projected coordinate system.
+
+In this example, we'll project the `p.sf` object to a UTM coordinate system (`epsg=32619`). Coordinate systems in R are treated in a separate appendix. 
+
+```{r}
+p.sf.utm <- st_transform(p.sf, 32619) # project from geographic to UTM
+p.sp  <- as(p.sf.utm, "Spatial")      # Create Spatial* object
+p.ppp <- as(p.sp, "ppp")              # Create ppp object
 class(p.ppp)
 ```
 
-If the point layer has an attribute table, its attributes will be converted to `ppp` _marks_.
+Note that if the point layer has an attribute table, its attributes will be converted to `ppp` _marks_.
 
 ### Converting a `raster` object to an `im` object (`spatstat`) {-}
 
