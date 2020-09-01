@@ -1,5 +1,4 @@
 
-
 # Vector operations in R{-}
 
 We'll first load spatial objects used in this exercise from a remote website: a polygon object that delineates  Maine counties; another polygon object that delineates distances to Augusta (Maine) as concentric circles; and a line object that shows the highway system that runs through Maine. These data are already stored as R data objects thus eliminating the need for any data conversion.
@@ -36,13 +35,13 @@ tm_shape(s1, bbox = b3) + tm_fill(col="grey") + tm_borders(col = "white") +
   tm_shape(l1) + tm_lines(col="yellow")
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-3-1.png" width="450" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-2-1.png" width="450" />
 
 The attributes table for both polygon objects are shown next. Note that each shape object has a unique set of attributes as well as a unique number of records
 
 <div class="figure">
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-4-1.png" alt="Attribute tables for the Maine spatial object, `s1`, (left table) and the distance to Augusta spatial object, `s2` (right table)." width="550" />
-<p class="caption">(\#fig:unnamed-chunk-4)Attribute tables for the Maine spatial object, `s1`, (left table) and the distance to Augusta spatial object, `s2` (right table).</p>
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-3-1.png" alt="Attribute tables for the Maine spatial object, `s1`, (left table) and the distance to Augusta spatial object, `s2` (right table)." width="550" />
+<p class="caption">(\#fig:unnamed-chunk-3)Attribute tables for the Maine spatial object, `s1`, (left table) and the distance to Augusta spatial object, `s2` (right table).</p>
 </div>
 
 ## Dissolve by contiguous shape {-}
@@ -56,7 +55,7 @@ ME <- aggregate(s1)
 qtm(ME)
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-5-1.png" width="400" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-4-1.png" width="400" />
 
  
 ## Dissolve by attribute {-}
@@ -69,7 +68,7 @@ s1$med <- s1$Income > median(s1$Income)
 tm_shape(s1) + tm_fill(col="med") +tm_borders(col = "white")
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-6-1.png" width="400" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-5-1.png" width="400" />
 
 Next, we'll dissolve all polygons by the `med` value. Any polygons sharing at least one line segment having the same `med` value will be dissolved into a single polygon.
 
@@ -79,7 +78,7 @@ ME.inc <- aggregate(s1, by= "med")
 tm_shape(ME.inc) + tm_fill(col="med") +tm_borders()
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-7-1.png" width="450" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-6-1.png" width="450" />
 
 The aggregation function will, by default, elliminate all other attribute values. If you wish to summarize other attribute values along with the attribute used for aggregation use `dplyr`'s piping operation. For example, to compute the median `Income` value for each of the below/above median income groups type the following:
 
@@ -95,7 +94,7 @@ ME.inc$Income <- s1@data %>% group_by(med) %>%
 tm_shape(ME.inc) + tm_fill(col="Income") +tm_borders()
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-9-1.png" width="450" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-8-1.png" width="450" />
 
 To view the attributes table with both the aggregate variable, `med`, and the median income variable, `Income`, type:
 
@@ -147,7 +146,7 @@ ME.ken <- s1[s1$NAME == "Kennebec",]
 qtm(ME.ken)
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-14-1.png" width="400" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-13-1.png" width="400" />
 
 To subset by a range of attribute values (e.g. subset by income values that are less than the median value), type:
 
@@ -157,7 +156,7 @@ ME.inc2 <- s1[s1$Income < median(s1$Income), ]
 qtm(ME.inc2)
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-15-1.png" width="400" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-14-1.png" width="400" />
 
 ## Intersecting {-}
 
@@ -170,7 +169,7 @@ clp1 <- intersect(s1,s2)
 tm_shape(clp1) + tm_fill(col="Income") +tm_borders()
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-16-1.png" width="400" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-15-1.png" width="400" />
 
 `intersect` keeps all features that overlap along with their combined attributes. Note that new polygons are created which can increase the size of the attributes table beyond the size of the combined input attributes table.
 
@@ -190,7 +189,7 @@ tm_shape(clp2) + tm_fill(col="grey") +tm_borders() +
   tm_shape(l1) + tm_lines(col="red")
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-17-1.png" width="450" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-16-1.png" width="450" />
 
 To output all line segments that fall within the concentric distance circles of `s2`, type:
 
@@ -202,7 +201,7 @@ tm_shape(s2) + tm_fill(col="grey") +tm_borders() +
   tm_shape(clp3) + tm_lines(col="red")
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-18-1.png" width="450" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-17-1.png" width="450" />
 
 In both cases, the output shape objects inherit both the original attribute values as well as the attributes from the intersecting object.
 
@@ -217,8 +216,8 @@ un1  <- union(s1,s2)
 tm_shape(un1) + tm_fill(col="Income") + tm_borders()
 ```
 
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-19-1.png" width="450" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-18-1.png" width="450" />
 
 This produces the following attributes table.
  
-<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-20-1.png" width="500" />
+<img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-19-1.png" width="500" />

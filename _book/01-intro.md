@@ -1,4 +1,3 @@
-
 # Introduction to GIS {#introGIS}
 
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Raster operations in R | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Raster operations in R | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="vector-operations-in-r.html">
-<link rel="next" href="coordinate-systems-in-r.html">
+<link rel="prev" href="vector-operations-in-r.html"/>
+<link rel="next" href="coordinate-systems-in-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +39,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -46,15 +47,19 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-39623718-2"></script>
 <script>
@@ -67,9 +72,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -78,14 +83,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -94,9 +101,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; } /* Alert */
 code span.an { color: #008000; } /* Annotation */
@@ -292,7 +299,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html"><i class="fa fa-check"></i>Reading and writing spatial data in R</a><ul>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#creating-spatial-objects"><i class="fa fa-check"></i>Creating spatial objects</a><ul>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-shapefile"><i class="fa fa-check"></i>Reading a shapefile</a></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
@@ -311,7 +318,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#exporting-to-different-data-file-formats"><i class="fa fa-check"></i>Exporting to different data file formats</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html"><i class="fa fa-check"></i>Mapping data in R</a><ul>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#sample-files-for-this-exercise-1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#the-basics"><i class="fa fa-check"></i>The basics</a><ul>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#combining-layers"><i class="fa fa-check"></i>Combining layers</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#tweaking-classification-schemes"><i class="fa fa-check"></i>Tweaking classification schemes</a></li>
@@ -345,20 +352,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#sample-files-for-this-exercise-2"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#local-operations-and-functions"><i class="fa fa-check"></i>Local operations and functions</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-rasters"><i class="fa fa-check"></i>Unary operations and functions (applied to single rasters)</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-rasters-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two rasters are used)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#global-operations-and-functions-1"><i class="fa fa-check"></i>Global operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#focal-operations-and-functions"><i class="fa fa-check"></i>Focal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#zonal-operations-and-functions"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#global-operations-and-functions"><i class="fa fa-check"></i>Global operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#computing-cumulative-distances"><i class="fa fa-check"></i>Computing cumulative distances</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#working-example"><i class="fa fa-check"></i>Working example</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise-3"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
@@ -369,19 +376,19 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#creating-tissot-indicatrix-circles"><i class="fa fa-check"></i>Creating Tissot indicatrix circles</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#sample-files-for-this-exercise-4"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li><a href="point-pattern-analysis-in-r.html#getting-external-data-into-a-spatstat-format">Getting external data into a <code>spatstat</code> format</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i>Density based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#quadrat-density"><i class="fa fa-check"></i>Quadrat density</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tessellated-surface"><i class="fa fa-check"></i>Quadrat density on a tessellated surface</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#kernel-density-adjusted-for-covariate"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#distance-based-analysis"><i class="fa fa-check"></i>Distance based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#k-and-l-functions"><i class="fa fa-check"></i>K and L functions</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pair-correlation-function-g"><i class="fa fa-check"></i>Pair correlation function g</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
@@ -391,8 +398,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial autocorrelation in R</a><ul>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#sample-files-for-this-exercise-5"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#define-neighboring-polygons"><i class="fa fa-check"></i>Define neighboring polygons</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-the-morans-i-statistic-the-hard-way"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the hard way</a><ul>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-a-pseudo-p-value-from-an-mc-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from an MC simulation</a></li>
@@ -434,28 +441,28 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
             <section class="normal" id="section-">
 <div id="raster-operations-in-r" class="section level1 unnumbered">
 <h1>Raster operations in R</h1>
-<div id="sample-files-for-this-exercise-2" class="section level2 unnumbered">
+<div id="sample-files-for-this-exercise" class="section level2 unnumbered">
 <h2>Sample files for this exercise</h2>
 <p>We’ll first load spatial objects used in this exercise from a remote website: an elevation <code>raster</code> object, a bathymetry <code>raster</code> object and a continents <code>SpatialPolygonsDataFrame</code> vector layer.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/raster.RData&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="raster-operations-in-r.html#cb108-1"></a><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/raster.RData&quot;</span>))</span></code></pre></div>
 <p>Both rasters cover the entire globe. Elevation below mean sea level are encoded as <code>0</code> in the elevation raster. Likewise, bathymetry values above mean sea level are encoded as <code>0</code>.</p>
 <p>Note that most of the map algebra operations and functions covered in this tutorial are implemented using the <code>raster</code> package. See chapter 10 for a theoretical discussion of map algebra operations.</p>
 </div>
-<div id="local-operations-and-functions-1" class="section level2 unnumbered">
+<div id="local-operations-and-functions" class="section level2 unnumbered">
 <h2>Local operations and functions</h2>
 <div id="unary-operations-and-functions-applied-to-single-rasters" class="section level3 unnumbered">
 <h3>Unary operations and functions (applied to single rasters)</h3>
 <p>Most algebraic operations can be applied to rasters as they would with any vector element. For example, to convert all bathymetric values in <code>bath</code> (currently recorded as positive values) to <em>negative</em> values simply multiply the raster by <code>-1</code>.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb103-2" title="2"></a>
-<a class="sourceLine" id="cb103-3" title="3">bath2 &lt;-<span class="st"> </span>bath <span class="op">*</span><span class="st"> </span>(<span class="op">-</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="raster-operations-in-r.html#cb109-1"></a><span class="kw">library</span>(raster)</span>
+<span id="cb109-2"><a href="raster-operations-in-r.html#cb109-2"></a></span>
+<span id="cb109-3"><a href="raster-operations-in-r.html#cb109-3"></a>bath2 &lt;-<span class="st"> </span>bath <span class="op">*</span><span class="st"> </span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p>Another unary operation that can be applied to a raster is reclassification. In the following example, we will assign all <code>bath2</code> values that are less than zero a <code>1</code> and all zero values will remain unchanged. A simple way to do this is to apply a conditional statement.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1">bath3 &lt;-<span class="st"> </span>bath2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span></a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="raster-operations-in-r.html#cb110-1"></a>bath3 &lt;-<span class="st"> </span>bath2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span></span></code></pre></div>
 <p>Let’s look at the output. Note that all <code>0</code> pixels are coded as <code>FALSE</code> and all <code>1</code> pixels are coded as <code>TRUE</code>.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1"><span class="kw">library</span>(tmap)</a>
-<a class="sourceLine" id="cb105-2" title="2"><span class="kw">tm_shape</span>(bath3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greys&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb105-3" title="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="raster-operations-in-r.html#cb111-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb111-2"><a href="raster-operations-in-r.html#cb111-2"></a><span class="kw">tm_shape</span>(bath3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greys&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb111-3"><a href="raster-operations-in-r.html#cb111-3"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>If a more elaborate form of reclassification is desired, you can use the <code>reclassify</code> function. In the following example, the raster object <code>bath</code> is reclassified to 4 unique values: 100, 500, 1000 and 11000 as follows:</p>
 <table>
 <thead>
@@ -484,90 +491,90 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </tbody>
 </table>
 <p>The first step is to create a plain matrix where the first and second columns list the starting and ending values of the range of input values that are to be reclassified, and where the third column lists the new raster cell values.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1">m &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">100</span>,  <span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">500</span>,  <span class="dv">500</span>, </a>
-<a class="sourceLine" id="cb106-2" title="2">       <span class="dv">1000</span>,  <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">11000</span>, <span class="dv">11000</span>)</a>
-<a class="sourceLine" id="cb106-3" title="3">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(m, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow =</span> T)</a>
-<a class="sourceLine" id="cb106-4" title="4">m</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="raster-operations-in-r.html#cb112-1"></a>m &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">100</span>,  <span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">500</span>,  <span class="dv">500</span>, </span>
+<span id="cb112-2"><a href="raster-operations-in-r.html#cb112-2"></a>       <span class="dv">1000</span>,  <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">11000</span>, <span class="dv">11000</span>)</span>
+<span id="cb112-3"><a href="raster-operations-in-r.html#cb112-3"></a>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(m, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow =</span> T)</span>
+<span id="cb112-4"><a href="raster-operations-in-r.html#cb112-4"></a>m</span></code></pre></div>
 <pre><code>     [,1]  [,2]  [,3]
 [1,]    0   100   100
 [2,]  100   500   500
 [3,]  500  1000  1000
 [4,] 1000 11000 11000</code></pre>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1">bath3 &lt;-<span class="st"> </span><span class="kw">reclassify</span>(bath, m, <span class="dt">right =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="raster-operations-in-r.html#cb114-1"></a>bath3 &lt;-<span class="st"> </span><span class="kw">reclassify</span>(bath, m, <span class="dt">right =</span> T)</span></code></pre></div>
 <p>The <code>right=T</code> parameter indicates that the intervals should be closed to the right (i.e. the second column of the reclassification matrix is inclusive).</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1"><span class="kw">tm_shape</span>(bath3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;cat&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="raster-operations-in-r.html#cb115-1"></a><span class="kw">tm_shape</span>(bath3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">style=</span><span class="st">&quot;cat&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>You can also assign <code>NA</code> (missing) values to pixels. For example, to assign <code>NA</code> values to cells that are equal to 100, type</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1">bath3[bath3 <span class="op">==</span><span class="st"> </span><span class="dv">100</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="raster-operations-in-r.html#cb116-1"></a>bath3[bath3 <span class="op">==</span><span class="st"> </span><span class="dv">100</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
 <p>The following chunk of code highlights all <code>NA</code> pixels in grey and labels them as missing.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1"><span class="kw">tm_shape</span>(bath3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">showNA=</span><span class="ot">TRUE</span>, <span class="dt">colorNA=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb111-2" title="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="raster-operations-in-r.html#cb117-1"></a><span class="kw">tm_shape</span>(bath3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">showNA=</span><span class="ot">TRUE</span>, <span class="dt">colorNA=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb117-2"><a href="raster-operations-in-r.html#cb117-2"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="binary-operations-and-functions-where-two-rasters-are-used" class="section level3 unnumbered">
 <h3>Binary operations and functions (where two rasters are used)</h3>
 <p>In the following example, <code>elev</code> (elevation raster) is added to <code>bath</code> (bathymetry raster) to create a single elevation raster for the globe. Note that the bathymetric raster will need to be multiplied by <code>-1</code> to differentiate above mean sea level elevation from below mean sea level depth.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1">elevation &lt;-<span class="st"> </span>elev <span class="op">-</span><span class="st"> </span>bath</a></code></pre></div>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1"><span class="kw">tm_shape</span>(elevation) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb113-2" title="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="raster-operations-in-r.html#cb118-1"></a>elevation &lt;-<span class="st"> </span>elev <span class="op">-</span><span class="st"> </span>bath</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="raster-operations-in-r.html#cb119-1"></a><span class="kw">tm_shape</span>(elevation) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb119-2"><a href="raster-operations-in-r.html#cb119-2"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 </div>
-<div id="focal-operations-and-functions-1" class="section level2 unnumbered">
+<div id="focal-operations-and-functions" class="section level2 unnumbered">
 <h2>Focal operations and functions</h2>
 <p>Operations or functions applied focally to rasters involve user defined neighboring cells. For example, a cell output value can be the average of all 121 cells–an 11x11 kernel–centered on the cell whose value is being estimated (this is an example of a <em>smoothing function</em>).</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">f1 &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">11</span>,<span class="dt">ncol=</span><span class="dv">11</span>)  , <span class="dt">fun=</span>mean)</a></code></pre></div>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1"><span class="kw">tm_shape</span>(f1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb115-2" title="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="raster-operations-in-r.html#cb120-1"></a>f1 &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">11</span>,<span class="dt">ncol=</span><span class="dv">11</span>)  , <span class="dt">fun=</span>mean)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="raster-operations-in-r.html#cb121-1"></a><span class="kw">tm_shape</span>(f1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb121-2"><a href="raster-operations-in-r.html#cb121-2"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>By default edge cells are assigned a value of <code>NA</code>. This is because cells outside of the input raster extent have no value but may fall inside the kernel window when edge cells are computed. You can remedy this by passing the parameters <code>na.rm=TRUE</code> and <code>pad=TRUE</code> to the function.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1">f1 &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">11</span>,<span class="dt">ncol=</span><span class="dv">11</span>)  , </a>
-<a class="sourceLine" id="cb116-2" title="2">            <span class="dt">fun=</span>mean, <span class="dt">pad=</span><span class="ot">TRUE</span>,  <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1"><span class="kw">tm_shape</span>(f1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb117-2" title="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="raster-operations-in-r.html#cb122-1"></a>f1 &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">11</span>,<span class="dt">ncol=</span><span class="dv">11</span>)  , </span>
+<span id="cb122-2"><a href="raster-operations-in-r.html#cb122-2"></a>            <span class="dt">fun=</span>mean, <span class="dt">pad=</span><span class="ot">TRUE</span>,  <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="raster-operations-in-r.html#cb123-1"></a><span class="kw">tm_shape</span>(f1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb123-2"><a href="raster-operations-in-r.html#cb123-2"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>But, you must be careful when making use of the <code>na.rm=TRUE</code>/<code>pad=TRUE</code> combination. In the above example, we are passing the values from the kernel window as <em>a vector element</em> to the <code>mean</code> function. So the number of valid (non NA) values being passed to the <code>mean</code> function does not matter since the function will sort out the weights based on the number of input values.</p>
 <p>If, however, the smoothing function makes use of explicitly defined weights, then setting <code>pad=TRUE</code> will be problematic since the edge pixels will succumb to unbalanced weights. In the following example, we’ll compare the output of three 3x3 smoothing operations as follows:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1"><span class="co"># Using the mean function</span></a>
-<a class="sourceLine" id="cb118-2" title="2">f_mean     &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">3</span>), <span class="dt">fun=</span>mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>, <span class="dt">pad=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb118-3" title="3"></a>
-<a class="sourceLine" id="cb118-4" title="4"><span class="co"># Using explicitly defined weights</span></a>
-<a class="sourceLine" id="cb118-5" title="5">f_wt_nopad &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">9</span>,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">3</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>, <span class="dt">pad=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb118-6" title="6">f_wt_pad   &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">9</span>,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">3</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>, <span class="dt">pad=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="raster-operations-in-r.html#cb124-1"></a><span class="co"># Using the mean function</span></span>
+<span id="cb124-2"><a href="raster-operations-in-r.html#cb124-2"></a>f_mean     &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">3</span>), <span class="dt">fun=</span>mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>, <span class="dt">pad=</span><span class="ot">TRUE</span>)</span>
+<span id="cb124-3"><a href="raster-operations-in-r.html#cb124-3"></a></span>
+<span id="cb124-4"><a href="raster-operations-in-r.html#cb124-4"></a><span class="co"># Using explicitly defined weights</span></span>
+<span id="cb124-5"><a href="raster-operations-in-r.html#cb124-5"></a>f_wt_nopad &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">9</span>,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">3</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>, <span class="dt">pad=</span><span class="ot">FALSE</span>)</span>
+<span id="cb124-6"><a href="raster-operations-in-r.html#cb124-6"></a>f_wt_pad   &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">9</span>,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">3</span>), <span class="dt">na.rm=</span><span class="ot">TRUE</span>, <span class="dt">pad=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <p>The following images are zoomed in on the upper left-hand set of pixels of each raster output. The <code>elevation</code> raster is the input raster.</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-18-1.png" width="768" /></p>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-17-1.png" width="768" /></p>
 <p>The left-most image shows the original upper left-hand corner elevation pixel values. The second image shows the output using the mean function with the <code>pad=TRUE</code> option. The third image shows the output using the weighted kernel window with the <code>pad=FALSE</code> option (note the upper row of <code>NA</code> pixels highlighted in <em>bisque</em> color). The last image shows the output from the same weighted kernel window using the <code>pad=TRUE</code> option. This last outcome is not desirable. For example, the middle top pixel is computed from <code>1/9(-4113 -4113 -4112 -4107 -4104 -4103)</code>, which results in dividing the sum of <em>six</em> values by <em>nine</em>–hence the unbalanced weight effect. Note that we do not have that problem using the mean function.</p>
 <p>You might have noticed the lack of edge effect issues along the western edge of the raster outputs. This is because the <code>focal</code> function will wrap the eastern edge of the raster to the western edge of that same raster if the input raster layer spans the entire globe (i.e from -180 ° to +180 °).</p>
 <p>The <em>neighbors</em> matrix (or <em>kernel</em>) that defines the moving window can be customized. For example if we wanted to compute the average of all 8 neighboring cells <em>excluding</em> the central cell we could define the matrix as follows:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1">m  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)<span class="op">/</span><span class="dv">8</span>,<span class="dt">nrow =</span> <span class="dv">3</span>) </a>
-<a class="sourceLine" id="cb119-2" title="2">f2 &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span>m, <span class="dt">fun=</span>sum)</a></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="raster-operations-in-r.html#cb125-1"></a>m  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)<span class="op">/</span><span class="dv">8</span>,<span class="dt">nrow =</span> <span class="dv">3</span>) </span>
+<span id="cb125-2"><a href="raster-operations-in-r.html#cb125-2"></a>f2 &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span>m, <span class="dt">fun=</span>sum)</span></code></pre></div>
 <p>More complicated kernels can be defined. In the following example, a <a href="http://en.wikipedia.org/wiki/Sobel_operator">Sobel</a> filter (used for edge detection in image processing) is defined then applied to the raster layer <code>elevation</code>.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1">Sobel &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="op">/</span><span class="st"> </span><span class="dv">4</span>, <span class="dt">nrow=</span><span class="dv">3</span>) </a>
-<a class="sourceLine" id="cb120-2" title="2">f3    &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span>Sobel, <span class="dt">fun=</span>sum) </a>
-<a class="sourceLine" id="cb120-3" title="3"></a>
-<a class="sourceLine" id="cb120-4" title="4"><span class="kw">tm_shape</span>(f3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;Greys&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb120-5" title="5"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.show =</span> <span class="ot">FALSE</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="raster-operations-in-r.html#cb126-1"></a>Sobel &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="op">/</span><span class="st"> </span><span class="dv">4</span>, <span class="dt">nrow=</span><span class="dv">3</span>) </span>
+<span id="cb126-2"><a href="raster-operations-in-r.html#cb126-2"></a>f3    &lt;-<span class="st"> </span><span class="kw">focal</span>(elevation, <span class="dt">w=</span>Sobel, <span class="dt">fun=</span>sum) </span>
+<span id="cb126-3"><a href="raster-operations-in-r.html#cb126-3"></a></span>
+<span id="cb126-4"><a href="raster-operations-in-r.html#cb126-4"></a><span class="kw">tm_shape</span>(f3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;Greys&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb126-5"><a href="raster-operations-in-r.html#cb126-5"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.show =</span> <span class="ot">FALSE</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
-<div id="zonal-operations-and-functions-1" class="section level2 unnumbered">
+<div id="zonal-operations-and-functions" class="section level2 unnumbered">
 <h2>Zonal operations and functions</h2>
 <p>A common zonal operation is the aggregation of cells. In the following example, raster layer <code>elevation</code> is aggregated to a 5x5 raster layer.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1">z1 &lt;-<span class="st"> </span><span class="kw">aggregate</span>(elevation, <span class="dt">fact=</span><span class="dv">2</span>, <span class="dt">fun=</span>mean, <span class="dt">expand=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb121-2" title="2"></a>
-<a class="sourceLine" id="cb121-3" title="3"><span class="kw">tm_shape</span>(z1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb121-4" title="4"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="raster-operations-in-r.html#cb127-1"></a>z1 &lt;-<span class="st"> </span><span class="kw">aggregate</span>(elevation, <span class="dt">fact=</span><span class="dv">2</span>, <span class="dt">fun=</span>mean, <span class="dt">expand=</span><span class="ot">TRUE</span>)</span>
+<span id="cb127-2"><a href="raster-operations-in-r.html#cb127-2"></a></span>
+<span id="cb127-3"><a href="raster-operations-in-r.html#cb127-3"></a><span class="kw">tm_shape</span>(z1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;-RdBu&quot;</span>,<span class="dt">n=</span><span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb127-4"><a href="raster-operations-in-r.html#cb127-4"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>The image may not look much different from the original, but a look at the image properties will show a difference in pixel sizes.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="kw">res</span>(elevation)</a></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="raster-operations-in-r.html#cb128-1"></a><span class="kw">res</span>(elevation)</span></code></pre></div>
 <pre><code>[1] 0.3333333 0.3333333</code></pre>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1"><span class="kw">res</span>(z1)</a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="raster-operations-in-r.html#cb130-1"></a><span class="kw">res</span>(z1)</span></code></pre></div>
 <pre><code>[1] 0.6666667 0.6666667</code></pre>
 <p><code>z1</code>’s pixel dimensions are half of <code>elevation</code>’s dimensions. You can reverse the process by using the <code>disaggregate</code> function which will split a cell into the desired number of subcells while assigning each one the same parent cell value.</p>
 <p>Zonal operations can often involve two layers, one with the values to be aggregated, the other with the defined zones. In the next example, <code>elevation</code>’s cell values are averaged by zones defined by the <code>cont</code> polygon layer.</p>
 <p>The following chunk computes the mean elevation value for each unique polygon in <code>cont</code>,</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1">cont.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elevation, cont, <span class="dt">fun=</span>mean, <span class="dt">sp=</span><span class="ot">TRUE</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="raster-operations-in-r.html#cb132-1"></a>cont.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elevation, cont, <span class="dt">fun=</span>mean, <span class="dt">sp=</span><span class="ot">TRUE</span>) </span></code></pre></div>
 <p>The <code>sp=TRUE</code> parameter instructs the function to output a <code>SpatialPolygonsDataFrame</code> object (same as the input zonal object) instead of a standalone table (matrix). The output spatial object inherits the original attributes and adds a column called <code>layer</code> with the computed mean elevation values.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1">cont.elev<span class="op">@</span>data</a></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="raster-operations-in-r.html#cb133-1"></a>cont.elev<span class="op">@</span>data</span></code></pre></div>
 <pre><code>      CONTINENT     layer
 0        Africa  630.6979
 1    Antarctica 2370.8633
@@ -577,154 +584,158 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 5 North America  826.4162
 6 South America  595.6067</code></pre>
 <p>We can now map the average elevation by continent.</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1"><span class="kw">tm_shape</span>(cont.elev) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;layer&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb129-2" title="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>)</a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="raster-operations-in-r.html#cb135-1"></a><span class="kw">tm_shape</span>(cont.elev) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;layer&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb135-2"><a href="raster-operations-in-r.html#cb135-2"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>)</span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>Many custom functions can be applied to <code>extract</code>. For example, to extract the maximum elevation value by continent, type:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">cont.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elevation, cont, <span class="dt">fun=</span>max, <span class="dt">sp=</span><span class="ot">TRUE</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="raster-operations-in-r.html#cb136-1"></a>cont.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elevation, cont, <span class="dt">fun=</span>max, <span class="dt">sp=</span><span class="ot">TRUE</span>) </span></code></pre></div>
 <p>As another example, we may wish to extract the number of pixels in each polygon using a customized function.</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" title="1">cont.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elevation, cont, <span class="dt">fun=</span><span class="cf">function</span>(x,...){<span class="kw">length</span>(x)}, <span class="dt">sp=</span><span class="ot">TRUE</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="raster-operations-in-r.html#cb137-1"></a>cont.elev &lt;-<span class="st"> </span><span class="kw">extract</span>(elevation, cont, <span class="dt">fun=</span><span class="cf">function</span>(x,...){<span class="kw">length</span>(x)}, <span class="dt">sp=</span><span class="ot">TRUE</span>) </span></code></pre></div>
 <p>The <code>extract</code> function will also work with lines and point spatial objects. If you wish to compute the zonal statistics of a raster using another raster as zones instead of a vector layer, use the <code>zonal()</code> function instead.</p>
 </div>
-<div id="global-operations-and-functions-1" class="section level2 unnumbered">
+<div id="global-operations-and-functions" class="section level2 unnumbered">
 <h2>Global operations and functions</h2>
 <p>Global operations and functions may make use of all input cells of a grid in the computation of an output cell value.</p>
 <p>An example of a global function is the Euclidean distance function, <code>distance</code>, which computes the shortest distance between a pixel and a source (or destination) location. To demonstrate the <code>distance</code> function, we’ll first create a new raster layer with two non-NA pixels.</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1">r1   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol=</span><span class="dv">100</span>, <span class="dt">nrow=</span><span class="dv">100</span>, <span class="dt">xmn=</span><span class="dv">0</span>, <span class="dt">xmx=</span><span class="dv">100</span>, <span class="dt">ymn=</span><span class="dv">0</span>, <span class="dt">ymx=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb132-2" title="2">r1[] &lt;-<span class="st"> </span><span class="ot">NA</span>              <span class="co"># Assign NoData values to all pixels</span></a>
-<a class="sourceLine" id="cb132-3" title="3">r1[<span class="kw">c</span>(<span class="dv">850</span>, <span class="dv">5650</span>)] &lt;-<span class="st"> </span><span class="dv">1</span>   <span class="co"># Change the pixels #850 and #5650  to 1</span></a></code></pre></div>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1"><span class="kw">tm_shape</span>(r1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb133-2" title="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="raster-operations-in-r.html#cb138-1"></a>r1   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol=</span><span class="dv">100</span>, <span class="dt">nrow=</span><span class="dv">100</span>, <span class="dt">xmn=</span><span class="dv">0</span>, <span class="dt">xmx=</span><span class="dv">100</span>, <span class="dt">ymn=</span><span class="dv">0</span>, <span class="dt">ymx=</span><span class="dv">100</span>)</span>
+<span id="cb138-2"><a href="raster-operations-in-r.html#cb138-2"></a>r1[] &lt;-<span class="st"> </span><span class="ot">NA</span>              <span class="co"># Assign NoData values to all pixels</span></span>
+<span id="cb138-3"><a href="raster-operations-in-r.html#cb138-3"></a>r1[<span class="kw">c</span>(<span class="dv">850</span>, <span class="dv">5650</span>)] &lt;-<span class="st"> </span><span class="dv">1</span>   <span class="co"># Change the pixels #850 and #5650  to 1</span></span>
+<span id="cb138-4"><a href="raster-operations-in-r.html#cb138-4"></a><span class="kw">crs</span>(r1) &lt;-<span class="st"> &quot;+proj=ortho&quot;</span>  <span class="co"># Assign an arbitrary coordinate system (needed for mapping with tmap)</span></span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="raster-operations-in-r.html#cb139-1"></a><span class="kw">tm_shape</span>(r1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb139-2"><a href="raster-operations-in-r.html#cb139-2"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p>Next, we’ll compute a Euclidean distance raster from these two cells. The output extent will default to the input raster extent.</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1">r1.d &lt;-<span class="st"> </span><span class="kw">distance</span>(r1) </a></code></pre></div>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1"><span class="kw">tm_shape</span>(r1.d) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;order&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Distance&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb135-2" title="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb135-3" title="3"><span class="st">  </span><span class="kw">tm_shape</span>(r1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;red&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points&quot;</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="raster-operations-in-r.html#cb140-1"></a>r1.d &lt;-<span class="st"> </span><span class="kw">distance</span>(r1) </span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="raster-operations-in-r.html#cb141-1"></a><span class="kw">tm_shape</span>(r1.d) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;order&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Distance&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb141-2"><a href="raster-operations-in-r.html#cb141-2"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) <span class="op">+</span></span>
+<span id="cb141-3"><a href="raster-operations-in-r.html#cb141-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(r1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette=</span><span class="st">&quot;red&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points&quot;</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>You can also compute a distance raster using <code>SpatialPoints</code> objects or a simple x,y data table. In the following example, distances to points (25,30) and (87,80) are computed for each output cell. However, since we are working off of point objects (and not an existing raster as was the case in the previous example), we will need to create a blank raster layer which will define the extent of the Euclidean distance raster output.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1"><span class="co"># Create a blank raster</span></a>
-<a class="sourceLine" id="cb136-2" title="2">r2 &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol=</span><span class="dv">100</span>, <span class="dt">nrow=</span><span class="dv">100</span>, <span class="dt">xmn=</span><span class="dv">0</span>, <span class="dt">xmx=</span><span class="dv">100</span>, <span class="dt">ymn=</span><span class="dv">0</span>, <span class="dt">ymx=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb136-3" title="3"></a>
-<a class="sourceLine" id="cb136-4" title="4"><span class="co"># Create a point layer</span></a>
-<a class="sourceLine" id="cb136-5" title="5">xy &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">87</span>,<span class="dv">80</span>),<span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span>T) </a>
-<a class="sourceLine" id="cb136-6" title="6">p1 &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(xy)</a></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="raster-operations-in-r.html#cb142-1"></a><span class="co"># Create a blank raster</span></span>
+<span id="cb142-2"><a href="raster-operations-in-r.html#cb142-2"></a>r2 &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol=</span><span class="dv">100</span>, <span class="dt">nrow=</span><span class="dv">100</span>, <span class="dt">xmn=</span><span class="dv">0</span>, <span class="dt">xmx=</span><span class="dv">100</span>, <span class="dt">ymn=</span><span class="dv">0</span>, <span class="dt">ymx=</span><span class="dv">100</span>)</span>
+<span id="cb142-3"><a href="raster-operations-in-r.html#cb142-3"></a><span class="kw">crs</span>(r2) &lt;-<span class="st"> &quot;+proj=ortho&quot;</span>  <span class="co"># Assign an arbitrary coordinate system </span></span>
+<span id="cb142-4"><a href="raster-operations-in-r.html#cb142-4"></a></span>
+<span id="cb142-5"><a href="raster-operations-in-r.html#cb142-5"></a><span class="co"># Create a point layer</span></span>
+<span id="cb142-6"><a href="raster-operations-in-r.html#cb142-6"></a>xy &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">87</span>,<span class="dv">80</span>),<span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow=</span>T) </span>
+<span id="cb142-7"><a href="raster-operations-in-r.html#cb142-7"></a>p1 &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(xy)</span>
+<span id="cb142-8"><a href="raster-operations-in-r.html#cb142-8"></a><span class="kw">crs</span>(p1) &lt;-<span class="st"> &quot;+proj=ortho&quot;</span>  <span class="co"># Assign an arbitrary coordinate system </span></span></code></pre></div>
 <p>Now let’s compute the Euclidean distance to these points using the <code>distanceFromPoints</code> function.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" title="1">r2.d &lt;-<span class="st"> </span><span class="kw">distanceFromPoints</span>(r2, p1) </a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="raster-operations-in-r.html#cb143-1"></a>r2.d &lt;-<span class="st"> </span><span class="kw">distanceFromPoints</span>(r2, p1)</span></code></pre></div>
 <p>Let’s plot the resulting output.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="kw">tm_shape</span>(r2.d) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;order&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb138-2" title="2"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb138-3" title="3"><span class="st">  </span><span class="kw">tm_shape</span>(p1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) </a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="raster-operations-in-r.html#cb144-1"></a><span class="kw">tm_shape</span>(r2.d) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">palette =</span> <span class="st">&quot;Greens&quot;</span>, <span class="dt">style=</span><span class="st">&quot;order&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb144-2"><a href="raster-operations-in-r.html#cb144-2"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) <span class="op">+</span></span>
+<span id="cb144-3"><a href="raster-operations-in-r.html#cb144-3"></a><span class="st">  </span><span class="kw">tm_shape</span>(p1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) </span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 </div>
 <div id="computing-cumulative-distances" class="section level2 unnumbered">
 <h2>Computing cumulative distances</h2>
 <p>This exercise demonstrates how to use functions from the <code>gdistance</code> package to generate a cumulative distance raster. One objective will be to demonstrate the influence “adjacency cells” wields in the final results.</p>
 <p>Load the <code>gdistance</code> package.</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1"><span class="kw">library</span>(gdistance)</a></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="raster-operations-in-r.html#cb145-1"></a><span class="kw">library</span>(gdistance)</span></code></pre></div>
 <p>First, we’ll create a 100x100 raster and assign a value of <code>1</code> to each cell. The pixel value defines the cost (other than distance) in traversing that pixel. In this example, we’ll assume that the cost is uniform across the entire extent.</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1">r   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrows=</span><span class="dv">100</span>,<span class="dt">ncols=</span><span class="dv">100</span>,<span class="dt">xmn=</span><span class="dv">0</span>,<span class="dt">ymn=</span><span class="dv">0</span>,<span class="dt">xmx=</span><span class="dv">100</span>,<span class="dt">ymx=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb140-2" title="2">r[] &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">ncell</span>(r))</a></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="raster-operations-in-r.html#cb146-1"></a>r   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrows=</span><span class="dv">100</span>,<span class="dt">ncols=</span><span class="dv">100</span>,<span class="dt">xmn=</span><span class="dv">0</span>,<span class="dt">ymn=</span><span class="dv">0</span>,<span class="dt">xmx=</span><span class="dv">100</span>,<span class="dt">ymx=</span><span class="dv">100</span>)</span>
+<span id="cb146-2"><a href="raster-operations-in-r.html#cb146-2"></a>r[] &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">ncell</span>(r))</span></code></pre></div>
 <p>If you were to include traveling costs other than distance (such as elevation) you would assign those values to each cell instead of the constant value of <code>1</code>.</p>
 <p>A <strong>translation matrix</strong> allows one to define a ‘traversing’ cost going from one cell to an adjacent cell. Since we are assuming there are no ‘costs’ (other than distance) in traversing from one cell to any adjacent cell we’ll assign a value of 1, <code>function(x){1}</code>, to the translation between a cell and its adjacent cells (i.e. translation cost is uniform in all directions).</p>
 <p>There are four different ways in which ‘adjacency’ can be defined using the <code>transition</code> function. These are showcased in the next four blocks of code.</p>
 <p>In this example, adjacency is defined as a <strong>four node</strong> (vertical and horizontal) connection (i.e. a “rook” move).</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-39-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1">h4   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> <span class="cf">function</span>(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">4</span>)</a></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-38-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="raster-operations-in-r.html#cb147-1"></a>h4   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> <span class="cf">function</span>(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p>In this example, adjacency is defined as an <strong>eight node</strong> connection (i.e. a single cell “queen” move).</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-41-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1">h8   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> <span class="cf">function</span>(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">8</span>)</a></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-40-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="raster-operations-in-r.html#cb148-1"></a>h8   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> <span class="cf">function</span>(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">8</span>)</span></code></pre></div>
 <p>In this example, adjacency is defined as a <strong>sixteen node</strong> connection (i.e. a single cell “queen” move combined with a “knight” move).</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1">h16  &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction=</span><span class="cf">function</span>(x){<span class="dv">1</span>},<span class="dv">16</span>,<span class="dt">symm=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-42-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="raster-operations-in-r.html#cb149-1"></a>h16  &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction=</span><span class="cf">function</span>(x){<span class="dv">1</span>},<span class="dv">16</span>,<span class="dt">symm=</span><span class="ot">FALSE</span>)</span></code></pre></div>
 <p>In this example, adjacency is defined as a <strong>four node diagonal</strong> connection (i.e. a single cell “bishop” move).</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-45-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1">hb   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction=</span><span class="cf">function</span>(x){<span class="dv">1</span>},<span class="st">&quot;bishop&quot;</span>,<span class="dt">symm=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-44-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="raster-operations-in-r.html#cb150-1"></a>hb   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction=</span><span class="cf">function</span>(x){<span class="dv">1</span>},<span class="st">&quot;bishop&quot;</span>,<span class="dt">symm=</span><span class="ot">FALSE</span>)</span></code></pre></div>
 <p>The <code>transition</code> function treats all adjacent cells as being at an equal distance from the source cell across the entire raster. <code>geoCorrection</code> corrects for ‘true’ local distance. In essence, it’s adding an additional cost to traversing from one cell to an adjacent cell (the original cost being defined using the <code>transition</code> function). The importance of applying this correction will be shown later.</p>
 <p>Note: <code>geoCorrection</code> also corrects for distance distortions associated with data in a geographic coordinate system. To take advantage of this correction, make sure to define the raster layer’s coordinate system using the <code>projection</code> function.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1">h4    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h4,  <span class="dt">scl=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb145-2" title="2">h8    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h8,  <span class="dt">scl=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb145-3" title="3">h16   &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h16, <span class="dt">scl=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb145-4" title="4">hb    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(hb,  <span class="dt">scl=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="raster-operations-in-r.html#cb151-1"></a>h4    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h4,  <span class="dt">scl=</span><span class="ot">FALSE</span>)</span>
+<span id="cb151-2"><a href="raster-operations-in-r.html#cb151-2"></a>h8    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h8,  <span class="dt">scl=</span><span class="ot">FALSE</span>)</span>
+<span id="cb151-3"><a href="raster-operations-in-r.html#cb151-3"></a>h16   &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h16, <span class="dt">scl=</span><span class="ot">FALSE</span>)</span>
+<span id="cb151-4"><a href="raster-operations-in-r.html#cb151-4"></a>hb    &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(hb,  <span class="dt">scl=</span><span class="ot">FALSE</span>)</span></code></pre></div>
 <p>In the “queen’s” case, the diagonal neighbors are <span class="math inline">\(\sqrt{2 x (CellWidth)^{2}}\)</span> times the cell width distance from the source cell.</p>
 <p>Next we will map the cumulative distance (<code>accCost</code>) from a central point (A) to all cells in the raster using the four different adjacency definitions.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">A       &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">50</span>) <span class="co"># Location of source cell</span></a>
-<a class="sourceLine" id="cb146-2" title="2">h4.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h4,A)</a>
-<a class="sourceLine" id="cb146-3" title="3">h8.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h8,A)</a>
-<a class="sourceLine" id="cb146-4" title="4">h16.acc &lt;-<span class="st"> </span><span class="kw">accCost</span>(h16,A)</a>
-<a class="sourceLine" id="cb146-5" title="5">hb.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(hb,A) </a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="raster-operations-in-r.html#cb152-1"></a>A       &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>,<span class="dv">50</span>) <span class="co"># Location of source cell</span></span>
+<span id="cb152-2"><a href="raster-operations-in-r.html#cb152-2"></a>h4.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h4,A)</span>
+<span id="cb152-3"><a href="raster-operations-in-r.html#cb152-3"></a>h8.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h8,A)</span>
+<span id="cb152-4"><a href="raster-operations-in-r.html#cb152-4"></a>h16.acc &lt;-<span class="st"> </span><span class="kw">accCost</span>(h16,A)</span>
+<span id="cb152-5"><a href="raster-operations-in-r.html#cb152-5"></a>hb.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(hb,A) </span></code></pre></div>
 <p>If the <code>geoCorrection</code> function had not been applied in the previous steps, the cumulative distance between point location A and its neighboring adjacent cells would have been different. Note the difference in cumulative distance for the 16-direction case as shown in the next two figures.</p>
 <p>Uncorrected (i.e. <code>geoCorrection</code> <em>not</em> applied to h16):</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-50-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-49-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
 <p>Corrected (i.e. <code>geoCorrection</code> applied to h16):</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-51-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-50-1.png" width="288" style="display: block; margin: auto auto auto 0;" /></p>
 <p>The “bishop” case offers a unique problem: only cells in the diagonal direction are identified as being adjacent. This leaves many undefined cells (labeled as <code>Inf</code>). We will change the <code>Inf</code> cells to <code>NA</code> cells.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1">hb.acc[hb.acc <span class="op">==</span><span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="raster-operations-in-r.html#cb153-1"></a>hb.acc[hb.acc <span class="op">==</span><span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
 <p>Now let’s compare a 7x7 subset (centered on point A) between the four different cumulative distance rasters.</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-52-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
 <p>To highlight the differences between all four rasters, we will assign a red color to all cells that are within 20 cell units of point A.</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto auto auto 0;" /></p>
 <p>It’s obvious that the accuracy of the cumulative distance raster can be greatly influenced by how we define adjacent nodes. The number of red cells (i.e. area identified as being within a 20 units cumulative distance) ranges from 925 to 2749 cells.</p>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <div id="working-example" class="section level3 unnumbered">
 <h3>Working example</h3>
 <p>In the following example, we will generate a raster layer with barriers (defined as <code>NA</code> cell values). The goal will be to identify all cells that fall within a 290 km traveling distance from the upper left-hand corner of the raster layer. Results between an 8-node and 16-node adjacency definition will be compared.</p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="co"># create an empty raster</span></a>
-<a class="sourceLine" id="cb148-2" title="2">r   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrows=</span><span class="dv">300</span>,<span class="dt">ncols=</span><span class="dv">150</span>,<span class="dt">xmn=</span><span class="dv">0</span>,<span class="dt">ymn=</span><span class="dv">0</span>,<span class="dt">xmx=</span><span class="dv">150000</span>, <span class="dt">ymx=</span><span class="dv">300000</span>)</a>
-<a class="sourceLine" id="cb148-3" title="3"></a>
-<a class="sourceLine" id="cb148-4" title="4"><span class="co"># Define a UTM projection (this sets map units to meters)</span></a>
-<a class="sourceLine" id="cb148-5" title="5"><span class="kw">projection</span>(r) =<span class="st"> &quot;+proj=utm +zone=19 +datum=NAD83&quot;</span> </a>
-<a class="sourceLine" id="cb148-6" title="6"></a>
-<a class="sourceLine" id="cb148-7" title="7"><span class="co"># Each cell is assigned a value of 1</span></a>
-<a class="sourceLine" id="cb148-8" title="8">r[] &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">ncell</span>(r)) </a>
-<a class="sourceLine" id="cb148-9" title="9"></a>
-<a class="sourceLine" id="cb148-10" title="10"><span class="co"># Generate &#39;baffles&#39; by assigning NA to cells. Cells are identified by</span></a>
-<a class="sourceLine" id="cb148-11" title="11"><span class="co"># their index and not their coordinates.</span></a>
-<a class="sourceLine" id="cb148-12" title="12"><span class="co"># Baffles need to be 2 cells thick to prevent the 16-node</span></a>
-<a class="sourceLine" id="cb148-13" title="13"><span class="co"># case from &quot;jumping&quot; a one pixel thick NA cell.</span></a>
-<a class="sourceLine" id="cb148-14" title="14">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">3001</span>,<span class="dv">3100</span>,<span class="dv">1</span>),<span class="kw">seq</span>(<span class="dv">3151</span>,<span class="dv">3250</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb148-15" title="15">a &lt;-<span class="st"> </span><span class="kw">c</span>(a, a<span class="op">+</span><span class="dv">6000</span>, a<span class="op">+</span><span class="dv">12000</span>, a<span class="op">+</span><span class="dv">18000</span>, a<span class="op">+</span><span class="dv">24000</span>, a<span class="op">+</span><span class="dv">30000</span>, a<span class="op">+</span><span class="dv">36000</span>)</a>
-<a class="sourceLine" id="cb148-16" title="16">a &lt;-<span class="st"> </span><span class="kw">c</span>(a , a<span class="op">+</span><span class="dv">3050</span>)</a>
-<a class="sourceLine" id="cb148-17" title="17">r[a] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb148-18" title="18"></a>
-<a class="sourceLine" id="cb148-19" title="19"><span class="co"># Let&#39;s check that the baffles are properly placed</span></a>
-<a class="sourceLine" id="cb148-20" title="20"><span class="kw">tm_shape</span>(r) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">colorNA=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb148-21" title="21"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.show=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb148-22" title="22"></a>
-<a class="sourceLine" id="cb148-23" title="23"><span class="co"># Next, generate a transition matrix for the 8-node case and the 16-node case</span></a>
-<a class="sourceLine" id="cb148-24" title="24">h8   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> <span class="cf">function</span>(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb148-25" title="25">h16  &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> <span class="cf">function</span>(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">16</span>)</a>
-<a class="sourceLine" id="cb148-26" title="26"></a>
-<a class="sourceLine" id="cb148-27" title="27"><span class="co"># Now assign distance cost to the matrices. </span></a>
-<a class="sourceLine" id="cb148-28" title="28">h8   &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h8)</a>
-<a class="sourceLine" id="cb148-29" title="29">h16  &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h16)</a>
-<a class="sourceLine" id="cb148-30" title="30"></a>
-<a class="sourceLine" id="cb148-31" title="31"><span class="co"># Define a point source. </span></a>
-<a class="sourceLine" id="cb148-32" title="32">A &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw">cbind</span>(<span class="dv">50</span>,<span class="dv">290000</span>))</a>
-<a class="sourceLine" id="cb148-33" title="33"></a>
-<a class="sourceLine" id="cb148-34" title="34"><span class="co"># Compute the cumulative cost raster</span></a>
-<a class="sourceLine" id="cb148-35" title="35">h8.acc   &lt;-<span class="st"> </span><span class="kw">accCost</span>(h8, A)</a>
-<a class="sourceLine" id="cb148-36" title="36">h16.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h16,A)</a>
-<a class="sourceLine" id="cb148-37" title="37"></a>
-<a class="sourceLine" id="cb148-38" title="38"><span class="co"># Replace Inf with NA</span></a>
-<a class="sourceLine" id="cb148-39" title="39">h8.acc[h8.acc   <span class="op">==</span><span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb148-40" title="40">h16.acc[h16.acc <span class="op">==</span><span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="raster-operations-in-r.html#cb154-1"></a><span class="co"># create an empty raster</span></span>
+<span id="cb154-2"><a href="raster-operations-in-r.html#cb154-2"></a>r   &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrows=</span><span class="dv">300</span>,<span class="dt">ncols=</span><span class="dv">150</span>,<span class="dt">xmn=</span><span class="dv">0</span>,<span class="dt">ymn=</span><span class="dv">0</span>,<span class="dt">xmx=</span><span class="dv">150000</span>, <span class="dt">ymx=</span><span class="dv">300000</span>)</span>
+<span id="cb154-3"><a href="raster-operations-in-r.html#cb154-3"></a></span>
+<span id="cb154-4"><a href="raster-operations-in-r.html#cb154-4"></a><span class="co"># Define a UTM projection (this sets map units to meters)</span></span>
+<span id="cb154-5"><a href="raster-operations-in-r.html#cb154-5"></a><span class="kw">projection</span>(r) =<span class="st"> &quot;+proj=utm +zone=19 +datum=NAD83&quot;</span> </span>
+<span id="cb154-6"><a href="raster-operations-in-r.html#cb154-6"></a></span>
+<span id="cb154-7"><a href="raster-operations-in-r.html#cb154-7"></a><span class="co"># Each cell is assigned a value of 1</span></span>
+<span id="cb154-8"><a href="raster-operations-in-r.html#cb154-8"></a>r[] &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">ncell</span>(r)) </span>
+<span id="cb154-9"><a href="raster-operations-in-r.html#cb154-9"></a></span>
+<span id="cb154-10"><a href="raster-operations-in-r.html#cb154-10"></a><span class="co"># Generate &#39;baffles&#39; by assigning NA to cells. Cells are identified by</span></span>
+<span id="cb154-11"><a href="raster-operations-in-r.html#cb154-11"></a><span class="co"># their index and not their coordinates.</span></span>
+<span id="cb154-12"><a href="raster-operations-in-r.html#cb154-12"></a><span class="co"># Baffles need to be 2 cells thick to prevent the 16-node</span></span>
+<span id="cb154-13"><a href="raster-operations-in-r.html#cb154-13"></a><span class="co"># case from &quot;jumping&quot; a one pixel thick NA cell.</span></span>
+<span id="cb154-14"><a href="raster-operations-in-r.html#cb154-14"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">3001</span>,<span class="dv">3100</span>,<span class="dv">1</span>),<span class="kw">seq</span>(<span class="dv">3151</span>,<span class="dv">3250</span>,<span class="dv">1</span>))</span>
+<span id="cb154-15"><a href="raster-operations-in-r.html#cb154-15"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(a, a<span class="op">+</span><span class="dv">6000</span>, a<span class="op">+</span><span class="dv">12000</span>, a<span class="op">+</span><span class="dv">18000</span>, a<span class="op">+</span><span class="dv">24000</span>, a<span class="op">+</span><span class="dv">30000</span>, a<span class="op">+</span><span class="dv">36000</span>)</span>
+<span id="cb154-16"><a href="raster-operations-in-r.html#cb154-16"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(a , a<span class="op">+</span><span class="dv">3050</span>)</span>
+<span id="cb154-17"><a href="raster-operations-in-r.html#cb154-17"></a>r[a] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb154-18"><a href="raster-operations-in-r.html#cb154-18"></a></span>
+<span id="cb154-19"><a href="raster-operations-in-r.html#cb154-19"></a><span class="co"># Let&#39;s check that the baffles are properly placed</span></span>
+<span id="cb154-20"><a href="raster-operations-in-r.html#cb154-20"></a><span class="kw">tm_shape</span>(r) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">colorNA=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb154-21"><a href="raster-operations-in-r.html#cb154-21"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.show=</span><span class="ot">FALSE</span>)</span>
+<span id="cb154-22"><a href="raster-operations-in-r.html#cb154-22"></a></span>
+<span id="cb154-23"><a href="raster-operations-in-r.html#cb154-23"></a><span class="co"># Next, generate a transition matrix for the 8-node case and the 16-node case</span></span>
+<span id="cb154-24"><a href="raster-operations-in-r.html#cb154-24"></a>h8   &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> <span class="cf">function</span>(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">8</span>)</span>
+<span id="cb154-25"><a href="raster-operations-in-r.html#cb154-25"></a>h16  &lt;-<span class="st"> </span><span class="kw">transition</span>(r, <span class="dt">transitionFunction =</span> <span class="cf">function</span>(x){<span class="dv">1</span>}, <span class="dt">directions =</span> <span class="dv">16</span>)</span>
+<span id="cb154-26"><a href="raster-operations-in-r.html#cb154-26"></a></span>
+<span id="cb154-27"><a href="raster-operations-in-r.html#cb154-27"></a><span class="co"># Now assign distance cost to the matrices. </span></span>
+<span id="cb154-28"><a href="raster-operations-in-r.html#cb154-28"></a>h8   &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h8)</span>
+<span id="cb154-29"><a href="raster-operations-in-r.html#cb154-29"></a>h16  &lt;-<span class="st"> </span><span class="kw">geoCorrection</span>(h16)</span>
+<span id="cb154-30"><a href="raster-operations-in-r.html#cb154-30"></a></span>
+<span id="cb154-31"><a href="raster-operations-in-r.html#cb154-31"></a><span class="co"># Define a point source. </span></span>
+<span id="cb154-32"><a href="raster-operations-in-r.html#cb154-32"></a>A &lt;-<span class="st"> </span><span class="kw">SpatialPoints</span>(<span class="kw">cbind</span>(<span class="dv">50</span>,<span class="dv">290000</span>))</span>
+<span id="cb154-33"><a href="raster-operations-in-r.html#cb154-33"></a><span class="kw">crs</span>(A) &lt;-<span class="st"> &quot;+proj=ortho&quot;</span>  <span class="co"># Assign an arbitrary coordinate system </span></span>
+<span id="cb154-34"><a href="raster-operations-in-r.html#cb154-34"></a></span>
+<span id="cb154-35"><a href="raster-operations-in-r.html#cb154-35"></a><span class="co"># Compute the cumulative cost raster</span></span>
+<span id="cb154-36"><a href="raster-operations-in-r.html#cb154-36"></a>h8.acc   &lt;-<span class="st"> </span><span class="kw">accCost</span>(h8, A)</span>
+<span id="cb154-37"><a href="raster-operations-in-r.html#cb154-37"></a>h16.acc  &lt;-<span class="st"> </span><span class="kw">accCost</span>(h16,A)</span>
+<span id="cb154-38"><a href="raster-operations-in-r.html#cb154-38"></a></span>
+<span id="cb154-39"><a href="raster-operations-in-r.html#cb154-39"></a><span class="co"># Replace Inf with NA</span></span>
+<span id="cb154-40"><a href="raster-operations-in-r.html#cb154-40"></a>h8.acc[h8.acc   <span class="op">==</span><span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb154-41"><a href="raster-operations-in-r.html#cb154-41"></a>h16.acc[h16.acc <span class="op">==</span><span class="st"> </span><span class="ot">Inf</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 <p>Let’s plot the results. Yellow cells will identify cumulative distances within 290 km.</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="kw">tm_shape</span>(h8.acc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">2</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">290000</span>,<span class="ot">Inf</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb149-2" title="2"><span class="st">  </span><span class="kw">tm_facets</span>() <span class="op">+</span><span class="st"> </span><span class="kw">tm_shape</span>(A) <span class="op">+</span><span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb149-3" title="3"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>)</a>
-<a class="sourceLine" id="cb149-4" title="4"></a>
-<a class="sourceLine" id="cb149-5" title="5"><span class="kw">tm_shape</span>(h16.acc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">2</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">290000</span>,<span class="ot">Inf</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb149-6" title="6"><span class="st">  </span><span class="kw">tm_facets</span>() <span class="op">+</span><span class="st"> </span><span class="kw">tm_shape</span>(A) <span class="op">+</span><span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb149-7" title="7"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>)</a></code></pre></div>
-<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto auto auto 0;" /><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-58-2.png" width="672" style="display: block; margin: auto auto auto 0;" /></p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="raster-operations-in-r.html#cb155-1"></a><span class="kw">tm_shape</span>(h8.acc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">2</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">290000</span>,<span class="ot">Inf</span>)) <span class="op">+</span></span>
+<span id="cb155-2"><a href="raster-operations-in-r.html#cb155-2"></a><span class="st">  </span><span class="kw">tm_facets</span>() <span class="op">+</span><span class="st"> </span><span class="kw">tm_shape</span>(A) <span class="op">+</span><span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb155-3"><a href="raster-operations-in-r.html#cb155-3"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>)</span>
+<span id="cb155-4"><a href="raster-operations-in-r.html#cb155-4"></a></span>
+<span id="cb155-5"><a href="raster-operations-in-r.html#cb155-5"></a><span class="kw">tm_shape</span>(h16.acc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">2</span>, <span class="dt">style=</span><span class="st">&quot;fixed&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">290000</span>,<span class="ot">Inf</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb155-6"><a href="raster-operations-in-r.html#cb155-6"></a><span class="st">  </span><span class="kw">tm_facets</span>() <span class="op">+</span><span class="st"> </span><span class="kw">tm_shape</span>(A) <span class="op">+</span><span class="st"> </span><span class="kw">tm_bubbles</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb155-7"><a href="raster-operations-in-r.html#cb155-7"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>)</span></code></pre></div>
+<p><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto auto auto 0;" /><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-57-2.png" width="672" style="display: block; margin: auto auto auto 0;" /></p>
 <p>We can compute the difference between the 8-node and 16-node cumulative distance rasters:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1"><span class="kw">table</span>(h8.acc[]  <span class="op">&lt;=</span><span class="st"> </span><span class="dv">290000</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="raster-operations-in-r.html#cb156-1"></a><span class="kw">table</span>(h8.acc[]  <span class="op">&lt;=</span><span class="st"> </span><span class="dv">290000</span>) </span></code></pre></div>
 <pre><code>
 FALSE  TRUE 
 31458 10742 </code></pre>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1"><span class="kw">table</span>(h16.acc[] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">290000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="raster-operations-in-r.html#cb158-1"></a><span class="kw">table</span>(h16.acc[] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">290000</span>)</span></code></pre></div>
 <pre><code>
 FALSE  TRUE 
 30842 11358 </code></pre>
@@ -744,11 +755,13 @@ FALSE  TRUE
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -756,12 +769,12 @@ gitbook.start({
 "github": false,
 "facebook": false,
 "twitter": false,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
 "all": false,
+"google": false,
 "instapper": false
 },
 "fontsettings": {
@@ -774,6 +787,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -794,8 +811,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

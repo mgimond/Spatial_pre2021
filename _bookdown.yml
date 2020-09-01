@@ -2,4 +2,4 @@ book_filename: "Intro to GIS and Spatial Analysis"
 chapter_name: "Chapter "
 before_chapter_script: "Common.R"
 new_session: yes
-always_allow_html: yes
+always_allow_html: true

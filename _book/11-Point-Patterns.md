@@ -1,4 +1,3 @@
-
 # (PART) Spatial Analysis {-} 
  
 # Point Pattern Analysis
@@ -289,13 +288,15 @@ L=\sqrt{\dfrac{K(d)}{\pi}}-d
 $$
 
 
-The $\hat{K}$ computed earlier is transformed to the following plot (note how the $K_{expecetd}$ red line is now perfectly horizontal)
+The $\hat{K}$ computed earlier is transformed to the following plot (note how the $K_{expected}$ red line is now perfectly horizontal):
 
 
 <div class="figure">
-<img src="img/L_function.svg" alt="L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K~expected~ at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km."  />
-<p class="caption">(\#fig:f11-L)L-function (a simple transformation of the K-function). This graph makes it easier to compare K with K~expected~ at lower distance values. It appears that Walmart locations are more clustered than expected under CSR/IRP up to a distance of 12 km but more dispersed at distances greater than 12 km.</p>
+<img src="img/L_function.svg" alt="L-function (a simple transformation of the K-function)."  />
+<p class="caption">(\#fig:f11-L)L-function (a simple transformation of the K-function).</p>
 </div>
+
+This graph makes it easier to compare $K$ with $K_{expected}$ at lower distance values. Values greater than $0$ indicate clustering, while values less than $0$ indicate dispersion. It appears that Walmart locations are more dispersed than expected under CSR/IRP up to a distance of 12 km but more clustered at distances greater than 12 km.
 
 ### The Pair Correlation Function $g$
 
