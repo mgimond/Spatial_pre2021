@@ -88,6 +88,7 @@ gridded(grd)     <- TRUE  # Create SpatialPixel object
 fullgrid(grd)    <- TRUE  # Create SpatialGrid object
 
 # Add P's projection information to the empty grid
+proj4string(P) <- proj4string(P) # Temp fix until new proj env is adopted
 proj4string(grd) <- proj4string(P)
 
 # Interpolate the grid cells using a power value of 2 (idp=2.0)

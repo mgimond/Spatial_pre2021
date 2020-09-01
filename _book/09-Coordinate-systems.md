@@ -1,4 +1,3 @@
-
 ---
 output: html_document
 editor_options: 
@@ -204,13 +203,13 @@ A **geodesic distance** is the shortest distance between two points on an ellips
 
 If you are not convinced of the benefits afforded by geodesic geometry, compare the distances measured between two points located on either sides of the Atlantic in the following map. The blue dashed line represents the shortest distance between the two points on a *planar* coordinate system. The red line represents the shortest distance between the two points as measured on a *spheroid*.
 
-<img src="09-Coordinate-systems_files/figure-html/unnamed-chunk-10-1.png" width="480" />
+<img src="09-Coordinate-systems_files/figure-html/unnamed-chunk-9-1.png" width="480" />
 
 At first glance, the geodesic distance may seem nonsensical given its curved appearance on the projected map. However, this curvature is a byproduct of the current reference system’s increasing distance distortion as one progresses poleward. If you are still not convinced, you can display the geodesic and planar distance layers on a 3D globe (or a projection that mimics the view of the 3D earth as viewed from space centered on the mid-point of the geodesic line segment).
 
 
 
-<img src="09-Coordinate-systems_files/figure-html/unnamed-chunk-11-1.png" width="240" />
+<img src="09-Coordinate-systems_files/figure-html/unnamed-chunk-10-1.png" width="240" />
 
 So if a geodesic measurement is more precise than a planar measurement, why not perform all spatial operations using geodesic geometry? In many cases, a geodesic approach to spatial operations can be perfectly acceptable and is even encouraged. The downside is in its computational requirements. It's far more computationally efficient to compute area/distance on a plane than it is on a spheroid. This is because geodesic calculations have no simple algebraic solutions and involve approximations that may require iterative solutions. So this may be a computationally taxing approach if processing millions of line segments. 
 

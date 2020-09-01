@@ -1,0 +1,11 @@
+base
+sp
+raster
+lattice
+latticeExtra
+rasterVis
+ggplot2
+scales
+reshape2
+gridExtra
+broom

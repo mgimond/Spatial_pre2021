@@ -39,7 +39,7 @@ The attributes table for both polygon objects are shown next. Note that each sha
 library(gridExtra)
 tb.me  <- tableGrob( data.frame(s1),  theme = ttheme_default(base_size = 11))
 tb.cir <- tableGrob( data.frame(s2),  theme = ttheme_default(base_size = 11))
-tb <- combine(tb.me,tb.cir, along=1)
+tb <- gtable_combine(tb.me,tb.cir, along=1)
 grid.arrange(tb)
 ```
 

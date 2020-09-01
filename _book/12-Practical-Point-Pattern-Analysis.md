@@ -1,4 +1,3 @@
-
 # Hypothesis testing
 
 ## IRP/CSR
@@ -239,8 +238,8 @@ pop          1.043115e-04 3.851572e-05  2.882207e-05  1.798009e-04    **
 (Intercept) -124.508332
 pop            2.708284
 Problem:
- Values of the covariate 'pop' were NA or undefined at 0.7% (4 out of 572) 
-of the quadrature points
+ Values of the covariate 'pop' were NA or undefined at 0.7% (4 out of 572) of 
+the quadrature points
 ```
 
 Thus, the null model (homogeneous intensity) takes on the form:
@@ -260,9 +259,9 @@ $$
 The models are then compared using the **likelihood ratio test** which produces the following output:
 
 
- Npar   Df   Deviance    Pr(>Chi)
------  ---  ---------  ----------
-    5   NA         NA          NA
-    6    1   4.253072   0.0391794
+| Npar| Df| Deviance|  Pr(>Chi)|
+|----:|--:|--------:|---------:|
+|    5| NA|       NA|        NA|
+|    6|  1| 4.253072| 0.0391794|
 
 The value under the heading `PR(>Chi)` is the p-value which gives us the probability we would be wrong in rejecting the null. Here p=0.039 suggests that there is an 3.9% chance that we would be remiss to reject the base model in favor of the alternate model--put another way, the alternate model may be an improvement over the null. 

@@ -1,4 +1,3 @@
-
 # (PART) Appendix {-}
 
 
@@ -131,8 +130,7 @@ Simple feature collection with 4 features and 5 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
 bbox:           xmin: 379071.8 ymin: 4936182 xmax: 596500.1 ymax: 5255569
-epsg (SRID):    26919
-proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
+projected CRS:  NAD83 / UTM zone 19N
          NAME Income   NoSchool NoSchoolSE IncomeSE                       geometry
 1   Aroostook  21024 0.01338720 0.00140696  250.909 MULTIPOLYGON (((513821.1 51...
 2    Somerset  21025 0.00521153 0.00115002  390.909 MULTIPOLYGON (((379071.8 50...
@@ -253,8 +251,7 @@ Simple feature collection with 3 features and 1 field
 geometry type:  POINT
 dimension:      XY
 bbox:           xmin: -69.7653 ymin: 44.3235 xmax: -68.783 ymax: 44.8109
-epsg (SRID):    4326
-proj4string:    +proj=longlat +datum=WGS84 +no_defs
+geographic CRS: WGS 84
         Name                 geometry
 1     Bangor  POINT (-68.783 44.8109)
 2 Waterville POINT (-69.6458 44.5521)
@@ -316,6 +313,22 @@ As of this writing, it seems that you need to first convert the `sf` object to a
 ```r
 p.sp  <- as(p.sf, "Spatial")  # Create Spatial* object
 p.ppp <- as(p.sp, "ppp")      # Create ppp object
+```
+
+```
+Error in as.ppp.SpatialPointsDataFrame(from): Only projected coordinates may be converted to spatstat class objects
+```
+
+
+A `ppp` object is associated with the `spatstat` package which is designed to work off of a projected (cartesian) coordinate system. The error message reminds us that a geographic coordinate system (i.e. one that uses angular measurements such as latitude/longitude) cannot be used with this package. If you encounter this error, you will need to project the `p.sp` or `ps.f` layer to a projected coordinate system.
+
+In this example, we'll project the `p.sf` object to a UTM coordinate system (`epsg=32619`). Coordinate systems in R are treated in a separate appendix. 
+
+
+```r
+p.sf.utm <- st_transform(p.sf, 32619) # project from geographic to UTM
+p.sp  <- as(p.sf.utm, "Spatial")      # Create Spatial* object
+p.ppp <- as(p.sp, "ppp")              # Create ppp object
 class(p.ppp)
 ```
 
@@ -323,7 +336,7 @@ class(p.ppp)
 [1] "ppp"
 ```
 
-If the point layer has an attribute table, its attributes will be converted to `ppp` _marks_.
+Note that if the point layer has an attribute table, its attributes will be converted to `ppp` _marks_.
 
 ### Converting a `raster` object to an `im` object (`spatstat`) {-}
 
@@ -361,8 +374,7 @@ Simple feature collection with 3 features and 5 fields
 geometry type:  MULTIPOLYGON
 dimension:      XY
 bbox:           xmin: 379071.8 ymin: 4936182 xmax: 596500.1 ymax: 5255569
-epsg (SRID):    26919
-proj4string:    +proj=utm +zone=19 +datum=NAD83 +units=m +no_defs
+projected CRS:  NAD83 / UTM zone 19N
          NAME Income   NoSchool NoSchoolSE IncomeSE                       geometry
 1   Aroostook  21024 0.01338720 0.00140696  250.909 MULTIPOLYGON (((513821.1 51...
 2    Somerset  21025 0.00521153 0.00115002  390.909 MULTIPOLYGON (((379071.8 50...
@@ -382,8 +394,42 @@ st_crs(s.sf)
 
 ```
 Coordinate Reference System:
-  EPSG: 26919 
-  proj4string: "+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs"
+  User input: NAD83 / UTM zone 19N 
+  wkt:
+PROJCRS["NAD83 / UTM zone 19N",
+    BASEGEOGCRS["NAD83",
+        DATUM["North American Datum 1983",
+            ELLIPSOID["GRS 1980",6378137,298.257222101,
+                LENGTHUNIT["metre",1]]],
+        PRIMEM["Greenwich",0,
+            ANGLEUNIT["degree",0.0174532925199433]],
+        ID["EPSG",4269]],
+    CONVERSION["UTM zone 19N",
+        METHOD["Transverse Mercator",
+            ID["EPSG",9807]],
+        PARAMETER["Latitude of natural origin",0,
+            ANGLEUNIT["Degree",0.0174532925199433],
+            ID["EPSG",8801]],
+        PARAMETER["Longitude of natural origin",-69,
+            ANGLEUNIT["Degree",0.0174532925199433],
+            ID["EPSG",8802]],
+        PARAMETER["Scale factor at natural origin",0.9996,
+            SCALEUNIT["unity",1],
+            ID["EPSG",8805]],
+        PARAMETER["False easting",500000,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8806]],
+        PARAMETER["False northing",0,
+            LENGTHUNIT["metre",1],
+            ID["EPSG",8807]]],
+    CS[Cartesian,2],
+        AXIS["(E)",east,
+            ORDER[1],
+            LENGTHUNIT["metre",1]],
+        AXIS["(N)",north,
+            ORDER[2],
+            LENGTHUNIT["metre",1]],
+    ID["EPSG",26919]]
 ```
 
 The output of this call is an object of class `crs`. Extracting the reference system from a spatial object can prove useful in certain workflows.
@@ -422,7 +468,7 @@ str(s.df)
 
 ```
 'data.frame':	16 obs. of  6 variables:
- $ NAME      : Factor w/ 16 levels "Androscoggin",..: 2 13 11 10 15 4 9 14 6 1 ...
+ $ NAME      : chr  "Aroostook" "Somerset" "Piscataquis" "Penobscot" ...
  $ Income    : int  21024 21025 21292 23307 20015 21744 21885 23020 25652 24268 ...
  $ NoSchool  : num  0.01339 0.00521 0.00634 0.00685 0.00478 ...
  $ NoSchoolSE: num  0.001407 0.00115 0.002129 0.001025 0.000966 ...
@@ -430,7 +476,7 @@ str(s.df)
  $ geometry  :sfc_MULTIPOLYGON of length 16; first list element: List of 1
   ..$ :List of 1
   .. ..$ : num [1:32, 1:2] 513821 513806 445039 422284 424687 ...
-  ..- attr(*, "class")= chr  "XY" "MULTIPOLYGON" "sfg"
+  ..- attr(*, "class")= chr [1:3] "XY" "MULTIPOLYGON" "sfg"
 ```
 
 You can also opt to remove this column prior to creating the dataframe as follows:
@@ -473,13 +519,13 @@ You can see a list of writable vector formats via a call to `subset(rgdal::ogrDr
 
 ```
              name                       long_name write  copy isVector
-17 ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     TRUE
-18     Geoconcept                      Geoconcept  TRUE FALSE     TRUE
-19        GeoJSON                         GeoJSON  TRUE FALSE     TRUE
-21         GeoRSS                          GeoRSS  TRUE FALSE     TRUE
-22            GFT            Google Fusion Tables  TRUE FALSE     TRUE
-23            GML Geography Markup Language (GML)  TRUE FALSE     TRUE
-24           GPKG                      GeoPackage  TRUE  TRUE     TRUE
+18 ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     TRUE
+20     Geoconcept                      Geoconcept  TRUE FALSE     TRUE
+21        GeoJSON                         GeoJSON  TRUE FALSE     TRUE
+22     GeoJSONSeq                GeoJSON Sequence  TRUE FALSE     TRUE
+24         GeoRSS                          GeoRSS  TRUE FALSE     TRUE
+25            GFT            Google Fusion Tables  TRUE FALSE     TRUE
+26            GML Geography Markup Language (GML)  TRUE FALSE     TRUE
 ```
 
 
@@ -498,13 +544,13 @@ You can see a list of writable raster formats via a call to `subset(rgdal::gdalD
 
 ```
         name                            long_name create  copy isRaster
-43      GPKG                           GeoPackage   TRUE  TRUE     TRUE
-46     GS7BG Golden Software 7 Binary Grid (.grd)   TRUE  TRUE     TRUE
-48      GSBG   Golden Software Binary Grid (.grd)   TRUE  TRUE     TRUE
-50     GTiff                              GeoTIFF   TRUE  TRUE     TRUE
-51       GTX             NOAA Vertical Datum .GTX   TRUE FALSE     TRUE
-54 HDF4Image                         HDF4 Dataset   TRUE FALSE     TRUE
-58       HFA          Erdas Imagine Images (.img)   TRUE  TRUE     TRUE
+40      FITS      Flexible Image Transport System   TRUE FALSE     TRUE
+46      GPKG                           GeoPackage   TRUE  TRUE     TRUE
+49     GS7BG Golden Software 7 Binary Grid (.grd)   TRUE  TRUE     TRUE
+51      GSBG   Golden Software Binary Grid (.grd)   TRUE  TRUE     TRUE
+53     GTiff                              GeoTIFF   TRUE  TRUE     TRUE
+54       GTX             NOAA Vertical Datum .GTX   TRUE FALSE     TRUE
+57 HDF4Image                         HDF4 Dataset   TRUE FALSE     TRUE
 ```
 
 The value in the `name` column is the format parameter name used in the `writeRaster()` function.

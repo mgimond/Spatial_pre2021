@@ -1,4 +1,3 @@
-
 # Spatial autocorrelation in R {-}
 
 For a basic theoretical treatise on spatial autocorrelation the reader is encouraged to review the [lecture notes](./spatial-autocorrelation.html). This section is intended to supplement the lecture notes by implementing spatial autocorrelation techniques in the R programming environment.
@@ -20,7 +19,7 @@ The `spdep` package used in this exercise makes use of `sp` objects including `S
 
 The spatial object `s1` has five attributes. The one of interest for this exercise is `Income` (per capita, in units of dollars).
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="500" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-2-1.png" width="500" />
 
 
 Let's map the income distribution using a quantile classification scheme. We'll make use of the `tmap` package.
@@ -32,7 +31,7 @@ tm_shape(s1) + tm_polygons(style="quantile", col = "Income") +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 ## Define neighboring polygons {-}
 
@@ -66,7 +65,7 @@ s1$NAME[1]
 
 ```
 [1] Aroostook
-16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock ... York
+16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock Kennebec ... York
 ```
 
 Its four neighboring polygons are associated with the counties:
@@ -78,7 +77,7 @@ s1$NAME[c(2,3,4,5)]
 
 ```
 [1] Somerset    Piscataquis Penobscot   Washington 
-16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock ... York
+16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock Kennebec ... York
 ```
 Next, we need to assign weights to each neighboring polygon. In our case, each neighboring polygon will be assigned equal weight (`style="W"`). This is accomplished by assigning the fraction $1/ (\# of neighbors)$ to each neighboring county then summing the weighted income values. While this is the most intuitive way to summaries the neighbors' values it has one drawback in that polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data. For this example, we'll stick with the `style="W"` option for simplicity's sake but note that other more robust options are available, notably `style="B"`.
 
@@ -111,7 +110,7 @@ Inc.lag <- lag.listw(lw, s1$Income)
 
 The following table shows the average neighboring income values (stored in the `Inc.lag` object) for each county.
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="500" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-11-1.png" width="500" />
 
 ## Computing the Moran's I statistic: the hard way {-}
 
@@ -126,7 +125,7 @@ M <- lm(Inc.lag ~ s1$Income)
 plot( Inc.lag ~ s1$Income, pch=20, asp=1, las=1)
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-13-1.png" width="288" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="288" />
 
 The slope of the regression line is the Moran's I coefficient.
 
@@ -166,7 +165,7 @@ hist(I.r, main=NULL, xlab="Moran's I", las=1)
 abline(v=coef(M)[2], col="red")
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-16-1.png" width="288" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-15-1.png" width="288" />
 
 The simulation suggests that our observed Moran's I value is not consistent with a Moran's I value one would expect to get if the income values were not spatially autocorrelated. In the next step, we'll compute a pseudo p-value from this simulation.
 
@@ -188,10 +187,10 @@ p
 ```
 
 ```
-[1] 0.02833333
+[1] 0.02166667
 ```
 
-In our working example, the p-value suggests that there is a small chance (0.028%) of being wrong in stating that the income values are not clustered at the county level.
+In our working example, the p-value suggests that there is a small chance (0.022%) of being wrong in stating that the income values are not clustered at the county level.
 
 ## Computing the Moran's I statistic: the easy way {-}
 
@@ -234,7 +233,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.28281, observed rank = 587, p-value = 0.02167
+statistic = 0.28281, observed rank = 592, p-value = 0.01333
 alternative hypothesis: greater
 ```
 
@@ -243,7 +242,7 @@ alternative hypothesis: greater
 plot(MC, main="", las=1)
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-20-1.png" width="288" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-19-1.png" width="288" />
 
 ## Moran's I as a function of a distance band {-}
 
@@ -291,7 +290,7 @@ Plot the results.
 plot(MI, main="", las=1) 
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-25-1.png" width="288" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-24-1.png" width="288" />
 
 Display p-value and other summary statistics.
 
@@ -308,7 +307,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.31361, observed rank = 593, p-value = 0.01167
+statistic = 0.31361, observed rank = 594, p-value = 0.01
 alternative hypothesis: greater
 ```
 

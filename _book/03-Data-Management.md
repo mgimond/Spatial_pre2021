@@ -1,4 +1,3 @@
-
 # GIS Data Management
 
 
@@ -46,7 +45,7 @@ This is a relatively new data format that follows [open format standards](https:
 
 Rasters are in part defined by their pixel depth. Pixel depth defines the range of distinct values the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1.
 
-<img src="03-Data-Management_files/figure-html/unnamed-chunk-2-1.png" width="288" />
+<img src="03-Data-Management_files/figure-html/unnamed-chunk-1-1.png" width="288" />
 
 There is a wide range of raster file formats used in the GIS world. Some of the most popular ones are listed below.
 

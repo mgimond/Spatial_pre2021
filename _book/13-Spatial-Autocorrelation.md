@@ -1,4 +1,3 @@
-
 # Spatial Autocorrelation
 
 <div class="note">

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 GIS Data Management | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 GIS Data Management | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="feature-representation.html">
-<link rel="next" href="symbolizing-features.html">
+<link rel="prev" href="feature-representation.html"/>
+<link rel="next" href="symbolizing-features.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +39,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -46,15 +47,19 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-39623718-2"></script>
 <script>
@@ -67,9 +72,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -78,14 +83,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -94,9 +101,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; } /* Alert */
 code span.an { color: #008000; } /* Annotation */
@@ -292,7 +299,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html"><i class="fa fa-check"></i>Reading and writing spatial data in R</a><ul>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#creating-spatial-objects"><i class="fa fa-check"></i>Creating spatial objects</a><ul>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-shapefile"><i class="fa fa-check"></i>Reading a shapefile</a></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
@@ -311,7 +318,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#exporting-to-different-data-file-formats"><i class="fa fa-check"></i>Exporting to different data file formats</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html"><i class="fa fa-check"></i>Mapping data in R</a><ul>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#sample-files-for-this-exercise-1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#the-basics"><i class="fa fa-check"></i>The basics</a><ul>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#combining-layers"><i class="fa fa-check"></i>Combining layers</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#tweaking-classification-schemes"><i class="fa fa-check"></i>Tweaking classification schemes</a></li>
@@ -345,20 +352,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#sample-files-for-this-exercise-2"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#local-operations-and-functions"><i class="fa fa-check"></i>Local operations and functions</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-rasters"><i class="fa fa-check"></i>Unary operations and functions (applied to single rasters)</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-rasters-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two rasters are used)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#global-operations-and-functions-1"><i class="fa fa-check"></i>Global operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#focal-operations-and-functions"><i class="fa fa-check"></i>Focal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#zonal-operations-and-functions"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#global-operations-and-functions"><i class="fa fa-check"></i>Global operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#computing-cumulative-distances"><i class="fa fa-check"></i>Computing cumulative distances</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#working-example"><i class="fa fa-check"></i>Working example</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise-3"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
@@ -369,19 +376,19 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#creating-tissot-indicatrix-circles"><i class="fa fa-check"></i>Creating Tissot indicatrix circles</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#sample-files-for-this-exercise-4"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li><a href="point-pattern-analysis-in-r.html#getting-external-data-into-a-spatstat-format">Getting external data into a <code>spatstat</code> format</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i>Density based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#quadrat-density"><i class="fa fa-check"></i>Quadrat density</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tessellated-surface"><i class="fa fa-check"></i>Quadrat density on a tessellated surface</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#kernel-density-adjusted-for-covariate"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#distance-based-analysis"><i class="fa fa-check"></i>Distance based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#k-and-l-functions"><i class="fa fa-check"></i>K and L functions</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pair-correlation-function-g"><i class="fa fa-check"></i>Pair correlation function g</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
@@ -391,8 +398,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial autocorrelation in R</a><ul>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#sample-files-for-this-exercise-5"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#define-neighboring-polygons"><i class="fa fa-check"></i>Define neighboring polygons</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-the-morans-i-statistic-the-hard-way"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the hard way</a><ul>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-a-pseudo-p-value-from-an-mc-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from an MC simulation</a></li>
@@ -505,7 +512,7 @@ Figure 3.1: Sample content of an ArcGIS file geodatabase.
 <div id="raster-data-file-formats" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Raster Data File Formats</h3>
 <p>Rasters are in part defined by their pixel depth. Pixel depth defines the range of distinct values the raster can store. For example, a 1-bit raster can only store 2 distinct values: 0 and 1.</p>
-<p><img src="03-Data-Management_files/figure-html/unnamed-chunk-2-1.png" width="288" /></p>
+<p><img src="03-Data-Management_files/figure-html/unnamed-chunk-1-1.png" width="288" /></p>
 <p>There is a wide range of raster file formats used in the GIS world. Some of the most popular ones are listed below.</p>
 <div id="imagine" class="section level4">
 <h4><span class="header-section-number">3.1.2.1</span> Imagine</h4>
@@ -561,11 +568,13 @@ NOTE: Exclamation marks in your map document indicate that the GIS files are mis
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -573,12 +582,12 @@ gitbook.start({
 "github": false,
 "facebook": false,
 "twitter": false,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
 "all": false,
+"google": false,
 "instapper": false
 },
 "fontsettings": {
@@ -591,6 +600,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -611,8 +624,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

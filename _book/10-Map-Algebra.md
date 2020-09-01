@@ -1,4 +1,3 @@
-
 # Map Algebra
 
  **Dana Tomlin** [@DTomlin] is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework *map algebra*. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: **local**, **focal**, **zonal** and **global**. Each is explored in the following

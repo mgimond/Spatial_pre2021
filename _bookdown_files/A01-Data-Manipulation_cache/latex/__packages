@@ -1,0 +1,8 @@
+base
+knitr
+kableExtra
+dplyr
+sf
+sp
+raster
+maptools

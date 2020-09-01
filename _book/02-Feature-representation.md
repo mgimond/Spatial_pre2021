@@ -1,4 +1,3 @@
-
 # (PART) Working with spatial data {-}
 
 # Feature Representation
@@ -21,8 +20,8 @@ Vector features can be decomposed into three different geometric primitives: **p
 #### Point
 
 <div class="figure">
-<img src="02-Feature-representation_files/figure-html/unnamed-chunk-2-1.png" alt="Three point objects defined by their X and Y coordinate values." width="172.8" />
-<p class="caption">(\#fig:unnamed-chunk-2)Three point objects defined by their X and Y coordinate values.</p>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-1-1.png" alt="Three point objects defined by their X and Y coordinate values." width="172.8" />
+<p class="caption">(\#fig:unnamed-chunk-1)Three point objects defined by their X and Y coordinate values.</p>
 </div>
 
 A point is composed of one coordinate pair representing a specific location in a coordinate system. Points are the most basic geometric primitives having no length or area. By definition a point can't be “seen” since it has no area; but this is not practical if such primitives are to be mapped. So points on a map are represented using *symbols* that have both area and shape (e.g. circle, square, plus signs).
@@ -32,8 +31,8 @@ We seem capable of interpreting such symbols as points, but there may be instanc
 #### Polyline
 
 <div class="figure">
-<img src="02-Feature-representation_files/figure-html/unnamed-chunk-3-1.png" alt="A simple polyline object defined by connected vertices." width="172.8" />
-<p class="caption">(\#fig:unnamed-chunk-3)A simple polyline object defined by connected vertices.</p>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-2-1.png" alt="A simple polyline object defined by connected vertices." width="172.8" />
+<p class="caption">(\#fig:unnamed-chunk-2)A simple polyline object defined by connected vertices.</p>
 </div>
 
 
@@ -44,8 +43,8 @@ Like a point, a true line can't be seen since it has no area. And like a point, 
 #### Polygon
 
 <div class="figure">
-<img src="02-Feature-representation_files/figure-html/unnamed-chunk-4-1.png" alt="A simple polygon object defined by an area enclosed by connected vertices." width="172.8" />
-<p class="caption">(\#fig:unnamed-chunk-4)A simple polygon object defined by an area enclosed by connected vertices.</p>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-3-1.png" alt="A simple polygon object defined by an area enclosed by connected vertices." width="172.8" />
+<p class="caption">(\#fig:unnamed-chunk-3)A simple polygon object defined by an area enclosed by connected vertices.</p>
 </div>
 
 A polygon is composed of three or more line segments whose starting and ending coordinate pairs are the same. Sometimes you will see the words *lattice* or *area* used in lieu of 'polygon'. Polygons represent both length (i.e. the perimeter of the area) and area. They also embody the idea of an inside and an outside; in fact, the area that a polygon encloses is explicitly defined in a GIS environment. If it isn't, then you are working with a polyline feature. If this does not seem intuitive, think of three connected lines defining a triangle: they can represent three connected road segments (thus polyline features), or they can represent the grassy strip enclosed by the connected roads (in which case an 'inside' is implied thus defining a polygon).
@@ -53,8 +52,8 @@ A polygon is composed of three or more line segments whose starting and ending c
 ### Raster
 
 <div class="figure">
-<img src="02-Feature-representation_files/figure-html/unnamed-chunk-5-1.png" alt="A simple raster object defined by a 10x10 array of cells or pixels." width="172.8" />
-<p class="caption">(\#fig:unnamed-chunk-5)A simple raster object defined by a 10x10 array of cells or pixels.</p>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-4-1.png" alt="A simple raster object defined by a 10x10 array of cells or pixels." width="172.8" />
+<p class="caption">(\#fig:unnamed-chunk-4)A simple raster object defined by a 10x10 array of cells or pixels.</p>
 </div>
 
 A raster data model uses an array of cells, or pixels, to represent real-world objects. Raster datasets are commonly used for representing and managing imagery, surface temperatures, digital elevation models, and numerous other entities.
@@ -85,13 +84,13 @@ The following two maps represent the same entity: the Boston region. At a small 
 
 <div class="figure">
 <img src="img/Boston_small_scale.jpg" alt="Map of the Boston area at a 1:10,000,000 scale. Note that in geography, this is considered small scale whereas in layperson terms, this extent is often referred to as a large scale (i.e. covering a large area)."  />
-<p class="caption">(\#fig:unnamed-chunk-6)Map of the Boston area at a 1:10,000,000 scale. Note that in geography, this is considered small scale whereas in layperson terms, this extent is often referred to as a large scale (i.e. covering a large area).</p>
+<p class="caption">(\#fig:unnamed-chunk-5)Map of the Boston area at a 1:10,000,000 scale. Note that in geography, this is considered small scale whereas in layperson terms, this extent is often referred to as a large scale (i.e. covering a large area).</p>
 </div>
 
 
 <div class="figure">
 <img src="img/Boston_large_scale.jpg" alt="Map of the Boston area at a 1:34,000 scale. Note that in geography, this is considered large scale whereas in layperson terms, this extent is often referred to as a small scale (i.e. covering a small area)."  />
-<p class="caption">(\#fig:unnamed-chunk-7)Map of the Boston area at a 1:34,000 scale. Note that in geography, this is considered large scale whereas in layperson terms, this extent is often referred to as a small scale (i.e. covering a small area).</p>
+<p class="caption">(\#fig:unnamed-chunk-6)Map of the Boston area at a 1:34,000 scale. Note that in geography, this is considered large scale whereas in layperson terms, this extent is often referred to as a small scale (i.e. covering a small area).</p>
 </div>
 
 ## Attribute Tables
@@ -129,12 +128,12 @@ While whole numbers can be stored as a float or double (i.e. we can store the nu
 While storing an integer value as a float may not have dire consequences, the same cannot be said of storing a float as an integer. For example, if your values consist of 0.2, 0.01, 0.34, 0.1 and 0.876, their integer counterpart would be 0, 0, 0, and 1 (i.e. values rounded to the nearest whole number). This can have a significant impact on a map as shown in the following example.
 
 <div class="figure">
-<img src="02-Feature-representation_files/figure-html/unnamed-chunk-8-1.png" alt="Map of data represented as decimal (float) values." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-8)Map of data represented as decimal (float) values.</p>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-7-1.png" alt="Map of data represented as decimal (float) values." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-7)Map of data represented as decimal (float) values.</p>
 </div>
 
 
 <div class="figure">
-<img src="02-Feature-representation_files/figure-html/unnamed-chunk-9-1.png" alt="Map of same data represented as integers instead of float." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-9)Map of same data represented as integers instead of float.</p>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-8-1.png" alt="Map of same data represented as integers instead of float." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-8)Map of same data represented as integers instead of float.</p>
 </div>

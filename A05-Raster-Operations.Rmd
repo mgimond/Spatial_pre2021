@@ -246,6 +246,7 @@ An example of a global function is the Euclidean distance function, `distance`, 
 r1   <- raster(ncol=100, nrow=100, xmn=0, xmx=100, ymn=0, ymx=100)
 r1[] <- NA              # Assign NoData values to all pixels
 r1[c(850, 5650)] <- 1   # Change the pixels #850 and #5650  to 1
+crs(r1) <- "+proj=ortho"  # Assign an arbitrary coordinate system (needed for mapping with tmap)
 ```
 
 ```{r fig.height=3}
@@ -270,16 +271,18 @@ You can also compute a distance raster using `SpatialPoints` objects or a simple
 ```{r}
 # Create a blank raster
 r2 <- raster(ncol=100, nrow=100, xmn=0, xmx=100, ymn=0, ymx=100)
+crs(r2) <- "+proj=ortho"  # Assign an arbitrary coordinate system 
 
 # Create a point layer
 xy <- matrix(c(25,30,87,80),nrow=2, byrow=T) 
 p1 <- SpatialPoints(xy)
+crs(p1) <- "+proj=ortho"  # Assign an arbitrary coordinate system 
 ```
 
 Now let's compute the Euclidean distance to these points using the `distanceFromPoints` function.
 
 ```{r}
-r2.d <- distanceFromPoints(r2, p1) 
+r2.d <- distanceFromPoints(r2, p1)
 ```
 
 Let's plot the resulting output.
@@ -547,6 +550,7 @@ h16  <- geoCorrection(h16)
 
 # Define a point source. 
 A <- SpatialPoints(cbind(50,290000))
+crs(A) <- "+proj=ortho"  # Assign an arbitrary coordinate system 
 
 # Compute the cumulative cost raster
 h8.acc   <- accCost(h8, A)

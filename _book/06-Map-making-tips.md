@@ -1,4 +1,3 @@
-
 # Good Map Making Tips
 
 

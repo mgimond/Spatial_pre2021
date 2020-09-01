@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Interpolation in R | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Interpolation in R | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="spatial-autocorrelation-in-r.html">
-<link rel="next" href="references.html">
+<link rel="prev" href="spatial-autocorrelation-in-r.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +39,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -46,15 +47,19 @@
 
 
 
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-39623718-2"></script>
 <script>
@@ -67,9 +72,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -78,14 +83,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -94,9 +101,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; } /* Alert */
 code span.an { color: #008000; } /* Annotation */
@@ -292,7 +299,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html"><i class="fa fa-check"></i>Reading and writing spatial data in R</a><ul>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#creating-spatial-objects"><i class="fa fa-check"></i>Creating spatial objects</a><ul>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-shapefile"><i class="fa fa-check"></i>Reading a shapefile</a></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
@@ -311,7 +318,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#exporting-to-different-data-file-formats"><i class="fa fa-check"></i>Exporting to different data file formats</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html"><i class="fa fa-check"></i>Mapping data in R</a><ul>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#sample-files-for-this-exercise-1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#the-basics"><i class="fa fa-check"></i>The basics</a><ul>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#combining-layers"><i class="fa fa-check"></i>Combining layers</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#tweaking-classification-schemes"><i class="fa fa-check"></i>Tweaking classification schemes</a></li>
@@ -345,20 +352,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#sample-files-for-this-exercise-2"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#local-operations-and-functions"><i class="fa fa-check"></i>Local operations and functions</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-rasters"><i class="fa fa-check"></i>Unary operations and functions (applied to single rasters)</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-rasters-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two rasters are used)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#global-operations-and-functions-1"><i class="fa fa-check"></i>Global operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#focal-operations-and-functions"><i class="fa fa-check"></i>Focal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#zonal-operations-and-functions"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#global-operations-and-functions"><i class="fa fa-check"></i>Global operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#computing-cumulative-distances"><i class="fa fa-check"></i>Computing cumulative distances</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#working-example"><i class="fa fa-check"></i>Working example</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise-3"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
@@ -369,19 +376,19 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#creating-tissot-indicatrix-circles"><i class="fa fa-check"></i>Creating Tissot indicatrix circles</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#sample-files-for-this-exercise-4"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li><a href="point-pattern-analysis-in-r.html#getting-external-data-into-a-spatstat-format">Getting external data into a <code>spatstat</code> format</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i>Density based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#quadrat-density"><i class="fa fa-check"></i>Quadrat density</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tessellated-surface"><i class="fa fa-check"></i>Quadrat density on a tessellated surface</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#kernel-density-adjusted-for-covariate"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#distance-based-analysis"><i class="fa fa-check"></i>Distance based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
+<li class="chapter" data-level="" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#k-and-l-functions"><i class="fa fa-check"></i>K and L functions</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pair-correlation-function-g"><i class="fa fa-check"></i>Pair correlation function g</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
@@ -391,8 +398,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial autocorrelation in R</a><ul>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#sample-files-for-this-exercise-5"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#define-neighboring-polygons"><i class="fa fa-check"></i>Define neighboring polygons</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-the-morans-i-statistic-the-hard-way"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the hard way</a><ul>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-a-pseudo-p-value-from-an-mc-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from an MC simulation</a></li>
@@ -435,59 +442,59 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <div id="interpolation-in-r" class="section level1 unnumbered">
 <h1>Interpolation in R</h1>
 <p>First, let’s load the data from the website. The data are stored as <code>SpatialPointsDataFrame</code> and <code>SpatialPointsDataFrame</code> objects. Most of the functions used in this exercise work off of these classes. The one exception is the <code>direchlet</code> function which requires a conversion to a <code>ppp</code> object.</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" title="1"><span class="kw">library</span>(rgdal)</a>
-<a class="sourceLine" id="cb286-2" title="2"><span class="kw">library</span>(tmap)</a>
-<a class="sourceLine" id="cb286-3" title="3"></a>
-<a class="sourceLine" id="cb286-4" title="4"><span class="co"># Load precipitation data</span></a>
-<a class="sourceLine" id="cb286-5" title="5">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/precip.rds&quot;</span>))</a>
-<a class="sourceLine" id="cb286-6" title="6">P &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a>
-<a class="sourceLine" id="cb286-7" title="7"></a>
-<a class="sourceLine" id="cb286-8" title="8"><span class="co"># Load Texas boudary map</span></a>
-<a class="sourceLine" id="cb286-9" title="9">z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/texas.rds&quot;</span>))</a>
-<a class="sourceLine" id="cb286-10" title="10">W &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</a>
-<a class="sourceLine" id="cb286-11" title="11"></a>
-<a class="sourceLine" id="cb286-12" title="12"><span class="co"># Replace point boundary extent with that of Texas</span></a>
-<a class="sourceLine" id="cb286-13" title="13">P<span class="op">@</span>bbox &lt;-<span class="st"> </span>W<span class="op">@</span>bbox</a>
-<a class="sourceLine" id="cb286-14" title="14"></a>
-<a class="sourceLine" id="cb286-15" title="15"><span class="kw">tm_shape</span>(W) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb286-16" title="16"><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span></a>
-<a class="sourceLine" id="cb286-17" title="17"><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col=</span><span class="st">&quot;Precip_in&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb286-18" title="18">             <span class="dt">title=</span><span class="st">&quot;Sampled precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>, <span class="dt">size=</span><span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb286-19" title="19"><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;Precip_in&quot;</span>, <span class="dt">just=</span><span class="st">&quot;left&quot;</span>, <span class="dt">xmod=</span>.<span class="dv">5</span>, <span class="dt">size =</span> <span class="fl">0.7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb286-20" title="20"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="interpolation-in-r.html#cb292-1"></a><span class="kw">library</span>(rgdal)</span>
+<span id="cb292-2"><a href="interpolation-in-r.html#cb292-2"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb292-3"><a href="interpolation-in-r.html#cb292-3"></a></span>
+<span id="cb292-4"><a href="interpolation-in-r.html#cb292-4"></a><span class="co"># Load precipitation data</span></span>
+<span id="cb292-5"><a href="interpolation-in-r.html#cb292-5"></a>z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/precip.rds&quot;</span>))</span>
+<span id="cb292-6"><a href="interpolation-in-r.html#cb292-6"></a>P &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</span>
+<span id="cb292-7"><a href="interpolation-in-r.html#cb292-7"></a></span>
+<span id="cb292-8"><a href="interpolation-in-r.html#cb292-8"></a><span class="co"># Load Texas boudary map</span></span>
+<span id="cb292-9"><a href="interpolation-in-r.html#cb292-9"></a>z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/texas.rds&quot;</span>))</span>
+<span id="cb292-10"><a href="interpolation-in-r.html#cb292-10"></a>W &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</span>
+<span id="cb292-11"><a href="interpolation-in-r.html#cb292-11"></a></span>
+<span id="cb292-12"><a href="interpolation-in-r.html#cb292-12"></a><span class="co"># Replace point boundary extent with that of Texas</span></span>
+<span id="cb292-13"><a href="interpolation-in-r.html#cb292-13"></a>P<span class="op">@</span>bbox &lt;-<span class="st"> </span>W<span class="op">@</span>bbox</span>
+<span id="cb292-14"><a href="interpolation-in-r.html#cb292-14"></a></span>
+<span id="cb292-15"><a href="interpolation-in-r.html#cb292-15"></a><span class="kw">tm_shape</span>(W) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>() <span class="op">+</span></span>
+<span id="cb292-16"><a href="interpolation-in-r.html#cb292-16"></a><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span></span>
+<span id="cb292-17"><a href="interpolation-in-r.html#cb292-17"></a><span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">col=</span><span class="st">&quot;Precip_in&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb292-18"><a href="interpolation-in-r.html#cb292-18"></a>             <span class="dt">title=</span><span class="st">&quot;Sampled precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>, <span class="dt">size=</span><span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb292-19"><a href="interpolation-in-r.html#cb292-19"></a><span class="st">  </span><span class="kw">tm_text</span>(<span class="st">&quot;Precip_in&quot;</span>, <span class="dt">just=</span><span class="st">&quot;left&quot;</span>, <span class="dt">xmod=</span>.<span class="dv">5</span>, <span class="dt">size =</span> <span class="fl">0.7</span>) <span class="op">+</span></span>
+<span id="cb292-20"><a href="interpolation-in-r.html#cb292-20"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>You’ll note the line <code>P@bbox &lt;- W@bbox</code> which forces the rectangular extent of the Texas map onto the point data object. This is an important step if the interpolation of the points are to cover the entire extent of Texas. Had this step been omitted, most of the interpolated layers would have been limited to the smallest rectangular extent enclosing the point object.</p>
 <div id="thiessen-polygons" class="section level2 unnumbered">
 <h2>Thiessen polygons</h2>
 <p>The Thiessen polygons (or proximity interpolation) can be created using <code>spatstat</code>’s <code>dirichlet</code> function.</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" title="1"><span class="kw">library</span>(spatstat)  <span class="co"># Used for the dirichlet tessellation function</span></a>
-<a class="sourceLine" id="cb287-2" title="2"><span class="kw">library</span>(maptools)  <span class="co"># Used for conversion from SPDF to ppp</span></a>
-<a class="sourceLine" id="cb287-3" title="3"><span class="kw">library</span>(raster)    <span class="co"># Used to clip out thiessen polygons</span></a>
-<a class="sourceLine" id="cb287-4" title="4"></a>
-<a class="sourceLine" id="cb287-5" title="5"><span class="co"># Create a tessellated surface</span></a>
-<a class="sourceLine" id="cb287-6" title="6">th  &lt;-<span class="st">  </span><span class="kw">as</span>(<span class="kw">dirichlet</span>(<span class="kw">as.ppp</span>(P)), <span class="st">&quot;SpatialPolygons&quot;</span>)</a>
-<a class="sourceLine" id="cb287-7" title="7"></a>
-<a class="sourceLine" id="cb287-8" title="8"><span class="co"># The dirichlet function does not carry over projection information</span></a>
-<a class="sourceLine" id="cb287-9" title="9"><span class="co"># requiring that this information be added manually</span></a>
-<a class="sourceLine" id="cb287-10" title="10"><span class="kw">proj4string</span>(th) &lt;-<span class="st"> </span><span class="kw">proj4string</span>(P)</a>
-<a class="sourceLine" id="cb287-11" title="11"></a>
-<a class="sourceLine" id="cb287-12" title="12"><span class="co"># The tessellated surface does not store attribute information</span></a>
-<a class="sourceLine" id="cb287-13" title="13"><span class="co"># from the point data layer. We&#39;ll use the over() function (from the sp</span></a>
-<a class="sourceLine" id="cb287-14" title="14"><span class="co"># package) to join the point attributes to the tesselated surface via</span></a>
-<a class="sourceLine" id="cb287-15" title="15"><span class="co"># a spatial join. The over() function creates a dataframe that will need to</span></a>
-<a class="sourceLine" id="cb287-16" title="16"><span class="co"># be added to the `th` object thus creating a SpatialPolygonsDataFrame object</span></a>
-<a class="sourceLine" id="cb287-17" title="17">th.z     &lt;-<span class="st"> </span><span class="kw">over</span>(th, P, <span class="dt">fn=</span>mean)</a>
-<a class="sourceLine" id="cb287-18" title="18">th.spdf  &lt;-<span class="st">  </span><span class="kw">SpatialPolygonsDataFrame</span>(th, th.z)</a>
-<a class="sourceLine" id="cb287-19" title="19"></a>
-<a class="sourceLine" id="cb287-20" title="20"><span class="co"># Finally, we&#39;ll clip the tessellated  surface to the Texas boundaries</span></a>
-<a class="sourceLine" id="cb287-21" title="21">th.clp   &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">intersect</span>(W,th.spdf)</a>
-<a class="sourceLine" id="cb287-22" title="22"></a>
-<a class="sourceLine" id="cb287-23" title="23"><span class="co"># Map the data</span></a>
-<a class="sourceLine" id="cb287-24" title="24"><span class="kw">tm_shape</span>(th.clp) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb287-25" title="25"><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;Precip_in&quot;</span>, <span class="dt">palette=</span><span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb287-26" title="26">              <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb287-27" title="27"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="interpolation-in-r.html#cb293-1"></a><span class="kw">library</span>(spatstat)  <span class="co"># Used for the dirichlet tessellation function</span></span>
+<span id="cb293-2"><a href="interpolation-in-r.html#cb293-2"></a><span class="kw">library</span>(maptools)  <span class="co"># Used for conversion from SPDF to ppp</span></span>
+<span id="cb293-3"><a href="interpolation-in-r.html#cb293-3"></a><span class="kw">library</span>(raster)    <span class="co"># Used to clip out thiessen polygons</span></span>
+<span id="cb293-4"><a href="interpolation-in-r.html#cb293-4"></a></span>
+<span id="cb293-5"><a href="interpolation-in-r.html#cb293-5"></a><span class="co"># Create a tessellated surface</span></span>
+<span id="cb293-6"><a href="interpolation-in-r.html#cb293-6"></a>th  &lt;-<span class="st">  </span><span class="kw">as</span>(<span class="kw">dirichlet</span>(<span class="kw">as.ppp</span>(P)), <span class="st">&quot;SpatialPolygons&quot;</span>)</span>
+<span id="cb293-7"><a href="interpolation-in-r.html#cb293-7"></a></span>
+<span id="cb293-8"><a href="interpolation-in-r.html#cb293-8"></a><span class="co"># The dirichlet function does not carry over projection information</span></span>
+<span id="cb293-9"><a href="interpolation-in-r.html#cb293-9"></a><span class="co"># requiring that this information be added manually</span></span>
+<span id="cb293-10"><a href="interpolation-in-r.html#cb293-10"></a><span class="kw">proj4string</span>(th) &lt;-<span class="st"> </span><span class="kw">proj4string</span>(P)</span>
+<span id="cb293-11"><a href="interpolation-in-r.html#cb293-11"></a></span>
+<span id="cb293-12"><a href="interpolation-in-r.html#cb293-12"></a><span class="co"># The tessellated surface does not store attribute information</span></span>
+<span id="cb293-13"><a href="interpolation-in-r.html#cb293-13"></a><span class="co"># from the point data layer. We&#39;ll use the over() function (from the sp</span></span>
+<span id="cb293-14"><a href="interpolation-in-r.html#cb293-14"></a><span class="co"># package) to join the point attributes to the tesselated surface via</span></span>
+<span id="cb293-15"><a href="interpolation-in-r.html#cb293-15"></a><span class="co"># a spatial join. The over() function creates a dataframe that will need to</span></span>
+<span id="cb293-16"><a href="interpolation-in-r.html#cb293-16"></a><span class="co"># be added to the `th` object thus creating a SpatialPolygonsDataFrame object</span></span>
+<span id="cb293-17"><a href="interpolation-in-r.html#cb293-17"></a>th.z     &lt;-<span class="st"> </span><span class="kw">over</span>(th, P, <span class="dt">fn=</span>mean)</span>
+<span id="cb293-18"><a href="interpolation-in-r.html#cb293-18"></a>th.spdf  &lt;-<span class="st">  </span><span class="kw">SpatialPolygonsDataFrame</span>(th, th.z)</span>
+<span id="cb293-19"><a href="interpolation-in-r.html#cb293-19"></a></span>
+<span id="cb293-20"><a href="interpolation-in-r.html#cb293-20"></a><span class="co"># Finally, we&#39;ll clip the tessellated  surface to the Texas boundaries</span></span>
+<span id="cb293-21"><a href="interpolation-in-r.html#cb293-21"></a>th.clp   &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">intersect</span>(W,th.spdf)</span>
+<span id="cb293-22"><a href="interpolation-in-r.html#cb293-22"></a></span>
+<span id="cb293-23"><a href="interpolation-in-r.html#cb293-23"></a><span class="co"># Map the data</span></span>
+<span id="cb293-24"><a href="interpolation-in-r.html#cb293-24"></a><span class="kw">tm_shape</span>(th.clp) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb293-25"><a href="interpolation-in-r.html#cb293-25"></a><span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col=</span><span class="st">&quot;Precip_in&quot;</span>, <span class="dt">palette=</span><span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping=</span><span class="ot">FALSE</span>,</span>
+<span id="cb293-26"><a href="interpolation-in-r.html#cb293-26"></a>              <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></span>
+<span id="cb293-27"><a href="interpolation-in-r.html#cb293-27"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <div class="warning">
 <p>
 Many packages share the same function names. This can be a problem when these packages are loaded in a same R session. For example, the <code>intersect</code> function is available in the <code>base</code>, <code>spatstat</code> and <code>raster</code> packages–all of which are loaded in this current session. To ensure that the proper function is selected, it’s a good idea to preface the function name with the package name as in <code>raster::intersect()</code>.
@@ -501,220 +508,221 @@ This tip will be used in the next chunk of code when calling the <code>idw</code
 <div id="idw" class="section level2 unnumbered">
 <h2>IDW</h2>
 <p>The IDW output is a raster. This requires that we first create an empty raster grid, then interpolate the precipitation values to each unsampled grid cell. An IDW power value of 2 (<code>idp=2.0</code>) will be used.</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" title="1"><span class="kw">library</span>(gstat) <span class="co"># Use gstat&#39;s idw routine</span></a>
-<a class="sourceLine" id="cb288-2" title="2"><span class="kw">library</span>(sp)    <span class="co"># Used for the spsample function</span></a>
-<a class="sourceLine" id="cb288-3" title="3"></a>
-<a class="sourceLine" id="cb288-4" title="4"><span class="co"># Create an empty grid where n is the total number of cells</span></a>
-<a class="sourceLine" id="cb288-5" title="5">grd              &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">spsample</span>(P, <span class="st">&quot;regular&quot;</span>, <span class="dt">n=</span><span class="dv">50000</span>))</a>
-<a class="sourceLine" id="cb288-6" title="6"><span class="kw">names</span>(grd)       &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)</a>
-<a class="sourceLine" id="cb288-7" title="7"><span class="kw">coordinates</span>(grd) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)</a>
-<a class="sourceLine" id="cb288-8" title="8"><span class="kw">gridded</span>(grd)     &lt;-<span class="st"> </span><span class="ot">TRUE</span>  <span class="co"># Create SpatialPixel object</span></a>
-<a class="sourceLine" id="cb288-9" title="9"><span class="kw">fullgrid</span>(grd)    &lt;-<span class="st"> </span><span class="ot">TRUE</span>  <span class="co"># Create SpatialGrid object</span></a>
-<a class="sourceLine" id="cb288-10" title="10"></a>
-<a class="sourceLine" id="cb288-11" title="11"><span class="co"># Add P&#39;s projection information to the empty grid</span></a>
-<a class="sourceLine" id="cb288-12" title="12"><span class="kw">proj4string</span>(grd) &lt;-<span class="st"> </span><span class="kw">proj4string</span>(P)</a>
-<a class="sourceLine" id="cb288-13" title="13"></a>
-<a class="sourceLine" id="cb288-14" title="14"><span class="co"># Interpolate the grid cells using a power value of 2 (idp=2.0)</span></a>
-<a class="sourceLine" id="cb288-15" title="15">P.idw &lt;-<span class="st"> </span>gstat<span class="op">::</span><span class="kw">idw</span>(Precip_in <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, P, <span class="dt">newdata=</span>grd, <span class="dt">idp=</span><span class="fl">2.0</span>)</a>
-<a class="sourceLine" id="cb288-16" title="16"></a>
-<a class="sourceLine" id="cb288-17" title="17"><span class="co"># Convert to raster object then clip to Texas</span></a>
-<a class="sourceLine" id="cb288-18" title="18">r       &lt;-<span class="st"> </span><span class="kw">raster</span>(P.idw)</a>
-<a class="sourceLine" id="cb288-19" title="19">r.m     &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</a>
-<a class="sourceLine" id="cb288-20" title="20"></a>
-<a class="sourceLine" id="cb288-21" title="21"><span class="co"># Plot</span></a>
-<a class="sourceLine" id="cb288-22" title="22"><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb288-23" title="23"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">10</span>,<span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb288-24" title="24">            <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb288-25" title="25"><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb288-26" title="26"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="interpolation-in-r.html#cb294-1"></a><span class="kw">library</span>(gstat) <span class="co"># Use gstat&#39;s idw routine</span></span>
+<span id="cb294-2"><a href="interpolation-in-r.html#cb294-2"></a><span class="kw">library</span>(sp)    <span class="co"># Used for the spsample function</span></span>
+<span id="cb294-3"><a href="interpolation-in-r.html#cb294-3"></a></span>
+<span id="cb294-4"><a href="interpolation-in-r.html#cb294-4"></a><span class="co"># Create an empty grid where n is the total number of cells</span></span>
+<span id="cb294-5"><a href="interpolation-in-r.html#cb294-5"></a>grd              &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">spsample</span>(P, <span class="st">&quot;regular&quot;</span>, <span class="dt">n=</span><span class="dv">50000</span>))</span>
+<span id="cb294-6"><a href="interpolation-in-r.html#cb294-6"></a><span class="kw">names</span>(grd)       &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)</span>
+<span id="cb294-7"><a href="interpolation-in-r.html#cb294-7"></a><span class="kw">coordinates</span>(grd) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;Y&quot;</span>)</span>
+<span id="cb294-8"><a href="interpolation-in-r.html#cb294-8"></a><span class="kw">gridded</span>(grd)     &lt;-<span class="st"> </span><span class="ot">TRUE</span>  <span class="co"># Create SpatialPixel object</span></span>
+<span id="cb294-9"><a href="interpolation-in-r.html#cb294-9"></a><span class="kw">fullgrid</span>(grd)    &lt;-<span class="st"> </span><span class="ot">TRUE</span>  <span class="co"># Create SpatialGrid object</span></span>
+<span id="cb294-10"><a href="interpolation-in-r.html#cb294-10"></a></span>
+<span id="cb294-11"><a href="interpolation-in-r.html#cb294-11"></a><span class="co"># Add P&#39;s projection information to the empty grid</span></span>
+<span id="cb294-12"><a href="interpolation-in-r.html#cb294-12"></a><span class="kw">proj4string</span>(P) &lt;-<span class="st"> </span><span class="kw">proj4string</span>(P) <span class="co"># Temp fix until new proj env is adopted</span></span>
+<span id="cb294-13"><a href="interpolation-in-r.html#cb294-13"></a><span class="kw">proj4string</span>(grd) &lt;-<span class="st"> </span><span class="kw">proj4string</span>(P)</span>
+<span id="cb294-14"><a href="interpolation-in-r.html#cb294-14"></a></span>
+<span id="cb294-15"><a href="interpolation-in-r.html#cb294-15"></a><span class="co"># Interpolate the grid cells using a power value of 2 (idp=2.0)</span></span>
+<span id="cb294-16"><a href="interpolation-in-r.html#cb294-16"></a>P.idw &lt;-<span class="st"> </span>gstat<span class="op">::</span><span class="kw">idw</span>(Precip_in <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, P, <span class="dt">newdata=</span>grd, <span class="dt">idp=</span><span class="fl">2.0</span>)</span>
+<span id="cb294-17"><a href="interpolation-in-r.html#cb294-17"></a></span>
+<span id="cb294-18"><a href="interpolation-in-r.html#cb294-18"></a><span class="co"># Convert to raster object then clip to Texas</span></span>
+<span id="cb294-19"><a href="interpolation-in-r.html#cb294-19"></a>r       &lt;-<span class="st"> </span><span class="kw">raster</span>(P.idw)</span>
+<span id="cb294-20"><a href="interpolation-in-r.html#cb294-20"></a>r.m     &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</span>
+<span id="cb294-21"><a href="interpolation-in-r.html#cb294-21"></a></span>
+<span id="cb294-22"><a href="interpolation-in-r.html#cb294-22"></a><span class="co"># Plot</span></span>
+<span id="cb294-23"><a href="interpolation-in-r.html#cb294-23"></a><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb294-24"><a href="interpolation-in-r.html#cb294-24"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">10</span>,<span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb294-25"><a href="interpolation-in-r.html#cb294-25"></a>            <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb294-26"><a href="interpolation-in-r.html#cb294-26"></a><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb294-27"><a href="interpolation-in-r.html#cb294-27"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <div id="fine-tuning-the-interpolation" class="section level3 unnumbered">
 <h3>Fine-tuning the interpolation</h3>
 <p>The choice of power function can be subjective. To fine-tune the choice of the power parameter, you can perform a <em>leave-one-out</em> validation routine to measure the error in the interpolated values.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" title="1"><span class="co"># Leave-one-out validation routine</span></a>
-<a class="sourceLine" id="cb289-2" title="2">IDW.out &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> <span class="kw">length</span>(P))</a>
-<a class="sourceLine" id="cb289-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(P)) {</a>
-<a class="sourceLine" id="cb289-4" title="4">  IDW.out[i] &lt;-<span class="st"> </span><span class="kw">idw</span>(Precip_in <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, P[<span class="op">-</span>i,], P[i,], <span class="dt">idp=</span><span class="fl">2.0</span>)<span class="op">$</span>var1.pred</a>
-<a class="sourceLine" id="cb289-5" title="5">}</a>
-<a class="sourceLine" id="cb289-6" title="6"></a>
-<a class="sourceLine" id="cb289-7" title="7"><span class="co"># Plot the differences</span></a>
-<a class="sourceLine" id="cb289-8" title="8">OP &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pty=</span><span class="st">&quot;s&quot;</span>, <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb289-9" title="9">  <span class="kw">plot</span>(IDW.out <span class="op">~</span><span class="st"> </span>P<span class="op">$</span>Precip_in, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">xlab=</span><span class="st">&quot;Observed&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Predicted&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>,</a>
-<a class="sourceLine" id="cb289-10" title="10">       <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.5</span>))</a>
-<a class="sourceLine" id="cb289-11" title="11">  <span class="kw">abline</span>(<span class="kw">lm</span>(IDW.out <span class="op">~</span><span class="st"> </span>P<span class="op">$</span>Precip_in), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lw=</span><span class="dv">2</span>,<span class="dt">lty=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb289-12" title="12">  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb289-13" title="13"><span class="kw">par</span>(OP)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="interpolation-in-r.html#cb295-1"></a><span class="co"># Leave-one-out validation routine</span></span>
+<span id="cb295-2"><a href="interpolation-in-r.html#cb295-2"></a>IDW.out &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length =</span> <span class="kw">length</span>(P))</span>
+<span id="cb295-3"><a href="interpolation-in-r.html#cb295-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(P)) {</span>
+<span id="cb295-4"><a href="interpolation-in-r.html#cb295-4"></a>  IDW.out[i] &lt;-<span class="st"> </span><span class="kw">idw</span>(Precip_in <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, P[<span class="op">-</span>i,], P[i,], <span class="dt">idp=</span><span class="fl">2.0</span>)<span class="op">$</span>var1.pred</span>
+<span id="cb295-5"><a href="interpolation-in-r.html#cb295-5"></a>}</span>
+<span id="cb295-6"><a href="interpolation-in-r.html#cb295-6"></a></span>
+<span id="cb295-7"><a href="interpolation-in-r.html#cb295-7"></a><span class="co"># Plot the differences</span></span>
+<span id="cb295-8"><a href="interpolation-in-r.html#cb295-8"></a>OP &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">pty=</span><span class="st">&quot;s&quot;</span>, <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb295-9"><a href="interpolation-in-r.html#cb295-9"></a>  <span class="kw">plot</span>(IDW.out <span class="op">~</span><span class="st"> </span>P<span class="op">$</span>Precip_in, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">xlab=</span><span class="st">&quot;Observed&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Predicted&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>,</span>
+<span id="cb295-10"><a href="interpolation-in-r.html#cb295-10"></a>       <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.5</span>))</span>
+<span id="cb295-11"><a href="interpolation-in-r.html#cb295-11"></a>  <span class="kw">abline</span>(<span class="kw">lm</span>(IDW.out <span class="op">~</span><span class="st"> </span>P<span class="op">$</span>Precip_in), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lw=</span><span class="dv">2</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb295-12"><a href="interpolation-in-r.html#cb295-12"></a>  <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb295-13"><a href="interpolation-in-r.html#cb295-13"></a><span class="kw">par</span>(OP)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>The RMSE can be computed from <code>IDW.out</code> as follows:</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" title="1"><span class="co"># Compute RMSE</span></a>
-<a class="sourceLine" id="cb290-2" title="2"><span class="kw">sqrt</span>( <span class="kw">sum</span>((IDW.out <span class="op">-</span><span class="st"> </span>P<span class="op">$</span>Precip_in)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(P))</a></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="interpolation-in-r.html#cb296-1"></a><span class="co"># Compute RMSE</span></span>
+<span id="cb296-2"><a href="interpolation-in-r.html#cb296-2"></a><span class="kw">sqrt</span>( <span class="kw">sum</span>((IDW.out <span class="op">-</span><span class="st"> </span>P<span class="op">$</span>Precip_in)<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(P))</span></code></pre></div>
 <pre><code>[1] 6.989294</code></pre>
 </div>
 <div id="cross-validation" class="section level3 unnumbered">
 <h3>Cross-validation</h3>
 <p>In addition to generating an interpolated surface, you can create a 95% confidence interval map of the interpolation model. Here we’ll create a 95% CI map from an IDW interpolation that uses a power parameter of 2 (<code>idp=2.0</code>).</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" title="1"><span class="co"># Implementation of a jackknife technique to estimate </span></a>
-<a class="sourceLine" id="cb292-2" title="2"><span class="co"># a confidence interval at each unsampled point.</span></a>
-<a class="sourceLine" id="cb292-3" title="3"></a>
-<a class="sourceLine" id="cb292-4" title="4"><span class="co"># Create the interpolated surface</span></a>
-<a class="sourceLine" id="cb292-5" title="5">img &lt;-<span class="st"> </span>gstat<span class="op">::</span><span class="kw">idw</span>(Precip_in<span class="op">~</span><span class="dv">1</span>, P, <span class="dt">newdata=</span>grd, <span class="dt">idp=</span><span class="fl">2.0</span>)</a>
-<a class="sourceLine" id="cb292-6" title="6">n   &lt;-<span class="st"> </span><span class="kw">length</span>(P)</a>
-<a class="sourceLine" id="cb292-7" title="7">Zi  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="kw">length</span>(img<span class="op">$</span>var1.pred), <span class="dt">ncol =</span> n)</a>
-<a class="sourceLine" id="cb292-8" title="8"></a>
-<a class="sourceLine" id="cb292-9" title="9"><span class="co"># Remove a point then interpolate (do this n times for each point)</span></a>
-<a class="sourceLine" id="cb292-10" title="10">st &lt;-<span class="st"> </span><span class="kw">stack</span>()</a>
-<a class="sourceLine" id="cb292-11" title="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</a>
-<a class="sourceLine" id="cb292-12" title="12">  Z1 &lt;-<span class="st"> </span>gstat<span class="op">::</span><span class="kw">idw</span>(Precip_in<span class="op">~</span><span class="dv">1</span>, P[<span class="op">-</span>i,], <span class="dt">newdata=</span>grd, <span class="dt">idp=</span><span class="fl">2.0</span>)</a>
-<a class="sourceLine" id="cb292-13" title="13">  st &lt;-<span class="st"> </span><span class="kw">addLayer</span>(st,<span class="kw">raster</span>(Z1,<span class="dt">layer=</span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb292-14" title="14">  <span class="co"># Calculated pseudo-value Z at j</span></a>
-<a class="sourceLine" id="cb292-15" title="15">  Zi[,i] &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>img<span class="op">$</span>var1.pred <span class="op">-</span><span class="st"> </span>(n<span class="dv">-1</span>) <span class="op">*</span><span class="st"> </span>Z1<span class="op">$</span>var1.pred</a>
-<a class="sourceLine" id="cb292-16" title="16">}</a>
-<a class="sourceLine" id="cb292-17" title="17"></a>
-<a class="sourceLine" id="cb292-18" title="18"><span class="co"># Jackknife estimator of parameter Z at location j</span></a>
-<a class="sourceLine" id="cb292-19" title="19">Zj &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">apply</span>(Zi, <span class="dv">1</span>, sum, <span class="dt">na.rm=</span>T) <span class="op">/</span><span class="st"> </span>n )</a>
-<a class="sourceLine" id="cb292-20" title="20"></a>
-<a class="sourceLine" id="cb292-21" title="21"><span class="co"># Compute (Zi* - Zj)^2</span></a>
-<a class="sourceLine" id="cb292-22" title="22">c1 &lt;-<span class="st"> </span><span class="kw">apply</span>(Zi,<span class="dv">2</span>,<span class="st">&#39;-&#39;</span>,Zj)            <span class="co"># Compute the difference</span></a>
-<a class="sourceLine" id="cb292-23" title="23">c1 &lt;-<span class="st"> </span><span class="kw">apply</span>(c1<span class="op">^</span><span class="dv">2</span>, <span class="dv">1</span>, sum, <span class="dt">na.rm=</span>T ) <span class="co"># Sum the square of the difference</span></a>
-<a class="sourceLine" id="cb292-24" title="24"></a>
-<a class="sourceLine" id="cb292-25" title="25"><span class="co"># Compute the confidence interval</span></a>
-<a class="sourceLine" id="cb292-26" title="26">CI &lt;-<span class="st"> </span><span class="kw">sqrt</span>( <span class="dv">1</span><span class="op">/</span>(n<span class="op">*</span>(n<span class="dv">-1</span>)) <span class="op">*</span><span class="st"> </span>c1)</a>
-<a class="sourceLine" id="cb292-27" title="27"></a>
-<a class="sourceLine" id="cb292-28" title="28"><span class="co"># Create (CI / interpolated value) raster</span></a>
-<a class="sourceLine" id="cb292-29" title="29">img.sig   &lt;-<span class="st"> </span>img</a>
-<a class="sourceLine" id="cb292-30" title="30">img.sig<span class="op">$</span>v &lt;-<span class="st"> </span>CI <span class="op">/</span>img<span class="op">$</span>var1.pred </a>
-<a class="sourceLine" id="cb292-31" title="31"></a>
-<a class="sourceLine" id="cb292-32" title="32"><span class="co"># Clip the confidence raster to Texas</span></a>
-<a class="sourceLine" id="cb292-33" title="33">r &lt;-<span class="st"> </span><span class="kw">raster</span>(img.sig, <span class="dt">layer=</span><span class="st">&quot;v&quot;</span>)</a>
-<a class="sourceLine" id="cb292-34" title="34">r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</a>
-<a class="sourceLine" id="cb292-35" title="35"></a>
-<a class="sourceLine" id="cb292-36" title="36"><span class="co"># Plot the map</span></a>
-<a class="sourceLine" id="cb292-37" title="37"><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">7</span>,<span class="dt">title=</span><span class="st">&quot;95% confidence interval </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb292-38" title="38"><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb292-39" title="39"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="interpolation-in-r.html#cb298-1"></a><span class="co"># Implementation of a jackknife technique to estimate </span></span>
+<span id="cb298-2"><a href="interpolation-in-r.html#cb298-2"></a><span class="co"># a confidence interval at each unsampled point.</span></span>
+<span id="cb298-3"><a href="interpolation-in-r.html#cb298-3"></a></span>
+<span id="cb298-4"><a href="interpolation-in-r.html#cb298-4"></a><span class="co"># Create the interpolated surface</span></span>
+<span id="cb298-5"><a href="interpolation-in-r.html#cb298-5"></a>img &lt;-<span class="st"> </span>gstat<span class="op">::</span><span class="kw">idw</span>(Precip_in<span class="op">~</span><span class="dv">1</span>, P, <span class="dt">newdata=</span>grd, <span class="dt">idp=</span><span class="fl">2.0</span>)</span>
+<span id="cb298-6"><a href="interpolation-in-r.html#cb298-6"></a>n   &lt;-<span class="st"> </span><span class="kw">length</span>(P)</span>
+<span id="cb298-7"><a href="interpolation-in-r.html#cb298-7"></a>Zi  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">nrow =</span> <span class="kw">length</span>(img<span class="op">$</span>var1.pred), <span class="dt">ncol =</span> n)</span>
+<span id="cb298-8"><a href="interpolation-in-r.html#cb298-8"></a></span>
+<span id="cb298-9"><a href="interpolation-in-r.html#cb298-9"></a><span class="co"># Remove a point then interpolate (do this n times for each point)</span></span>
+<span id="cb298-10"><a href="interpolation-in-r.html#cb298-10"></a>st &lt;-<span class="st"> </span><span class="kw">stack</span>()</span>
+<span id="cb298-11"><a href="interpolation-in-r.html#cb298-11"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</span>
+<span id="cb298-12"><a href="interpolation-in-r.html#cb298-12"></a>  Z1 &lt;-<span class="st"> </span>gstat<span class="op">::</span><span class="kw">idw</span>(Precip_in<span class="op">~</span><span class="dv">1</span>, P[<span class="op">-</span>i,], <span class="dt">newdata=</span>grd, <span class="dt">idp=</span><span class="fl">2.0</span>)</span>
+<span id="cb298-13"><a href="interpolation-in-r.html#cb298-13"></a>  st &lt;-<span class="st"> </span><span class="kw">addLayer</span>(st,<span class="kw">raster</span>(Z1,<span class="dt">layer=</span><span class="dv">1</span>))</span>
+<span id="cb298-14"><a href="interpolation-in-r.html#cb298-14"></a>  <span class="co"># Calculated pseudo-value Z at j</span></span>
+<span id="cb298-15"><a href="interpolation-in-r.html#cb298-15"></a>  Zi[,i] &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>img<span class="op">$</span>var1.pred <span class="op">-</span><span class="st"> </span>(n<span class="dv">-1</span>) <span class="op">*</span><span class="st"> </span>Z1<span class="op">$</span>var1.pred</span>
+<span id="cb298-16"><a href="interpolation-in-r.html#cb298-16"></a>}</span>
+<span id="cb298-17"><a href="interpolation-in-r.html#cb298-17"></a></span>
+<span id="cb298-18"><a href="interpolation-in-r.html#cb298-18"></a><span class="co"># Jackknife estimator of parameter Z at location j</span></span>
+<span id="cb298-19"><a href="interpolation-in-r.html#cb298-19"></a>Zj &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">apply</span>(Zi, <span class="dv">1</span>, sum, <span class="dt">na.rm=</span>T) <span class="op">/</span><span class="st"> </span>n )</span>
+<span id="cb298-20"><a href="interpolation-in-r.html#cb298-20"></a></span>
+<span id="cb298-21"><a href="interpolation-in-r.html#cb298-21"></a><span class="co"># Compute (Zi* - Zj)^2</span></span>
+<span id="cb298-22"><a href="interpolation-in-r.html#cb298-22"></a>c1 &lt;-<span class="st"> </span><span class="kw">apply</span>(Zi,<span class="dv">2</span>,<span class="st">&#39;-&#39;</span>,Zj)            <span class="co"># Compute the difference</span></span>
+<span id="cb298-23"><a href="interpolation-in-r.html#cb298-23"></a>c1 &lt;-<span class="st"> </span><span class="kw">apply</span>(c1<span class="op">^</span><span class="dv">2</span>, <span class="dv">1</span>, sum, <span class="dt">na.rm=</span>T ) <span class="co"># Sum the square of the difference</span></span>
+<span id="cb298-24"><a href="interpolation-in-r.html#cb298-24"></a></span>
+<span id="cb298-25"><a href="interpolation-in-r.html#cb298-25"></a><span class="co"># Compute the confidence interval</span></span>
+<span id="cb298-26"><a href="interpolation-in-r.html#cb298-26"></a>CI &lt;-<span class="st"> </span><span class="kw">sqrt</span>( <span class="dv">1</span><span class="op">/</span>(n<span class="op">*</span>(n<span class="dv">-1</span>)) <span class="op">*</span><span class="st"> </span>c1)</span>
+<span id="cb298-27"><a href="interpolation-in-r.html#cb298-27"></a></span>
+<span id="cb298-28"><a href="interpolation-in-r.html#cb298-28"></a><span class="co"># Create (CI / interpolated value) raster</span></span>
+<span id="cb298-29"><a href="interpolation-in-r.html#cb298-29"></a>img.sig   &lt;-<span class="st"> </span>img</span>
+<span id="cb298-30"><a href="interpolation-in-r.html#cb298-30"></a>img.sig<span class="op">$</span>v &lt;-<span class="st"> </span>CI <span class="op">/</span>img<span class="op">$</span>var1.pred </span>
+<span id="cb298-31"><a href="interpolation-in-r.html#cb298-31"></a></span>
+<span id="cb298-32"><a href="interpolation-in-r.html#cb298-32"></a><span class="co"># Clip the confidence raster to Texas</span></span>
+<span id="cb298-33"><a href="interpolation-in-r.html#cb298-33"></a>r &lt;-<span class="st"> </span><span class="kw">raster</span>(img.sig, <span class="dt">layer=</span><span class="st">&quot;v&quot;</span>)</span>
+<span id="cb298-34"><a href="interpolation-in-r.html#cb298-34"></a>r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</span>
+<span id="cb298-35"><a href="interpolation-in-r.html#cb298-35"></a></span>
+<span id="cb298-36"><a href="interpolation-in-r.html#cb298-36"></a><span class="co"># Plot the map</span></span>
+<span id="cb298-37"><a href="interpolation-in-r.html#cb298-37"></a><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">7</span>,<span class="dt">title=</span><span class="st">&quot;95% confidence interval </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></span>
+<span id="cb298-38"><a href="interpolation-in-r.html#cb298-38"></a><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb298-39"><a href="interpolation-in-r.html#cb298-39"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 </div>
 </div>
 <div id="st-order-polynomial-fit" class="section level2 unnumbered">
 <h2>1<sup>st</sup> order polynomial fit</h2>
 <p>To fit a first order polynomial model of the form <span class="math inline">\(precip = intercept + aX + bY\)</span> to the data,</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" title="1"><span class="co"># Define the 1st order polynomial equation</span></a>
-<a class="sourceLine" id="cb293-2" title="2">f<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Precip_in <span class="op">~</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span>Y) </a>
-<a class="sourceLine" id="cb293-3" title="3"> </a>
-<a class="sourceLine" id="cb293-4" title="4"><span class="co"># Add X and Y to P</span></a>
-<a class="sourceLine" id="cb293-5" title="5">P<span class="op">$</span>X &lt;-<span class="st"> </span><span class="kw">coordinates</span>(P)[,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb293-6" title="6">P<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">coordinates</span>(P)[,<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb293-7" title="7"></a>
-<a class="sourceLine" id="cb293-8" title="8"><span class="co"># Run the regression model</span></a>
-<a class="sourceLine" id="cb293-9" title="9">lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( f<span class="fl">.1</span>, <span class="dt">data=</span>P)</a>
-<a class="sourceLine" id="cb293-10" title="10"></a>
-<a class="sourceLine" id="cb293-11" title="11"><span class="co"># Use the regression model output to interpolate the surface</span></a>
-<a class="sourceLine" id="cb293-12" title="12">dat<span class="fl">.1</span>st &lt;-<span class="st"> </span><span class="kw">SpatialGridDataFrame</span>(grd, <span class="kw">data.frame</span>(<span class="dt">var1.pred =</span> <span class="kw">predict</span>(lm<span class="fl">.1</span>, <span class="dt">newdata=</span>grd))) </a>
-<a class="sourceLine" id="cb293-13" title="13"></a>
-<a class="sourceLine" id="cb293-14" title="14"><span class="co"># Clip the interpolated raster to Texas</span></a>
-<a class="sourceLine" id="cb293-15" title="15">r   &lt;-<span class="st"> </span><span class="kw">raster</span>(dat<span class="fl">.1</span>st)</a>
-<a class="sourceLine" id="cb293-16" title="16">r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</a>
-<a class="sourceLine" id="cb293-17" title="17"></a>
-<a class="sourceLine" id="cb293-18" title="18"><span class="co"># Plot the map</span></a>
-<a class="sourceLine" id="cb293-19" title="19"><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb293-20" title="20"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">palette=</span><span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping=</span><span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb293-21" title="21">            <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb293-22" title="22"><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb293-23" title="23"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="interpolation-in-r.html#cb299-1"></a><span class="co"># Define the 1st order polynomial equation</span></span>
+<span id="cb299-2"><a href="interpolation-in-r.html#cb299-2"></a>f<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Precip_in <span class="op">~</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span>Y) </span>
+<span id="cb299-3"><a href="interpolation-in-r.html#cb299-3"></a> </span>
+<span id="cb299-4"><a href="interpolation-in-r.html#cb299-4"></a><span class="co"># Add X and Y to P</span></span>
+<span id="cb299-5"><a href="interpolation-in-r.html#cb299-5"></a>P<span class="op">$</span>X &lt;-<span class="st"> </span><span class="kw">coordinates</span>(P)[,<span class="dv">1</span>]</span>
+<span id="cb299-6"><a href="interpolation-in-r.html#cb299-6"></a>P<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">coordinates</span>(P)[,<span class="dv">2</span>]</span>
+<span id="cb299-7"><a href="interpolation-in-r.html#cb299-7"></a></span>
+<span id="cb299-8"><a href="interpolation-in-r.html#cb299-8"></a><span class="co"># Run the regression model</span></span>
+<span id="cb299-9"><a href="interpolation-in-r.html#cb299-9"></a>lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( f<span class="fl">.1</span>, <span class="dt">data=</span>P)</span>
+<span id="cb299-10"><a href="interpolation-in-r.html#cb299-10"></a></span>
+<span id="cb299-11"><a href="interpolation-in-r.html#cb299-11"></a><span class="co"># Use the regression model output to interpolate the surface</span></span>
+<span id="cb299-12"><a href="interpolation-in-r.html#cb299-12"></a>dat<span class="fl">.1</span>st &lt;-<span class="st"> </span><span class="kw">SpatialGridDataFrame</span>(grd, <span class="kw">data.frame</span>(<span class="dt">var1.pred =</span> <span class="kw">predict</span>(lm<span class="fl">.1</span>, <span class="dt">newdata=</span>grd))) </span>
+<span id="cb299-13"><a href="interpolation-in-r.html#cb299-13"></a></span>
+<span id="cb299-14"><a href="interpolation-in-r.html#cb299-14"></a><span class="co"># Clip the interpolated raster to Texas</span></span>
+<span id="cb299-15"><a href="interpolation-in-r.html#cb299-15"></a>r   &lt;-<span class="st"> </span><span class="kw">raster</span>(dat<span class="fl">.1</span>st)</span>
+<span id="cb299-16"><a href="interpolation-in-r.html#cb299-16"></a>r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</span>
+<span id="cb299-17"><a href="interpolation-in-r.html#cb299-17"></a></span>
+<span id="cb299-18"><a href="interpolation-in-r.html#cb299-18"></a><span class="co"># Plot the map</span></span>
+<span id="cb299-19"><a href="interpolation-in-r.html#cb299-19"></a><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb299-20"><a href="interpolation-in-r.html#cb299-20"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">palette=</span><span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping=</span><span class="ot">FALSE</span>, </span>
+<span id="cb299-21"><a href="interpolation-in-r.html#cb299-21"></a>            <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></span>
+<span id="cb299-22"><a href="interpolation-in-r.html#cb299-22"></a><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb299-23"><a href="interpolation-in-r.html#cb299-23"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
 <div id="nd-order-polynomial" class="section level2 unnumbered">
 <h2>2<sup>nd</sup> order polynomial</h2>
 <p>To fit a second order polynomial model of the form <span class="math inline">\(precip = intercept + aX + bY + dX^2 + eY^2 +fXY\)</span> to the data,</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" title="1"><span class="co"># Define the 2nd order polynomial equation</span></a>
-<a class="sourceLine" id="cb294-2" title="2">f<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Precip_in <span class="op">~</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span>Y <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(X<span class="op">*</span>X)<span class="op">+</span><span class="kw">I</span>(Y<span class="op">*</span>Y) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(X<span class="op">*</span>Y))</a>
-<a class="sourceLine" id="cb294-3" title="3"></a>
-<a class="sourceLine" id="cb294-4" title="4"><span class="co"># Add X and Y to P</span></a>
-<a class="sourceLine" id="cb294-5" title="5">P<span class="op">$</span>X &lt;-<span class="st"> </span><span class="kw">coordinates</span>(P)[,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb294-6" title="6">P<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">coordinates</span>(P)[,<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb294-7" title="7"> </a>
-<a class="sourceLine" id="cb294-8" title="8"><span class="co"># Run the regression model</span></a>
-<a class="sourceLine" id="cb294-9" title="9">lm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( f<span class="fl">.2</span>, <span class="dt">data=</span>P)</a>
-<a class="sourceLine" id="cb294-10" title="10"></a>
-<a class="sourceLine" id="cb294-11" title="11"><span class="co"># Use the regression model output to interpolate the surface</span></a>
-<a class="sourceLine" id="cb294-12" title="12">dat<span class="fl">.2</span>nd &lt;-<span class="st"> </span><span class="kw">SpatialGridDataFrame</span>(grd, <span class="kw">data.frame</span>(<span class="dt">var1.pred =</span> <span class="kw">predict</span>(lm<span class="fl">.2</span>, <span class="dt">newdata=</span>grd))) </a>
-<a class="sourceLine" id="cb294-13" title="13"></a>
-<a class="sourceLine" id="cb294-14" title="14"><span class="co"># Clip the interpolated raster to Texas</span></a>
-<a class="sourceLine" id="cb294-15" title="15">r   &lt;-<span class="st"> </span><span class="kw">raster</span>(dat<span class="fl">.2</span>nd)</a>
-<a class="sourceLine" id="cb294-16" title="16">r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</a>
-<a class="sourceLine" id="cb294-17" title="17"></a>
-<a class="sourceLine" id="cb294-18" title="18"><span class="co"># Plot the map</span></a>
-<a class="sourceLine" id="cb294-19" title="19"><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb294-20" title="20"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">palette=</span><span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping=</span><span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb294-21" title="21">            <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb294-22" title="22"><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb294-23" title="23"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="interpolation-in-r.html#cb300-1"></a><span class="co"># Define the 2nd order polynomial equation</span></span>
+<span id="cb300-2"><a href="interpolation-in-r.html#cb300-2"></a>f<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Precip_in <span class="op">~</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span>Y <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(X<span class="op">*</span>X)<span class="op">+</span><span class="kw">I</span>(Y<span class="op">*</span>Y) <span class="op">+</span><span class="st"> </span><span class="kw">I</span>(X<span class="op">*</span>Y))</span>
+<span id="cb300-3"><a href="interpolation-in-r.html#cb300-3"></a></span>
+<span id="cb300-4"><a href="interpolation-in-r.html#cb300-4"></a><span class="co"># Add X and Y to P</span></span>
+<span id="cb300-5"><a href="interpolation-in-r.html#cb300-5"></a>P<span class="op">$</span>X &lt;-<span class="st"> </span><span class="kw">coordinates</span>(P)[,<span class="dv">1</span>]</span>
+<span id="cb300-6"><a href="interpolation-in-r.html#cb300-6"></a>P<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">coordinates</span>(P)[,<span class="dv">2</span>]</span>
+<span id="cb300-7"><a href="interpolation-in-r.html#cb300-7"></a> </span>
+<span id="cb300-8"><a href="interpolation-in-r.html#cb300-8"></a><span class="co"># Run the regression model</span></span>
+<span id="cb300-9"><a href="interpolation-in-r.html#cb300-9"></a>lm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>( f<span class="fl">.2</span>, <span class="dt">data=</span>P)</span>
+<span id="cb300-10"><a href="interpolation-in-r.html#cb300-10"></a></span>
+<span id="cb300-11"><a href="interpolation-in-r.html#cb300-11"></a><span class="co"># Use the regression model output to interpolate the surface</span></span>
+<span id="cb300-12"><a href="interpolation-in-r.html#cb300-12"></a>dat<span class="fl">.2</span>nd &lt;-<span class="st"> </span><span class="kw">SpatialGridDataFrame</span>(grd, <span class="kw">data.frame</span>(<span class="dt">var1.pred =</span> <span class="kw">predict</span>(lm<span class="fl">.2</span>, <span class="dt">newdata=</span>grd))) </span>
+<span id="cb300-13"><a href="interpolation-in-r.html#cb300-13"></a></span>
+<span id="cb300-14"><a href="interpolation-in-r.html#cb300-14"></a><span class="co"># Clip the interpolated raster to Texas</span></span>
+<span id="cb300-15"><a href="interpolation-in-r.html#cb300-15"></a>r   &lt;-<span class="st"> </span><span class="kw">raster</span>(dat<span class="fl">.2</span>nd)</span>
+<span id="cb300-16"><a href="interpolation-in-r.html#cb300-16"></a>r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</span>
+<span id="cb300-17"><a href="interpolation-in-r.html#cb300-17"></a></span>
+<span id="cb300-18"><a href="interpolation-in-r.html#cb300-18"></a><span class="co"># Plot the map</span></span>
+<span id="cb300-19"><a href="interpolation-in-r.html#cb300-19"></a><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb300-20"><a href="interpolation-in-r.html#cb300-20"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">palette=</span><span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping=</span><span class="ot">FALSE</span>,</span>
+<span id="cb300-21"><a href="interpolation-in-r.html#cb300-21"></a>            <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></span>
+<span id="cb300-22"><a href="interpolation-in-r.html#cb300-22"></a><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb300-23"><a href="interpolation-in-r.html#cb300-23"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="kriging" class="section level2 unnumbered">
 <h2>Kriging</h2>
 <div id="fit-the-variogram-model" class="section level3 unnumbered">
 <h3>Fit the variogram model</h3>
 <p>First, we need to create a variogram model. Note that the variogram model is computed on the <strong>de-trended</strong> data. This is implemented in the following chunk of code by passing the 1<sup>st</sup> order trend model (defined in an earlier code chunk as formula object <code>f.1</code>) to the <code>variogram</code> function.</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" title="1"><span class="co"># Define the 1st order polynomial equation</span></a>
-<a class="sourceLine" id="cb295-2" title="2">f<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Precip_in <span class="op">~</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span>Y) </a>
-<a class="sourceLine" id="cb295-3" title="3"></a>
-<a class="sourceLine" id="cb295-4" title="4"><span class="co"># Compute the sample variogram; note that the f.1 trend model is one of the</span></a>
-<a class="sourceLine" id="cb295-5" title="5"><span class="co"># parameters passed to variogram(). This tells the function to create the </span></a>
-<a class="sourceLine" id="cb295-6" title="6"><span class="co"># variogram on the de-trended data.</span></a>
-<a class="sourceLine" id="cb295-7" title="7">var.smpl &lt;-<span class="st"> </span><span class="kw">variogram</span>(f<span class="fl">.1</span>, P, <span class="dt">cloud =</span> <span class="ot">FALSE</span>, <span class="dt">cutoff=</span><span class="dv">1000000</span>, <span class="dt">width=</span><span class="dv">89900</span>)</a>
-<a class="sourceLine" id="cb295-8" title="8"></a>
-<a class="sourceLine" id="cb295-9" title="9"><span class="co"># Compute the variogram model by passing the nugget, sill and range values</span></a>
-<a class="sourceLine" id="cb295-10" title="10"><span class="co"># to fit.variogram() via the vgm() function.</span></a>
-<a class="sourceLine" id="cb295-11" title="11">dat.fit  &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(var.smpl, <span class="dt">fit.ranges =</span> <span class="ot">FALSE</span>, <span class="dt">fit.sills =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb295-12" title="12">                          <span class="kw">vgm</span>(<span class="dt">psill=</span><span class="dv">14</span>, <span class="dt">model=</span><span class="st">&quot;Sph&quot;</span>, <span class="dt">range=</span><span class="dv">590000</span>, <span class="dt">nugget=</span><span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb295-13" title="13"></a>
-<a class="sourceLine" id="cb295-14" title="14"><span class="co"># The following plot allows us to assess the fit</span></a>
-<a class="sourceLine" id="cb295-15" title="15"><span class="kw">plot</span>(var.smpl, dat.fit, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1000000</span>))</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="interpolation-in-r.html#cb301-1"></a><span class="co"># Define the 1st order polynomial equation</span></span>
+<span id="cb301-2"><a href="interpolation-in-r.html#cb301-2"></a>f<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Precip_in <span class="op">~</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span>Y) </span>
+<span id="cb301-3"><a href="interpolation-in-r.html#cb301-3"></a></span>
+<span id="cb301-4"><a href="interpolation-in-r.html#cb301-4"></a><span class="co"># Compute the sample variogram; note that the f.1 trend model is one of the</span></span>
+<span id="cb301-5"><a href="interpolation-in-r.html#cb301-5"></a><span class="co"># parameters passed to variogram(). This tells the function to create the </span></span>
+<span id="cb301-6"><a href="interpolation-in-r.html#cb301-6"></a><span class="co"># variogram on the de-trended data.</span></span>
+<span id="cb301-7"><a href="interpolation-in-r.html#cb301-7"></a>var.smpl &lt;-<span class="st"> </span><span class="kw">variogram</span>(f<span class="fl">.1</span>, P, <span class="dt">cloud =</span> <span class="ot">FALSE</span>, <span class="dt">cutoff=</span><span class="dv">1000000</span>, <span class="dt">width=</span><span class="dv">89900</span>)</span>
+<span id="cb301-8"><a href="interpolation-in-r.html#cb301-8"></a></span>
+<span id="cb301-9"><a href="interpolation-in-r.html#cb301-9"></a><span class="co"># Compute the variogram model by passing the nugget, sill and range values</span></span>
+<span id="cb301-10"><a href="interpolation-in-r.html#cb301-10"></a><span class="co"># to fit.variogram() via the vgm() function.</span></span>
+<span id="cb301-11"><a href="interpolation-in-r.html#cb301-11"></a>dat.fit  &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(var.smpl, <span class="dt">fit.ranges =</span> <span class="ot">FALSE</span>, <span class="dt">fit.sills =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb301-12"><a href="interpolation-in-r.html#cb301-12"></a>                          <span class="kw">vgm</span>(<span class="dt">psill=</span><span class="dv">14</span>, <span class="dt">model=</span><span class="st">&quot;Sph&quot;</span>, <span class="dt">range=</span><span class="dv">590000</span>, <span class="dt">nugget=</span><span class="dv">0</span>))</span>
+<span id="cb301-13"><a href="interpolation-in-r.html#cb301-13"></a></span>
+<span id="cb301-14"><a href="interpolation-in-r.html#cb301-14"></a><span class="co"># The following plot allows us to assess the fit</span></span>
+<span id="cb301-15"><a href="interpolation-in-r.html#cb301-15"></a><span class="kw">plot</span>(var.smpl, dat.fit, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1000000</span>))</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="generate-kriged-surface" class="section level3 unnumbered">
 <h3>Generate Kriged surface</h3>
 <p>Next, use the variogram model <code>dat.fit</code> to generate a kriged interpolated surface. The <code>krige</code> function allows us to include the trend model thus saving us from having to de-trend the data, krige the residuals, then combine the two rasters. Instead, all we need to do is pass <code>krige</code> the trend formula <code>f.1</code>.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" title="1"><span class="co"># Define the trend model</span></a>
-<a class="sourceLine" id="cb296-2" title="2">f<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Precip_in <span class="op">~</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span>Y) </a>
-<a class="sourceLine" id="cb296-3" title="3"></a>
-<a class="sourceLine" id="cb296-4" title="4"><span class="co"># Perform the krige interpolation (note the use of the variogram model</span></a>
-<a class="sourceLine" id="cb296-5" title="5"><span class="co"># created in the earlier step)</span></a>
-<a class="sourceLine" id="cb296-6" title="6">dat.krg &lt;-<span class="st"> </span><span class="kw">krige</span>( f<span class="fl">.1</span>, P, grd, dat.fit)</a>
-<a class="sourceLine" id="cb296-7" title="7"></a>
-<a class="sourceLine" id="cb296-8" title="8"><span class="co"># Convert kriged surface to a raster object for clipping</span></a>
-<a class="sourceLine" id="cb296-9" title="9">r &lt;-<span class="st"> </span><span class="kw">raster</span>(dat.krg)</a>
-<a class="sourceLine" id="cb296-10" title="10">r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</a>
-<a class="sourceLine" id="cb296-11" title="11"></a>
-<a class="sourceLine" id="cb296-12" title="12"><span class="co"># Plot the map</span></a>
-<a class="sourceLine" id="cb296-13" title="13"><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb296-14" title="14"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">palette=</span><span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping=</span><span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb296-15" title="15">            <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb296-16" title="16"><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb296-17" title="17"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="interpolation-in-r.html#cb302-1"></a><span class="co"># Define the trend model</span></span>
+<span id="cb302-2"><a href="interpolation-in-r.html#cb302-2"></a>f<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">as.formula</span>(Precip_in <span class="op">~</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span>Y) </span>
+<span id="cb302-3"><a href="interpolation-in-r.html#cb302-3"></a></span>
+<span id="cb302-4"><a href="interpolation-in-r.html#cb302-4"></a><span class="co"># Perform the krige interpolation (note the use of the variogram model</span></span>
+<span id="cb302-5"><a href="interpolation-in-r.html#cb302-5"></a><span class="co"># created in the earlier step)</span></span>
+<span id="cb302-6"><a href="interpolation-in-r.html#cb302-6"></a>dat.krg &lt;-<span class="st"> </span><span class="kw">krige</span>( f<span class="fl">.1</span>, P, grd, dat.fit)</span>
+<span id="cb302-7"><a href="interpolation-in-r.html#cb302-7"></a></span>
+<span id="cb302-8"><a href="interpolation-in-r.html#cb302-8"></a><span class="co"># Convert kriged surface to a raster object for clipping</span></span>
+<span id="cb302-9"><a href="interpolation-in-r.html#cb302-9"></a>r &lt;-<span class="st"> </span><span class="kw">raster</span>(dat.krg)</span>
+<span id="cb302-10"><a href="interpolation-in-r.html#cb302-10"></a>r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</span>
+<span id="cb302-11"><a href="interpolation-in-r.html#cb302-11"></a></span>
+<span id="cb302-12"><a href="interpolation-in-r.html#cb302-12"></a><span class="co"># Plot the map</span></span>
+<span id="cb302-13"><a href="interpolation-in-r.html#cb302-13"></a><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb302-14"><a href="interpolation-in-r.html#cb302-14"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">palette=</span><span class="st">&quot;RdBu&quot;</span>, <span class="dt">auto.palette.mapping=</span><span class="ot">FALSE</span>, </span>
+<span id="cb302-15"><a href="interpolation-in-r.html#cb302-15"></a>            <span class="dt">title=</span><span class="st">&quot;Predicted precipitation </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span></span>
+<span id="cb302-16"><a href="interpolation-in-r.html#cb302-16"></a><span class="st">  </span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb302-17"><a href="interpolation-in-r.html#cb302-17"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <div id="generate-the-variance-and-confidence-interval-maps" class="section level3 unnumbered">
 <h3>Generate the variance and confidence interval maps</h3>
 <p>The <code>dat.krg</code> object stores not just the interpolated values, but the variance values as well. These can be passed to the raster object for mapping as follows:</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" title="1">r   &lt;-<span class="st"> </span><span class="kw">raster</span>(dat.krg, <span class="dt">layer=</span><span class="st">&quot;var1.var&quot;</span>)</a>
-<a class="sourceLine" id="cb297-2" title="2">r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</a>
-<a class="sourceLine" id="cb297-3" title="3"></a>
-<a class="sourceLine" id="cb297-4" title="4"><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb297-5" title="5"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">7</span>, <span class="dt">palette =</span><span class="st">&quot;Reds&quot;</span>,</a>
-<a class="sourceLine" id="cb297-6" title="6">            <span class="dt">title=</span><span class="st">&quot;Variance map </span><span class="ch">\n</span><span class="st">(in squared inches)&quot;</span>) <span class="op">+</span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb297-7" title="7"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="interpolation-in-r.html#cb303-1"></a>r   &lt;-<span class="st"> </span><span class="kw">raster</span>(dat.krg, <span class="dt">layer=</span><span class="st">&quot;var1.var&quot;</span>)</span>
+<span id="cb303-2"><a href="interpolation-in-r.html#cb303-2"></a>r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</span>
+<span id="cb303-3"><a href="interpolation-in-r.html#cb303-3"></a></span>
+<span id="cb303-4"><a href="interpolation-in-r.html#cb303-4"></a><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb303-5"><a href="interpolation-in-r.html#cb303-5"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">7</span>, <span class="dt">palette =</span><span class="st">&quot;Reds&quot;</span>,</span>
+<span id="cb303-6"><a href="interpolation-in-r.html#cb303-6"></a>            <span class="dt">title=</span><span class="st">&quot;Variance map </span><span class="ch">\n</span><span class="st">(in squared inches)&quot;</span>) <span class="op">+</span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb303-7"><a href="interpolation-in-r.html#cb303-7"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Are more readily interpretable map is the 95% confidence interval map which can be generated from the variance object as follows (the map values should be interpreted as the number of inches above and below the estimated rainfall amount).</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" title="1">r   &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">raster</span>(dat.krg, <span class="dt">layer=</span><span class="st">&quot;var1.var&quot;</span>)) <span class="op">*</span><span class="st"> </span><span class="fl">1.96</span></a>
-<a class="sourceLine" id="cb298-2" title="2">r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</a>
-<a class="sourceLine" id="cb298-3" title="3"></a>
-<a class="sourceLine" id="cb298-4" title="4"><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb298-5" title="5"><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">7</span>, <span class="dt">palette =</span><span class="st">&quot;Reds&quot;</span>,</a>
-<a class="sourceLine" id="cb298-6" title="6">            <span class="dt">title=</span><span class="st">&quot;95% CI map </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb298-7" title="7"><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="interpolation-in-r.html#cb304-1"></a>r   &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">raster</span>(dat.krg, <span class="dt">layer=</span><span class="st">&quot;var1.var&quot;</span>)) <span class="op">*</span><span class="st"> </span><span class="fl">1.96</span></span>
+<span id="cb304-2"><a href="interpolation-in-r.html#cb304-2"></a>r.m &lt;-<span class="st"> </span><span class="kw">mask</span>(r, W)</span>
+<span id="cb304-3"><a href="interpolation-in-r.html#cb304-3"></a></span>
+<span id="cb304-4"><a href="interpolation-in-r.html#cb304-4"></a><span class="kw">tm_shape</span>(r.m) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb304-5"><a href="interpolation-in-r.html#cb304-5"></a><span class="st">  </span><span class="kw">tm_raster</span>(<span class="dt">n=</span><span class="dv">7</span>, <span class="dt">palette =</span><span class="st">&quot;Reds&quot;</span>,</span>
+<span id="cb304-6"><a href="interpolation-in-r.html#cb304-6"></a>            <span class="dt">title=</span><span class="st">&quot;95% CI map </span><span class="ch">\n</span><span class="st">(in inches)&quot;</span>) <span class="op">+</span><span class="kw">tm_shape</span>(P) <span class="op">+</span><span class="st"> </span><span class="kw">tm_dots</span>(<span class="dt">size=</span><span class="fl">0.2</span>) <span class="op">+</span></span>
+<span id="cb304-7"><a href="interpolation-in-r.html#cb304-7"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">legend.outside=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="A09-Interpolation_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -730,11 +738,13 @@ This tip will be used in the next chunk of code when calling the <code>idw</code
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -742,12 +752,12 @@ gitbook.start({
 "github": false,
 "facebook": false,
 "twitter": false,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
 "all": false,
+"google": false,
 "instapper": false
 },
 "fontsettings": {
@@ -760,6 +770,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -780,8 +794,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
