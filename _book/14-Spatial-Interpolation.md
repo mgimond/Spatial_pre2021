@@ -1,4 +1,3 @@
-
 # Spatial Interpolation 
 
 Given a distribution of point meteorological stations showing precipitation values, how I can I estimate the precipitation values where data were not observed?  
@@ -167,8 +166,8 @@ In Kriging interpolation, we focus on the spatial relationship between location 
 For example, if we take two meteorological stations (one whose de-trended precipitation value is -1.2 and the other whose value is 1.6), 
 
 <div class="figure">
-<img src="14-Spatial-Interpolation_files/figure-html/unnamed-chunk-4-1.png" alt="Locations of two sample sites used to demonstrate the calculation of *gamma*." width="672" />
-<p class="caption">(\#fig:unnamed-chunk-4)Locations of two sample sites used to demonstrate the calculation of *gamma*.</p>
+<img src="14-Spatial-Interpolation_files/figure-html/unnamed-chunk-3-1.png" alt="Locations of two sample sites used to demonstrate the calculation of *gamma*." width="672" />
+<p class="caption">(\#fig:unnamed-chunk-3)Locations of two sample sites used to demonstrate the calculation of *gamma*.</p>
 </div>
 
 we can compute their difference ($\gamma$) as follows:

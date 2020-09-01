@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 14 Spatial Interpolation | Intro to GIS and Spatial Analysis</title>
+  <title>Chapter 13 Spatial Interpolation | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 14 Spatial Interpolation | Intro to GIS and Spatial Analysis" />
+  <meta property="og:title" content="Chapter 13 Spatial Interpolation | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 14 Spatial Interpolation | Intro to GIS and Spatial Analysis" />
+  <meta name="twitter:title" content="Chapter 13 Spatial Interpolation | Intro to GIS and Spatial Analysis" />
   
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="spatial-autocorrelation.html">
-<link rel="next" href="reading-and-writing-spatial-data-in-r.html">
+<link rel="prev" href="spatial-autocorrelation.html"/>
+<link rel="next" href="reading-and-writing-spatial-data-in-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -39,6 +39,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -46,15 +47,9 @@
 
 
 
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-39623718-2"></script>
 <script>
@@ -66,63 +61,6 @@
 </script>
 
 
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { } /* Constant */
-code span.co { color: #008000; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #008080; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -245,54 +183,53 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="10.5.4" data-path="map-algebra.html"><a href="map-algebra.html#combining-operations"><i class="fa fa-check"></i><b>10.5.4</b> Combining operations</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>II Spatial Analysis</b></span></li>
-<li class="chapter" data-level="11" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
-<li class="chapter" data-level="11.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
-<li class="chapter" data-level="11.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#global-density"><i class="fa fa-check"></i><b>11.2.1</b> Global density</a></li>
-<li class="chapter" data-level="11.2.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#local-density"><i class="fa fa-check"></i><b>11.2.2</b> Local density</a></li>
-<li class="chapter" data-level="11.2.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i><b>11.2.3</b> Modeling intensity as a function of a covariate</a></li>
+<li class="part"><span><b>II Spatial Analysis</b></span><ul>
+<li class="chapter" data-level="10.6" data-path="map-algebra.html"><a href="map-algebra.html#centrography"><i class="fa fa-check"></i><b>10.6</b> Centrography</a></li>
+<li class="chapter" data-level="10.7" data-path="map-algebra.html"><a href="map-algebra.html#density-based-analysis"><i class="fa fa-check"></i><b>10.7</b> Density based analysis</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="map-algebra.html"><a href="map-algebra.html#global-density"><i class="fa fa-check"></i><b>10.7.1</b> Global density</a></li>
+<li class="chapter" data-level="10.7.2" data-path="map-algebra.html"><a href="map-algebra.html#local-density"><i class="fa fa-check"></i><b>10.7.2</b> Local density</a></li>
+<li class="chapter" data-level="10.7.3" data-path="map-algebra.html"><a href="map-algebra.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i><b>10.7.3</b> Modeling intensity as a function of a covariate</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#distance-based-analysis"><i class="fa fa-check"></i><b>11.3</b> Distance based analysis</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#average-nearest-neighbor"><i class="fa fa-check"></i><b>11.3.1</b> Average Nearest Neighbor</a></li>
-<li class="chapter" data-level="11.3.2" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#k-and-l-functions"><i class="fa fa-check"></i><b>11.3.2</b> K and L functions</a></li>
-<li class="chapter" data-level="11.3.3" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#the-pair-correlation-function-g"><i class="fa fa-check"></i><b>11.3.3</b> The Pair Correlation Function <span class="math inline">\(g\)</span></a></li>
+<li class="chapter" data-level="10.8" data-path="map-algebra.html"><a href="map-algebra.html#distance-based-analysis"><i class="fa fa-check"></i><b>10.8</b> Distance based analysis</a><ul>
+<li class="chapter" data-level="10.8.1" data-path="map-algebra.html"><a href="map-algebra.html#average-nearest-neighbor"><i class="fa fa-check"></i><b>10.8.1</b> Average Nearest Neighbor</a></li>
+<li class="chapter" data-level="10.8.2" data-path="map-algebra.html"><a href="map-algebra.html#k-and-l-functions"><i class="fa fa-check"></i><b>10.8.2</b> K and L functions</a></li>
+<li class="chapter" data-level="10.8.3" data-path="map-algebra.html"><a href="map-algebra.html#the-pair-correlation-function-g"><i class="fa fa-check"></i><b>10.8.3</b> The Pair Correlation Function <span class="math inline">\(g\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="point-pattern-analysis.html"><a href="point-pattern-analysis.html#first-and-second-order-effects"><i class="fa fa-check"></i><b>11.4</b> First and second order effects</a></li>
+<li class="chapter" data-level="10.9" data-path="map-algebra.html"><a href="map-algebra.html#first-and-second-order-effects"><i class="fa fa-check"></i><b>10.9</b> First and second order effects</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>12</b> Hypothesis testing</a><ul>
-<li class="chapter" data-level="12.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#irpcsr"><i class="fa fa-check"></i><b>12.1</b> IRP/CSR</a></li>
-<li class="chapter" data-level="12.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#testing-for-csr-with-the-ann-tool"><i class="fa fa-check"></i><b>12.2</b> Testing for CSR with the ANN tool</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#arcgis-average-nearest-neighbor-tool"><i class="fa fa-check"></i><b>12.2.1</b> ArcGIS’ Average Nearest Neighbor Tool</a></li>
-<li class="chapter" data-level="12.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-better-approach-a-monte-carlo-test"><i class="fa fa-check"></i><b>12.2.2</b> A better approach: a Monte Carlo test</a></li>
+<li class="chapter" data-level="11" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>11</b> Hypothesis testing</a><ul>
+<li class="chapter" data-level="11.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#irpcsr"><i class="fa fa-check"></i><b>11.1</b> IRP/CSR</a></li>
+<li class="chapter" data-level="11.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#testing-for-csr-with-the-ann-tool"><i class="fa fa-check"></i><b>11.2</b> Testing for CSR with the ANN tool</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#arcgis-average-nearest-neighbor-tool"><i class="fa fa-check"></i><b>11.2.1</b> ArcGIS’ Average Nearest Neighbor Tool</a></li>
+<li class="chapter" data-level="11.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-better-approach-a-monte-carlo-test"><i class="fa fa-check"></i><b>11.2.2</b> A better approach: a Monte Carlo test</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#alternatives-to-csrirp"><i class="fa fa-check"></i><b>12.3</b> Alternatives to CSR/IRP</a></li>
-<li class="chapter" data-level="12.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#monte-carlo-test-with-k-and-l-functions"><i class="fa fa-check"></i><b>12.4</b> Monte Carlo test with K and L functions</a></li>
-<li class="chapter" data-level="12.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#PPM"><i class="fa fa-check"></i><b>12.5</b> Testing for a covariate effect</a></li>
+<li class="chapter" data-level="11.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#alternatives-to-csrirp"><i class="fa fa-check"></i><b>11.3</b> Alternatives to CSR/IRP</a></li>
+<li class="chapter" data-level="11.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#monte-carlo-test-with-k-and-l-functions"><i class="fa fa-check"></i><b>11.4</b> Monte Carlo test with K and L functions</a></li>
+<li class="chapter" data-level="11.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#PPM"><i class="fa fa-check"></i><b>11.5</b> Testing for a covariate effect</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>13</b> Spatial Autocorrelation</a><ul>
-<li class="chapter" data-level="13.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#global-morans-i"><i class="fa fa-check"></i><b>13.1</b> Global Moran’s I</a><ul>
-<li class="chapter" data-level="13.1.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#computing-the-morans-i"><i class="fa fa-check"></i><b>13.1.1</b> Computing the Moran’s I</a></li>
-<li class="chapter" data-level="13.1.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#monte-carlo-approach-to-estimating-significance"><i class="fa fa-check"></i><b>13.1.2</b> Monte Carlo approach to estimating significance</a></li>
+<li class="chapter" data-level="12" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>12</b> Spatial Autocorrelation</a><ul>
+<li class="chapter" data-level="12.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#global-morans-i"><i class="fa fa-check"></i><b>12.1</b> Global Moran’s I</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#computing-the-morans-i"><i class="fa fa-check"></i><b>12.1.1</b> Computing the Moran’s I</a></li>
+<li class="chapter" data-level="12.1.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#monte-carlo-approach-to-estimating-significance"><i class="fa fa-check"></i><b>12.1.2</b> Monte Carlo approach to estimating significance</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#morans-i-at-different-lags"><i class="fa fa-check"></i><b>13.2</b> Moran’s I at different lags</a></li>
-<li class="chapter" data-level="13.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-morans-i"><i class="fa fa-check"></i><b>13.3</b> Local Moran’s I</a></li>
+<li class="chapter" data-level="12.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#morans-i-at-different-lags"><i class="fa fa-check"></i><b>12.2</b> Moran’s I at different lags</a></li>
+<li class="chapter" data-level="12.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-morans-i"><i class="fa fa-check"></i><b>12.3</b> Local Moran’s I</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html"><i class="fa fa-check"></i><b>14</b> Spatial Interpolation</a><ul>
-<li class="chapter" data-level="14.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#deterministic-approach-to-interpolation"><i class="fa fa-check"></i><b>14.1</b> Deterministic Approach to Interpolation</a><ul>
-<li class="chapter" data-level="14.1.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#proximity-interpolation"><i class="fa fa-check"></i><b>14.1.1</b> Proximity interpolation</a></li>
-<li class="chapter" data-level="14.1.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#inverse-distance-weighted-idw"><i class="fa fa-check"></i><b>14.1.2</b> Inverse Distance Weighted (IDW)</a></li>
-<li class="chapter" data-level="14.1.3" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#fine-tuning-the-interpolation-parameters"><i class="fa fa-check"></i><b>14.1.3</b> Fine tuning the interpolation parameters</a></li>
+<li class="chapter" data-level="13" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html"><i class="fa fa-check"></i><b>13</b> Spatial Interpolation</a><ul>
+<li class="chapter" data-level="13.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#deterministic-approach-to-interpolation"><i class="fa fa-check"></i><b>13.1</b> Deterministic Approach to Interpolation</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#proximity-interpolation"><i class="fa fa-check"></i><b>13.1.1</b> Proximity interpolation</a></li>
+<li class="chapter" data-level="13.1.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#inverse-distance-weighted-idw"><i class="fa fa-check"></i><b>13.1.2</b> Inverse Distance Weighted (IDW)</a></li>
+<li class="chapter" data-level="13.1.3" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#fine-tuning-the-interpolation-parameters"><i class="fa fa-check"></i><b>13.1.3</b> Fine tuning the interpolation parameters</a></li>
 </ul></li>
-<li class="chapter" data-level="14.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#statistical-approach-to-interpolation"><i class="fa fa-check"></i><b>14.2</b> Statistical Approach to Interpolation</a><ul>
-<li class="chapter" data-level="14.2.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#trend-surfaces"><i class="fa fa-check"></i><b>14.2.1</b> Trend Surfaces</a></li>
-<li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
+<li class="chapter" data-level="13.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#statistical-approach-to-interpolation"><i class="fa fa-check"></i><b>13.2</b> Statistical Approach to Interpolation</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#trend-surfaces"><i class="fa fa-check"></i><b>13.2.1</b> Trend Surfaces</a></li>
+<li class="chapter" data-level="13.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>13.2.2</b> Ordinary Kriging</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III Appendix</b></span></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html"><i class="fa fa-check"></i>Reading and writing spatial data in R</a><ul>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#introduction-1"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#creating-spatial-objects"><i class="fa fa-check"></i>Creating spatial objects</a><ul>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-shapefile"><i class="fa fa-check"></i>Reading a shapefile</a></li>
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#reading-a-geopackage"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
@@ -311,7 +248,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#exporting-to-different-data-file-formats"><i class="fa fa-check"></i>Exporting to different data file formats</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html"><i class="fa fa-check"></i>Mapping data in R</a><ul>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#sample-files-for-this-exercise-1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#the-basics"><i class="fa fa-check"></i>The basics</a><ul>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#combining-layers"><i class="fa fa-check"></i>Combining layers</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#tweaking-classification-schemes"><i class="fa fa-check"></i>Tweaking classification schemes</a></li>
@@ -345,20 +282,20 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#unioning"><i class="fa fa-check"></i>Unioning</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#sample-files-for-this-exercise-2"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#local-operations-and-functions-1"><i class="fa fa-check"></i>Local operations and functions</a><ul>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#local-operations-and-functions"><i class="fa fa-check"></i>Local operations and functions</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#unary-operations-and-functions-applied-to-single-rasters"><i class="fa fa-check"></i>Unary operations and functions (applied to single rasters)</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#binary-operations-and-functions-where-two-rasters-are-used"><i class="fa fa-check"></i>Binary operations and functions (where two rasters are used)</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#focal-operations-and-functions-1"><i class="fa fa-check"></i>Focal operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#zonal-operations-and-functions-1"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#global-operations-and-functions-1"><i class="fa fa-check"></i>Global operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#focal-operations-and-functions"><i class="fa fa-check"></i>Focal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#zonal-operations-and-functions"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#global-operations-and-functions"><i class="fa fa-check"></i>Global operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#computing-cumulative-distances"><i class="fa fa-check"></i>Computing cumulative distances</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#working-example"><i class="fa fa-check"></i>Working example</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise-3"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
@@ -369,19 +306,19 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#creating-tissot-indicatrix-circles"><i class="fa fa-check"></i>Creating Tissot indicatrix circles</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#sample-files-for-this-exercise-4"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li><a href="point-pattern-analysis-in-r.html#getting-external-data-into-a-spatstat-format">Getting external data into a <code>spatstat</code> format</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#introduction-2"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#density-based-analysis-1"><i class="fa fa-check"></i>Density based analysis</a><ul>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-1"><i class="fa fa-check"></i>Quadrat density</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#density-based-analysis"><i class="fa fa-check"></i>Density based analysis</a><ul>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#quadrat-density"><i class="fa fa-check"></i>Quadrat density</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#quadrat-density-on-a-tessellated-surface"><i class="fa fa-check"></i>Quadrat density on a tessellated surface</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-raster"><i class="fa fa-check"></i>Kernel density raster</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#kernel-density-adjusted-for-covariate-1"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#modeling-intensity-as-a-function-of-a-covariate-1"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#kernel-density-adjusted-for-covariate"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#distance-based-analysis-1"><i class="fa fa-check"></i>Distance based analysis</a><ul>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#distance-based-analysis"><i class="fa fa-check"></i>Distance based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#average-nearest-neighbor-analysis"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#k-and-l-functions-1"><i class="fa fa-check"></i>K and L functions</a></li>
+<li class="chapter" data-level="" data-path="map-algebra.html"><a href="map-algebra.html#k-and-l-functions"><i class="fa fa-check"></i>K and L functions</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pair-correlation-function-g"><i class="fa fa-check"></i>Pair correlation function g</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#hypothesis-tests"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
@@ -391,8 +328,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial autocorrelation in R</a><ul>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#sample-files-for-this-exercise-5"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#introduction-3"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="reading-and-writing-spatial-data-in-r.html"><a href="reading-and-writing-spatial-data-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li class="chapter" data-level="" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#define-neighboring-polygons"><i class="fa fa-check"></i>Define neighboring polygons</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-the-morans-i-statistic-the-hard-way"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the hard way</a><ul>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-a-pseudo-p-value-from-an-mc-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from an MC simulation</a></li>
@@ -433,33 +370,33 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
             <section class="normal" id="section-">
 <div id="spatial-interpolation" class="section level1">
-<h1><span class="header-section-number">Chapter 14</span> Spatial Interpolation</h1>
+<h1><span class="header-section-number">Chapter 13</span> Spatial Interpolation</h1>
 <p>Given a distribution of point meteorological stations showing precipitation values, how I can I estimate the precipitation values where data were not observed?</p>
 <div class="figure"><span id="fig:f14-precip-map"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-precip-map-1.png" alt="Average yearly precipitation (reported in inches) for several meteorological sites in Texas." width="672" />
 <p class="caption">
-Figure 14.1: Average yearly precipitation (reported in inches) for several meteorological sites in Texas.
+Figure 13.1: Average yearly precipitation (reported in inches) for several meteorological sites in Texas.
 </p>
 </div>
 <p>To help answer this question, we need to clearly define the nature of our point dataset. We’ve already encountered point data earlier in the course where our interest was in creating point density maps using different kernel windows. However, the point data used represented a complete enumeration of discrete events or observations–i.e. the entity of interest only occurred a discrete locations within a study area and therefore could only be <em>measured</em> at those locations. Here, our point data represents <strong>sampled</strong> observations of an entity that can be measured <em>anywhere</em> within our study area. So creating a point density raster from this data would only make sense if we were addressing the questions like “<em>where are the meteorological stations concentrated within the state of Texas?</em>”.</p>
 <p>Another class of techniques used with points that represent samples of a <strong>continuous field</strong> are <strong>interpolation</strong> methods. There are many interpolation tools available, but these tools can usually be grouped into two categories: <strong>deterministic</strong> and <strong>statistical</strong> interpolation methods.</p>
 <div id="deterministic-approach-to-interpolation" class="section level2">
-<h2><span class="header-section-number">14.1</span> Deterministic Approach to Interpolation</h2>
+<h2><span class="header-section-number">13.1</span> Deterministic Approach to Interpolation</h2>
 <p>We will explore two deterministic methods: <strong>proximity</strong> (aka <strong>Thiessen</strong>) techniques and <strong>inverse distance weighted</strong> techniques (<strong>IDW</strong> for short).</p>
 <div id="proximity-interpolation" class="section level3">
-<h3><span class="header-section-number">14.1.1</span> Proximity interpolation</h3>
+<h3><span class="header-section-number">13.1.1</span> Proximity interpolation</h3>
 <p>This is probably the simplest (and possibly one of the oldest) interpolation method. It was introduced by Alfred H. Thiessen more than a century ago. The goal is simple: Assign to all unsampled locations the value of the closest sampled location. This generates a <em>tessellated</em> surface whereby lines that split the midpoint between each sampled location are connected thus enclosing an area. Each area ends up enclosing a sample point whose value it inherits.</p>
 <div class="figure"><span id="fig:f14-proximity"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-proximity-1.png" alt="Tessellated surface generated from discrete point samples. This is also known as a *Thiessen interpolation*." width="672" />
 <p class="caption">
-Figure 14.2: Tessellated surface generated from discrete point samples. This is also known as a <em>Thiessen interpolation</em>.
+Figure 13.2: Tessellated surface generated from discrete point samples. This is also known as a <em>Thiessen interpolation</em>.
 </p>
 </div>
 <p>One problem with this approach is that the surface values change abruptly across the tessellated boundaries. This is not representative of most surfaces in nature.</p>
 <p>Thiessen’s method was very practical in his days when computers did not exist. But today, computers afford us more advanced methods of interpolation as we will see next.</p>
 </div>
 <div id="inverse-distance-weighted-idw" class="section level3">
-<h3><span class="header-section-number">14.1.2</span> Inverse Distance Weighted (IDW)</h3>
+<h3><span class="header-section-number">13.1.2</span> Inverse Distance Weighted (IDW)</h3>
 <p>The IDW technique computes an average value for unsampled locations using values from nearby weighted locations. The weights are proportional to the proximity of the sampled points to the unsampled location and can be specified by the IDW power coefficient. The larger the power coefficient, the stronger the weight of nearby points as can be gleaned from the following equation that estimates the value <span class="math inline">\(z\)</span> at an unsampled location <span class="math inline">\(j\)</span>:</p>
 <p><span class="math display">\[
 \hat{Z_j} = \frac{\sum_i{Z_i/d^n_{ij}}}{\sum_i{1/d^n_{ij}}}
@@ -469,19 +406,19 @@ The carat <span class="math inline">\(\hat{}\)</span> above the variable <span c
 <div class="figure"><span id="fig:f14-idw1"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-idw1-1.png" alt="An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 2 was used in this example." width="672" />
 <p class="caption">
-Figure 14.3: An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 2 was used in this example.
+Figure 13.3: An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 2 was used in this example.
 </p>
 </div>
 <p>In the following example, an <span class="math inline">\(n\)</span> value of <code>15</code> is used to interpolate precipitation. This results in nearby points having greater influence on the unsampled locations. Note the similarity in output to the proximity (Thiessen) interpolation.</p>
 <div class="figure"><span id="fig:f14-idw2"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-idw2-1.png" alt="An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 15 was used in this example." width="672" />
 <p class="caption">
-Figure 14.4: An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 15 was used in this example.
+Figure 13.4: An IDW interpolation of the average yearly precipitation (reported in inches) for several meteorological sites in Texas. An IDW power coefficient of 15 was used in this example.
 </p>
 </div>
 </div>
 <div id="fine-tuning-the-interpolation-parameters" class="section level3">
-<h3><span class="header-section-number">14.1.3</span> Fine tuning the interpolation parameters</h3>
+<h3><span class="header-section-number">13.1.3</span> Fine tuning the interpolation parameters</h3>
 <p>Finding the best set of input parameters to create an interpolated surface can be a subjective proposition. Other than <em>eyeballing</em> the results, how can you quantify the <em>accuracy</em> of the estimated values? One option is to split the points into two sets: the points used in the interpolation operation and the points used to validate the results. While this method is easily implemented (even via a pen and paper adoption) it does suffer from significant loss in power–i.e. we are using just half of the information to estimate the unsampled locations.</p>
 <p>A better approach (and one easily implemented in a computing environment) is to remove one data point from the dataset and interpolate its value using <em>all other</em> points in the dataset then repeating this process for each point in that dataset (while making sure that the interpolator parameters remain constant across each interpolation). The interpolated values are then compared with the actual values from the omitted point. This method is sometimes referred to as <strong>jackknifing</strong> or <strong>leave-one-out cross-validation</strong>.</p>
 <p>The performance of the interpolator can be summarized by computing the root-mean of squared residuals (RMSE) from the errors as follows:</p>
@@ -493,61 +430,61 @@ RMSE = \sqrt{\frac{\sum_{i=1}^n (\hat {Z_{i}} - Z_i)^2}{n}}
 <div class="figure"><span id="fig:f14-rmse-plot"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-rmse-plot-1.png" alt="Scatter plot pitting predicted values vs. the observed values at each sampled location following a leave-one-out cross validation analysis." width="672" />
 <p class="caption">
-Figure 14.5: Scatter plot pitting predicted values vs. the observed values at each sampled location following a leave-one-out cross validation analysis.
+Figure 13.5: Scatter plot pitting predicted values vs. the observed values at each sampled location following a leave-one-out cross validation analysis.
 </p>
 </div>
 <p>The computed RMSE from the above working example is 6.989 inches. We can extend our exploration of the interpolator’s accuracy by creating a map of the confidence intervals. This involves <em>layering</em> all <span class="math inline">\(n\)</span> interpolated surfaces from the aforementioned jackknife technique, then computing the confidence interval for each location ( pixel) in the output map (raster). If the range of interpolated values from the jackknife technique for an unsampled location <span class="math inline">\(i\)</span> is high, then this implies that this location is highly sensitive to the presence or absence of a single point from the sample point locations thus producing a large confidence interval (i.e. we can’t be very confident of the predicted value). Conversely, if the range of values estimated for location <span class="math inline">\(i\)</span> is low, then a small confidence interval is computed (providing us with greater confidence in the interpolated value). The following map shows the 95% confidence interval for each unsampled location (pixel) in the study extent.</p>
 <div class="figure"><span id="fig:f13-confidence-map"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f13-confidence-map-1.png" alt="In this example an IDW  power coefficient of 2 was used and the search parameters was confined to a minimum number of points of 10 and a maximum number of points of 15. The search window was isotropic. Each pixel represents the range of precipitation values (in inches) around the expected value given a 95% confidence interval." width="672" />
 <p class="caption">
-Figure 14.6: In this example an IDW power coefficient of 2 was used and the search parameters was confined to a minimum number of points of 10 and a maximum number of points of 15. The search window was isotropic. Each pixel represents the range of precipitation values (in inches) around the expected value given a 95% confidence interval.
+Figure 13.6: In this example an IDW power coefficient of 2 was used and the search parameters was confined to a minimum number of points of 10 and a maximum number of points of 15. The search window was isotropic. Each pixel represents the range of precipitation values (in inches) around the expected value given a 95% confidence interval.
 </p>
 </div>
 <p>IDW interpolation is probably one of the most widely used interpolators because of its simplicity. In many cases, it can do an adequate job. However, the choice of power remains subjective. There is another class of interpolators that makes use of the information provided to us by the sample points–more specifically, information pertaining to 1st and 2nd order behavior. These interpolators are covered next.</p>
 </div>
 </div>
 <div id="statistical-approach-to-interpolation" class="section level2">
-<h2><span class="header-section-number">14.2</span> Statistical Approach to Interpolation</h2>
+<h2><span class="header-section-number">13.2</span> Statistical Approach to Interpolation</h2>
 <p>The statistical interpolation methods include <strong>surface trend</strong> and <strong>Kriging</strong>.</p>
 <div id="trend-surfaces" class="section level3">
-<h3><span class="header-section-number">14.2.1</span> Trend Surfaces</h3>
+<h3><span class="header-section-number">13.2.1</span> Trend Surfaces</h3>
 <p>It may help to think of trend surface modeling as a regression on spatial coordinates where the coefficients apply to those coordinate values and (for more complicated surface trends) to the interplay of the coordinate values. We will explore a 0th order, 1st order and 2nd order surface trend in the following sub-sections.</p>
 <div id="th-order-trend-surface" class="section level4">
-<h4><span class="header-section-number">14.2.1.1</span> 0<sup>th</sup> Order Trend Surface</h4>
+<h4><span class="header-section-number">13.2.1.1</span> 0<sup>th</sup> Order Trend Surface</h4>
 <p>The first model (and simplest model), is the 0<sup>th</sup> order model which takes on the following expression: <code>Z = a</code> where the intercept <code>a</code> is the mean precipitation value of all sample points (27.1 in our working example). This is simply a level (horizontal) surface whose cell values all equal 27.1.</p>
 <div class="figure" style="text-align: center"><span id="fig:f13-poly0"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f13-poly0-1.png" alt="The simplest model where all interpolated surface values are equal to the mean precipitation." width="672" />
 <p class="caption">
-Figure 14.7: The simplest model where all interpolated surface values are equal to the mean precipitation.
+Figure 13.7: The simplest model where all interpolated surface values are equal to the mean precipitation.
 </p>
 </div>
 <p>This makes for an uninformative map. A more interesting surface trend map is one where the surface trend has a slope other than 0 as highlighted in the next subsection.</p>
 </div>
 <div id="st-order-trend-surface" class="section level4">
-<h4><span class="header-section-number">14.2.1.2</span> 1<sup>st</sup> Order Trend Surface</h4>
+<h4><span class="header-section-number">13.2.1.2</span> 1<sup>st</sup> Order Trend Surface</h4>
 <p>The first order surface polynomial is a slanted flat plane whose formula is given by: <code>Z = a + bX + cY</code> where <code>X</code> and <code>Y</code> are the coordinate pairs.</p>
 <div class="figure" style="text-align: center"><span id="fig:f13-poly1"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f13-poly1-1.png" alt="Result of a first order interpolation." width="672" />
 <p class="caption">
-Figure 14.8: Result of a first order interpolation.
+Figure 13.8: Result of a first order interpolation.
 </p>
 </div>
 <p>The 1st order surface trend does a good job in highlighting the prominent east-west trend. But is the trend truly uniform along the X axis? Let’s explore a more complicated surface: the quadratic polynomial.</p>
 </div>
 <div id="nd-order-trend-surface" class="section level4">
-<h4><span class="header-section-number">14.2.1.3</span> 2<sup>nd</sup> Order Trend Surface</h4>
+<h4><span class="header-section-number">13.2.1.3</span> 2<sup>nd</sup> Order Trend Surface</h4>
 <p>The second order surface polynomial (aka quadratic polynomial) is a parabolic surface whose formula is given by: <span class="math inline">\(Z = a + bX + cY + dX^2 + eY^2 + fXY\)</span></p>
 <div class="figure" style="text-align: center"><span id="fig:f13-poly2"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f13-poly2-1.png" alt="Result of a second order interpolation" width="672" />
 <p class="caption">
-Figure 14.9: Result of a second order interpolation
+Figure 13.9: Result of a second order interpolation
 </p>
 </div>
 <p>This interpolation picks up a slight curvature in the east-west trend. But it’s not a significant improvement over the 1st order trend.</p>
 </div>
 </div>
 <div id="ordinary-kriging" class="section level3">
-<h3><span class="header-section-number">14.2.2</span> Ordinary Kriging</h3>
+<h3><span class="header-section-number">13.2.2</span> Ordinary Kriging</h3>
 <p>Several forms of kriging interpolators exist: ordinary, universal and simple just to name a few. This section will focus on <strong>ordinary kriging</strong> (<strong>OK</strong>) interpolation. This form of kriging usually involves four steps:</p>
 <ul>
 <li>Removing any <strong>spatial trend</strong> in the data (if present).</li>
@@ -558,25 +495,25 @@ Figure 14.9: Result of a second order interpolation
 </ul>
 <p>These steps our outlined in the following subsections.</p>
 <div id="de-trending-the-data" class="section level4">
-<h4><span class="header-section-number">14.2.2.1</span> De-trending the data</h4>
+<h4><span class="header-section-number">13.2.2.1</span> De-trending the data</h4>
 <p>One assumption that needs to be met in ordinary kriging is that the mean and the variation in the entity being studied is constant across the study area. In other words, there should be no global trend in the data (the term <em>drift</em> is sometimes used to describe the trend in other texts). This assumption is clearly not met with our Texas precipitation dataset where a prominent east-west gradient is observed. This requires that we remove the trend from the data before proceeding with the kriging operations.</p>
 <p>Many pieces of software will accept a trend model (usually a first, second or third order polynomial). In the steps that follow, we will use the first order fit computed earlier to de-trend our point values (recall that the second order fit provided very little improvement over the first order fit).</p>
 <p>Removing the trend leaves us with the residuals that will be used in kriging interpolation. Note that the modeled trend will be added to the kriged interpolated surface at the end of the workflow.</p>
 <div class="figure"><span id="fig:f13-detrend-map"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f13-detrend-map-1.png" alt="Map showing de-trended precipitation values (aka residuals). These detrended values are then passed to the ordinary kriging interpolation operations. You can think of these residuals as representing variability in the data not explained by the global trend. If variability is present in the residuals then it is best characterized as a distance based measure of variability (as opposed to a location based measure)." width="672" />
 <p class="caption">
-Figure 14.10: Map showing de-trended precipitation values (aka residuals). These detrended values are then passed to the ordinary kriging interpolation operations. You can think of these residuals as representing variability in the data not explained by the global trend. If variability is present in the residuals then it is best characterized as a distance based measure of variability (as opposed to a location based measure).
+Figure 13.10: Map showing de-trended precipitation values (aka residuals). These detrended values are then passed to the ordinary kriging interpolation operations. You can think of these residuals as representing variability in the data not explained by the global trend. If variability is present in the residuals then it is best characterized as a distance based measure of variability (as opposed to a location based measure).
 </p>
 </div>
 </div>
 <div id="experimental-variogram" class="section level4">
-<h4><span class="header-section-number">14.2.2.2</span> Experimental Variogram</h4>
+<h4><span class="header-section-number">13.2.2.2</span> Experimental Variogram</h4>
 <p>In Kriging interpolation, we focus on the spatial relationship between location attribute values. More specifically, we are interested in how these attribute values (precipitation residuals in our working example) vary as the distance between location point pairs increases. We can compute the difference, <span class="math inline">\(\gamma\)</span>, in precipitation values by squaring their differences then dividing by 2.</p>
 <p>For example, if we take two meteorological stations (one whose de-trended precipitation value is -1.2 and the other whose value is 1.6),</p>
-<div class="figure"><span id="fig:unnamed-chunk-4"></span>
-<img src="14-Spatial-Interpolation_files/figure-html/unnamed-chunk-4-1.png" alt="Locations of two sample sites used to demonstrate the calculation of *gamma*." width="672" />
+<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<img src="14-Spatial-Interpolation_files/figure-html/unnamed-chunk-3-1.png" alt="Locations of two sample sites used to demonstrate the calculation of *gamma*." width="672" />
 <p class="caption">
-Figure 2.4: Locations of two sample sites used to demonstrate the calculation of <em>gamma</em>.
+Figure 13.11: Locations of two sample sites used to demonstrate the calculation of <em>gamma</em>.
 </p>
 </div>
 <p>we can compute their difference (<span class="math inline">\(\gamma\)</span>) as follows:</p>
@@ -587,67 +524,67 @@ Figure 2.4: Locations of two sample sites used to demonstrate the calculation of
 <div class="figure"><span id="fig:f14-variogram"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-variogram-1.png" alt="Experimental variogram plot of precipitation residual values." width="672" />
 <p class="caption">
-Figure 14.11: Experimental variogram plot of precipitation residual values.
+Figure 13.12: Experimental variogram plot of precipitation residual values.
 </p>
 </div>
-<p>The red point in the plot is the value computed in the above example. The distance separating those two points is about 209 km. This value is mapped in <a href="spatial-interpolation.html#fig:f14-variogram">14.11</a> as a red dot.</p>
+<p>The red point in the plot is the value computed in the above example. The distance separating those two points is about 209 km. This value is mapped in <a href="spatial-interpolation.html#fig:f14-variogram">13.12</a> as a red dot.</p>
 <p>The above plot is called an <strong>experimental semivariogram</strong> cloud plot (also referred to as an experimental <strong>variogram</strong> cloud plot). The terms semivariogram and variogram are often used interchangeably in geostatistics (we’ll use the term variogram henceforth since this seems to be the term of choice in current literature). Also note that the word <em>experimental</em> is sometimes dropped when describing these plots, but its use in our terminology is an important reminder that the points we are working with are just samples of some continuous field whose spatial variation we are attempting to model.</p>
 </div>
 <div id="sample-experimental-variogram" class="section level4">
-<h4><span class="header-section-number">14.2.2.3</span> Sample Experimental Variogram</h4>
+<h4><span class="header-section-number">13.2.2.3</span> Sample Experimental Variogram</h4>
 <p>Cloud points can be difficult to interpret due to the sheer number of point pairs (we have 465 point pairs from just 50 sample points, and this just for 1/3 of the maximum distance lag!). A common approach to resolving this issue is to “bin” the cloud points into intervals called <strong>lags</strong> and to summarize the points within each interval. In the following plot, we split the data into 15 bins then compute the average point value for each bin (displayed as red points in the plot). The red points that summarize the cloud are the <strong>sample experimental variogram estimates</strong> for each of the 15 distance bands and the plot is referred to as the <strong>sample experimental variogram</strong> plot.</p>
 <div class="figure"><span id="fig:f14-sample-variogram"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-sample-variogram-1.png" alt="Sample experimental variogram plot of precipitation residual values." width="672" />
 <p class="caption">
-Figure 14.12: Sample experimental variogram plot of precipitation residual values.
+Figure 13.13: Sample experimental variogram plot of precipitation residual values.
 </p>
 </div>
 </div>
 <div id="experimental-variogram-model" class="section level4">
-<h4><span class="header-section-number">14.2.2.4</span> Experimental Variogram Model</h4>
+<h4><span class="header-section-number">13.2.2.4</span> Experimental Variogram Model</h4>
 <p>The next step is to fit a mathematical model to our <em>sample experimental variogram</em>. Different mathematical models can be used; their availability is software dependent. Examples of mathematical models are shown below:</p>
 <div class="figure"><span id="fig:f14-variogram-models"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-variogram-models-1.png" alt="A subset of variogram models available in R's `gstat` package." width="672" />
 <p class="caption">
-Figure 14.13: A subset of variogram models available in R’s <code>gstat</code> package.
+Figure 13.14: A subset of variogram models available in R’s <code>gstat</code> package.
 </p>
 </div>
 <p>The goal is to apply the model that best fits our sample experimental variogram. This requires picking the proper model, then tweaking the <strong>partial sill</strong>, <strong>range</strong>, and <strong>nugget</strong> parameters (where appropriate). The following figure illustrates a nonzero intercept where the <em>nugget</em> is the distance between the <span class="math inline">\(0\)</span> variance on the <span class="math inline">\(y\)</span> axis and the variogram’s model intercept with the <span class="math inline">\(y\)</span> axis. The <em>partial sill</em> is the vertical distance between the nugget and the part of the curve that levels off. If the variogram approaches <span class="math inline">\(0\)</span> on the <span class="math inline">\(y\)</span>-axis, then the nugget is <span class="math inline">\(0\)</span> and the <em>partial sill</em> is simply referred to as the <strong>sill</strong>. The distance along the <span class="math inline">\(x\)</span> axis where the curve levels off is referred to as the <em>range</em>.</p>
 <div class="figure"><span id="fig:f14-model-explained"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-model-explained-1.png" alt="Graphical description of the range, sill and nugget parameters in a variogram model." width="672" />
 <p class="caption">
-Figure 14.14: Graphical description of the range, sill and nugget parameters in a variogram model.
+Figure 13.15: Graphical description of the range, sill and nugget parameters in a variogram model.
 </p>
 </div>
 <p>In our working example, we will try to fit the <em>Spherical</em> function to our sample experimental variogram. This is one of three popular models (the other two being <em>linear</em> and <em>gaussian</em> models.)</p>
 <div class="figure"><span id="fig:f14-spherical-model"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-spherical-model-1.png" alt="A spherical model fit to our residual variogram." width="672" />
 <p class="caption">
-Figure 14.15: A spherical model fit to our residual variogram.
+Figure 13.16: A spherical model fit to our residual variogram.
 </p>
 </div>
 </div>
 <div id="kriging-interpolation" class="section level4">
-<h4><span class="header-section-number">14.2.2.5</span> Kriging Interpolation</h4>
+<h4><span class="header-section-number">13.2.2.5</span> Kriging Interpolation</h4>
 <p>The variogram model is used by the kriging interpolator to provide <em>localized</em> weighting parameters. Recall that with the IDW, the interpolated value at an unsampled site is determined by summarizing weighted neighboring points where the weighting parameter (the power parameter) is defined by the user and is applied uniformly to the entire study extent. Kriging uses the variogram model to compute the weights of neighboring points based on the distribution of those values–in essence, kriging is letting the localized pattern produced by the sample points define the weights (in a systematic way). The exact mathematical implementation will not be covered here (it’s quite involved), but the resulting output is shown in the following figure:</p>
 <div class="figure" style="text-align: center"><span id="fig:f14-krige01"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-krige01-1.png" alt="Krige interpolation of the residual (detrended) precipitation values." width="672" />
 <p class="caption">
-Figure 14.16: Krige interpolation of the residual (detrended) precipitation values.
+Figure 13.17: Krige interpolation of the residual (detrended) precipitation values.
 </p>
 </div>
 <p>Recall that the kriging interpolation was performed on the de-trended data. In essence, we predicted the precipitation values based on localized factors. We now need to combine this interpolated surface with that produced from the trend interpolated surface to produce the following output:</p>
 <div class="figure" style="text-align: center"><span id="fig:f14-krige02"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-krige02-1.png" alt="The final kriged surface." width="672" />
 <p class="caption">
-Figure 14.17: The final kriged surface.
+Figure 13.18: The final kriged surface.
 </p>
 </div>
 <p>A valuable by-product of the kriging operation is the variance map which gives us a measure of uncertainty in the interpolated values. The smaller the variance, the better (note that the variance values are in squared units).</p>
 <div class="figure" style="text-align: center"><span id="fig:f14-krige03"></span>
 <img src="14-Spatial-Interpolation_files/figure-html/f14-krige03-1.png" alt="Variance map resulting from the Kriging analysis." width="672" />
 <p class="caption">
-Figure 14.18: Variance map resulting from the Kriging analysis.
+Figure 13.19: Variance map resulting from the Kriging analysis.
 </p>
 </div>
 
@@ -669,11 +606,13 @@ Figure 14.18: Variance map resulting from the Kriging analysis.
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -681,12 +620,12 @@ gitbook.start({
 "github": false,
 "facebook": false,
 "twitter": false,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
 "all": false,
+"google": false,
 "instapper": false
 },
 "fontsettings": {
@@ -699,6 +638,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -719,8 +662,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
