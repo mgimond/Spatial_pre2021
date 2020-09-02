@@ -482,7 +482,7 @@ It's obvious that the accuracy of the cumulative distance raster can be greatly 
 <img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-55-1.png" width="672" />
 
 ### Working example {-}
-In the following example, we will generate a raster layer with barriers (defined as `NA` cell values). The goal will be to identify all cells that fall within a 290 km traveling distance from the upper left-hand corner of the raster layer. Results between an 8-node and 16-node adjacency definition will be compared.
+In the following example, we will generate a raster layer with barriers (defined as `NA` cell values). The goal will be to identify all cells that fall within a 290 km traveling distance from the upper left-hand corner of the raster layer (the green point in the maps). Results between an 8-node and 16-node adjacency definition will be compared.
 
 
 ```r
@@ -516,9 +516,9 @@ h16  <- transition(r, transitionFunction = function(x){1}, directions = 16)
 h8   <- geoCorrection(h8)
 h16  <- geoCorrection(h16)
 
-# Define a point source. 
+# Define a point source and assign a projection
 A <- SpatialPoints(cbind(50,290000))
-crs(A) <- "+proj=ortho"  # Assign an arbitrary coordinate system 
+crs(A) <- "+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs"  
 
 # Compute the cumulative cost raster
 h8.acc   <- accCost(h8, A)
@@ -536,11 +536,11 @@ Let's plot the results. Yellow cells will identify cumulative distances within 2
 
 ```r
 tm_shape(h8.acc) + tm_raster(n=2, style="fixed", breaks=c(0,290000,Inf)) +
-  tm_facets() + tm_shape(A) + tm_bubbles(col="red") + 
+  tm_facets() + tm_shape(A) + tm_bubbles(col="green", size = .5) + 
   tm_legend(outside = TRUE, text.size = .8)
 
 tm_shape(h16.acc) + tm_raster(n=2, style="fixed", breaks=c(0,290000,Inf)) + 
-  tm_facets() + tm_shape(A) + tm_bubbles(col="red") + 
+  tm_facets() + tm_shape(A) + tm_bubbles(col="green", size = .5) + 
   tm_legend(outside = TRUE, text.size = .8)
 ```
 
