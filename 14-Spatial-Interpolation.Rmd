@@ -84,11 +84,7 @@ names(grd)       <- c("X", "Y")
 coordinates(grd) <- c("X", "Y")
 gridded(grd)     <- TRUE  # Create SpatialPixel object
 fullgrid(grd)    <- TRUE  # Create SpatialGrid object
-<<<<<<< HEAD
 proj4string(P)   <- proj4string(P)  # Temp fix to until proj is updated to new std
-=======
-proj4string(P)   <- proj4string(P) # Temp fix until new proj std is implemented
->>>>>>> 3a133ff
 proj4string(grd) <- proj4string(P)
 
 # Interpolate the surface using a power value of 2 (idp=2.0)
