@@ -45,7 +45,7 @@ These are examples of **choropleth** maps (*choro* = area and *pleth* = value) w
 
 Since the area units used to map death counts are not uniform in *shape* and *area* across Auckland, there is a tendency to assign more "visual weight" to polygons having larger areas than those having smaller areas. In our example, census units in the southern end of Auckland appear to have an "abnormally" large infant death count. Another *perceptual* interpretation of the map is one that flags those southern units as being "problematic" or of "great concern".  However, as we shall see in the following sections, this perception may not reflect reality. We therefore seek to produce  **perceptually tenable** maps.  Dykes and Unwin [@DykeUnwin2001] define a similar concept called **map stability** which seeks to produce maps that convey *real effects*.
 
-## Raw Rates {-}
+## Raw Rates {-#app3_1}
 
 A popular approach for correcting for biased visual weights (due, for instance, to different unit area sizes) is to normalize the count data by *area* thus giving a *count per unit area*. Though this may make sense for population count data, it does not make a whole lot sense when applied to mortality counts; we are usually interested in the number of deaths per *population* count and not in the number of deaths per unit area. 
 
@@ -74,7 +74,7 @@ print(spplot(auckland, "raw.rate", at = brks2$brks, col.regions = pal1)
 
 Note how our perception of the distribution of infant deaths changes when looking at mapped raw rates vs. counts. A north-south trend in perceived "abnormal" infant deaths is no longer apparent in this map.
 
-##  Standardized mortality ratios (relative risk).  {-}
+##  Standardized mortality ratios (relative risk).  {-#app3_2}
 
 Another way to re-express the data is to map the Standardized Mortality Ratios (SMR)-a very popular form of representation in the field of epidemiology. Such maps map the ratios of the number of deaths to an *expected* death count.  There are many ways to define an expected death count, many of which can be externally specified.  In the following example, the expected death count $E_i$ is estimated by multiplying the under 5 population count for  each area by the overall death rate for Auckland:
 $$E_i = {n_i}\times{mortality_{Auckland} } $$
@@ -94,7 +94,7 @@ spplot(auckland, "rel.rate", at = brks$brks,col.regions=pal1)
 
 <img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-7-1.png" width="384" />
 
-## Dykes and Unwin's chi-square statistic {-}
+## Dykes and Unwin's chi-square statistic {-#app3_3}
 
 Dykes and Unwin [@DykeUnwin2001] propose a similar technique whereby the rates are standardized following:
 
@@ -112,7 +112,7 @@ spplot(auckland, "chi.squ", at = brks$brks,col.regions=rev(pal2))
 
 <img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-8-1.png" width="384" />
 
-## Unstable ratios {-}
+## Unstable ratios {-#app3_4}
 
 One problem with the various techniques used thus far is their sensitivity (hence instability) to small underlying population counts (i.e. unstable ratios). This next chunk of code maps the under 5 population count by census area unit.
 
@@ -130,7 +130,7 @@ Note the variability in population count with some areas encompassing fewer than
 
 One approach to circumventing this issue is to generate a probability map of the data.  The next section highlights such an example.
 
-### Global Empirical Bayes (EB) rate estimate  {-}
+### Global Empirical Bayes (EB) rate estimate  {-#app3_4_1}
 
 The idea behind Bayesian approach is to compare the value in some area $i$ to some *a priori* estimate of the value and to "stabilize" the values due to unstable ratios (e.g. where area populations are small). The *a priori* estimate can be based on some global mean. An example of the use on a global EB infant mortality rate map is shown below. The EB map is shown side-by-side with the raw rates map for comparison.
 
@@ -156,7 +156,7 @@ Unstable rates (i.e. those associated with smaller population counts) are assign
 
 <img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-12-1.png" width="480" />
 
-### Local Empirical Bayes (EB) rate estimate {-}
+### Local Empirical Bayes (EB) rate estimate {-#app3_4_2}
 
 The *a priori* mean and variance need not be aspatial (i.e. the *prior* distribution being the same for the entire Auckland study area). The adjusted estimated rates can be shrunk towards a *local* mean instead. Such technique is referred to as *local* empirical Bayes rate estimates. In the following example, we define *local* as consisting of all first order adjacent census unit areas.
 

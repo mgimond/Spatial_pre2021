@@ -1,6 +1,6 @@
 # Raster operations in R{-}
 
-## Sample files for this exercise{-}
+## Sample files for this exercise{-#app5_1}
 
 We'll first load spatial objects used in this exercise from a remote website: an elevation `raster` object, a bathymetry `raster` object and a continents `SpatialPolygonsDataFrame` vector layer. 
 
@@ -13,9 +13,9 @@ Both rasters cover the entire globe. Elevation below mean sea level are encoded 
 
 Note that most of the map algebra operations and functions covered in this tutorial are implemented using the `raster` package. See chapter 10 for a theoretical discussion of map algebra operations.
 
-## Local operations and functions {-}
+## Local operations and functions {-#app5_2}
 
-### Unary operations and functions (applied to single rasters) {-}
+### Unary operations and functions (applied to single rasters) {-#app5_2_1}
 
 Most algebraic operations can be applied to rasters as they would with any vector element. For example, to convert all bathymetric values in `bath` (currently recorded as positive values)  to *negative* values simply multiply the raster by `-1`.
 
@@ -102,7 +102,7 @@ tm_shape(bath3) + tm_raster(showNA=TRUE, colorNA="grey") +
 
 <img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
-### Binary operations and functions (where two rasters are used) {-}
+### Binary operations and functions (where two rasters are used) {-#app5_2_2}
 
 In the following example, `elev` (elevation raster) is added to `bath` (bathymetry raster) to create a single elevation raster for the globe. Note that the bathymetric raster will need to be multiplied by `-1` to differentiate above mean sea level elevation from below mean sea level depth.
 
@@ -119,7 +119,7 @@ tm_shape(elevation) + tm_raster(palette="-RdBu",n=6) +
 
 <img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
-## Focal operations and functions {-}
+## Focal operations and functions {-#app5_5}
 
 Operations or functions applied focally to rasters involve user defined neighboring cells. For example, a cell output value can be the average of all 121 cells--an 11x11 kernel--centered on the cell whose value is being estimated (this is an example of a _smoothing function_).
 
@@ -196,7 +196,7 @@ tm_shape(f3) + tm_raster(palette="Greys") +
 
 <img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
-## Zonal operations and functions {-}
+## Zonal operations and functions {-#app5_6}
 
 A common zonal operation is the aggregation of cells. In the following example, raster layer `elevation` is aggregated to a 5x5 raster layer.
 
@@ -284,7 +284,7 @@ cont.elev <- extract(elevation, cont, fun=function(x,...){length(x)}, sp=TRUE)
 
 The `extract` function will also work with lines and point spatial objects. If you wish to compute the zonal statistics of a raster using another raster as zones instead of a vector layer, use the `zonal()` function instead.
 
-## Global operations and functions {-}
+## Global operations and functions {-#app5_7}
 
 Global operations and functions may make use of all input cells of a grid in the computation of an output cell value.
 
@@ -354,7 +354,7 @@ tm_shape(r2.d) + tm_raster(palette = "Greens", style="order") +
 
 <img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-33-1.png" width="672" />
 
-## Computing cumulative distances {-}
+## Computing cumulative distances {-#app5_8}
 
 This exercise demonstrates how to use functions from the `gdistance` package to generate a cumulative distance raster. One objective will be to demonstrate the influence "adjacency cells" wields in the final results.
 
@@ -481,7 +481,7 @@ It's obvious that the accuracy of the cumulative distance raster can be greatly 
 
 <img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-55-1.png" width="672" />
 
-### Working example {-}
+### Working example {-#app5_8_1}
 In the following example, we will generate a raster layer with barriers (defined as `NA` cell values). The goal will be to identify all cells that fall within a 290 km traveling distance from the upper left-hand corner of the raster layer (the green point in the maps). Results between an 8-node and 16-node adjacency definition will be compared.
 
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 13 Spatial Autocorrelation | Intro to GIS and Spatial Analysis</title>
+  <title>Reading and writing spatial data in R | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 13 Spatial Autocorrelation | Intro to GIS and Spatial Analysis" />
+  <meta property="og:title" content="Reading and writing spatial data in R | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 13 Spatial Autocorrelation | Intro to GIS and Spatial Analysis" />
+  <meta name="twitter:title" content="Reading and writing spatial data in R | Intro to GIS and Spatial Analysis" />
   
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="hypothesis-testing.html"/>
-<link rel="next" href="spatial-interpolation.html"/>
+<link rel="prev" href="spatial-interpolation.html"/>
+<link rel="next" href="mapping-data-in-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -439,100 +439,408 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="spatial-autocorrelation" class="section level1">
-<h1><span class="header-section-number">Chapter 13</span> Spatial Autocorrelation</h1>
-<div class="note">
-<p>
-<em>“The first law of geography: Everything is related to everything else, but near things are more related than distant things.”</em> Waldo R. Tobler <span class="citation"><span class="citation">(Tobler <a href="#ref-Tobler1970" role="doc-biblioref">1970</a>)</span></span>
-</p>
+<div id="app1_1" class="section level1 unnumbered">
+<h1>Reading and writing spatial data in R</h1>
+<div id="app1_2" class="section level2 unnumbered">
+<h2>Sample files for this exercise</h2>
+<p>First, you will need to download some sample files from the github repository. Make sure to set your R session folder to the directory where you will want to save the sample files before running the following code chunks.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="app1-1.html#cb4-1"></a><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/Income_schooling.zip&quot;</span>, </span>
+<span id="cb4-2"><a href="app1-1.html#cb4-2"></a>              <span class="dt">destfile =</span> <span class="st">&quot;Income_schooling.zip&quot;</span> , <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</span>
+<span id="cb4-3"><a href="app1-1.html#cb4-3"></a><span class="kw">unzip</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>, <span class="dt">exdir =</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb4-4"><a href="app1-1.html#cb4-4"></a><span class="kw">file.remove</span>(<span class="st">&quot;Income_schooling.zip&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="app1-1.html#cb5-1"></a><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/rail_inters.gpkg&quot;</span>, </span>
+<span id="cb5-2"><a href="app1-1.html#cb5-2"></a>              <span class="dt">destfile =</span> <span class="st">&quot;./rail_inters.gpkg&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="app1-1.html#cb6-1"></a><span class="kw">download.file</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/elev.img&quot;</span>,  </span>
+<span id="cb6-2"><a href="app1-1.html#cb6-2"></a>              <span class="dt">destfile =</span> <span class="st">&quot;./elev.img&quot;</span>, <span class="dt">mode=</span><span class="st">&#39;wb&#39;</span>)               </span></code></pre></div>
 </div>
-<p>Mapped events or entities can have non-spatial information attached to them (some GIS software tag these as attributes). A question often asked is whether or not features with similar values are clustered, randomly distributed or dispersed. In most cases, the distribution of attribute values will seldom show evidence of complete spatial randomness.</p>
-<p><img src="img/Random_maps.png" width="1662" /></p>
-<p>Though our visual senses can, in some cases, discern clustered regions from non-clustered regions, the distinction may not always be so obvious. We must therefore come up with a quantitative and objective approach to quantifying the degree to which similar features cluster and where such clustering occurs. One popular test of spatial autocorrelation is the Moran’s I test.</p>
-<div id="global-morans-i" class="section level2">
-<h2><span class="header-section-number">13.1</span> Global Moran’s I</h2>
-<div id="computing-the-morans-i" class="section level3">
-<h3><span class="header-section-number">13.1.1</span> Computing the Moran’s I</h3>
-<p>Let’s start with a working example: 2010 per capita income for the state of Maine.</p>
-<div class="figure" style="text-align: center"><span id="fig:f13-ME-income"></span>
-<img src="img/Maine_income.png" alt="2010 median per capita income aggregated at the county level." width="300" />
-<p class="caption">
-Figure 13.1: 2010 median per capita income aggregated at the county level.
-</p>
+<div id="app1_3" class="section level2 unnumbered">
+<h2>Introduction</h2>
+<p>There are several different R spatial formats to choose from. Your choice of format will largely be dictated by the package(s) and or function(s) used in your workflow. A breakdown of formats and intended use are listed below.</p>
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:right;color: white !important;background-color: #6E6E6E !important;text-align: center;">
+Data format
+</th>
+<th style="text-align:center;color: white !important;background-color: #6E6E6E !important;text-align: center;">
+Used with…
+</th>
+<th style="text-align:center;color: white !important;background-color: #6E6E6E !important;text-align: center;">
+Used in package…
+</th>
+<th style="text-align:left;color: white !important;background-color: #6E6E6E !important;text-align: center;">
+Used for…
+</th>
+<th style="text-align:left;color: white !important;background-color: #6E6E6E !important;text-align: center;">
+Comment
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+<code>sf</code>
+</td>
+<td style="text-align:center;">
+vector
+</td>
+<td style="text-align:center;">
+<code>sf</code>, others
+</td>
+<td style="text-align:left;">
+visualizing, manipulating, querying
+</td>
+<td style="text-align:left;">
+This is likely to become the new spatial standard in R. Will also read from spatially enabled databases such as postgresSQL.
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<code>raster</code>
+</td>
+<td style="text-align:center;">
+raster
+</td>
+<td style="text-align:center;">
+<code>raster</code>, others
+</td>
+<td style="text-align:left;">
+visualizing, manipulating, spatial statistics
+</td>
+<td style="text-align:left;">
+This is the most versatile raster format
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<code>SpatialPoints*</code>
+<code>SpatialPolygons*</code>
+<code>SpatialLines*</code>
+<code>SpatialGrid*</code>
+</td>
+<td style="text-align:center;">
+vector and raster
+</td>
+<td style="text-align:center;">
+<code>sp</code>, <code>spdep</code>
+</td>
+<td style="text-align:left;">
+Visualizing, spatial statistics
+</td>
+<td style="text-align:left;">
+May be superseded by <code>sf</code> in the future
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<code>ppp</code> <code>owin</code>
+</td>
+<td style="text-align:center;">
+vector
+</td>
+<td style="text-align:center;">
+<code>spatstat</code>
+</td>
+<td style="text-align:left;">
+Point pattern analysis/statistics
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<code>im</code>
+</td>
+<td style="text-align:center;">
+raster
+</td>
+<td style="text-align:center;">
+<code>spatstat</code>
+</td>
+<td style="text-align:left;">
+Point pattern analysis/statistics
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup>1</sup> The <code>spatial*</code> format includes SpatialPointsDataFrame, SpatialPolygonsDataFrame, SpatialLinesDataFrame, etc…
+</td>
+</tr>
+</tfoot>
+</table>
+<p>There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as <a href="https://en.wikipedia.org/wiki/Simple_Features">simple features</a>. This effort results in a recently developed package called <a href="https://r-spatial.github.io/sf/"><code>sf</code></a>. It is therefore recommended that you work in an <code>sf</code> framework when possible. As of this writing, most of the <em>basic</em> data manipulation and visualization operations can be successfully conducted using <code>sf</code> spatial objects.</p>
+<p>Some packages such as <code>spdep</code> and <code>spatstat</code> require specialized data object types. This tutorial will highlight some useful conversion functions for this purpose.</p>
 </div>
-<p>It may seem apparent that, when aggregated at the county level, the income distribution follows a north-south trend (i.e. high values appear clustered near the southern end of the state and low values seem clustered near the north and east). But a qualitative description may not be sufficient; we might want to quantify the degree to which similar (or dissimilar) counties are clustered. One measure of this type or relationship is the Moran’s I statistic.</p>
-<p>The Moran’s I statistic is the correlation coefficient for the relationship between a variable (like income) and its surrounding values. But before we go about computing this correlation, we need to come up with a way to define a neighbor. One approach is to define a neighbor as being any contiguous polygon. For example, the northern most county (Aroostook), has four contiguous neighbors while the southern most county (York) has two contiguous counties. Other neighborhood definitions include distance bands (e.g. counties within 100 km) and k nearest neighbors (e.g. the 2 closest neighbors). Note that distance bands and k nearest neighbors are usually measured using the polygon’s centroids and not their boundaries.</p>
-<div class="figure" style="text-align: center"><span id="fig:f13-diff-neighbor"></span>
-<img src="img/Diff_neighbors.png" alt="Maps show the links between each polygon and their respective neighbor(s) based on the neighborhood definition. A contiguous neighbor is defined as one that shares a boundary or a vertex with the polygon of interest.  Orange numbers indicate the number of neighbors for each polygon. Note that the top most county has no neighbors when a neighborhood definition of a 100 km distance band is used (i.e. no centroids are within a 100 km search radius)" width="600" />
-<p class="caption">
-Figure 13.2: Maps show the links between each polygon and their respective neighbor(s) based on the neighborhood definition. A contiguous neighbor is defined as one that shares a boundary or a vertex with the polygon of interest. Orange numbers indicate the number of neighbors for each polygon. Note that the top most county has no neighbors when a neighborhood definition of a 100 km distance band is used (i.e. no centroids are within a 100 km search radius)
-</p>
+<div id="app1_4" class="section level2 unnumbered">
+<h2>Creating spatial objects</h2>
+<p>The following sections demonstrate different spatial data object creation strategies.</p>
+<div id="app1_4_1" class="section level3 unnumbered">
+<h3>Reading a shapefile</h3>
+<p>Shapefiles consist of many files sharing the same core filename and different suffixes (i.e. file extensions). For example, the sample shapefile used in this exercise consists of the following files:</p>
+<pre><code>[1] &quot;Income_schooling.dbf&quot; &quot;Income_schooling.prj&quot; &quot;Income_schooling.sbn&quot; &quot;Income_schooling.sbx&quot;
+[5] &quot;Income_schooling.shp&quot; &quot;Income_schooling.shx&quot;</code></pre>
+<p>Note that the number of files associated with a shapefile can vary. <code>sf</code> only needs to be given the <code>*.shp</code> name. It will then know which other files to read into R such as projection information and attribute table.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="app1-1.html#cb8-1"></a><span class="kw">library</span>(sf)</span>
+<span id="cb8-2"><a href="app1-1.html#cb8-2"></a>s.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Income_schooling.shp&quot;</span>)</span></code></pre></div>
+<p>Let’s view the first few records in the spatial data object.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="app1-1.html#cb9-1"></a><span class="kw">head</span>(s.sf, <span class="dt">n=</span><span class="dv">4</span>)  <span class="co"># List spatial object and the first 4 attribute records</span></span></code></pre></div>
+<pre><code>Simple feature collection with 4 features and 5 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 379071.8 ymin: 4936182 xmax: 596500.1 ymax: 5255569
+projected CRS:  NAD83 / UTM zone 19N
+         NAME Income   NoSchool NoSchoolSE IncomeSE                       geometry
+1   Aroostook  21024 0.01338720 0.00140696  250.909 MULTIPOLYGON (((513821.1 51...
+2    Somerset  21025 0.00521153 0.00115002  390.909 MULTIPOLYGON (((379071.8 50...
+3 Piscataquis  21292 0.00633830 0.00212896  724.242 MULTIPOLYGON (((445039.5 51...
+4   Penobscot  23307 0.00684534 0.00102545  242.424 MULTIPOLYGON (((472271.3 49...</code></pre>
+<p>Note that the <code>sf</code> object stores not only the geometry but the coordinate system information and attribute data as well. These will be explored later in this exercise.</p>
 </div>
-<p>Once we define a neighborhood for our analysis we identify the neighbors for each polygon in our dataset then summaries the values for each neighborhood cluster (by computing their mean values, for example). This summarized neighbor value is sometimes referred to as a lagging value (<em>X<sub>lag</sub></em>). In our working example, we adopt a contiguity neighborhood and compute the average neighboring income value (<em>Income<sub>lag</sub></em>) for each county in our dataset. We then plot <em>Income<sub>lag</sub></em> vs. <em>Income</em> for each county. The Moran’s I coefficient between <em>Income<sub>lag</sub></em> and <em>Income</em> is nothing more than the slope of the least squares regression line that best fits the points <em>after</em> having equalized the spread between both sets of data.</p>
-<div class="figure" style="text-align: center"><span id="fig:f13-scatter-plot"></span>
-<img src="img/MoranI_scatter_plot.png" alt="Scatter plot of *Income~lag~* vs. *Income*. If we equalize the spread between both axes (i.e. convert to a z-score) the slope of the regression line represents the Moran's I statistic." width="400" />
-<p class="caption">
-Figure 13.3: Scatter plot of <em>Income<sub>lag</sub></em> vs. <em>Income</em>. If we equalize the spread between both axes (i.e. convert to a z-score) the slope of the regression line represents the Moran’s I statistic.
-</p>
+<div id="app1_4_2" class="section level3 unnumbered">
+<h3>Reading a GeoPackage</h3>
+<p>A geopackage can store more than one layer. To list the layers available in the geopackage, type:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="app1-1.html#cb11-1"></a><span class="kw">st_layers</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>)</span></code></pre></div>
+<pre><code>Driver: GPKG 
+Available layers:
+  layer_name     geometry_type features fields
+1 Interstate Multi Line String       35      1
+2       Rail Multi Line String      730      3</code></pre>
+<p>In this example, we have two separate layers: <code>Interstate</code> and <code>Rail</code>. We can extract each layer separately via the <code>layer=</code> parameter.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="app1-1.html#cb13-1"></a>inter.sf &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Interstate&quot;</span>)</span>
+<span id="cb13-2"><a href="app1-1.html#cb13-2"></a>rail.sf  &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;rail_inters.gpkg&quot;</span>, <span class="dt">layer=</span><span class="st">&quot;Rail&quot;</span>)</span></code></pre></div>
 </div>
-<p>If there is no relationship between <em>Income</em> and <em>Income<sub>lag</sub></em>, the slope will be close to flat (resulting in a Moran’s I value near 0). In our working example, the Moran’s I value is 0.377. So this begs the question, how significant is this Moran’s I value (i.e. is the computed slope significantly different from 0)? There are two approaches to estimating the significance: an analytical solution and a Monte Carlo solution. The analytical solution makes some restrictive assumptions about the data and thus cannot always be reliable. Another approach (and the one favored here) is a Monte Carlo test which makes <em>no</em> assumptions about the dataset including the shape and layout of each polygon.</p>
+<div id="app1_4_3" class="section level3 unnumbered">
+<h3>Reading a raster</h3>
+<p>The <code>raster</code> package will read many different raster file formats such as geoTiff, Imagine and HDF5 just to name a few. To see a list of supported raster file formats simply run <code>rgdal::gdalDrivers()</code> at a command prompt. The <code>rgdal</code> package is normally installed with your installation of <code>raster</code>.</p>
+<p>In the following example, an <em>Imagine</em> raster file is read into R.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="app1-1.html#cb14-1"></a><span class="kw">library</span>(raster)</span>
+<span id="cb14-2"><a href="app1-1.html#cb14-2"></a>elev.r &lt;-<span class="st"> </span><span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>)</span></code></pre></div>
+<p>What sets a <code>raster</code> object apart from other R data file objects is its storage. By default, data files are loaded into memory but <code>raster</code> objects are not. This can be convenient when working with raster files too large for memory. But this comes at a performance cost. If your RAM is large enough to handle your raster file, it’s best to load the entire dataset into memory.</p>
+<p>To check if the <code>elev.r</code> object is loaded into memory, run:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="app1-1.html#cb15-1"></a><span class="kw">inMemory</span>(elev.r)</span></code></pre></div>
+<pre><code>[1] FALSE</code></pre>
+<p>To force the raster into memory use <code>readAll()</code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="app1-1.html#cb17-1"></a>elev.r &lt;-<span class="st"> </span><span class="kw">readAll</span>(<span class="kw">raster</span>(<span class="st">&quot;elev.img&quot;</span>))</span></code></pre></div>
+<p>Let’s check that the raster is indeed loaded into memory:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="app1-1.html#cb18-1"></a><span class="kw">inMemory</span>(elev.r)</span></code></pre></div>
+<pre><code>[1] TRUE</code></pre>
+<p>Now let’s look at the raster’s properties:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="app1-1.html#cb20-1"></a>elev.r</span></code></pre></div>
+<pre><code>class      : RasterLayer 
+dimensions : 994, 652, 648088  (nrow, ncol, ncell)
+resolution : 500, 500  (x, y)
+extent     : 336630.3, 662630.3, 4759303, 5256303  (xmin, xmax, ymin, ymax)
+crs        : +proj=utm +zone=19 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+source     : memory
+names      : elev 
+values     : 0, 1546  (min, max)</code></pre>
+<p>The raster object returns its grid dimensions (number of rows and columns), pixel size/resolution (in the layer’s coordinate system units), geographic extent, native coordinate system (UTM NAD83 Zone 19 with units of meters) and min/max raster values.</p>
 </div>
-<div id="monte-carlo-approach-to-estimating-significance" class="section level3">
-<h3><span class="header-section-number">13.1.2</span> Monte Carlo approach to estimating significance</h3>
-<p>In a Monte Carlo test (a permutation bootstrap test, to be exact), the attribute values are randomly assigned to polygons in the data set and for each permutation of the attribute values, a Moran’s I value is computed. The output is a sampling distribution of Moran’s I values under the (null) hypothesis that attribute values are randomly distributed across the study area. We then compare our observed Moran’s I value to this sampling distribution.</p>
-<div class="figure" style="text-align: center"><span id="fig:f13-MC-result"></span>
-<img src="img/MC_sim_1.png" alt="Results from 199 permutations. Left plot shows Moran's I slopes (in gray) from each random permutation of income values superimposed with the observed Moran's I slope (in red). Right plot shows the distribution of Moran's I values for all 199 permutations; red vertical line shows our observed Moran's I value of 0.377." width="400" />
-<p class="caption">
-Figure 13.4: Results from 199 permutations. Left plot shows Moran’s I slopes (in gray) from each random permutation of income values superimposed with the observed Moran’s I slope (in red). Right plot shows the distribution of Moran’s I values for all 199 permutations; red vertical line shows our observed Moran’s I value of 0.377.
-</p>
+<div id="app1_4_5" class="section level3 unnumbered">
+<h3>Creating a spatial object from a data frame</h3>
+<p>Geographic point data locations recorded in a spreadsheet can be converted to a spatial point object. Note that it’s important that you specify the coordinate system used to record the coordinate pairs since such information is not stored in a data frame. In the following example, the coordinate values are recorded in a WGS 1984 geographic coordinate system (<code>crs = 4326</code>).</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="app1-1.html#cb22-1"></a><span class="co"># Create a simple dataframe with lat/long values</span></span>
+<span id="cb22-2"><a href="app1-1.html#cb22-2"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">lon =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">68.783</span>, <span class="fl">-69.6458</span>, <span class="fl">-69.7653</span>),</span>
+<span id="cb22-3"><a href="app1-1.html#cb22-3"></a>                 <span class="dt">lat =</span> <span class="kw">c</span>(<span class="fl">44.8109</span>, <span class="fl">44.5521</span>, <span class="fl">44.3235</span>),</span>
+<span id="cb22-4"><a href="app1-1.html#cb22-4"></a>                 <span class="dt">Name=</span> <span class="kw">c</span>(<span class="st">&quot;Bangor&quot;</span>, <span class="st">&quot;Waterville&quot;</span>, <span class="st">&quot;Augusta&quot;</span>))</span>
+<span id="cb22-5"><a href="app1-1.html#cb22-5"></a></span>
+<span id="cb22-6"><a href="app1-1.html#cb22-6"></a><span class="co"># Convert the dataframe to a spatial object. Note that the</span></span>
+<span id="cb22-7"><a href="app1-1.html#cb22-7"></a><span class="co"># crs= 4326 parameter assigns a WGS84 coordinate system to the </span></span>
+<span id="cb22-8"><a href="app1-1.html#cb22-8"></a><span class="co"># spatial object</span></span>
+<span id="cb22-9"><a href="app1-1.html#cb22-9"></a>p.sf &lt;-<span class="st"> </span><span class="kw">st_as_sf</span>(df, <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="dt">crs =</span> <span class="dv">4326</span>) </span>
+<span id="cb22-10"><a href="app1-1.html#cb22-10"></a>p.sf  </span></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 1 field
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -69.7653 ymin: 44.3235 xmax: -68.783 ymax: 44.8109
+geographic CRS: WGS 84
+        Name                 geometry
+1     Bangor  POINT (-68.783 44.8109)
+2 Waterville POINT (-69.6458 44.5521)
+3    Augusta POINT (-69.7653 44.3235)</code></pre>
 </div>
-<p>In our working example, 199 simulations indicate that out observed Moran’s I value of 0.377 is not a value we would expect to compute if the income values were randomly distributed across each county. A (pseudo) <em>P-value</em> can easily be computed from the simulation results:</p>
-<p><span class="math display">\[
-\dfrac{N_{extreme}+1}{N+1}
-\]</span></p>
-<p>where <span class="math inline">\(N_{extreme}\)</span> is the number of simulated Moran’s I values more extreme than our observed statistic and <span class="math inline">\(N\)</span> is the total number of simulations. Here, out of 199 simulations, just one simulation result was more extreme than our observed statisic, <span class="math inline">\(N_{extreme}\)</span> = 1, so <span class="math inline">\(p\)</span> is equal to (1 + 1) / (199 + 1) = 0.01. This is interpreted as “<em>there is a 1% probability that we would be wrong in rejecting the null hypothesis H<sub>o</sub>.</em>”</p>
+<div id="app1_4_6" class="section level3 unnumbered">
+<h3>Geocoding street addresses</h3>
+<p>The <code>ggmap</code> package offers a geocoding function called <code>mutate_geocode</code> which will take a table with physical addresses and create a new table with latitude and longitude values for those addresses. However, as of Spring 2019, <code>ggmap</code> will only access Google’s API which requires that a key be created on the Google Cloud (the latter will also require that a paid account be created with Google Cloud). The Data Science Toolkit, a previously free API alternative, has (as of May 2019) terminated its mapping services.</p>
+<p>The Google API option will not be covered here, instead, the reader is encouraged to read the detailed instructions on <code>ggmap</code>’s <a href="https://github.com/dkahle/ggmap">Github page</a>.</p>
+<p>For a free (but manual) alternative, you can use the US Census Bureau’s <a href="https://geocoding.geo.census.gov/geocoder/locations/addressbatch?form">geocoding service</a> for creating lat/lon values from US street addresses. This needs to be completed via their web interface and the resulting data table (a CSV file) would then need to be loaded into R as a data frame.</p>
 </div>
 </div>
-<div id="morans-i-at-different-lags" class="section level2">
-<h2><span class="header-section-number">13.2</span> Moran’s I at different lags</h2>
-<p>So far we have looked at spatial autocorrelation where we define neighbors as all polygons sharing a boundary with the polygon of interest. We may also be interested in studying the <em>ranges</em> of autocorrelation values as a function of distance. The steps for this type of analysis are straightforward:</p>
-<ol style="list-style-type: decimal">
-<li><p>Compute lag values for a defined set of neighbors.</p></li>
-<li><p>Calculate the Moran’s I value for this set of neighbors.</p></li>
-<li><p>Repeat steps 1 and 2 for a different set of neighbors (at a greater distance for example) .</p></li>
-</ol>
-<p>For example, the Moran’s I values for income distribution in the state of Maine at distances of 25, 75, 125, up to 375 km are presented in the following plot:</p>
-<div class="figure" style="text-align: center"><span id="fig:f13-MC-distance"></span>
-<img src="img/MoranI_distance_band.png" alt="Moran's I at different spatial lags defined by a 5 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less." width="400" />
-<p class="caption">
-Figure 13.5: Moran’s I at different spatial lags defined by a 5 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less.
-</p>
+<div id="app1_5" class="section level2 unnumbered">
+<h2>Converting from an <code>sf</code> object</h2>
+<p>Packages such as <code>spdep</code> and <code>spatsat</code> currently do not support <code>sf</code> objects. The following sections demonstrate methods to convert from <code>sf</code> to other formats.</p>
+<div id="app1_5_1" class="section level3 unnumbered">
+<h3>Converting an <code>sf</code> object to a <code>Spatial*</code> object (<code>spdep</code>/<code>sp</code>)</h3>
+<p>The following code will convert point, polyline or polygon features to a <code>spatial*</code> object. In this example, an <code>sf</code> polygon feature is converted to a <code>SpatialPolygonsDataFrame</code> object.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="app1-1.html#cb24-1"></a>s.sp &lt;-<span class="st"> </span><span class="kw">as</span>(s.sf, <span class="st">&quot;Spatial&quot;</span>)</span>
+<span id="cb24-2"><a href="app1-1.html#cb24-2"></a><span class="kw">class</span>(s.sp)</span></code></pre></div>
+<pre><code>[1] &quot;SpatialPolygonsDataFrame&quot;
+attr(,&quot;package&quot;)
+[1] &quot;sp&quot;</code></pre>
+<p>Note that if you wish to create a <code>Spatial*</code> object directly from a shapefile (and bypass the <code>sf</code> object creation), you could run the <code>maptools</code> function <code>readShapeSpatial("Income_schooling.shp")</code>. However, this approach <em>strips</em> the coordinate system information from the spatial object.</p>
 </div>
-<p>The plot suggests that there is significant spatial autocorrelation between counties within 25 km of one another, but as the distances between counties increases, autocorrelation shifts from being positive to being negative meaning that at greater distances, counties tend to be more dissimilar.</p>
+<div id="app1_5_2" class="section level3 unnumbered">
+<h3>Converting an <code>sf</code> polygon object to an <code>owin</code> object</h3>
+<p>The <code>spatstat</code> package is normally used to analyze point patterns however, in most cases, the study extent needs to be explicitly defined by a polygon object. The polygon should be of class <code>owin</code>. Conversion from <code>sf</code> to <code>owin</code> requires the use of the <code>maptools</code> package.</p>
+<p>Note that the attribute table gets stripped from the polygon data. This is usually fine given that the only reason for converting a polygon to an <code>owin</code> format is for delineating the study boundary.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="app1-1.html#cb26-1"></a><span class="kw">library</span>(maptools)</span>
+<span id="cb26-2"><a href="app1-1.html#cb26-2"></a>s.owin &lt;-<span class="st"> </span><span class="kw">as</span>(s.sp, <span class="st">&quot;owin&quot;</span>)</span>
+<span id="cb26-3"><a href="app1-1.html#cb26-3"></a><span class="kw">class</span>(s.owin)</span></code></pre></div>
+<pre><code>[1] &quot;owin&quot;</code></pre>
 </div>
-<div id="local-morans-i" class="section level2">
-<h2><span class="header-section-number">13.3</span> Local Moran’s I</h2>
-<p>We can decompose the global Moran’s I down to its components thus constructing a <em>localized</em> measure of autocorrelation–i.e. a map of “hot spots” and “cold spots”.</p>
-<div class="figure" style="text-align: center"><span id="fig:f13-local-I"></span>
-<img src="img/HH_LL_noP.png" alt="Red points and polygons highlight counties with high income values surrounded by high income counties. Blue points and polygons highlight counties with low income values surrounded by low income counties." width="300" height="300" /><img src="img/HH_LL_noP_map.png" alt="Red points and polygons highlight counties with high income values surrounded by high income counties. Blue points and polygons highlight counties with low income values surrounded by low income counties." width="300" height="300" />
-<p class="caption">
-Figure 13.6: Red points and polygons highlight counties with high income values surrounded by high income counties. Blue points and polygons highlight counties with low income values surrounded by low income counties.
-</p>
+<div id="app1_5_3" class="section level3 unnumbered">
+<h3>Converting an <code>sf</code> point object to a <code>ppp</code> object</h3>
+<p>As of this writing, it seems that you need to first convert the <code>sf</code> object to a <code>SpatialPoints*</code> before creating a <code>ppp</code> object as shown in the following code chunk. Note that the <code>maptools</code> package is required for this step.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="app1-1.html#cb28-1"></a>p.sp  &lt;-<span class="st"> </span><span class="kw">as</span>(p.sf, <span class="st">&quot;Spatial&quot;</span>)  <span class="co"># Create Spatial* object</span></span>
+<span id="cb28-2"><a href="app1-1.html#cb28-2"></a>p.ppp &lt;-<span class="st"> </span><span class="kw">as</span>(p.sp, <span class="st">&quot;ppp&quot;</span>)      <span class="co"># Create ppp object</span></span></code></pre></div>
+<pre><code>Error in as.ppp.SpatialPointsDataFrame(from): Only projected coordinates may be converted to spatstat class objects</code></pre>
+<p>A <code>ppp</code> object is associated with the <code>spatstat</code> package which is designed to work off of a projected (cartesian) coordinate system. The error message reminds us that a geographic coordinate system (i.e. one that uses angular measurements such as latitude/longitude) cannot be used with this package. If you encounter this error, you will need to project the <code>p.sp</code> or <code>ps.f</code> layer to a projected coordinate system.</p>
+<p>In this example, we’ll project the <code>p.sf</code> object to a UTM coordinate system (<code>epsg=32619</code>). Coordinate systems in R are treated in a separate appendix.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="app1-1.html#cb30-1"></a>p.sf.utm &lt;-<span class="st"> </span><span class="kw">st_transform</span>(p.sf, <span class="dv">32619</span>) <span class="co"># project from geographic to UTM</span></span>
+<span id="cb30-2"><a href="app1-1.html#cb30-2"></a>p.sp  &lt;-<span class="st"> </span><span class="kw">as</span>(p.sf.utm, <span class="st">&quot;Spatial&quot;</span>)      <span class="co"># Create Spatial* object</span></span>
+<span id="cb30-3"><a href="app1-1.html#cb30-3"></a>p.ppp &lt;-<span class="st"> </span><span class="kw">as</span>(p.sp, <span class="st">&quot;ppp&quot;</span>)              <span class="co"># Create ppp object</span></span>
+<span id="cb30-4"><a href="app1-1.html#cb30-4"></a><span class="kw">class</span>(p.ppp)</span></code></pre></div>
+<pre><code>[1] &quot;ppp&quot;</code></pre>
+<p>Note that if the point layer has an attribute table, its attributes will be converted to <code>ppp</code> <em>marks</em>.</p>
 </div>
-<p>Next, we can use Monte Carlo techniques to assess whether or not the High-High values and Low-Low values are significant at a confidence level of 0.05 (i.e. for P-value= 0.05).</p>
-<div class="figure" style="text-align: center"><span id="fig:f13-local-I-MC"></span>
-<img src="img/HH_LL_P.png" alt="Significantly High-High and Low-Low clusters with P-values less than or equal to 0.5." width="300" height="300" /><img src="img/HH_LL_P_map.png" alt="Significantly High-High and Low-Low clusters with P-values less than or equal to 0.5." width="300" height="300" />
-<p class="caption">
-Figure 13.7: Significantly High-High and Low-Low clusters with P-values less than or equal to 0.5.
-</p>
+<div id="app1_5_4" class="section level3 unnumbered">
+<h3>Converting a <code>raster</code> object to an <code>im</code> object (<code>spatstat</code>)</h3>
+<p>The <code>maptools</code> package will readily convert a <code>raster</code> object to an <code>im</code> object using the <code>as.im.RasterLayer()</code> function.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="app1-1.html#cb32-1"></a>elev.im &lt;-<span class="st"> </span><span class="kw">as.im.RasterLayer</span>(elev.r) <span class="co"># From the maptools package</span></span>
+<span id="cb32-2"><a href="app1-1.html#cb32-2"></a><span class="kw">class</span>(elev.im)</span></code></pre></div>
+<pre><code>[1] &quot;im&quot;</code></pre>
 </div>
+</div>
+<div id="app1_6" class="section level2 unnumbered">
+<h2>Converting to an <code>sf</code> object</h2>
+<p>All aforementioned spatial formats, except <code>owin</code>, can be coerced to an <code>sf</code> object via the <code>st_as_sf</code> function. for example:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="app1-1.html#cb34-1"></a><span class="kw">st_as_sf</span>(p.ppp)  <span class="co"># For converting a ppp object to an sf object</span></span>
+<span id="cb34-2"><a href="app1-1.html#cb34-2"></a><span class="kw">st_as_sf</span>(s.sp)   <span class="co"># For converting a Spatial* object to an sf object</span></span></code></pre></div>
+</div>
+<div id="app1_7" class="section level2 unnumbered">
+<h2>Dissecting the <code>sf</code> file object</h2>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="app1-1.html#cb35-1"></a><span class="kw">head</span>(s.sf,<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>Simple feature collection with 3 features and 5 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: 379071.8 ymin: 4936182 xmax: 596500.1 ymax: 5255569
+projected CRS:  NAD83 / UTM zone 19N
+         NAME Income   NoSchool NoSchoolSE IncomeSE                       geometry
+1   Aroostook  21024 0.01338720 0.00140696  250.909 MULTIPOLYGON (((513821.1 51...
+2    Somerset  21025 0.00521153 0.00115002  390.909 MULTIPOLYGON (((379071.8 50...
+3 Piscataquis  21292 0.00633830 0.00212896  724.242 MULTIPOLYGON (((445039.5 51...</code></pre>
+<p>The first line of output gives us the geometry type, <code>MULTIPOLYGON</code>, a multi-polygon data type. This is also referred to as a multipart polygon. A single-part <code>sf</code> polygon object will adopt the <code>POLYGON</code> geometry.</p>
+<p>The next few lines of output give us the layer’s bounding extent in the layer’s native coordinate system units. You can extract the extent via the <code>extent()</code> function as in <code>extent(s.sf)</code>.</p>
+<p>The next lines indicate the coordinate system used to define the polygon feature locations. It’s offered in two formats: <strong>epsg</strong> code (when available) and <strong>PROJ4</strong> string format. You can extract the coordinate system information from an <code>sf</code> object via:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="app1-1.html#cb37-1"></a><span class="kw">st_crs</span>(s.sf)</span></code></pre></div>
+<pre><code>Coordinate Reference System:
+  User input: NAD83 / UTM zone 19N 
+  wkt:
+PROJCRS[&quot;NAD83 / UTM zone 19N&quot;,
+    BASEGEOGCRS[&quot;NAD83&quot;,
+        DATUM[&quot;North American Datum 1983&quot;,
+            ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+                LENGTHUNIT[&quot;metre&quot;,1]]],
+        PRIMEM[&quot;Greenwich&quot;,0,
+            ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+        ID[&quot;EPSG&quot;,4269]],
+    CONVERSION[&quot;UTM zone 19N&quot;,
+        METHOD[&quot;Transverse Mercator&quot;,
+            ID[&quot;EPSG&quot;,9807]],
+        PARAMETER[&quot;Latitude of natural origin&quot;,0,
+            ANGLEUNIT[&quot;Degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8801]],
+        PARAMETER[&quot;Longitude of natural origin&quot;,-69,
+            ANGLEUNIT[&quot;Degree&quot;,0.0174532925199433],
+            ID[&quot;EPSG&quot;,8802]],
+        PARAMETER[&quot;Scale factor at natural origin&quot;,0.9996,
+            SCALEUNIT[&quot;unity&quot;,1],
+            ID[&quot;EPSG&quot;,8805]],
+        PARAMETER[&quot;False easting&quot;,500000,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8806]],
+        PARAMETER[&quot;False northing&quot;,0,
+            LENGTHUNIT[&quot;metre&quot;,1],
+            ID[&quot;EPSG&quot;,8807]]],
+    CS[Cartesian,2],
+        AXIS[&quot;(E)&quot;,east,
+            ORDER[1],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+        AXIS[&quot;(N)&quot;,north,
+            ORDER[2],
+            LENGTHUNIT[&quot;metre&quot;,1]],
+    ID[&quot;EPSG&quot;,26919]]</code></pre>
+<p>The output of this call is an object of class <code>crs</code>. Extracting the reference system from a spatial object can prove useful in certain workflows.</p>
+<p>What remains of the <code>sf</code> summary output is the first few records of the attribute table. You can extract the object’s table to a dedicated data frame via:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="app1-1.html#cb39-1"></a>s.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(s.sf)</span>
+<span id="cb39-2"><a href="app1-1.html#cb39-2"></a><span class="kw">class</span>(s.df)</span></code></pre></div>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="app1-1.html#cb41-1"></a><span class="kw">head</span>(s.df, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>         NAME Income   NoSchool  NoSchoolSE IncomeSE                       geometry
+1   Aroostook  21024 0.01338720 0.001406960  250.909 MULTIPOLYGON (((513821.1 51...
+2    Somerset  21025 0.00521153 0.001150020  390.909 MULTIPOLYGON (((379071.8 50...
+3 Piscataquis  21292 0.00633830 0.002128960  724.242 MULTIPOLYGON (((445039.5 51...
+4   Penobscot  23307 0.00684534 0.001025450  242.424 MULTIPOLYGON (((472271.3 49...
+5  Washington  20015 0.00478188 0.000966036  327.273 MULTIPOLYGON (((645446.5 49...</code></pre>
+<p>The above chunk will also create a geometry column. This column is somewhat unique in that it stores its contents as a <strong>list</strong> of geometry coordinate pairs (polygon vertex coordinate values in this example).</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="app1-1.html#cb43-1"></a><span class="kw">str</span>(s.df)</span></code></pre></div>
+<pre><code>&#39;data.frame&#39;:	16 obs. of  6 variables:
+ $ NAME      : chr  &quot;Aroostook&quot; &quot;Somerset&quot; &quot;Piscataquis&quot; &quot;Penobscot&quot; ...
+ $ Income    : int  21024 21025 21292 23307 20015 21744 21885 23020 25652 24268 ...
+ $ NoSchool  : num  0.01339 0.00521 0.00634 0.00685 0.00478 ...
+ $ NoSchoolSE: num  0.001407 0.00115 0.002129 0.001025 0.000966 ...
+ $ IncomeSE  : num  251 391 724 242 327 ...
+ $ geometry  :sfc_MULTIPOLYGON of length 16; first list element: List of 1
+  ..$ :List of 1
+  .. ..$ : num [1:32, 1:2] 513821 513806 445039 422284 424687 ...
+  ..- attr(*, &quot;class&quot;)= chr [1:3] &quot;XY&quot; &quot;MULTIPOLYGON&quot; &quot;sfg&quot;</code></pre>
+<p>You can also opt to remove this column prior to creating the dataframe as follows:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="app1-1.html#cb45-1"></a>s.nogeom.df &lt;-<span class="st"> </span><span class="kw">st_set_geometry</span>(s.sf, <span class="ot">NULL</span>) </span>
+<span id="cb45-2"><a href="app1-1.html#cb45-2"></a><span class="kw">class</span>(s.nogeom.df)</span></code></pre></div>
+<pre><code>[1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="app1-1.html#cb47-1"></a><span class="kw">head</span>(s.nogeom.df, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>         NAME Income   NoSchool  NoSchoolSE IncomeSE
+1   Aroostook  21024 0.01338720 0.001406960  250.909
+2    Somerset  21025 0.00521153 0.001150020  390.909
+3 Piscataquis  21292 0.00633830 0.002128960  724.242
+4   Penobscot  23307 0.00684534 0.001025450  242.424
+5  Washington  20015 0.00478188 0.000966036  327.273</code></pre>
+</div>
+<div id="app1_8" class="section level2 unnumbered">
+<h2>Exporting to different data file formats</h2>
+<p>You can export an <code>sf</code> object to many different spatial file formats such as a shapefile or a geopackage.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="app1-1.html#cb49-1"></a><span class="kw">st_write</span>(s.sf, <span class="st">&quot;shapefile_out.shp&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>)  <span class="co"># create to a shapefile </span></span>
+<span id="cb49-2"><a href="app1-1.html#cb49-2"></a><span class="kw">st_write</span>(s.sf, <span class="st">&quot; s.gpkg&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;GPKG&quot;</span>)  <span class="co"># Create a geopackage file</span></span></code></pre></div>
+<p>You can see a list of writable vector formats via a call to <code>subset(rgdal::ogrDrivers(), write == TRUE)</code>. Only as subset of the output is shown in the following example. Note that supported file formats will differ from platform to platform.</p>
+<pre><code>             name                       long_name write  copy isVector
+18 ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     TRUE
+20     Geoconcept                      Geoconcept  TRUE FALSE     TRUE
+21        GeoJSON                         GeoJSON  TRUE FALSE     TRUE
+22     GeoJSONSeq                GeoJSON Sequence  TRUE FALSE     TRUE
+24         GeoRSS                          GeoRSS  TRUE FALSE     TRUE
+25            GFT            Google Fusion Tables  TRUE FALSE     TRUE
+26            GML Geography Markup Language (GML)  TRUE FALSE     TRUE</code></pre>
+<p>The value in the <code>name</code> column is the driver name used in the <code>st_write()</code> function.</p>
+<p>To export a raster to a data file, use <code>writeRaster()</code> from the <code>raster</code> package.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="app1-1.html#cb51-1"></a><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.tif&quot;</span>, <span class="dt">format=</span><span class="st">&quot;GTiff&quot;</span> ) <span class="co"># Create a geoTiff file</span></span>
+<span id="cb51-2"><a href="app1-1.html#cb51-2"></a><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.img&quot;</span>, <span class="dt">format=</span><span class="st">&quot;HFA&quot;</span> )  <span class="co"># Create an Imagine raster file</span></span></code></pre></div>
+<p>You can see a list of writable raster formats via a call to <code>subset(rgdal::gdalDrivers(), create == TRUE)</code>.</p>
+<pre><code>        name                            long_name create  copy isRaster
+40      FITS      Flexible Image Transport System   TRUE FALSE     TRUE
+46      GPKG                           GeoPackage   TRUE  TRUE     TRUE
+49     GS7BG Golden Software 7 Binary Grid (.grd)   TRUE  TRUE     TRUE
+51      GSBG   Golden Software Binary Grid (.grd)   TRUE  TRUE     TRUE
+53     GTiff                              GeoTIFF   TRUE  TRUE     TRUE
+54       GTX             NOAA Vertical Datum .GTX   TRUE FALSE     TRUE
+57 HDF4Image                         HDF4 Dataset   TRUE FALSE     TRUE</code></pre>
+<p>The value in the <code>name</code> column is the format parameter name used in the <code>writeRaster()</code> function.</p>
 
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-Tobler1970">
-<p>Tobler, Waldo R. 1970. “A Computer Movie Simulating Urban Growth in the Detroit Region.” <em>Economic Geography</em> 46 (2): 234–40. <a href="http://www.geog.ucsb.edu/~tobler/publications/pdf_docs/A-Computer-Movie.pdf">http://www.geog.ucsb.edu/~tobler/publications/pdf_docs/A-Computer-Movie.pdf</a>.</p>
 </div>
 </div>
             </section>
@@ -540,8 +848,8 @@ Figure 13.7: Significantly High-High and Low-Low clusters with P-values less tha
           </div>
         </div>
       </div>
-<a href="hypothesis-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="spatial-interpolation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="spatial-interpolation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mapping-data-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

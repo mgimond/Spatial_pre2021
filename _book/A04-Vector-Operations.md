@@ -44,7 +44,7 @@ The attributes table for both polygon objects are shown next. Note that each sha
 <p class="caption">(\#fig:unnamed-chunk-3)Attribute tables for the Maine spatial object, `s1`, (left table) and the distance to Augusta spatial object, `s2` (right table).</p>
 </div>
 
-## Dissolve by contiguous shape {-}
+## Dissolve by contiguous shape {-#app4_1}
 
 To dissolve all polygons that share at least one line segment, simply pass the object name to `raster`'s `aggregate` function. In this example, we dissolve all polygons to create a single outline of the state of Maine.
 
@@ -58,7 +58,7 @@ qtm(ME)
 <img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-4-1.png" width="400" />
 
  
-## Dissolve by attribute {-}
+## Dissolve by attribute {-#app4_2}
 
 First, we'll create a new column whose value is binary (TRUE/FALSE) depending on whether or not the county income is below the counties' median income value.
 
@@ -110,7 +110,7 @@ ME.inc@data
 ```
 
 
-## Calculate area {-}
+## Calculate area {-#app4_3}
 
 To calculate a polygon's area, you can use `rgeos`'s `gArea` function. For example, to compute the area in km^2^, type the following:
 
@@ -136,7 +136,7 @@ ME.inc@data
 2  TRUE  27955 15503.19
 ```
 
-## Subsetting {-}
+## Subsetting {-#app4_4}
 
 You can use conventional R dataframe manipulation operations to subset by attribute values. For example, to subset by county name (e.g. `Kennebec` county), type:
 
@@ -158,7 +158,7 @@ qtm(ME.inc2)
 
 <img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-14-1.png" width="400" />
 
-## Intersecting {-}
+## Intersecting {-#app4_5}
 
 To intersect two polygon objects, you can use `raster`'s `intersect` function.
 
@@ -205,7 +205,7 @@ tm_shape(s2) + tm_fill(col="grey") +tm_borders() +
 
 In both cases, the output shape objects inherit both the original attribute values as well as the attributes from the intersecting object.
 
-## Unioning {-}
+## Unioning {-#app4_6}
 
 To union two polygon objects, use `raster`'s `union` function. For example,
 

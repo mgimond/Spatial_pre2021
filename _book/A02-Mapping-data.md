@@ -1,6 +1,6 @@
 # Mapping data in R{-}
 
-## Sample files for this exercise{-}
+## Sample files for this exercise{-#app2_1}
 
 Data used in the following exercises can be loaded into your current R session by running the following chunk of code.
 
@@ -15,7 +15,7 @@ R offers many different mapping environments. Most spatial object types have the
 
 The `tmap` functions will recognize `sf`, `raster` and `Spatial*` objects.
 
-## The basics {-}
+## The basics {-#app2_2}
 
 To map the counties polygon layer using a uniform grey color scheme, type:
   
@@ -72,7 +72,7 @@ tm_shape(s.sf) +
 
 Note that the `tm_fill` function is nearly identical to the `tm_polygons` function with the difference being that the `tm_fill` function ignores polygon borders.
 
-### Combining layers {-}
+### Combining layers {-#app2_2_1}
 
 You can easily stack layers by piecing together additional `tmp_shapes`. In the following example, the railroad layer and the point layer are added to the income map. The railroad layer is mapped using the `tm_lines` function and the cities point layer is mapped using the `tm_dots` function. Note that layers are pieced together using the `+` symbol.
 
@@ -89,7 +89,7 @@ tm_shape(s.sf) +
 
 Layers are stacked in the order in which they are listed. In the above example, the point layer is the last layer called therefore it is drawn on top of the previously called layers.
 
-### Tweaking classification schemes {-}
+### Tweaking classification schemes {-#app2_2_2}
 
 You can control the classification type, color scheme, and bin numbers via the `tm_polygons` function. For example, to apply a quantile scheme with 6 bins and varying shades of green type,
 
@@ -129,7 +129,7 @@ tm_shape(s.sf) +
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-10-1.png" width="480" />
 
-### Tweaking colors {-}
+### Tweaking colors {-#app2_2_3}
 
 There are many color schemes to choose from, but you will probably want to stick to color swatches established by [Cynthia Brewer](http://colorbrewer2.org). These palettes are available in `tmap` and their names are listed below.
 
@@ -172,7 +172,7 @@ The character `\n` in the "`Fraction without \na HS degree`" string is interpret
 
 If you want to reverse the color scheme simply add the minus symbol `-` in front of the palette name as in `palette = "-YlOrBr"`
 
-### Adding labels {-}
+### Adding labels {-#app2_2_4}
 
 You can add text and labels using the `tm_text` function. In the following example, point labels are added to the right of the points with the text left justified (`just = "left"`) with an x offset of 0.5 units for added buffer between the point and the text.
 
@@ -190,7 +190,7 @@ tm_shape(s.sf) +
 
 The `tm_text` function also accepts an auto placement option via the parameter `auto.placement = TRUE`. This uses a simulated annealing algorithm. Note that this automated approach may not generate the same text placement after each run.
 
-### Adding a grid or graticule {-}
+### Adding a grid or graticule {-#app2_2_5}
 
 You can add a grid or graticule to the map using the `tm_grid` function. You will need to modify the map's default viewport setting via the `tm_layout` function to provide space for the grid labels. In the following example, the grid is generated using the layer's UTM coordinate system and is divided into roughly four segments along the x-axis and five segments along the y-axis. The function will adjust the grid placement so as to generate "pretty" label values.
 
@@ -242,7 +242,7 @@ tm_shape(s.sf) +
 
 Here, we use the unicode *decimal* representation of the &deg; symbol (unicode *176*) and pass it to the `intToUtf8` function. A list of unicode characters and their decimal representation can be found on this [Wikipedia](https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin-1_Supplement) page.
 
-## Adding statistical plots {-}
+## Adding statistical plots {-#app2_3}
 
 A histogram of the variables being mapped can be added to the legend element. By default, the histogram will inherit the colors used in the classification scheme.
 
@@ -256,7 +256,7 @@ tm_shape(s.sf) +
 
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-20-1.png" width="480" />
 
-## Mapping raster files {-}
+## Mapping raster files {-#app2_4}
 
 Raster objects can be mapped by specifying the `tm_raster` function. For example to plot the elevation raster and assign 64 continuous shades of the built-in terrain color ramp, type:
 
@@ -313,7 +313,7 @@ trying to read file: \\filer\Personal\mgimond\GIS\Appendix update\data\elev.tif
 Note that the Brewer palette names can also be used with rasters.
 
 
-## Changing coordinate systems {-}
+## Changing coordinate systems {-#app2_5}
 
 `tmap` can change the output's coordinate system without needing to reproject the data layers. In the following example, the elevation raster, railroad layer and point city layer are mapped onto a *USA Contiguous Albers Equal Area Conic* projection. A lat/long grid is added as a reference.
 
@@ -347,7 +347,7 @@ The first data layer's `projection=` parameter will define the map's coordinate 
 
 If a projection is not explicitly defined in the first call to `tm_shape`, then the output map will default to the first layer's reference system.
 
-## Side-by-side maps {-}
+## Side-by-side maps {-#app2_6}
 
 You can piece maps together side-by-side using the `tmap_arrange` function. You first need to save each map to a separate object before combining them. For example: 
 
@@ -366,7 +366,7 @@ tmap_arrange(inc.map, school.map, name.map)
 <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-25-1.png" width="1248" />
 
 
-## Splitting data by polygons or group of polygons {-}
+## Splitting data by polygons or group of polygons {-#app2_7}
 
 You can split the output into groups of features based on a column attribute. For example, to split the income map into individual polygons via the `NAME` attribute, type:
 

@@ -2,7 +2,7 @@
 
 For a basic theoretical treatise on spatial autocorrelation the reader is encouraged to review the [lecture notes](./spatial-autocorrelation.html). This section is intended to supplement the lecture notes by implementing spatial autocorrelation techniques in the R programming environment.
 
-## Sample files for this exercise {-}
+## Sample files for this exercise {-#app8_1}
 
 Data used in the following exercises can be loaded into your current R session by running the following chunk of code.
 
@@ -15,7 +15,7 @@ The data object consists of a `SpatialPolygonsDataFrame` vector layer, `s1`, rep
 
 The `spdep` package used in this exercise makes use of `sp` objects including `SpatialPoints*` and `SpatialPolygons*` classes. For more information on converting to/from this format revert back to the [Reading and writing spatial data in R](./reading-and-writing-spatial-data-in-r.html) Appendix section.
 
-## Introduction {-}
+## Introduction {-#app8_2}
 
 The spatial object `s1` has five attributes. The one of interest for this exercise is `Income` (per capita, in units of dollars).
 
@@ -33,7 +33,7 @@ tm_shape(s1) + tm_polygons(style="quantile", col = "Income") +
 
 <img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
-## Define neighboring polygons {-}
+## Define neighboring polygons {-#app8_3}
 
 The first step requires that we define "neighboring" polygons. This could refer to contiguous polygons, polygons within a certain distance band, or it could be non-spatial in nature and defined by social, political or cultural "neighbors".
 
@@ -112,7 +112,7 @@ The following table shows the average neighboring income values (stored in the `
 
 <img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-11-1.png" width="500" />
 
-## Computing the Moran's I statistic: the hard way {-}
+## Computing the Moran's I statistic: the hard way {-#app8_4}
 
 We can plot *lagged income* vs. *income* and fit a linear regression model to the data.
 
@@ -192,7 +192,7 @@ p
 
 In our working example, the p-value suggests that there is a small chance (0.022%) of being wrong in stating that the income values are not clustered at the county level.
 
-## Computing the Moran's I statistic: the easy way {-}
+## Computing the Moran's I statistic: the easy way {-#app8_5}
 
 To get the Moran's I value, simply use the `moran.test` function.
 
@@ -244,7 +244,7 @@ plot(MC, main="", las=1)
 
 <img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-19-1.png" width="288" />
 
-## Moran's I as a function of a distance band {-}
+## Moran's I as a function of a distance band {-#app8_6}
 
 In this section, we will explore spatial autocorrelation as a function of distance bands. 
 
