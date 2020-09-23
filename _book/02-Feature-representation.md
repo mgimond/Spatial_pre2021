@@ -115,13 +115,14 @@ Attribute data can be broken down into four **measurement levels**:
 
 Another way to categorize an attribute is by its **data type**. ArcGIS supports several data types such as **integer, float, double and text**. Knowing your data type and measurement level should dictate how they are stored in a GIS environment. The following table lists popular data types available in most GIS applications.
 
-Type | Stored values | Note
------|---------------|-----
-Short integer | -32,768 to 32,768 | Whole numbers 
-Long integer |	-2,147,483,648 to 2,147,483,648 |	Whole numbers
-Float	 | -3.4 * E-38 to 1.2 E38 | Real numbers 
-Double |	-2.2*E-308 to 1.8* E308 |	Real numbers 
-Text | Up to 64,000 characters | Letters and words 
+Type | Stored values                            | Note
+-----|------------------------------------------|-----
+Short integer | -32,768 to 32,768 | Whole numbers
+Long integer | -2,147,483,648 to 2,147,483,648 | Whole numbers
+Float | -3.4 * E-38 to 1.2 E38 | Real numbers
+Double | -2.2 * E-308 to 1.8 * E308 | Real numbers
+Text | Up to 64,000 characters | Letters and words
+
 
 While whole numbers can be stored as a float or double (i.e. we can store the number 2 as 2.0) doing so comes at a cost: an increase in storage space. This may not be a big deal if the dataset is small, but if it consists of tens of thousands of records the increase in file size and processing time may become an issue.
 

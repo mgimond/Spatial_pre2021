@@ -103,13 +103,13 @@ Operations and functions applied to gridded data can be broken down into three g
 
 Two mathematical operators have already been demonstrated in earlier sections: the *multiplier* and the *addition* operators. Other operators include division and the modulo (aka the modulus) which is the remainder of a division. Mathematical *functions* can also be applied to gridded data manipulation. Examples are square root and sine functions. The following table showcases a few examples with ArcGIS and R syntax.
 
-Operation |	ArcGIS Syntax | R Syntax | Example
+Operation | ArcGIS Syntax | R Syntax | Example
 ----------|--------|--------|--------
 Addition | `+`     | `+` |  `R1 + R2`		
 Subtraction | `-`  | `-` | `R1 - R2`		
-Division		| `/`  | `/`  | `R1 / R2`
-Modulo		  | `Mod()` | `%%` | `Mod(R1, 100)`, `R1 %% 10`
-Square root		| `SquareRoot()` | `sqrt()`| `SquareRoot(R1)`, `sqrt(R1)`
+Division | `/` | `/` | `R1 / R2`
+Modulo | `Mod()` | `%%` | `Mod(R1, 100)`, `R1 %% 10`
+Square root | `SquareRoot()` | `sqrt()`| `SquareRoot(R1)`, `sqrt(R1)`
 
 ### Logical comparison
 
@@ -117,10 +117,10 @@ The logical comparison operators evaluate a condition then output a value of `1`
 
 Logical comparison | Syntax
 -------------------|-------
-Greater than	     | `>`
-Less than	         | `<`
-Equal	             | `==`
-Not equal	         | `!=`
+Greater than  | `>`
+Less than | `<`
+Equal | `==`
+Not equal | `!=`
 
 For example, the following figure shows the output of the comparison between two rasters where we are assessing if cells in `R1` are *greater than* those in `R2` (on a cell-by-cell basis).
 
@@ -146,8 +146,8 @@ In map algebra, *Boolean* operators are used to compare conditional states of a 
 Boolean  ArcGIS   R          Example
 -------- -------- ---------  ------
 AND      &       	&	         `R1 & R2`
-OR	     `|`     	`|`        `R1 | R2`
-NOT	     `~`	    `!`        `~R2`, `!R2`
+OR       `|`     	`|`        `R1 | R2`
+NOT	     `~`      `!`        `~R2`, `!R2`
 
 > A "TRUE" state is usually encoded as a `1` or any *non-zero* integer while a "FALSE" state is usually encoded as a `0`.
 

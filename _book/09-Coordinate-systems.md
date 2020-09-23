@@ -71,11 +71,11 @@ So how are we to reconcile our need to work with a (simple) mathematical model o
 
 There are many local datums to choose from, some are old while others are more recently defined. The choice of datum is largely driven by the location of interest. For example, when working in the US, a popular local datum to choose from is the North American Datum of 1927 (or NAD27 for short). NAD27 works well for the US but it's not well suited for other parts of the world. For example, a far better local datum for Europe is the European Datum of 1950 (ED50 for short). Examples of common local datums are shown in the following table:
 
-Local datum	       | Acronym | Best for|	Comment
+Local datum | Acronym | Best for|	Comment
 -------------------|---------|--------|-------------------------------
-North American Datum of 1927 |	NAD27	| Continental US	| This is an old datum but still prevalent because of the wide use of older maps.
-European Datum of 1950	| ED50	| Western Europe |	Developed after World War II and still quite popular today. Not used in the UK.
-World Geodetic System 1972	| WGS72 |	Global |	Developed by the Department of Defense.
+North American Datum of 1927 | NAD27 | Continental US | This is an old datum but still prevalent because of the wide use of older maps.
+European Datum of 1950 | ED50 | Western Europe | Developed after World War II and still quite popular today. Not used in the UK.
+World Geodetic System 1972 | WGS72 | Global | Developed by the Department of Defense.
 
 #### Geocentric Datum
 
@@ -86,10 +86,10 @@ World Geodetic System 1972	| WGS72 |	Global |	Developed by the Department of Def
 
 Many of the modern datums use a geocentric alignment. These include the popular World Geodetic Survey for 1984 (WGS84) and the North American Datums of 1983 (NAD83). Most of the popular geocentric datums use the WGS84 ellipsoid or the GRS80 ellipsoid. These two ellipsoids share nearly identical semi-major and semi-minor axes: 6,378,137 meters and 6,356,752 meters respectively. Examples of popular geocentric datums are shown in the following table:
 
-Geocentric datum	       | Acronym | Best for|	Comment
+Geocentric datum | Acronym | Best for|	Comment
 -------------------|---------|--------|-------------------------------
-North American Datum of 1983 |	NAD83	 | Continental US	| This is one of the most popular modern datums for the contiguous US.
-European Terrestrial Reference System 1989 | ETRS89 |	Western Europe | This is the most popular modern datum for much of Europe.
+North American Datum of 1983 | NAD83 | Continental US | This is one of the most popular modern datums for the contiguous US.
+European Terrestrial Reference System 1989 | ETRS89 | Western Europe | This is the most popular modern datum for much of Europe.
 World Geodetic System 1984 | WGS84 | Global | Developed by the Department of Defense.
 
 ### Building the Geographic Coordinate System
