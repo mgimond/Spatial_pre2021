@@ -261,7 +261,7 @@ contour(K3, add=TRUE)
 
 ### Kernel density adjusted for covariate {-#pppR8}
 
-In the following example, a Starbucks store point intensity is estimated following the population density raster covariate. The outputs include a plot of $\rho$ vs. population density and a raster map of $\rho$ controlled for population density.
+In the following example, a Starbucks store point process' intensity is estimated following the population density raster covariate. The outputs include a plot of $\rho$ vs. population density and a raster map of $\rho$ controlled for population density.
 
 
 ```r
@@ -273,18 +273,77 @@ plot(rho, las=1, main=NULL, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) 
 
 <img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-20-1.png" width="480" />
 
-It's important to note that we are not fitting a parametric model to the data. Instead, a non-parametric curve is fit to the data. Its purpose is to describe/explore the shape of the relationship between point density and covariate.  Note the exponentially increasing density of Starbucks stores with increasing population density values up to about 3 stores per square kilometer when the population density is expressed as a log. The grey envelope represents the 95% confidence interval.
+It's important to note that we are not fitting a parametric model to the data. Instead, a non-parametric curve is fit to the data. Its purpose is to describe/explore the shape of the relationship between point density and covariate.  Note the exponentially increasing inensity of Starbucks stores with increasing population density values when the population density is expressed as a log. The grey envelope represents the 95% confidence interval.
 
-The following code chunk generates the map of the predicted density when controlled for the population density. If the covariate does a good job in explaining the store density, the predicted density map should be nearly uniform across the map. 
+The following code chunk generates the map of the predicted Starbucks density if population density were the sole driving process. (Note the use of the `gamma` parameter to "stretch" the color scheme in the map).
 
 
 ```r
 pred <- predict(rho)
 cl   <- interp.colours(c("lightyellow", "orange" ,"red"), 100) # Create color scheme
-plot(pred, col=cl, las=1, main=NULL)
+plot(pred, col=cl, las=1, main=NULL, gamma = 0.25)
 ```
 
 <img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-21-1.png" width="364.8" />
+
+The predicted intensity's spatial pattern mirrors the covariate's population distribution pattern. The predicted intensity values range from 0 to about 5 stores per square kilometer. You'll note that this maximum value does not match the maximum value of ~3 shown in the `rho` vs population density plot. This is because the plot did not show the full range of population density values (the max density value shown was 10). The population raster layer has a maximum pixel value of 11.03 (this value can be extracted via `max(pop.lg.km)`).
+
+We can compare the output of the predicted Starbucks stores intensity function to that of the observed Starbucks stores intensity function. We'll use the variable `K1` computed earlier to represent the observed intensity function.
+
+
+```r
+K1_vs_pred <- pairs(K1, pred, plot = FALSE)
+plot(K1_vs_pred$pred ~ K1_vs_pred$K1, pch=20,
+     xlab = "Observed intensity", 
+     ylab = "Predicted intensity", 
+     col = rgb(0,0,0,0.1))
+```
+
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-22-1.png" width="480" />
+
+If the modeled intensity was comparable to the observed intensity, we would expect the points to cluster along a one-to-one diagonal. An extreme example is to compare the observed intensity with itself which offers a perfect match of intensity values.
+
+
+```r
+K1_vs_K1 <- pairs(K1, K1, labels = c("K1a", "K1b"), plot = FALSE)
+plot(K1_vs_K1$K1a ~ K1_vs_K1$K1b, pch=20,
+     xlab = "Observed intensity", 
+     ylab = "Observed intensity")
+```
+
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-23-1.png" width="480" />
+
+So going back to our predicted vs observed intensity plot, we note a strong skew in the predicted intensity values. We also note an overestimation of intensity around higher values.
+
+
+```r
+summary(as.data.frame(K1_vs_pred))
+```
+
+```
+       K1                 pred         
+ Min.   :4.027e-05   Min.   :0.000000  
+ 1st Qu.:9.564e-04   1st Qu.:0.000282  
+ Median :2.317e-03   Median :0.001541  
+ Mean   :6.488e-03   Mean   :0.007821  
+ 3rd Qu.:7.865e-03   3rd Qu.:0.005904  
+ Max.   :4.303e-02   Max.   :5.101111  
+```
+The predicted maximum intensity value is two orders of magnitude greater than that observed.
+
+The overestimation of intenstity values can also be observed at lower values. The following plot limits the data to observed intensities less than 0.04. A red one-to-one line is added for reference. If intensities were similar, they would aggregate around this line.
+
+
+```r
+plot(K1_vs_pred$pred ~ K1_vs_pred$K1, pch=20,
+     xlab = "Observed intensity", 
+     ylab = "Predicted intensity", 
+     col = rgb(0,0,0,0.1),
+     xlim = c(0, 0.04), ylim = c(0, 0.1))
+abline(a=0, b = 1, col = "red")
+```
+
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-25-1.png" width="480" />
 
 ### Modeling intensity as a function of a covariate {-#pppR9}
 
@@ -295,10 +354,11 @@ The relationship between the predicted Starbucks store point pattern intensity a
 # Create the Poisson point process model
 PPM1 <- ppm(starbucks.km ~ pop.lg.km)
 # Plot the relationship
-plot(effectfun(PPM1, "pop.lg.km", se.fit=TRUE), main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
+plot(effectfun(PPM1, "pop.lg.km", se.fit=TRUE), main=NULL, 
+     las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-22-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-26-1.png" width="480" />
 
 Note that this is not the same relationship as  $\rho$ vs. population density shown in the previous section. Here, we're fitting a well defined model to the data whose parameters can be extracted from the `PPM1` object.
 
@@ -372,7 +432,7 @@ ANN <- apply(nndist(starbucks.km, k=1:100),2,FUN=mean)
 plot(ANN ~ eval(1:100), type="b", main=NULL, las=1)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-26-1.png" width="384" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-30-1.png" width="384" />
 
 The bottom axis shows the neighbor order number and the left axis shows the average distance in kilometers.
 
@@ -386,7 +446,7 @@ K <- Kest(starbucks.km)
 plot(K, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-27-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-31-1.png" width="480" />
 
 The plot returns different estimates of $K$ depending on the edge correction chosen. By default, the `isotropic`, `translate` and `border`  corrections are implemented. To learn more about these edge correction methods type `?Kest` at the command line. The estimated $K$ functions are listed with a hat `^`. The black line ($K_{pois}$) represents the theoretical $K$ function under the null hypothesis that the points are completely randomly distributed (CSR/IRP). Where $K$ falls under the theoretical $K_{pois}$ line the points are deemed more dispersed than expected at distance $r$. Where $K$ falls above the theoretical $K_{pois}$ line the points are deemed more clustered than expected at distance $r$.
 
@@ -398,7 +458,7 @@ L <- Lest(starbucks.km, main=NULL)
 plot(L, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-28-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-32-1.png" width="480" />
 
 To plot the L function with the L~expected~ line set horizontal:
 
@@ -407,7 +467,7 @@ To plot the L function with the L~expected~ line set horizontal:
 plot(L, . -r ~ r, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-29-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-33-1.png" width="480" />
 
 ### Pair correlation function g {-#pppR13}
 
@@ -419,7 +479,7 @@ g  <- pcf(starbucks.km)
 plot(g, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-30-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-34-1.png" width="480" />
 
 As with the `Kest` and `Lest` functions, the `pcf` function outputs different estimates of $g$ using different edge correction methods (`Ripley` and `Translate`). The theoretical $g$-function $g_{Pois}$  under a CSR process (green dashed line) is also displayed for comparison. Where the observed $g$ is greater than $g_{Pois}$ we can expect more clustering than expected and where the observed $g$ is less than $g_{Pois}$ we can expect more dispersion than expected.
 
@@ -463,7 +523,7 @@ You can plot the last realization of the homogeneous point process to see what a
 plot(rand.p, pch=16, main=NULL, cols=rgb(0,0,0,0.5))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-33-1.png" width="288" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-37-1.png" width="288" />
 
 Our observed distribution of Starbucks stores certainly does not look like the outcome of a completely independent random process.
 
@@ -475,7 +535,7 @@ hist(ann.r, main=NULL, las=1, breaks=40, col="bisque", xlim=range(ann.p, ann.r))
 abline(v=ann.p, col="blue")
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-34-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-38-1.png" width="480" />
 
 It's obvious from the test that the observed ANN value is far smaller than the expected ANN values one could expect under the null hypothesis. A smaller observed value indicates that the stores are far more clustered than expected under the null. 
 
@@ -499,7 +559,7 @@ Window(rand.p) <- ma.km  # Replace raster mask with ma.km window
 plot(rand.p, pch=16, main=NULL, cols=rgb(0,0,0,0.5))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-36-1.png" width="288" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-40-1.png" width="288" />
 
 Note the cluster of points near the highly populated areas. This pattern is different from the one generated from a completely random process. 
 
@@ -511,7 +571,7 @@ hist(ann.r, main=NULL, las=1, breaks=40, col="bisque", xlim=range(ann.p, ann.r))
 abline(v=ann.p, col="blue")
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-37-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-41-1.png" width="480" />
 
 
 Even though the distribution of ANN values we could expect when controlled for the population density nudges closer to our observed ANN value, we still cannot say that the clustering of Starbucks stores can be explained by population density alone.
@@ -615,10 +675,10 @@ anova(PPM0, PPM1, test="LRT")
 ```
 
 
- Npar   Df   Deviance   Pr(>Chi)
------  ---  ---------  ---------
-    5   NA         NA         NA
-    6    1    537.218          0
+| Npar| Df| Deviance| Pr(>Chi)|
+|----:|--:|--------:|--------:|
+|    5| NA|       NA|       NA|
+|    6|  1|  537.218|        0|
 
 The value under the heading `PR(>Chi)` is the p-value which gives us the probability that we would be wrong in rejecting the null. Here p~0 suggests that there is close to a 0% chance that we would be wrong in rejecting the base model in favor of the alternate model--put another way, the alternate model (that the logged population density can help explain the distribution of Starbucks stores) is a significant improvement over the null. 
 
