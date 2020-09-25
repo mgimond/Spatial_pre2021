@@ -116,11 +116,11 @@ Some of the most popular **kernel functions** assign weights to points that are 
 
 #### Kernel Density Adjusted for Covariate
 
-In the previous section, we learned that we could use a covariate, like elevation, to define the sub-regions (quadrats) within which densities were computed. In essence, a form of *normalization* was applied to the density calculations whereby each sub-region was assumed to represent a unique underlying process (if this were the case, then the density values would have been the same across each sub-region). 
+In the previous section, we learned that we could use a covariate, like elevation, to define the sub-regions (quadrats) within which densities were computed. 
 
 Here, instead of *dividing* the study region into discrete sub-regions (as was done with quadrat analysis), we create an intensity function that is dependent on the underlying covariate. This function, which we'll denote as $\rho$, can be estimated in one of three different ways-- by *ratio*, *re-weight* and *transform* methods. We will not delve into the differences between these methods, but note that there is more than one way to estimate $\rho$ in the presence of a covariate.
 
-In the following example, the elevation raster is used as the covariate in the $\rho$ function  using the _ratio_ method. The right-most plot  shows the intensity function as a function of elevation. 
+In the following example, the elevation raster is used as the covariate in the $\rho$ function  using the _ratio_ method. The right-most plot maps the modeled intensity as a function of elevation. 
 
 <div class="figure">
 <img src="11-Point-Patterns_files/figure-html/f11-kernel03-1.png" alt="An estimate of $\rho$ using the ratio method. The figure on the left shows the point distribution superimposed on the elevation layer. The middle figure plots the estimated $\rho$ as a function of elevation. The envelope shows the 95% confidence interval. The figure on the right shows the modeled density of $\widehat{\lambda}$ which is a function of the elevation raster (i.e. $\widehat{\lambda}=\widehat{\rho}_{elevation}$)." width="787.2" />
