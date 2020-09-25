@@ -453,7 +453,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><code>ma</code>: An <code>owin</code> polygon layer of Massachusetts boundaries;</li>
 <li><code>pop</code>: An <code>im</code> raster layer of population density distribution.</li>
 </ul>
-<p>All layers are in a format supported by the <code>spatstat</code> package. Note that these layers are not authoritative and are to be used for instructional purposes only.</p>
+<p>All layers are in a format supported by the <code>spatstat</code> <span class="citation">(Baddeley, Rubak, and Turner <a href="#ref-Spatstat" role="doc-biblioref">2016</a>)</span> package. Note that these layers are not authoritative and are to be used for instructional purposes only.</p>
 </div>
 <div id="pppR2" class="section level2 unnumbered">
 <h2>Getting external data into a <code>spatstat</code> format</h2>
@@ -847,6 +847,12 @@ log(lambda) -4.795287 0.07647191 -4.945169 -4.645405   *** -62.70651</code></pre
 <p>Note that if you were to compare two competing non-homogeneous models such as population density and income distributions, you would need to compare the model with one of the covariates with an augmented version of that model using the other covariate. In other words, you would need to compare <code>PPM1 &lt;- ppm(starbucks.km ~ pop.lg.km)</code> with something like <code>PPM2 &lt;- ppm(starbucks.km ~ pop.lg.km + income.km)</code>.</p>
 
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Spatstat">
+<p>Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2016. <em>Spatial Point Patterns, Methodology and Applications with R</em>. Florida: CRC Press.</p>
 </div>
 </div>
             </section>

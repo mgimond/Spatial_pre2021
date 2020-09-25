@@ -16,7 +16,7 @@ The data objects consist of three spatial data layers:
 * `ma`: An `owin` polygon layer of Massachusetts boundaries;
 * `pop`: An `im` raster layer of population density distribution. 
 
-All layers are in a format supported by the `spatstat` package. Note that these layers are not authoritative and are to be used for instructional purposes only.
+All layers are in a format supported by the `spatstat` [@Spatstat] package. Note that these layers are not authoritative and are to be used for instructional purposes only.
 
 ## Getting external data into a `spatstat` format {-#pppR2}
 
