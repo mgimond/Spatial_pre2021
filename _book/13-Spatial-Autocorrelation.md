@@ -67,11 +67,11 @@ So far we have looked at spatial autocorrelation where we define neighbors as al
 
 3. Repeat steps 1  and 2  for a different set of neighbors (at a greater distance for example) .
 
-For example, the Moran's I values for income distribution in the state of Maine at distances of 25, 75, 125, up to 375 km are presented in the following plot:
+For example, the Moran's I values for income distribution in the state of Maine at distances of 75, 125, up to 325 km are presented in the following plot:
 
 <div class="figure" style="text-align: center">
-<img src="img/MoranI_distance_band.png" alt="Moran's I at different spatial lags defined by a 5 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less." width="400" />
-<p class="caption">(\#fig:f13-MC-distance)Moran's I at different spatial lags defined by a 5 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less.</p>
+<img src="img/MoranI_distance_band.png" alt="Moran's I at different spatial lags defined by a 50 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less." width="400" />
+<p class="caption">(\#fig:f13-MC-distance)Moran's I at different spatial lags defined by a 50 km width annulus at 50 km distance increments. Red dots indicate Moran I values for which a P-value was 0.05 or less.</p>
 </div>
 
 The plot suggests that there is significant spatial autocorrelation between counties within 25 km of one another, but as the distances between counties increases, autocorrelation shifts from being positive to being negative meaning that at greater distances, counties tend to be more dissimilar.
