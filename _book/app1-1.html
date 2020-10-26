@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Reading and writing spatial data in R | Geodesic geometry</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Reading and writing spatial data in R | Geodesic geometry" />
   <meta property="og:type" content="book" />
@@ -32,7 +32,7 @@
   
 <link rel="prev" href="spatial-interpolation.html"/>
 <link rel="next" href="mapping-data-in-r.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -846,7 +846,7 @@ PROJCRS[&quot;NAD83 / UTM zone 19N&quot;,
 5  Washington  20015 0.00478188 0.000966036  327.273 MULTIPOLYGON (((645446.5 49...</code></pre>
 <p>The above chunk will also create a geometry column. This column is somewhat unique in that it stores its contents as a <strong>list</strong> of geometry coordinate pairs (polygon vertex coordinate values in this example).</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="app1-1.html#cb43-1"></a><span class="kw">str</span>(s.df)</span></code></pre></div>
-<pre><code>&#39;data.frame&#39;:	16 obs. of  6 variables:
+<pre><code>&#39;data.frame&#39;:   16 obs. of  6 variables:
  $ NAME      : chr  &quot;Aroostook&quot; &quot;Somerset&quot; &quot;Piscataquis&quot; &quot;Penobscot&quot; ...
  $ Income    : int  21024 21025 21292 23307 20015 21744 21885 23020 25652 24268 ...
  $ NoSchool  : num  0.01339 0.00521 0.00634 0.00685 0.00478 ...

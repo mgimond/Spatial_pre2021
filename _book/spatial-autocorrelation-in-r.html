@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Spatial autocorrelation in R | Geodesic geometry</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Spatial autocorrelation in R | Geodesic geometry" />
   <meta property="og:type" content="book" />
@@ -32,7 +32,7 @@
   
 <link rel="prev" href="point-pattern-analysis-in-r.html"/>
 <link rel="next" href="interpolation-in-r.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -593,7 +593,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <p>To get the Moran’s I value, simply use the <code>moran.test</code> function.</p>
 <div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="spatial-autocorrelation-in-r.html#cb285-1"></a><span class="kw">moran.test</span>(s1<span class="op">$</span>Income,lw)</span></code></pre></div>
 <pre><code>
-	Moran I test under randomisation
+    Moran I test under randomisation
 
 data:  s1$Income  
 weights: lw    
@@ -609,7 +609,7 @@ Moran I statistic       Expectation          Variance
 <span id="cb287-3"><a href="spatial-autocorrelation-in-r.html#cb287-3"></a><span class="co"># View results (including p-value)</span></span>
 <span id="cb287-4"><a href="spatial-autocorrelation-in-r.html#cb287-4"></a>MC</span></code></pre></div>
 <pre><code>
-	Monte-Carlo simulation of Moran I
+    Monte-Carlo simulation of Moran I
 
 data:  s1$Income 
 weights: lw  
@@ -641,7 +641,7 @@ alternative hypothesis: greater</code></pre>
 <p>Display p-value and other summary statistics.</p>
 <div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="spatial-autocorrelation-in-r.html#cb295-1"></a>MI</span></code></pre></div>
 <pre><code>
-	Monte-Carlo simulation of Moran I
+    Monte-Carlo simulation of Moran I
 
 data:  s1$Income 
 weights: lw  

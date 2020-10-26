@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Point pattern analysis in R | Geodesic geometry</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Point pattern analysis in R | Geodesic geometry" />
   <meta property="og:type" content="book" />
@@ -32,7 +32,7 @@
   
 <link rel="prev" href="coordinate-systems-in-r.html"/>
 <link rel="next" href="spatial-autocorrelation-in-r.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -586,11 +586,7 @@ pop  &lt;- as.im(img)</code></pre>
 <h3>Quadrat density on a tessellated surface</h3>
 <p>We can use a covariate such as the population density raster to define non-uniform quadrats.</p>
 <p>We’ll first divide the population density covariate into four regions (aka tessellated surfaces) following an equal interval classification scheme. Recall that we are working with the log transformed population density values. The breaks will be defined as follows:</p>
-<table style="width:58%;">
-<colgroup>
-<col width="11%" />
-<col width="47%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
 <th>Break</th>
@@ -823,7 +819,7 @@ Problem:
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="point-pattern-analysis-in-r.html#cb253-1"></a><span class="kw">hist</span>(ann.r, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">breaks=</span><span class="dv">40</span>, <span class="dt">col=</span><span class="st">&quot;bisque&quot;</span>, <span class="dt">xlim=</span><span class="kw">range</span>(ann.p, ann.r))</span>
 <span id="cb253-2"><a href="point-pattern-analysis-in-r.html#cb253-2"></a><span class="kw">abline</span>(<span class="dt">v=</span>ann.p, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-41-1.png" width="480" /></p>
-<p>Even though the distribution of ANN values we could expect when controlled for the population density nudges closer to our observed ANN value, we still cannot say that the clustering of Starbucks stores can be explained by population density alone.</p>
+<p>Even though the distribution of ANN values we would expect when controlled for the population density nudges closer to our observed ANN value, we still cannot say that the clustering of Starbucks stores can be explained by a completely random process when controlled for population density.</p>
 </div>
 <div id="pppR16" class="section level3 unnumbered" number="">
 <h3>Computing a pseudo p-value from the simulation</h3>
@@ -837,7 +833,7 @@ Problem:
 </div>
 <div id="pppR17" class="section level3 unnumbered" number="">
 <h3>Test for a poisson point process model with a covariate effect</h3>
-<p>The ANN analysis addresses the 2<sub>nd</sub> order effect of a point process. Here, we’ll address the 1<sub>st</sub> order process using the poisson point process model.</p>
+<p>The ANN analysis addresses the 2<sup>nd</sup> order effect of a point process. Here, we’ll address the 1<sup>st</sup> order process using the poisson point process model.</p>
 <p>We’ll first fit a model that assumes that the point process’ intensity <em>is</em> a function of the logged population density (this will be our alternate hypothesis).</p>
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="point-pattern-analysis-in-r.html#cb257-1"></a>PPM1 &lt;-<span class="st"> </span><span class="kw">ppm</span>(starbucks.km <span class="op">~</span><span class="st"> </span>pop.lg.km)</span>
 <span id="cb257-2"><a href="point-pattern-analysis-in-r.html#cb257-2"></a>PPM1</span></code></pre></div>
