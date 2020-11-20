@@ -220,7 +220,7 @@ vector-overlay
 clip
 intersect
 union
-coordinate-systems
+chp09_0
 geographic-coordinate-systems
 sphere-and-ellipsoid
 geoid
@@ -234,7 +234,7 @@ cylindrical-projection
 conical-projection
 spatial-properties
 geodesic-geometries
-map-algebra
+chp10_0
 local-operations-and-functions
 focal-operations-and-functions
 zonal-operations-and-functions
@@ -244,7 +244,7 @@ mathematical-operators-and-functions
 logical-comparison
 boolean-or-logical-operators
 combining-operations
-point-pattern-analysis
+chp11_0
 centrography
 density-based-analysis
 global-density

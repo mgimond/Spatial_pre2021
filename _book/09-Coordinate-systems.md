@@ -1,9 +1,4 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
-# Coordinate Systems
+# Coordinate Systems {#chp09_0}
 
 Implicit with any GIS data is a spatial reference system. It can consist of a simple arbitrary reference system such as a 10 m x 10 m sampling grid in a wood lot or, the boundaries of a soccer field or, it can consist of a geographic reference system, i.e. one where the spatial features are mapped to an earth based reference system. The focus of this topic is on earth reference systems which can be based on a Geographic Coordinate System (GCS) or a Project Coordinate System (PCS). 
 
@@ -199,7 +194,6 @@ If you are not convinced of the benefits afforded by geodesic geometry, compare 
 <img src="09-Coordinate-systems_files/figure-html/unnamed-chunk-9-1.png" width="480" />
 
 At first glance, the geodesic distance may seem nonsensical given its curved appearance on the projected map. However, this curvature is a byproduct of the current reference system’s increasing distance distortion as one progresses poleward. If you are still not convinced, you can display the geodesic and planar distance layers on a 3D globe (or a projection that mimics the view of the 3D earth as viewed from space centered on the mid-point of the geodesic line segment).
-
 
 
 <img src="09-Coordinate-systems_files/figure-html/unnamed-chunk-10-1.png" width="240" />
