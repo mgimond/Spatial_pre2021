@@ -1,7 +1,7 @@
 --- 
 title: "Intro to GIS and Spatial Analysis"
 author: "Manuel Gimond"
-date: "Last edited on 2020-10-26"
+date: "Last edited on 2020-11-20"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
