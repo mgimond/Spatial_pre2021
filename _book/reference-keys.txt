@@ -156,7 +156,7 @@ arcgis
 qgis
 what-is-spatial-analysis
 whats-in-an-acronym
-feature-representation
+chp02_0
 vector-vs.-raster
 vector
 point

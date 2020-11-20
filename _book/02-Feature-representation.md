@@ -1,6 +1,6 @@
 # (PART) Working with spatial data {-}
 
-# Feature Representation
+# Feature Representation {#chp02_0}
 
 
 ## Vector vs. Raster

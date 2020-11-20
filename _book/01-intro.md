@@ -2,7 +2,7 @@
 
 
 
-## What is a GIS?
+## What is a GIS? 
 
 A Geographic Information System is a multi-component environment used to create, manage, visualize and analyze data and its spatial counterpart. It's important to note that most datasets you will encounter in your lifetime can all be assigned a spatial location whether on the earth's surface or within some arbitrary coordinate system (such as a soccer field or a gridded petri dish). So in essence, any dataset can be represented in a GIS: the question then becomes "does it need to be analyzed in a GIS environment?" The answer to this question depends on the purpose of the analysis. If, for example, we are interested in identifying the ten African countries with the highest conflict index scores for the 1966-78 period, a simple table listing those scores by country is all that is needed. 
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Map Algebra | Intro to GIS and Spatial Analysis</title>
+  <title>Chapter 2 Feature Representation | Intro to GIS and Spatial Analysis</title>
   <meta name="description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Map Algebra | Intro to GIS and Spatial Analysis" />
+  <meta property="og:title" content="Chapter 2 Feature Representation | Intro to GIS and Spatial Analysis" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="mgimond/spatial" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Map Algebra | Intro to GIS and Spatial Analysis" />
+  <meta name="twitter:title" content="Chapter 2 Feature Representation | Intro to GIS and Spatial Analysis" />
   
   <meta name="twitter:description" content="This is a compilation of lecture notes that accompany my Intro to GIS and Spatial Analysis course." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="chp09-0.html"/>
-<link rel="next" href="chp11-0.html"/>
+<link rel="prev" href="introGIS.html"/>
+<link rel="next" href="gis-data-management.html"/>
 <script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -495,281 +495,165 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="chp10_0" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Map Algebra</h1>
-<p><strong>Dana Tomlin</strong> <span class="citation">(Tomlin <a href="#ref-DTomlin" role="doc-biblioref">1990</a>)</span> is credited with defining a framework for the analysis of field data stored as gridded values (i.e. rasters). He coined this framework <em>map algebra</em>. Though gridded data can be stored in a vector format, map algebra is usually performed on raster data. Map algebra operations and functions are broken down into four groups: <strong>local</strong>, <strong>focal</strong>, <strong>zonal</strong> and <strong>global</strong>. Each is explored in the following
-sections.</p>
-<div id="local-operations-and-functions" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Local operations and functions</h2>
-<p>Local operations and functions are applied to each individual cell and only involve those cells sharing the same location.</p>
-<p>For example, if we start off with an original raster, then multiply it by 2 then add 1, we get a new raster whose cell values reflect the series of operations performed on the original raster cells. This is an example of a <strong>unary</strong> operation where just one single raster is involved in the operation.</p>
-<div class="figure"><span id="fig:f10-local01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-local01-1.png" alt="Example of a local operation where  `output=(2 * raster + 1)`." width="480" />
+<div id="chp02_0" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Feature Representation</h1>
+<div id="vector-vs.-raster" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Vector vs. Raster</h2>
+<p>To work in a GIS environment, real world observations (objects or events that can be recorded in 2D or 3D space) need to be reduced to spatial entities. These spatial entities can be represented in a GIS as a <strong>vector data model</strong> or a <strong>raster data model</strong>.</p>
+<div class="figure"><span id="fig:vec-rast"></span>
+<img src="img/vector_vs_raster.jpg" alt="Vector and raster representations of a river feature."  />
 <p class="caption">
-Figure 10.1: Example of a local operation where <code>output=(2 * raster + 1)</code>.
+Figure 2.1: Vector and raster representations of a river feature.
 </p>
 </div>
-<p>More than one raster can be involved in a local operation. For example, two rasters can be summed (i.e. each overlapping pixels are summed) to generate a new raster.</p>
-<div class="figure"><span id="fig:f10-local02"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-local02-1.png" alt="Example of a local operation where `output=(raster1+raster2)`. Note how each cell output only involves input raster cells that share the same exact location." width="672" />
+<div id="vector" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Vector</h3>
+<p>Vector features can be decomposed into three different geometric primitives: <strong>points</strong>, <strong>polylines</strong> and <strong>polygons</strong>.</p>
+<div id="point" class="section level4" number="2.1.1.1">
+<h4><span class="header-section-number">2.1.1.1</span> Point</h4>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-1-1.png" alt="Three point objects defined by their X and Y coordinate values." width="172.8" />
 <p class="caption">
-Figure 10.2: Example of a local operation where <code>output=(raster1+raster2)</code>. Note how each cell output only involves input raster cells that share the same exact location.
+Figure 2.2: Three point objects defined by their X and Y coordinate values.
 </p>
 </div>
-<p>Local operations also include <strong>reclassification</strong> of values. This is where a range of values from the input raster are assigned a new (common) value. For example, we might want to reclassify the input raster values as follows:</p>
+<p>A point is composed of one coordinate pair representing a specific location in a coordinate system. Points are the most basic geometric primitives having no length or area. By definition a point can’t be “seen” since it has no area; but this is not practical if such primitives are to be mapped. So points on a map are represented using <em>symbols</em> that have both area and shape (e.g. circle, square, plus signs).</p>
+<p>We seem capable of interpreting such symbols as points, but there may be instances when such interpretation may be ambiguous (e.g. is a round symbol delineating the area of a round feature on the ground such as a large oil storage tank or is it representing the point location of that tank?).</p>
+</div>
+<div id="polyline" class="section level4" number="2.1.1.2">
+<h4><span class="header-section-number">2.1.1.2</span> Polyline</h4>
+<div class="figure"><span id="fig:unnamed-chunk-2"></span>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-2-1.png" alt="A simple polyline object defined by connected vertices." width="172.8" />
+<p class="caption">
+Figure 2.3: A simple polyline object defined by connected vertices.
+</p>
+</div>
+<p>A polyline is composed of a sequence of two or more coordinate pairs called vertices. A vertex is defined by coordinate pairs, just like a point, but what differentiates a vertex from a point is its explicitly defined relationship with neighboring vertices. A vertex is connected to at least one other vertex.</p>
+<p>Like a point, a true line can’t be seen since it has no area. And like a point, a line is symbolized using shapes that have a color, width and style (e.g. solid, dashed, dotted, etc…). Roads and rivers are commonly stored as polylines in a GIS.</p>
+</div>
+<div id="polygon" class="section level4" number="2.1.1.3">
+<h4><span class="header-section-number">2.1.1.3</span> Polygon</h4>
+<div class="figure"><span id="fig:unnamed-chunk-3"></span>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-3-1.png" alt="A simple polygon object defined by an area enclosed by connected vertices." width="172.8" />
+<p class="caption">
+Figure 2.4: A simple polygon object defined by an area enclosed by connected vertices.
+</p>
+</div>
+<p>A polygon is composed of three or more line segments whose starting and ending coordinate pairs are the same. Sometimes you will see the words <em>lattice</em> or <em>area</em> used in lieu of ‘polygon’. Polygons represent both length (i.e. the perimeter of the area) and area. They also embody the idea of an inside and an outside; in fact, the area that a polygon encloses is explicitly defined in a GIS environment. If it isn’t, then you are working with a polyline feature. If this does not seem intuitive, think of three connected lines defining a triangle: they can represent three connected road segments (thus polyline features), or they can represent the grassy strip enclosed by the connected roads (in which case an ‘inside’ is implied thus defining a polygon).</p>
+</div>
+</div>
+<div id="raster" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Raster</h3>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-4-1.png" alt="A simple raster object defined by a 10x10 array of cells or pixels." width="172.8" />
+<p class="caption">
+Figure 2.5: A simple raster object defined by a 10x10 array of cells or pixels.
+</p>
+</div>
+<p>A raster data model uses an array of cells, or pixels, to represent real-world objects. Raster datasets are commonly used for representing and managing imagery, surface temperatures, digital elevation models, and numerous other entities.</p>
+<p>A raster can be thought of as a special case of an area object where the area is divided into a regular grid of cells. But a regularly spaced array of marked points may be a better analogy since rasters are stored as an array of values where each cell is defined by a single coordinate pair inside of most GIS environments.</p>
+<p>Implicit in a raster data model is a value associated with each cell or pixel. This is in contrast to a vector model that may or may not have a value associated with the geometric primitive.</p>
+</div>
+</div>
+<div id="object-vs.-field" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Object vs. Field</h2>
+<p>The traditional vector/raster perspective of our world is one that has been driven by software and data storage environments. But this perspective is not particularly helpful if one is interested in analyzing the pattern. In fact, it can mask some important properties of the entity being studied. An object vs. field view of the world proves to be more insightful even though it may seem more abstract.</p>
+<div id="object-view" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Object View</h3>
+<p>An object view of the world treats entities as discrete objects; they need not occur at every location within a study area. Point locations of cities would be an example of an object. So would be polygonal representations of urban areas which may be non-contiguous.</p>
+</div>
+<div id="field-view" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Field View</h3>
+<p>A field view of the world treats entities as a scalar field. This is a mathematical concept in which a scalar is a quantity having a magnitude. It is measurable at every location within the study region. Two popular examples of a scalar field are surface elevation and surface temperature. Each represents a property that can be measured at any location.</p>
+<p>Another example of a scalar field is the presence and absence of a building. This is a binary scalar where a value of 0 is assigned to a location devoid of buildings and a value of 1 is assigned to locations having one or more buildings. A field representation of buildings may not seem intuitive, in fact, given the definition of an object view of the world in the last section, it would seem only fitting to view buildings as objects. In fact, buildings can be viewed as both field or objects. The context of the analysis is ultimately what will dictate which view to adopt. If we’re interested in studying the distribution of buildings over a study area, then an object view of the features makes sense. If, on the other hand, we are interested in identifying all locations where buildings don’t exist, then a binary field view of these entities would make sense.</p>
+</div>
+</div>
+<div id="scale" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Scale</h2>
+<p>How one chooses to represent a real-world entity will be in large part dictated by the <strong>scale</strong> of the analysis. In a GIS, scale has a specific meaning: it’s the ratio of distance on the map to that in the real world. So a <strong>large scale</strong> map implies a relatively large ratio and thus a small extent. This is counter to the layperson’s interpretation of <em>large scale</em> which focuses on the scope or extent of a study; so a large scale analysis would imply one that covers a <em>large</em> area.</p>
+<p>The following two maps represent the same entity: the Boston region. At a small scale (e.g. 1:10,000,000), Boston and other cities may be best represented as points. At a large scale (e.g. 1:34,000), Boston may be best represented as a polygon. Note that at this large scale, roads may also be represented as polygon features instead of polylines.</p>
+<div class="figure"><span id="fig:unnamed-chunk-5"></span>
+<img src="img/Boston_small_scale.jpg" alt="Map of the Boston area at a 1:10,000,000 scale. Note that in geography, this is considered small scale whereas in layperson terms, this extent is often referred to as a large scale (i.e. covering a large area)."  />
+<p class="caption">
+Figure 2.6: Map of the Boston area at a 1:10,000,000 scale. Note that in geography, this is considered small scale whereas in layperson terms, this extent is often referred to as a large scale (i.e. covering a large area).
+</p>
+</div>
+<div class="figure"><span id="fig:unnamed-chunk-6"></span>
+<img src="img/Boston_large_scale.jpg" alt="Map of the Boston area at a 1:34,000 scale. Note that in geography, this is considered large scale whereas in layperson terms, this extent is often referred to as a small scale (i.e. covering a small area)."  />
+<p class="caption">
+Figure 2.7: Map of the Boston area at a 1:34,000 scale. Note that in geography, this is considered large scale whereas in layperson terms, this extent is often referred to as a small scale (i.e. covering a small area).
+</p>
+</div>
+</div>
+<div id="attribute-tables" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Attribute Tables</h2>
+<p>Non-spatial information associated with a spatial feature is referred to as an <strong>attribute</strong>. A feature on a GIS map is linked to its record in the attribute table by a unique numerical identifier (ID). Every feature in a layer has an identifier. It is important to understand the one-to-one or many-to-one relationship between feature, and attribute record. Because features on the map are linked to their records in the table, many GIS software will allow you to click on a map feature and see its related attributes in the table.</p>
+<p>Raster data can also have attributes only if pixels are represented using a small set of unique integer values. Raster datasets that contain attribute tables typically have cell values that represent or define a class, group, category, or membership. NOTE: not all GIS raster data formats can store attribute information; in fact most raster datasets you will work with in this course will not have attribute tables.</p>
+<div id="measurement-levels" class="section level3" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Measurement Levels</h3>
+<p>Attribute data can be broken down into four <strong>measurement levels</strong>:</p>
+<ul>
+<li><p><strong>Nominal</strong> data which have no implied order, size or quantitative information (e.g. paved and unpaved roads)</p></li>
+<li><p><strong>Ordinal</strong> data have an implied order (e.g. ranked scores), however, we cannot quantify the difference since a linear scale is not implied.</p></li>
+<li><p><strong>Interval</strong> data are numeric and have a linear scale, however they do not have a true zero and can therefore not be used to measure <em>relative</em> magnitudes. For example, one cannot say that 60°F is twice as warm as 30°F since when presented in degrees °C the temperature values are 15.5°C and -1.1°C respectively (and 15.5 is clearly not twice as big as -1.1).</p></li>
+<li><p><strong>Ratio</strong> scale data are interval data with a true zero such as monetary value (e.g. $1, $20, $100).</p></li>
+</ul>
+</div>
+<div id="data-type" class="section level3" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Data type</h3>
+<p>Another way to categorize an attribute is by its <strong>data type</strong>. ArcGIS supports several data types such as <strong>integer, float, double and text</strong>. Knowing your data type and measurement level should dictate how they are stored in a GIS environment. The following table lists popular data types available in most GIS applications.</p>
 <table>
 <thead>
 <tr class="header">
-<th align="right">Original values</th>
-<th align="left">Reclassified values</th>
+<th>Type</th>
+<th>Stored values</th>
+<th>Note</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0-25</td>
-<td align="left">25</td>
+<td>Short integer</td>
+<td>-32,768 to 32,768</td>
+<td>Whole numbers</td>
 </tr>
 <tr class="even">
-<td align="right">26-50</td>
-<td align="left">50</td>
+<td>Long integer</td>
+<td>-2,147,483,648 to 2,147,483,648</td>
+<td>Whole numbers</td>
 </tr>
 <tr class="odd">
-<td align="right">51-75</td>
-<td align="left">75</td>
+<td>Float</td>
+<td>-3.4 * E-38 to 1.2 E38</td>
+<td>Real numbers</td>
 </tr>
 <tr class="even">
-<td align="right">76-100</td>
-<td align="left">100</td>
+<td>Double</td>
+<td>-2.2 * E-308 to 1.8 * E308</td>
+<td>Real numbers</td>
+</tr>
+<tr class="odd">
+<td>Text</td>
+<td>Up to 64,000 characters</td>
+<td>Letters and words</td>
 </tr>
 </tbody>
 </table>
-<div class="figure"><span id="fig:f10-local03"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-local03-1.png" alt="Example of a local operation where the output results from the reclassification of input values." width="480" />
+<p>While whole numbers can be stored as a float or double (i.e. we can store the number 2 as 2.0) doing so comes at a cost: an increase in storage space. This may not be a big deal if the dataset is small, but if it consists of tens of thousands of records the increase in file size and processing time may become an issue.</p>
+<p>While storing an integer value as a float may not have dire consequences, the same cannot be said of storing a float as an integer. For example, if your values consist of 0.2, 0.01, 0.34, 0.1 and 0.876, their integer counterpart would be 0, 0, 0, and 1 (i.e. values rounded to the nearest whole number). This can have a significant impact on a map as shown in the following example.</p>
+<div class="figure"><span id="fig:unnamed-chunk-7"></span>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-7-1.png" alt="Map of data represented as decimal (float) values." width="672" />
 <p class="caption">
-Figure 10.3: Example of a local operation where the output results from the reclassification of input values.
+Figure 2.8: Map of data represented as decimal (float) values.
 </p>
 </div>
-</div>
-<div id="focal-operations-and-functions" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Focal operations and functions</h2>
-<blockquote>
-<p>Focal operations are also referred to as <em>neighborhood</em> operations.</p>
-</blockquote>
-<p>Focal operations assign to the output cells some summary value (such as the mean) of the neighboring cells from the input raster. For example, a cell output value can be the average of all 9 neighboring input cells (including the center cell); this acts as a <em>smoothing function</em>.</p>
-<div class="figure"><span id="fig:f10-focal01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-focal01-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Focal cells surrounded by non-existent cells are assigned an `NA` in this example." width="480" />
+<div class="figure"><span id="fig:unnamed-chunk-8"></span>
+<img src="02-Feature-representation_files/figure-html/unnamed-chunk-8-1.png" alt="Map of same data represented as integers instead of float." width="672" />
 <p class="caption">
-Figure 10.4: Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Focal cells surrounded by non-existent cells are assigned an <code>NA</code> in this example.
+Figure 2.9: Map of same data represented as integers instead of float.
 </p>
 </div>
-<p>Notice how, in the above example, the edge cells from the output raster have been assigned a value of <code>NA</code> (No Data). This is because cells outside of the extent have no value. Some GIS applications will ignore the missing surrounding values and just compute the average of the available cells as demonstrated in the next example.</p>
-<div class="figure"><span id="fig:f10-focal02"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-focal02-1.png" alt="Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored." width="480" />
-<p class="caption">
-Figure 10.5: Example of a focal operation where the output cell values take on the average value of neighboring cells from the input raster. Surrounding non-existent cells are ignored.
-</p>
-</div>
-<p>Focal (or neighbor) operations require that a window region (a <strong>kernel</strong>) be defined. In the above examples, a simple 3 by 3 kernel (or window) was used in the focal operations. The kernel can take on different dimensions and shape such as a 3 by 3 square where the central pixel is ignored (thus reducing the number of neighbors to 8) or a circular neighbor defined by a radius.</p>
-<div class="figure"><span id="fig:f10-focal03"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-focal03-1.png" alt="Example of a focal operation where the kernel is defined by a 3 by 3 cell *without* the center cell and whose output cell takes on the average value of those neighboring cells. " width="480" />
-<p class="caption">
-Figure 10.6: Example of a focal operation where the kernel is defined by a 3 by 3 cell <em>without</em> the center cell and whose output cell takes on the average value of those neighboring cells.
-</p>
-</div>
-<p>In addition to defining the neighborhood shape and dimension, a kernel also defines the weight each neighboring cell contributes to the summary statistic. For example, all cells in a 3 by 3 neighbor could each contribute 1/9<sup>th</sup> of their value to the summarized value (i.e. equal weight). But the weight can take on a more complex form defined by a function; such weights are defined by a <strong>kernel function</strong>. One popular function is a <strong>Gaussian</strong> weighted function which assigns greater weight to nearby cells than those further away.</p>
-<div class="figure"><span id="fig:f10-focal04"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-focal04-1.png" alt="Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight." width="480" />
-<p class="caption">
-Figure 10.7: Example of a focal operation where the kernel is defined by a Gaussian function whereby the closest cells are assigned a greater weight.
-</p>
-</div>
-</div>
-<div id="zonal-operations-and-functions" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> Zonal operations and functions</h2>
-<p>A zonal operation computes a new summary value (such as the mean) from cells aggregated for some zonal unit. In the following example, the cell values from the raster layer are aggregated into three zones whose boundaries are delineated in red. Each output zone shows the average value of the cells within that zone.</p>
-<div class="figure"><span id="fig:f10-zonal01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-zonal01-1.png" alt="Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red." width="576" />
-<p class="caption">
-Figure 10.8: Example of a zonal operation where the cell values are averaged for each of the three zones delineated in red.
-</p>
-</div>
-<p>This technique is often used with rasters derived from remotely sensed imagery (e.g. NDVI) where areal units (such as counties or states) are used to compute the average cell values from the raster.</p>
-</div>
-<div id="global-operations-and-functions" class="section level2" number="10.4">
-<h2><span class="header-section-number">10.4</span> Global operations and functions</h2>
-<p>Global operations and functions may make use of some or all input cells when computing an output cell value. An example of a global function is the <em>Euclidean Distance</em> tool which computes the shortest distance between a pixel and a source (or destination) location. In the following example, a new raster assigns to each cell a distance value to the closest cell having a value of 1 (there are just two such cells in the input raster).</p>
-<div class="figure"><span id="fig:f10-global01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-global01-1.png" alt="Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer)." width="480" />
-<p class="caption">
-Figure 10.9: Example of a global function: the Euclidean distance. Each pixel is assigned its closest distance to one of the two source locations (defined in the input layer).
-</p>
-</div>
-<p>Global operations and functions can also generate single value outputs such as the overall pixel mean or standard deviation.</p>
-<p>Another popular use of global functions is in the mapping of least-cost paths where a cost surface raster is used to identify the shortest path between two locations which minimizes cost (in time or money).</p>
-</div>
-<div id="operators-and-functions" class="section level2" number="10.5">
-<h2><span class="header-section-number">10.5</span> Operators and functions</h2>
-<p>Operations and functions applied to gridded data can be broken down into three groups: <strong>mathematical</strong>, <strong>logical comparison</strong> and <strong>Boolean</strong>.</p>
-<div id="mathematical-operators-and-functions" class="section level3" number="10.5.1">
-<h3><span class="header-section-number">10.5.1</span> Mathematical operators and functions</h3>
-<p>Two mathematical operators have already been demonstrated in earlier sections: the <em>multiplier</em> and the <em>addition</em> operators. Other operators include division and the modulo (aka the modulus) which is the remainder of a division. Mathematical <em>functions</em> can also be applied to gridded data manipulation. Examples are square root and sine functions. The following table showcases a few examples with ArcGIS and R syntax.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Operation</th>
-<th>ArcGIS Syntax</th>
-<th>R Syntax</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Addition</td>
-<td><code>+</code></td>
-<td><code>+</code></td>
-<td><code>R1 + R2</code></td>
-</tr>
-<tr class="even">
-<td>Subtraction</td>
-<td><code>-</code></td>
-<td><code>-</code></td>
-<td><code>R1 - R2</code></td>
-</tr>
-<tr class="odd">
-<td>Division</td>
-<td><code>/</code></td>
-<td><code>/</code></td>
-<td><code>R1 / R2</code></td>
-</tr>
-<tr class="even">
-<td>Modulo</td>
-<td><code>Mod()</code></td>
-<td><code>%%</code></td>
-<td><code>Mod(R1, 100)</code>, <code>R1 %% 10</code></td>
-</tr>
-<tr class="odd">
-<td>Square root</td>
-<td><code>SquareRoot()</code></td>
-<td><code>sqrt()</code></td>
-<td><code>SquareRoot(R1)</code>, <code>sqrt(R1)</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="logical-comparison" class="section level3" number="10.5.2">
-<h3><span class="header-section-number">10.5.2</span> Logical comparison</h3>
-<p>The logical comparison operators evaluate a condition then output a value of <code>1</code> if the condition is true and <code>0</code> if the condition is false. Logical comparison operators consist of <em>greater than</em>, <em>less than</em>, <em>equal</em> and <em>not equal</em>.</p>
-<table>
-<thead>
-<tr class="header">
-<th>Logical comparison</th>
-<th>Syntax</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Greater than</td>
-<td><code>&gt;</code></td>
-</tr>
-<tr class="even">
-<td>Less than</td>
-<td><code>&lt;</code></td>
-</tr>
-<tr class="odd">
-<td>Equal</td>
-<td><code>==</code></td>
-</tr>
-<tr class="even">
-<td>Not equal</td>
-<td><code>!=</code></td>
-</tr>
-</tbody>
-</table>
-<p>For example, the following figure shows the output of the comparison between two rasters where we are assessing if cells in <code>R1</code> are <em>greater than</em> those in <code>R2</code> (on a cell-by-cell basis).</p>
-<div class="figure"><span id="fig:f10-logical01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-logical01-1.png" alt="Output of the operation R1 &gt; R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
-<p class="caption">
-Figure 10.10: Output of the operation R1 &gt; R2. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
-</p>
-</div>
-<p>When assessing whether two cells are equal, some programming environments such as R and ArcMap’s <em>Raster Calculator</em> require the use of the <em>double equality</em> syntax, <code>==</code>, as in <code>R1 == R2</code>. In these programming environments, the single equality syntax is usually interpreted as an <em>assignment operator</em> so <code>R1 = R2</code> would instruct the computer to assign the cell values in R2 to R1 (which is not what we want to do here).</p>
-<p>Some applications make use of special functions to test a condition. For example, ArcMap has a function called <code>Con(condition, out1, out2)</code> which assigns the value <code>out1</code> if the condition is met and a value of <code>out2</code> if it’s not. For example, ArcMap’s raster calculator expression</p>
-<pre><code>Con( R1 &gt; R2, 1, 0)</code></pre>
-<p>outputs a value of <code>1</code> if <code>R1</code> is greater than <code>R2</code> and <code>0</code> if not. It generates the same output as the one shown in the above figure. Note that in most programming environments (including ArcMap), the expression <code>R1 &gt; R2</code> produces the same output because the value <code>1</code> is the numeric representation of <code>TRUE</code> and <code>0</code> that of <code>FALSE</code>.</p>
-</div>
-<div id="boolean-or-logical-operators" class="section level3" number="10.5.3">
-<h3><span class="header-section-number">10.5.3</span> Boolean (or Logical) operators</h3>
-<p>In map algebra, <em>Boolean</em> operators are used to compare conditional states of a cell (i.e. TRUE or FALSE). The three Boolean operators are <strong>AND</strong>, <strong>OR</strong> and <strong>NOT</strong>.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Boolean</th>
-<th align="left">ArcGIS</th>
-<th align="left">R</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">AND</td>
-<td align="left">&amp;</td>
-<td align="left">&amp;</td>
-<td><code>R1 &amp; R2</code></td>
-</tr>
-<tr class="even">
-<td align="left">OR</td>
-<td align="left"><code>|</code></td>
-<td align="left"><code>|</code></td>
-<td><code>R1 | R2</code></td>
-</tr>
-<tr class="odd">
-<td align="left">NOT</td>
-<td align="left"><code>~</code></td>
-<td align="left"><code>!</code></td>
-<td><code>~R2</code>, <code>!R2</code></td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>A “TRUE” state is usually encoded as a <code>1</code> or any <em>non-zero</em> integer while a “FALSE” state is usually encoded as a <code>0</code>.</p>
-</blockquote>
-<p>For example, if <code>cell1=0</code> and <code>cell2=1</code>, the Boolean operation <code>cell1 AND cell2</code> results in a <code>FALSE</code> (or 0) output cell value. This Boolean operation can be translated into plain English as “are the cells 1 and 2 both TRUE?” to which we answer “No they are not” (cell1 is FALSE). The <strong>OR</strong> operator can be interpreted as “is x <em>or</em> y TRUE?” so that <code>cell1 OR cell2</code> would return <code>TRUE</code>. The <strong>NOT</strong> interpreter can be interpreted as “is x not TRUE?” so that <code>NOT cell1</code> would return <code>TRUE</code>.</p>
-<div class="figure"><span id="fig:f10-boolean01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-boolean01-1.png" alt="Output of the operation `R1 AND R2`. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. Note that many programming environments treat *any* none 0 values as TRUE so that `-3 AND -4` will return `TRUE`." width="480" />
-<p class="caption">
-Figure 10.11: Output of the operation <code>R1 AND R2</code>. A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false. Note that many programming environments treat <em>any</em> none 0 values as TRUE so that <code>-3 AND -4</code> will return <code>TRUE</code>.
-</p>
-</div>
-<div class="figure"><span id="fig:f10-boolean02"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-boolean02-1.png" alt="Output of the operation `NOT R2`. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0)." width="480" />
-<p class="caption">
-Figure 10.12: Output of the operation <code>NOT R2</code>. A value of 1 in the output raster indicates that the input cell is NOT TRUE (i.e. has a value of 0).
-</p>
-</div>
-</div>
-<div id="combining-operations" class="section level3" number="10.5.4">
-<h3><span class="header-section-number">10.5.4</span> Combining operations</h3>
-<p>Both comparison and Boolean operations can be combined into a single expression. For example, we may wish to find locations (cells) that satisfy requirements from two different raster layers: e.g. <code>0&lt;R1&lt;4</code> AND <code>R2&gt;0</code>. To satisfy the first requirement, we can write out the expression as <code>(R1&gt;0) &amp; (R1&lt;4)</code>. Both comparisons (delimited by parentheses) return a <code>0</code> (FALSE) or a <code>1</code> (TRUE). The ampersand, <code>&amp;</code>, is a Boolean operator that checks that both conditions are met and returns a 1 if yes or a 0 if not. This expression is then combined with another comparison using another ampersand operator that assesses the criterion R2&gt;0. The amalgamated expression is thus <code>((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0)</code>.</p>
-<div class="figure"><span id="fig:f10-combining01"></span>
-<img src="10-Map-Algebra_files/figure-html/f10-combining01-1.png" alt="Output of the operation ((R1&amp;gt;0) &amp;amp; (R1&amp;lt;4)) &amp;amp; (R2&amp;gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false." width="480" />
-<p class="caption">
-Figure 10.13: Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0). A value of 1 in the output raster indicates that the condition is true and a value of 0 indicates that the condition is false.
-</p>
-</div>
-<blockquote>
-<p>Note that most software environments assign the <code>AND</code> Boolean operator the ampersand character, <code>&amp;</code>.</p>
-</blockquote>
 
 </div>
-</div>
-</div>
-
-
-
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-DTomlin">
-<p>Tomlin, Dana C. 1990. <em>GIS and Cartographic Modeling</em>. New Jersey: Prentice Hall.</p>
 </div>
 </div>
             </section>
@@ -777,8 +661,8 @@ Figure 10.13: Output of the operation ((R1&gt;0) &amp; (R1&lt;4)) &amp; (R2&gt;0
           </div>
         </div>
       </div>
-<a href="chp09-0.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="chp11-0.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introGIS.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gis-data-management.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
