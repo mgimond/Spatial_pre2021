@@ -1,5 +1,8 @@
 # Mapping rates in R {-}
 
+```{r, child="_session-info.Rmd", echo = FALSE}
+```
+
 In this exercise, we'll make use of `sp`'s `plot` method instead of `tmap` to take advantage of `sp`'s *scaled* keys which will prove insightful when exploring rate mapping techniques that adopt none uniform classification schemes.
 
 The following libraries are used in the examples that follow.

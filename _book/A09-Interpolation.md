@@ -1,5 +1,159 @@
 # Interpolation in R {-}
 
+
+<table class="package_ver_table">
+<tbody>
+  <tr>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> R </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> gstat </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> raster </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> maptools </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> spatstat </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> spatstat.data </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> tmap </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> rgdal </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sp </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 4.0.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 2.0.6 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 3.4.5 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.0.2 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.64.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.7.0 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 3.2 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.5.18 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.4.4 </td>
+  </tr>
+</tbody>
+</table>
+
 First, let's load the data from the website. The data are stored as `SpatialPointsDataFrame` and `SpatialPointsDataFrame` objects. Most of the functions used in this exercise work off of these classes. The one exception is the `direchlet` function which requires a conversion to a `ppp` object.
 
 
@@ -26,7 +180,7 @@ tm_shape(W) + tm_polygons() +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
 You'll note the line `P@bbox <- W@bbox` which forces the rectangular extent of the Texas map onto the point data object. This is an important step if the interpolation of the points are to cover the entire extent of Texas. Had this step been omitted, most of the interpolated layers would have been limited to the smallest rectangular extent enclosing the point object.
 
@@ -65,7 +219,7 @@ tm_shape(th.clp) +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
  
 <div class="warning">
@@ -110,7 +264,7 @@ tm_shape(r.m) +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 ### Fine-tuning the interpolation {-}
 
@@ -133,7 +287,7 @@ OP <- par(pty="s", mar=c(4,3,0,0))
 par(OP)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 The RMSE can be computed from `IDW.out` as follows:
 
@@ -194,7 +348,7 @@ tm_shape(r.m) + tm_raster(n=7,title="95% confidence interval \n(in inches)") +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 ## 1^st^ order polynomial fit {-}
 
@@ -227,7 +381,7 @@ tm_shape(r.m) +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 ## 2^nd^ order polynomial {-}
 
@@ -260,7 +414,7 @@ tm_shape(r.m) +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 
 ## Kriging {-}
@@ -288,7 +442,7 @@ dat.fit  <- fit.variogram(var.smpl, fit.ranges = FALSE, fit.sills = FALSE,
 plot(var.smpl, dat.fit, xlim=c(0,1000000))
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 
 ### Generate Kriged surface {-}
@@ -316,7 +470,7 @@ tm_shape(r.m) +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 ### Generate the variance and confidence interval maps {-}
 
@@ -333,7 +487,7 @@ tm_shape(r.m) +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 Are more readily interpretable map is the 95% confidence interval map which can be generated from the variance object as follows (the map values should be interpreted as the number of inches above and below the estimated rainfall amount).
 
@@ -348,4 +502,4 @@ tm_shape(r.m) +
   tm_legend(legend.outside=TRUE)
 ```
 
-<img src="A09-Interpolation_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="A09-Interpolation_files/figure-html/unnamed-chunk-14-1.png" width="672" />

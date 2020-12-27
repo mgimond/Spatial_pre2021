@@ -4,6 +4,96 @@
 
 # Reading and writing spatial data in R{-#app1_1}
 
+
+<table class="package_ver_table">
+<tbody>
+  <tr>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> R </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> maptools </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> raster </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sp </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sf </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 4.0.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.0.2 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 3.4.5 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.4.4 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 0.9.6 </td>
+  </tr>
+</tbody>
+</table>
+
 ## Sample files for this exercise{-#app1_2}
 
 First, you will need to download some sample files from the github repository.  Make sure to set your R session folder to the directory where you will want to save the sample files before running the following code chunks.
@@ -35,7 +125,7 @@ download.file("http://github.com/mgimond/Spatial/raw/master/Data/elev.img",
 There are several different R spatial formats to choose from. Your choice of format will largely be dictated by the package(s) and or function(s) used in your workflow. A breakdown of formats and intended use are listed below.
 
 
-<table class="table table-striped table-hover table-condensed" style="width: auto !important; ">
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; border-bottom: 0;">
  <thead>
   <tr>
    <th style="text-align:right;color: white !important;background-color: #6E6E6E !important;text-align: center;"> Data format </th>
@@ -85,12 +175,12 @@ There are several different R spatial formats to choose from. Your choice of for
    <td style="text-align:left;"> NA </td>
   </tr>
 </tbody>
-<tfoot><tr><td style="padding: 0; border: 0;" colspan="100%">
+<tfoot><tr><td style="padding: 0; " colspan="100%">
 <sup>1</sup> The `spatial*` format includes SpatialPointsDataFrame, SpatialPolygonsDataFrame, SpatialLinesDataFrame, etc...</td></tr></tfoot>
 </table>
 
 
-There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called   [`sf`](https://r-spatial.github.io/sf/). It is therefore recommended that you work in an `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
+There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called  [`sf`](https://r-spatial.github.io/sf/) [@sf]. It is therefore recommended that you work in an `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
 
 Some packages such as `spdep` and `spatstat` require specialized data object types. This tutorial will highlight some useful conversion functions for this purpose.
 
@@ -220,7 +310,7 @@ class      : RasterLayer
 dimensions : 994, 652, 648088  (nrow, ncol, ncell)
 resolution : 500, 500  (x, y)
 extent     : 336630.3, 662630.3, 4759303, 5256303  (xmin, xmax, ymin, ymax)
-crs        : +proj=utm +zone=19 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+crs        : +proj=utm +zone=19 +ellps=GRS80 +units=m +no_defs 
 source     : memory
 names      : elev 
 values     : 0, 1546  (min, max)
@@ -554,4 +644,6 @@ You can see a list of writable raster formats via a call to `subset(rgdal::gdalD
 ```
 
 The value in the `name` column is the format parameter name used in the `writeRaster()` function.
+
+
 

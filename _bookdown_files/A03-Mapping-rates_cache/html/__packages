@@ -6,3 +6,4 @@ spdep
 classInt
 RColorBrewer
 maptools
+dplyr

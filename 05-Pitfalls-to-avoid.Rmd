@@ -87,7 +87,7 @@ But, as is often the case, our analysis is constrained by the data at hand. So w
 
 One of the first pitfalls you've been taught to avoid is the mapping of counts when the aerial units associated with these values are not uniform in size and shape. Two options in resolving this problem are: normalizing counts to area or normalizing counts to some underlying population count. An example of the latter is the mapping of infection rates or mortality rates. For example, the following map displays the distribution of kidney cancer death rates (by county) for the period 1980 to 1984.
 
-```{r , echo=FALSE, fig.cap = "Kidney cancer death rates for the period spanning 1980-1984.", out.width=504}
+```{r f05-kidney0, echo=FALSE, fig.cap = "Kidney cancer death rates for the period spanning 1980-1984.", out.width=504}
 
 knitr::include_graphics("img/raw_rates.png")
 ```

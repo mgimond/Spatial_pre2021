@@ -9,29 +9,29 @@ A Geographic Information System is a multi-component environment used to create,
 
 Table: (\#tab:01-Africa-conflict)Index of total African conflict for the 1966-78 period [@Anselin1992a].
 
-Country         Conflicts  Country                     Conflicts
--------------  ----------  -------------------------  ----------
-EGYPT                5246  LIBERIA                           980
-SUDAN                4751  SENEGAL                           933
-UGANDA               3134  CHAD                              895
-ZAIRE                3087  TOGO                              848
-TANZANIA             2881  GABON                             824
-LIBYA                2355  MAURITANIA                        811
-KENYA                2273  ZIMBABWE                          795
-SOMALIA              2122  MOZAMBIQUE                        792
-ETHIOPIA             1878  IVORY COAST                       758
-SOUTH AFRICA         1875  MALAWI                            629
-MOROCCO              1861  CENTRAL AFRICAN REPUBLIC          618
-ZAMBIA               1554  CAMEROON                          604
-ANGOLA               1528  BURUNDI                           604
-ALGERIA              1421  RWANDA                            487
-TUNISIA              1363  SIERRA LEONE                      423
-BOTSWANA             1266  LESOTHO                           363
-CONGO                1142  NIGER                             358
-NIGERIA              1130  BURKINA FASO                      347
-GHANA                1090  MALI                              299
-GUINEA               1015  THE GAMBIA                        241
-BENIN                 998  SWAZILAND                         147
+|Country      | Conflicts|Country                  | Conflicts|
+|:------------|---------:|:------------------------|---------:|
+|EGYPT        |      5246|LIBERIA                  |       980|
+|SUDAN        |      4751|SENEGAL                  |       933|
+|UGANDA       |      3134|CHAD                     |       895|
+|ZAIRE        |      3087|TOGO                     |       848|
+|TANZANIA     |      2881|GABON                    |       824|
+|LIBYA        |      2355|MAURITANIA               |       811|
+|KENYA        |      2273|ZIMBABWE                 |       795|
+|SOMALIA      |      2122|MOZAMBIQUE               |       792|
+|ETHIOPIA     |      1878|IVORY COAST              |       758|
+|SOUTH AFRICA |      1875|MALAWI                   |       629|
+|MOROCCO      |      1861|CENTRAL AFRICAN REPUBLIC |       618|
+|ZAMBIA       |      1554|CAMEROON                 |       604|
+|ANGOLA       |      1528|BURUNDI                  |       604|
+|ALGERIA      |      1421|RWANDA                   |       487|
+|TUNISIA      |      1363|SIERRA LEONE             |       423|
+|BOTSWANA     |      1266|LESOTHO                  |       363|
+|CONGO        |      1142|NIGER                    |       358|
+|NIGERIA      |      1130|BURKINA FASO             |       347|
+|GHANA        |      1090|MALI                     |       299|
+|GUINEA       |      1015|THE GAMBIA               |       241|
+|BENIN        |       998|SWAZILAND                |       147|
 
 *Data source: Anselin, L. and John O'Loughlin. 1992. Geography of international conflict and cooperation: spatial dependence and regional context in Africa. In The New Geopolitics, ed. M. Ward, pp. 39-75.*
 

@@ -1,5 +1,8 @@
 # Raster operations in R{-}
 
+```{r, child="_session-info.Rmd", echo = FALSE}
+```
+
 ## Sample files for this exercise{-#app5_1}
 
 We'll first load spatial objects used in this exercise from a remote website: an elevation `raster` object, a bathymetry `raster` object and a continents `SpatialPolygonsDataFrame` vector layer. 

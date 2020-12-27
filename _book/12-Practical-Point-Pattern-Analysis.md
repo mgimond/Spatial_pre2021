@@ -45,7 +45,7 @@ ANN_{ratio}=\dfrac{ANN}{ANN_{expected}}
 $$
 
 <div class="figure">
-<img src="img/ANN_graphic2.jpg" alt="ANN results indicating that the pattern is consistent with a random process. Note the size of the study area which defaults to the point layer extent."  />
+<img src="img/ANN_graphic2.jpg" alt="ANN results indicating that the pattern is consistent with a random process. Note the size of the study area which defaults to the point layer extent." width="293" />
 <p class="caption">(\#fig:f12-arcgis-ann02)ANN results indicating that the pattern is consistent with a random process. Note the size of the study area which defaults to the point layer extent.</p>
 </div>
 
@@ -67,7 +67,7 @@ But is it prudent to let the software define the study area for us? How does it 
 Here, we *explicitly* tell ArcGIS that the study area (Massachusetts) covers 21,089,917,382 m² (note that this is the MA shapefile's surface area and not necessarily representative of MA's actual surface area). ArcGIS’ ANN tool now returns a different output with a completely different conclusion. This time, the analysis suggests that the points are strongly dispersed across the state of Massachusetts and the very small p-value (p = 0.006) tells us that there is less than a 0.6% chance that a CSR process could have generated our observed point pattern. (Note that the p-value displayed by ArcMap is for a two-sided test).
 
 <div class="figure">
-<img src="img/ANN_graphic4.jpg" alt="ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP."  />
+<img src="img/ANN_graphic4.jpg" alt="ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP." width="262" />
 <p class="caption">(\#fig:f12-arcgis-ann04)ArcGIS' ANN tool output. Note the different output result with the study area size defined. The output indicates that the points are more dispersed than expected under IRP.</p>
 </div>
 

@@ -8,7 +8,7 @@
 To work in a GIS environment, real world observations (objects or events that can be recorded in 2D or 3D space) need to be reduced to spatial entities. These spatial entities can be represented in a GIS as a **vector data model** or a **raster data model**. 
 
 <div class="figure">
-<img src="img/vector_vs_raster.jpg" alt="Vector and raster representations of a river feature."  />
+<img src="img/vector_vs_raster.jpg" alt="Vector and raster representations of a river feature." width="192" />
 <p class="caption">(\#fig:vec-rast)Vector and raster representations of a river feature.</p>
 </div>
 
@@ -83,13 +83,13 @@ How one chooses to represent a real-world entity will be in large part dictated 
 The following two maps represent the same entity: the Boston region. At a small scale (e.g. 1:10,000,000), Boston and other cities may be best represented as points. At a large scale (e.g. 1:34,000), Boston may be best represented as a polygon. Note that at this large scale, roads may also be represented as polygon features instead of polylines.
 
 <div class="figure">
-<img src="img/Boston_small_scale.jpg" alt="Map of the Boston area at a 1:10,000,000 scale. Note that in geography, this is considered small scale whereas in layperson terms, this extent is often referred to as a large scale (i.e. covering a large area)."  />
+<img src="img/Boston_small_scale.jpg" alt="Map of the Boston area at a 1:10,000,000 scale. Note that in geography, this is considered small scale whereas in layperson terms, this extent is often referred to as a large scale (i.e. covering a large area)." width="200" />
 <p class="caption">(\#fig:unnamed-chunk-5)Map of the Boston area at a 1:10,000,000 scale. Note that in geography, this is considered small scale whereas in layperson terms, this extent is often referred to as a large scale (i.e. covering a large area).</p>
 </div>
 
 
 <div class="figure">
-<img src="img/Boston_large_scale.jpg" alt="Map of the Boston area at a 1:34,000 scale. Note that in geography, this is considered large scale whereas in layperson terms, this extent is often referred to as a small scale (i.e. covering a small area)."  />
+<img src="img/Boston_large_scale.jpg" alt="Map of the Boston area at a 1:34,000 scale. Note that in geography, this is considered large scale whereas in layperson terms, this extent is often referred to as a small scale (i.e. covering a small area)." width="200" />
 <p class="caption">(\#fig:unnamed-chunk-6)Map of the Boston area at a 1:34,000 scale. Note that in geography, this is considered large scale whereas in layperson terms, this extent is often referred to as a small scale (i.e. covering a small area).</p>
 </div>
 

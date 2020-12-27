@@ -344,7 +344,7 @@ In Kriging interpolation, we focus on the spatial relationship between location 
 
 For example, if we take two meteorological stations (one whose de-trended precipitation value is -1.2 and the other whose value is 1.6), 
 
-```{r echo=FALSE, results='hide', fig.height=2.5, fig.cap="Locations of two sample sites used to demonstrate the calculation of *gamma*.", cache=TRUE}
+```{r f13-two-sites, echo=FALSE, results='hide', fig.height=2.5, fig.cap="Locations of two sample sites used to demonstrate the calculation of *gamma*.", cache=TRUE}
 OP <- par(mar=c(0,0,0,0))
 plot(W, col=rgb(0,0,0,0.05), border="grey")
 plot(P, pch=20,  cex=( (P$res/61  +1)), col=rgb(0,0,0,0.5), add=T) 

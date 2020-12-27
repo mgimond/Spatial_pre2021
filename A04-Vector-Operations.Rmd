@@ -1,5 +1,7 @@
-
 # Vector operations in R{-}
+
+```{r, child="_session-info.Rmd", echo = FALSE}
+```
 
 We'll first load spatial objects used in this exercise from a remote website: a polygon object that delineates  Maine counties; another polygon object that delineates distances to Augusta (Maine) as concentric circles; and a line object that shows the highway system that runs through Maine. These data are already stored as R data objects thus eliminating the need for any data conversion.
 

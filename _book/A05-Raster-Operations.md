@@ -1,5 +1,159 @@
 # Raster operations in R{-}
 
+
+<table class="package_ver_table">
+<tbody>
+  <tr>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> R </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> rasterVis </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> ggplot2 </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> gdistance </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> igraph </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sf </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> tmap </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> raster </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sp </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 4.0.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 0.49 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 3.3.2 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.3.6 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.2.6 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 0.9.6 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 3.2 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 3.4.5 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.4.4 </td>
+  </tr>
+</tbody>
+</table>
+
 ## Sample files for this exercise{-#app5_1}
 
 We'll first load spatial objects used in this exercise from a remote website: an elevation `raster` object, a bathymetry `raster` object and a continents `SpatialPolygonsDataFrame` vector layer. 
@@ -42,7 +196,7 @@ tm_shape(bath3) + tm_raster(palette = "Greys") +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 If a more elaborate form of reclassification is desired, you can use the `reclassify` function. In the following example, the raster object `bath` is reclassified to 4 unique values: 100, 500, 1000 and 11000 as follows:
 
@@ -83,7 +237,7 @@ The `right=T` parameter indicates that the intervals should be closed to the rig
 tm_shape(bath3) + tm_raster(style="cat") + tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 You can also assign `NA` (missing) values to pixels. For example, to assign `NA` values to cells that are equal to 100, type
 
@@ -100,7 +254,7 @@ tm_shape(bath3) + tm_raster(showNA=TRUE, colorNA="grey") +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 ### Binary operations and functions (where two rasters are used) {-#app5_2_2}
 
@@ -117,7 +271,7 @@ tm_shape(elevation) + tm_raster(palette="-RdBu",n=6) +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 ## Focal operations and functions {-#app5_5}
 
@@ -134,7 +288,7 @@ tm_shape(f1) + tm_raster(palette="-RdBu",n=6) +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 By default edge cells are assigned a value of `NA`. This is because cells outside of the input raster extent have no value but may fall inside the kernel window when edge cells are computed. You can remedy this by passing the parameters `na.rm=TRUE` and `pad=TRUE` to the function.
 
@@ -150,7 +304,7 @@ tm_shape(f1) + tm_raster(palette="-RdBu",n=6) +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 But, you must be careful when making use of the `na.rm=TRUE`/`pad=TRUE` combination. In the above example, we are passing the values from the kernel window as *a vector element* to the `mean` function.  So the number of valid (non NA) values being passed to the `mean` function does not matter since the function will sort out the weights based on the number of input values.
 
@@ -168,7 +322,7 @@ f_wt_pad   <- focal(elevation, w=matrix(1/9,nrow=3,ncol=3), na.rm=TRUE, pad=TRUE
 
 The following images are zoomed in on the upper left-hand set of pixels of each raster output. The `elevation` raster is the input raster.
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-17-1.png" width="768" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-18-1.png" width="768" />
 
 The left-most image shows the original upper left-hand corner elevation pixel values. The second image shows the output using the mean function with the `pad=TRUE` option. The third image shows the output using the weighted kernel window with the `pad=FALSE` option (note the upper row of `NA` pixels highlighted in *bisque* color). The last image shows the output from the same weighted kernel window using the `pad=TRUE` option. This last outcome is not desirable. For example, the middle top pixel is computed from `1/9(-4113 -4113 -4112 -4107 -4104 -4103)`, which results in dividing the sum of *six* values by *nine*--hence the unbalanced weight effect. Note that we do not have that problem using the mean function. 
 
@@ -194,7 +348,7 @@ tm_shape(f3) + tm_raster(palette="Greys") +
   tm_legend(legend.show = FALSE) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 ## Zonal operations and functions {-#app5_6}
 
@@ -208,7 +362,7 @@ tm_shape(z1) + tm_raster(palette="-RdBu",n=6) +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 The image may not look much different from the original, but a look at the image properties will show a difference in pixel sizes.
 
@@ -266,7 +420,7 @@ tm_shape(cont.elev) + tm_polygons(col="layer") +
   tm_legend(outside = TRUE, text.size = .8)
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 Many custom functions can be applied to `extract`. For example, to extract the maximum elevation value by continent, type:
 
@@ -304,7 +458,7 @@ tm_shape(r1) + tm_raster(palette="red") +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-29-1.png" width="672" />
 
 Next, we'll compute a Euclidean distance raster from these two cells. The output extent will default to the input raster extent.
 
@@ -320,7 +474,7 @@ tm_shape(r1.d) + tm_raster(palette = "Greens", style="order", title="Distance") 
   tm_shape(r1) + tm_raster(palette="red", title="Points") 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-31-1.png" width="672" />
 
 You can also compute a distance raster using `SpatialPoints` objects or a simple x,y data table. In the following example, distances to points (25,30) and (87,80) are computed for each output cell. However, since we are working off of point objects (and not an existing raster as was the case in the previous example), we will need to create a blank raster layer which will define the extent of the Euclidean distance raster output. 
 
@@ -352,7 +506,7 @@ tm_shape(r2.d) + tm_raster(palette = "Greens", style="order") +
   tm_shape(p1) + tm_bubbles(col="red") 
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-33-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-34-1.png" width="672" />
 
 ## Computing cumulative distances {-#app5_8}
 
@@ -387,7 +541,7 @@ There are four different ways in which 'adjacency' can be defined using the `tra
 
 In this example, adjacency is defined as a **four node** (vertical and horizontal) connection (i.e. a "rook" move). 
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-38-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-39-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
@@ -396,7 +550,7 @@ h4   <- transition(r, transitionFunction = function(x){1}, directions = 4)
 
 In this example, adjacency is defined as an **eight node** connection (i.e. a single cell "queen" move).
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-40-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-41-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
@@ -405,7 +559,7 @@ h8   <- transition(r, transitionFunction = function(x){1}, directions = 8)
 
 In this example, adjacency is defined as a  **sixteen node** connection (i.e. a single cell "queen" move combined with a "knight" move).
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-42-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-43-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
@@ -414,7 +568,7 @@ h16  <- transition(r, transitionFunction=function(x){1},16,symm=FALSE)
 
 In this example, adjacency is defined as a **four node diagonal** connection (i.e. a single cell "bishop" move).
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-44-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-45-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 
 ```r
@@ -453,11 +607,11 @@ If the `geoCorrection` function had not been applied in the previous steps, the 
 
 Uncorrected (i.e. `geoCorrection` _not_ applied to h16):
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-49-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-50-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 Corrected (i.e. `geoCorrection`  applied to h16):
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-50-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-51-1.png" width="288" style="display: block; margin: auto auto auto 0;" />
 
 The "bishop" case offers a unique problem: only cells in the diagonal direction are identified as being adjacent. This leaves many undefined cells (labeled as `Inf`). We will change the `Inf` cells to `NA` cells. 
 
@@ -468,18 +622,18 @@ hb.acc[hb.acc == Inf] <- NA
 
 Now let's compare a 7x7 subset (centered on point A) between the four different cumulative distance rasters. 
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-52-1.png" width="576" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto auto auto 0;" />
 
 To highlight the differences between all four rasters, we will assign a red color to all cells that are within 20 cell units of point A.
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-53-1.png" width="576" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto auto auto 0;" />
 
 
 
 
 It's obvious that the accuracy of the cumulative distance raster can be greatly influenced by how we define adjacent nodes. The number of red cells (i.e. area identified as being within a 20 units cumulative distance) ranges from 925 to 2749 cells.
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-55-1.png" width="672" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-56-1.png" width="672" />
 
 ### Working example {-#app5_8_1}
 In the following example, we will generate a raster layer with barriers (defined as `NA` cell values). The goal will be to identify all cells that fall within a 290 km traveling distance from the upper left-hand corner of the raster layer (the green point in the maps). Results between an 8-node and 16-node adjacency definition will be compared.
@@ -529,7 +683,7 @@ h8.acc[h8.acc   == Inf] <- NA
 h16.acc[h16.acc == Inf] <- NA
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto auto auto 0;" />
 
 Let's plot the results. Yellow cells will identify cumulative distances within 290 km.
 
@@ -544,7 +698,7 @@ tm_shape(h16.acc) + tm_raster(n=2, style="fixed", breaks=c(0,290000,Inf)) +
   tm_legend(outside = TRUE, text.size = .8)
 ```
 
-<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto auto auto 0;" /><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-57-2.png" width="672" style="display: block; margin: auto auto auto 0;" />
+<img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto auto auto 0;" /><img src="A05-Raster-Operations_files/figure-html/unnamed-chunk-58-2.png" width="672" style="display: block; margin: auto auto auto 0;" />
 
 We can compute the difference between the 8-node and 16-node cumulative distance rasters:
 

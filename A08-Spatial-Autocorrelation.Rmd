@@ -1,5 +1,8 @@
 # Spatial autocorrelation in R {-}
 
+```{r, child="_session-info.Rmd", echo = FALSE}
+```
+
 For a basic theoretical treatise on spatial autocorrelation the reader is encouraged to review the [lecture notes](./spatial-autocorrelation.html). This section is intended to supplement the lecture notes by implementing spatial autocorrelation techniques in the R programming environment.
 
 ## Sample files for this exercise {-#app8_1}
@@ -12,7 +15,7 @@ load(url("http://github.com/mgimond/Spatial/raw/master/Data/moransI.RData"))
 
 The data object consists of a `SpatialPolygonsDataFrame` vector layer, `s1`, representing income and education data aggregated at the county level for the state of Maine.
 
-The `spdep` package used in this exercise makes use of `sp` objects including `SpatialPoints*` and `SpatialPolygons*` classes. For more information on converting to/from this format revert back to the [Reading and writing spatial data in R](./reading-and-writing-spatial-data-in-r.html) Appendix section.
+The `spdep` [@spdep] package used in this exercise makes use of `sp` objects including `SpatialPoints*` and `SpatialPolygons*` classes. For more information on converting to/from this format revert back to the [Reading and writing spatial data in R](./reading-and-writing-spatial-data-in-r.html) Appendix section.
 
 ## Introduction {-#app8_2}
 

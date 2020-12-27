@@ -66,7 +66,7 @@ One of the first pitfalls you've been taught to avoid is the mapping of counts w
 
 <div class="figure">
 <img src="img/raw_rates.png" alt="Kidney cancer death rates for the period spanning 1980-1984." width="504" />
-<p class="caption">(\#fig:unnamed-chunk-2)Kidney cancer death rates for the period spanning 1980-1984.</p>
+<p class="caption">(\#fig:f05-kidney0)Kidney cancer death rates for the period spanning 1980-1984.</p>
 </div>
 
 Now let's look at the top 10% of counties with the highest death rates.

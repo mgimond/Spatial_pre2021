@@ -1,5 +1,143 @@
 # Mapping rates in R {-}
 
+
+<table class="package_ver_table">
+<tbody>
+  <tr>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> R </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> maptools </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> RColorBrewer </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> classInt </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> spdep </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sf </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> spData </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sp </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 4.0.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.0.2 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.1.2 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 0.4.3 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.1.5 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 0.9.6 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 0.3.8 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.4.4 </td>
+  </tr>
+</tbody>
+</table>
+
 In this exercise, we'll make use of `sp`'s `plot` method instead of `tmap` to take advantage of `sp`'s *scaled* keys which will prove insightful when exploring rate mapping techniques that adopt none uniform classification schemes.
 
 The following libraries are used in the examples that follow.
@@ -39,7 +177,7 @@ print(spplot(auckland, "M77_85", at = brks2$brks, col.regions = pal1)
       ,position=c(0.5,0,1,1),more=T)
 ```
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-4-1.png" width="864" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-5-1.png" width="864" />
 
 These are examples of **choropleth** maps (*choro* = area and *pleth* = value) where some attribute  (an enumeration of child deaths in this working example) is aggregated over a defined area (e.g. census area units) and displayed using two different classification schemes.
 
@@ -70,7 +208,7 @@ print(spplot(auckland, "raw.rate", at = brks2$brks, col.regions = pal1)
       ,position=c(0.5,0,1,1),more=T)
 ```
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-6-1.png" width="864" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-7-1.png" width="864" />
 
 Note how our perception of the distribution of infant deaths changes when looking at mapped raw rates vs. counts. A north-south trend in perceived "abnormal" infant deaths is no longer apparent in this map.
 
@@ -92,7 +230,7 @@ brks <- classIntervals(auckland$rel.rate, n = 6, style = "fixed",
 spplot(auckland, "rel.rate", at = brks$brks,col.regions=pal1)
 ```
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-7-1.png" width="384" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-8-1.png" width="384" />
 
 ## Dykes and Unwin's chi-square statistic {-#app3_3}
 
@@ -110,7 +248,7 @@ brks <- classIntervals(auckland$chi.squ, n = 6, style = "fixed",
 spplot(auckland, "chi.squ", at = brks$brks,col.regions=rev(pal2))
 ```
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-8-1.png" width="384" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-9-1.png" width="384" />
 
 ## Unstable ratios {-#app3_4}
 
@@ -122,11 +260,11 @@ brks <- classIntervals(auckland$Und5_81, n = 6, style = "equal")
 spplot(auckland, "Und5_81", at = brks$brks,col.regions=pal1)
 ```
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-9-1.png" width="384" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-10-1.png" width="384" />
 
 Note the variability in population count with some areas encompassing fewer than 50 infants. If there is just one death in that census unit, the death rate would be reported as $1/50 * 1000$ or 20 per thousand infants--far more than then the 2.63 per thousand rate for our Auckland data set. Interestingly, the three highest raw rates in Auckland (14.2450142, 18.5185185, 10.5820106 deaths per 1000) are associated with some of the smallest underlying population counts (39, 6, 21 infants under 5). 
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-10-1.png" width="480" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-11-1.png" width="480" />
 
 One approach to circumventing this issue is to generate a probability map of the data.  The next section highlights such an example.
 
@@ -148,13 +286,13 @@ print(spplot(auckland, "raw.rate", at = brks2$brks, col.regions = pal3,
              main="Raw Rates") ,position=c(0.5,0,1,1),more=T)
 ```
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-11-1.png" width="864" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-12-1.png" width="864" />
 
 The census units with the top 10% rates are highlighted in red.
 
 Unstable rates (i.e. those associated with smaller population counts) are assigned lower weights to reduce their "prominence" in the mapped data. Notice how the three high raw rates highlighted in the last section are reduced from 14.2450142, 18.5185185, 10.5820106 *counts per thousand* to 3.6610133, 2.8672132, 3.0283279 *counts per thousand*. The "remapping" of these values along with others can be shown on the following plot:
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-12-1.png" width="480" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-13-1.png" width="480" />
 
 ### Local Empirical Bayes (EB) rate estimate {-#app3_4_2}
 
@@ -173,7 +311,7 @@ print(spplot(auckland, "raw.rate", at = brks2$brks, col.regions = pal3,
              main="Raw Rates") ,position=c(0.5,0,1,1),more=T)
 ```
 
-<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-13-1.png" width="864" />
+<img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-14-1.png" width="864" />
 
 The census units with the top 10% rates are highlighted in red.
 

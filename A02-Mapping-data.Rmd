@@ -1,5 +1,8 @@
 # Mapping data in R{-}
 
+```{r, child="_session-info.Rmd", echo = FALSE}
+```
+
 ## Sample files for this exercise{-#app2_1}
 
 Data used in the following exercises can be loaded into your current R session by running the following chunk of code.
@@ -18,14 +21,14 @@ The `tmap` functions will recognize `sf`, `raster` and `Spatial*` objects.
 
 To map the counties polygon layer using a uniform grey color scheme, type:
   
-  ```{r fig.height=2.8, fig.width=3.5}
+```{r fig.height=2.8, fig.width=3.5}
 library(tmap) 
 tm_shape(s.sf) + tm_polygons(col="grey", border.col="white")
 ```
 
 The `tm_shape` function loads the spatial object (it can be a vector or a raster). The `tm_polygons`  function is one of many `tmap` functions that dictates how the spatial object is to be mapped. The `col` parameter defines either the polygon fill color or the spatial object's attribute column to be used to define the polygons' color scheme (thus generating a choropleth map). For example, to use the `Income` attribute value to define the color scheme, type:
   
-  ```{r fig.height=2.8, fig.width=3.5}
+```{r fig.height=2.8, fig.width=3.5}
 tm_shape(s.sf) + tm_polygons(col="Income", border.col = "white")
 ```
 
@@ -229,7 +232,7 @@ tm_shape(s.sf) +
 
 Raster objects can be mapped by specifying the `tm_raster` function. For example to plot the elevation raster and assign 64 continuous shades of the built-in terrain color ramp, type:
 
-```{r fig.height=3, fig.width=5}
+```{r fig.height=3, fig.width=5, results='hide'}
 
 tm_shape(elev.r) + 
   tm_raster(style = "cont", title = "Elevation (m)",
@@ -242,7 +245,7 @@ Note the use of another `style` parameter option: `cont` for *continuous* color 
 
 You can choose to symbolize the raster using classification breaks instead of continuous colors. For example, to manually set the breaks to 50, 100, 500, 750, 1000, and 15000 meters, type:
 
-```{r fig.height=3, fig.width=5}
+```{r fig.height=3, fig.width=5, results='hide'}
 tm_shape(elev.r) + 
   tm_raster(style = "fixed", title = "Elevation (m)",
             breaks = c(0, 50, 100, 500, 750, 1000, 15000),
@@ -253,7 +256,7 @@ tm_shape(elev.r) +
 
 Other color gradients that R offers include, `heat.colors`, `rainbow`, and `topo.colors`. You can also create your own color ramp via the `colorRampPalette` function. For example, to generate a 12 bin quantile classification scheme using a color ramp that changes from `darkolivegreen4` to `yellow` to `brown` (these are built-in R colors), and adding a histogram to view the distribution of colors across pixels, type:
 
-```{r fig.height=3, fig.width=5}
+```{r fig.height=3, fig.width=5, results='hide'}
 tm_shape(elev.r) + 
   tm_raster(style = "quantile", n = 12, title = "Elevation (m)",
             palette = colorRampPalette( c("darkolivegreen4","yellow", "brown"))(12),
@@ -269,7 +272,7 @@ Note that the Brewer palette names can also be used with rasters.
 `tmap` can change the output's coordinate system without needing to reproject the data layers. In the following example, the elevation raster, railroad layer and point city layer are mapped onto a *USA Contiguous Albers Equal Area Conic* projection. A lat/long grid is added as a reference.
 
 
-```{r fig.height=3, fig.width=5}
+```{r fig.height=3, fig.width=5, results='hide'}
 # Define the Albers coordinate system
 aea <-  "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +ellps=GRS80 +datum=NAD83"
 
@@ -312,10 +315,11 @@ tmap_arrange(inc.map, school.map, name.map)
 You can split the output into groups of features based on a column attribute. For example, to split the income map into individual polygons via the `NAME` attribute, type:
 
 ```{r fig.height=3, fig.width=13}
-tm_shape(s.sf) + tm_polygons(col = "Income")+
+tm_shape(s.sf) + tm_polygons(col = "Income") +
   tm_legend(outside = TRUE) +
   tm_facets( by = "NAME", nrow = 2)
-
 ```
 
 The order of the faceted plot follows the alphanumeric order of the faceting attribute values. If you want to change the faceted order, you will need to change the attribute's [level order](https://mgimond.github.io/ES218/Week02a.html#rearranging_level_order).
+
+

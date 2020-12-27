@@ -32,6 +32,7 @@ fig:grid-vs-tess-density
 fig:v1-and-v2-raw
 fig:v1-and-v2-unif
 fig:v1-and-v2-nonunif
+fig:f05-kidney0
 fig:f05-kidney1
 fig:f05-kidney2
 fig:f05-kidney3
@@ -139,6 +140,7 @@ fig:f13-poly0
 fig:f13-poly1
 fig:f13-poly2
 fig:f13-detrend-map
+fig:f13-two-sites
 fig:f14-variogram
 fig:f14-sample-variogram
 fig:f14-variogram-models

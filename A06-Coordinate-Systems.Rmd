@@ -1,9 +1,7 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
 # Coordinate Systems in R {-}
+
+```{r, child="_session-info.Rmd", echo = FALSE}
+```
 
 ## Sample files for this exercise{-}
 

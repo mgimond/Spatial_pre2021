@@ -1,5 +1,47 @@
 # Mapping data in R{-}
 
+
+<table class="package_ver_table">
+<tbody>
+  <tr>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> R </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> tmap </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 4.0.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 3.2 </td>
+  </tr>
+</tbody>
+</table>
+
 ## Sample files for this exercise{-#app2_1}
 
 Data used in the following exercises can be loaded into your current R session by running the following chunk of code.
@@ -19,22 +61,22 @@ The `tmap` functions will recognize `sf`, `raster` and `Spatial*` objects.
 
 To map the counties polygon layer using a uniform grey color scheme, type:
   
-  
-  ```r
-  library(tmap) 
-  tm_shape(s.sf) + tm_polygons(col="grey", border.col="white")
-  ```
-  
-  <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-2-1.png" width="336" />
+
+```r
+library(tmap) 
+tm_shape(s.sf) + tm_polygons(col="grey", border.col="white")
+```
+
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-3-1.png" width="336" />
 
 The `tm_shape` function loads the spatial object (it can be a vector or a raster). The `tm_polygons`  function is one of many `tmap` functions that dictates how the spatial object is to be mapped. The `col` parameter defines either the polygon fill color or the spatial object's attribute column to be used to define the polygons' color scheme (thus generating a choropleth map). For example, to use the `Income` attribute value to define the color scheme, type:
   
-  
-  ```r
-  tm_shape(s.sf) + tm_polygons(col="Income", border.col = "white")
-  ```
-  
-  <img src="A02-Mapping-data_files/figure-html/unnamed-chunk-3-1.png" width="336" />
+
+```r
+tm_shape(s.sf) + tm_polygons(col="Income", border.col = "white")
+```
+
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-4-1.png" width="336" />
 
 You can customize the map by piecing together various map element functions. For example, to move the legend box outside of the main map body add a `tm_legend(outside = TRUE)` element to the mapping operation. Note the `+` symbol used to piece the functions together.
 
@@ -44,7 +86,7 @@ tm_shape(s.sf) + tm_polygons("Income",  border.col = "white") +
   tm_legend(outside = TRUE)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-4-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-5-1.png" width="480" />
 
 You can also choose to omit the legend box (via the `legend.show = FALSE` parameter) and the data frame border (via the `tm_layout(frame = FALSE)` parameter:
 
@@ -56,7 +98,7 @@ tm_shape(s.sf) +
   tm_layout(frame = FALSE)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-5-1.png" width="336" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-6-1.png" width="336" />
 
 
 If you want to omit the polygon border lines from the plot, simply add ` border.col = NULL` to the list of`tm_polygons`  parameters.
@@ -68,7 +110,7 @@ tm_shape(s.sf) +
   tm_legend(outside = TRUE)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-6-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-7-1.png" width="480" />
 
 Note that the `tm_fill` function is nearly identical to the `tm_polygons` function with the difference being that the `tm_fill` function ignores polygon borders.
 
@@ -85,7 +127,7 @@ tm_shape(s.sf) +
  tm_shape(p.sf) + tm_dots(size=.3, col="black") 
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-7-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-8-1.png" width="480" />
 
 Layers are stacked in the order in which they are listed. In the above example, the point layer is the last layer called therefore it is drawn on top of the previously called layers.
 
@@ -100,7 +142,7 @@ tm_shape(s.sf) +
   tm_legend(outside = TRUE)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-8-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-9-1.png" width="480" />
 
 
 Other `style` classification schemes include  `fixed`, `equal`, `jenks`, `kmeans` and `sd`. If you want to control the breaks manually set `style=fixed` and specify the classification breaks using the `breaks`  parameter. For example,
@@ -113,7 +155,7 @@ tm_shape(s.sf) +
   tm_legend(outside = TRUE)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-9-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-10-1.png" width="480" />
 
 If you want a bit more control over the legend elements, you can tweak the `labels` parameter as in,
 
@@ -127,7 +169,7 @@ tm_shape(s.sf) +
   tm_legend(outside = TRUE)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-10-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-11-1.png" width="480" />
 
 ### Tweaking colors {-#app2_2_3}
 
@@ -135,15 +177,15 @@ There are many color schemes to choose from, but you will probably want to stick
 
 For **sequential** color schemes, you can choose from the following palettes.
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-11-1.png" width="384" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-12-1.png" width="384" />
 
 For **divergent** color schemes, you can choose from the following palettes.
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-12-1.png" width="384" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-13-1.png" width="384" />
 
 For **categorical** color schemes, you can choose from the following palettes.
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-13-1.png" width="384" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-14-1.png" width="384" />
 
 For example, to map the county names using the `Pastel1` categorical color scheme, type:
 
@@ -154,7 +196,7 @@ tm_shape(s.sf) +
   tm_legend(outside = TRUE)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-14-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-15-1.png" width="480" />
 
 To map the percentage of the population not having attained a high school degree (column labeled `NoSchool` in `s.sf`) using a `YlOrBr` palette with 8 bins while modifying the legend title to read _"Fraction without a HS degree"_, type:
 
@@ -166,7 +208,7 @@ tm_shape(s.sf) +
   tm_legend(outside = TRUE)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-15-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-16-1.png" width="480" />
 
 The character `\n` in the "`Fraction without \na HS degree`" string is interpreted by R as a _new line_ (carriage return). 
 
@@ -186,7 +228,7 @@ tm_shape(s.sf) +
     tm_text("Name", just = "left", xmod = 0.5, size = 0.8)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-16-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-17-1.png" width="480" />
 
 The `tm_text` function also accepts an auto placement option via the parameter `auto.placement = TRUE`. This uses a simulated annealing algorithm. Note that this automated approach may not generate the same text placement after each run.
 
@@ -204,7 +246,7 @@ tm_shape(s.sf) +
           n.x = 4, n.y = 5)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-17-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-18-1.png" width="480" />
 
 To generate a graticule (lines of latitude and longitude), simply modify the grid's coordinate system to a geographic one using a [PROJ4](https://proj4.org/apps/proj.html) formatted string. We can also modify the grid placement by explicitly specifying the lat/long grid values. 
 
@@ -220,7 +262,7 @@ tm_shape(s.sf) +
           projection = "+proj=longlat")
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-18-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-19-1.png" width="480" />
 
 
 Adding the &deg; symbol to the lat/long values requires a bit more code:
@@ -238,7 +280,7 @@ tm_shape(s.sf) +
           labels.format = list(fun=function(x) {paste0(x,intToUtf8(176))} ) )
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-19-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-20-1.png" width="480" />
 
 Here, we use the unicode *decimal* representation of the &deg; symbol (unicode *176*) and pass it to the `intToUtf8` function. A list of unicode characters and their decimal representation can be found on this [Wikipedia](https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin-1_Supplement) page.
 
@@ -254,7 +296,7 @@ tm_shape(s.sf) +
   tm_legend(outside = TRUE, hist.width = 2) 
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-20-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-21-1.png" width="480" />
 
 ## Mapping raster files {-#app2_4}
 
@@ -268,11 +310,7 @@ tm_shape(elev.r) +
   tm_legend(outside = TRUE)
 ```
 
-```
-trying to read file: \\filer\Personal\mgimond\GIS\Appendix update\data\elev.tif
-```
-
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-21-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-22-1.png" width="480" />
 
 Note the use of another `style` parameter option: `cont` for *continuous* color scheme. 
 
@@ -287,11 +325,7 @@ tm_shape(elev.r) +
   tm_legend(outside = TRUE)
 ```
 
-```
-trying to read file: \\filer\Personal\mgimond\GIS\Appendix update\data\elev.tif
-```
-
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-22-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-23-1.png" width="480" />
 
 Other color gradients that R offers include, `heat.colors`, `rainbow`, and `topo.colors`. You can also create your own color ramp via the `colorRampPalette` function. For example, to generate a 12 bin quantile classification scheme using a color ramp that changes from `darkolivegreen4` to `yellow` to `brown` (these are built-in R colors), and adding a histogram to view the distribution of colors across pixels, type:
 
@@ -304,11 +338,7 @@ tm_shape(elev.r) +
   tm_legend(outside = TRUE, hist.width = 2)
 ```
 
-```
-trying to read file: \\filer\Personal\mgimond\GIS\Appendix update\data\elev.tif
-```
-
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-23-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-24-1.png" width="480" />
 
 Note that the Brewer palette names can also be used with rasters.
 
@@ -337,11 +367,7 @@ tm_shape(elev.r, projection = aea) +
           projection = "+proj=longlat")
 ```
 
-```
-trying to read file: \\filer\Personal\mgimond\GIS\Appendix update\data\elev.tif
-```
-
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-24-1.png" width="480" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-25-1.png" width="480" />
 
 The first data layer's `projection=` parameter will define the map's coordinate system. Note that this parameter does not need to be specified in the other layers taking part in the output map.
 
@@ -363,7 +389,7 @@ name.map <- tm_shape(s.sf) + tm_polygons(col="NAME")+
 tmap_arrange(inc.map, school.map, name.map)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-25-1.png" width="1248" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-26-1.png" width="1248" />
 
 
 ## Splitting data by polygons or group of polygons {-#app2_7}
@@ -372,11 +398,13 @@ You can split the output into groups of features based on a column attribute. Fo
 
 
 ```r
-tm_shape(s.sf) + tm_polygons(col = "Income")+
+tm_shape(s.sf) + tm_polygons(col = "Income") +
   tm_legend(outside = TRUE) +
   tm_facets( by = "NAME", nrow = 2)
 ```
 
-<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-26-1.png" width="1248" />
+<img src="A02-Mapping-data_files/figure-html/unnamed-chunk-27-1.png" width="1248" />
 
 The order of the faceted plot follows the alphanumeric order of the faceting attribute values. If you want to change the faceted order, you will need to change the attribute's [level order](https://mgimond.github.io/ES218/Week02a.html#rearranging_level_order).
+
+

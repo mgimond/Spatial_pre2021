@@ -6,6 +6,9 @@ options(width = 100)
 
 # Reading and writing spatial data in R{-#app1_1}
 
+```{r, child="_session-info.Rmd"}
+```
+
 ## Sample files for this exercise{-#app1_2}
 
 First, you will need to download some sample files from the github repository.  Make sure to set your R session folder to the directory where you will want to save the sample files before running the following code chunks.
@@ -45,20 +48,20 @@ my_tbl <- tibble::tribble(
      "\`im\`",   "raster",   "\`spatstat\`", "Point pattern analysis/statistics", NA
   )
 
-library(knitr)
-library(kableExtra)
-library(dplyr)
-kable_styling(
-        kable(my_tbl, digits = 3, row.names = FALSE, align = c("r", "c","c","l","l") ,
+
+`%>%` <- magrittr::`%>%`
+kableExtra::kable_styling(
+        kableExtra::kable(my_tbl, digits = 3, row.names = FALSE, align = c("r", "c","c","l","l") ,
         caption = NULL, format = "html"),
         bootstrap_options = c("striped", "hover", "condensed"),
-        position = "left", full_width = FALSE) %>% 
-  row_spec(0, color="white", background = "#6E6E6E", align="c") %>% 
-  footnote(number=c("The `spatial*` format includes SpatialPointsDataFrame, SpatialPolygonsDataFrame, SpatialLinesDataFrame, etc...") )
+        position = "left", full_width = FALSE)  %>% 
+  kableExtra::row_spec(0, color="white", background = "#6E6E6E", align="c") %>%  
+  kableExtra::footnote(number=c("The `spatial*` format includes SpatialPointsDataFrame, SpatialPolygonsDataFrame, SpatialLinesDataFrame, etc...") )
+
 ```
 
 
-There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called   [`sf`](https://r-spatial.github.io/sf/). It is therefore recommended that you work in an `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
+There is an attempt at standardizing the spatial format in the R ecosystem by adopting a well established set of spatial standards known as [simple features](https://en.wikipedia.org/wiki/Simple_Features). This effort results in a recently developed package called  [`sf`](https://r-spatial.github.io/sf/) [@sf]. It is therefore recommended that you work in an `sf` framework  when possible. As of this writing, most of the _basic_ data manipulation and visualization operations can be successfully conducted using `sf` spatial objects. 
 
 Some packages such as `spdep` and `spatstat` require specialized data object types. This tutorial will highlight some useful conversion functions for this purpose.
 
@@ -316,4 +319,6 @@ tail(head(
 ```
 
 The value in the `name` column is the format parameter name used in the `writeRaster()` function.
+
+
 

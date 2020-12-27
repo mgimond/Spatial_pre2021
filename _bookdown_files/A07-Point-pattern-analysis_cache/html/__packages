@@ -3,3 +3,4 @@ spatstat.data
 nlme
 rpart
 spatstat
+dplyr

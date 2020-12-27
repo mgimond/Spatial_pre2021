@@ -1,5 +1,63 @@
 # Point pattern analysis in R {.unnumbered}
 
+
+<table class="package_ver_table">
+<tbody>
+  <tr>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> R </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> spatstat </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> spatstat.data </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 4.0.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.64.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.7.0 </td>
+  </tr>
+</tbody>
+</table>
+
 For a basic theoretical treatise on point pattern analysis (PPA) the reader is encouraged to review the [point pattern analysis lecture notes](https://mgimond.github.io/Spatial/point-pattern-analysis.html). This section is intended to supplement the lecture notes by implementing PPA techniques in the R programming environment.
 
 ## Sample files for this exercise {#pppR1 .unnumbered}
@@ -23,21 +81,28 @@ All layers are in a format supported by the `spatstat` [@Spatstat] package. Note
 
 The [first appendix](https://mgimond.github.io/Spatial/reading-and-writing-spatial-data-in-r.html#converting-an-sf-point-object-to-a-ppp-object) steps you through the process of loading external data into R. But in summary, if you had layers stored as shapefile and raster file formats, you could import the data using the following example:
 
-    library(rgdal)
+
+```r
+    library(sf)
     library(maptools)
     library(raster)
 
     # Load an MA.shp polygon shapefile 
-    s    <- readOGR(".", "MA")  # Don't add the .shp extension
-    ma    <- as(s, "owin") 
+    s  <- st_read("MA.shp")
+    w  <- as.owin(s)
+    w.km <- rescale(w, 1000)) 
 
     # Load a starbucks.shp point feature shapefile
-    s  <- readOGR(".","starbucks")  # Don't add the .shp extension
-    starbucks    <- as(s, "ppp")
-
+    s  <- st_read("starbucks.shp")  
+    starbucks  <- as.ppp(s)
+    marks(starbucks) <- NULL
+    starbucks <- rescale(starbucks, 1000)
+    Window(starbucks) <- starbucks 
+     
     # Load a pop_sqmile.img population density raster layer
     img  <- raster("pop_sqmile.img")
     pop  <- as.im(img)
+```
 
 ## Prepping the data {#pppR3 .unnumbered}
 
@@ -63,7 +128,7 @@ We can plot the point layer to ensure that the boundary is properly defined for 
 plot(starbucks, main=NULL, cols=rgb(0,0,0,.2), pch=20)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-4-1.png" width="288" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-6-1.png" width="288" />
 
 We'll make another change to the dataset. Population density values for an administrative layer are usually quite skewed. The population density for Massachusetts is no exception. The following code chunk generates a histogram from the `pop` raster layer.
 
@@ -72,7 +137,7 @@ We'll make another change to the dataset. Population density values for an admin
 hist(pop, main=NULL, las=1)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-5-1.png" width="288" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-7-1.png" width="288" />
 
 Transforming the skewed distribution in the population density covariate may help reveal relationships between point distributions and the covariate in some of the point pattern analyses covered later in this tutorial. We'll therefore create a log-transformed version of `pop`.
 
@@ -82,7 +147,7 @@ pop.lg <- log(pop)
 hist(pop.lg, main=NULL, las=1)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-6-1.png" width="288" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-8-1.png" width="288" />
 
 We'll be making use of both expressions of the population density distribution in the following exercises.
 
@@ -105,7 +170,7 @@ plot(starbucks, pch=20, cols="grey70", main=NULL)  # Plot points
 plot(Q, add=TRUE)  # Add quadrat grid
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-8-1.png" width="288" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-10-1.png" width="288" />
 
 You can compute the **density** of points within each quadrat as follows:
 
@@ -119,7 +184,7 @@ plot(intensity(Q, image=TRUE), main=NULL, las=1)  # Plot density raster
 plot(starbucks, pch=20, cex=0.6, col=rgb(0,0,0,.5), add=TRUE)  # Add points
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-9-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-11-1.png" width="364.8" />
 
 The density values are reported as the number of points (stores) per square meters, per quadrat. The *Length* dimension unit is extracted from the coordinate system associated with the point layer. In this example, the length unit is in meters, so the density is reported as points per square meter. Such a small length unit is not practical at this scale of analysis. It's therefore desirable to rescale the spatial objects to a larger length unit such as the **kilometer**.
 
@@ -144,7 +209,7 @@ plot(intensity(Q, image=TRUE), main=NULL, las=1)  # Plot density raster
 plot(starbucks.km, pch=20, cex=0.6, col=rgb(0,0,0,.5), add=TRUE)  # Add points
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-11-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-13-1.png" width="364.8" />
 
 ### Quadrat density on a tessellated surface {#pppR6 .unnumbered}
 
@@ -173,7 +238,7 @@ The tessellated object can be mapped to view the spatial distribution of quadrat
 plot(E, main="", las=1)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-13-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-15-1.png" width="364.8" />
 
 Next, we'll tally the quadrat counts within each tessellated area then compute their density values (number of points per quadrat area).
 
@@ -200,7 +265,7 @@ plot(intensity(Q, image=TRUE), las=1, main=NULL)
 plot(starbucks.km, pch=20, cex=0.6, col=rgb(1,1,1,.5), add=TRUE)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-15-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-17-1.png" width="364.8" />
 
 Let's modify the color scheme.
 
@@ -211,7 +276,7 @@ plot( intensity(Q, image=TRUE), las=1, col=cl, main=NULL)
 plot(starbucks.km, pch=20, cex=0.6, col=rgb(0,0,0,.5), add=TRUE)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-16-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-18-1.png" width="364.8" />
 
 ### Kernel density raster {#pppR7 .unnumbered}
 
@@ -226,7 +291,7 @@ plot(K1, main=NULL, las=1)
 contour(K1, add=TRUE)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-17-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-19-1.png" width="364.8" />
 
 In this next chunk, a 50 km bandwidth (`sigma = 50`) is used. Note that the length unit is extracted from the point layer's mapping units (which was rescaled to kilometers earlier in this exercise).
 
@@ -237,7 +302,7 @@ plot(K2, main=NULL, las=1)
 contour(K2, add=TRUE)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-18-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-20-1.png" width="364.8" />
 
 The kernel defaults to a gaussian smoothing function. The smoothing function can be changed to a `quartic`, `disc` or `epanechnikov` function. For example, to change the kernel to a `disc` function type:
 
@@ -248,7 +313,7 @@ plot(K3, main=NULL, las=1)
 contour(K3, add=TRUE)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-19-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-21-1.png" width="364.8" />
 
 ### Kernel density adjusted for covariate {#pppR8 .unnumbered}
 
@@ -262,7 +327,7 @@ rho <- rhohat(starbucks.km, pop.lg.km,  method="ratio")
 plot(rho, las=1, main=NULL, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-20-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-22-1.png" width="480" />
 
 It's important to note that we are not fitting a parametric model to the data. Instead, a non-parametric curve is fit to the data. Its purpose is to describe/explore the shape of the relationship between point density and covariate. Note the exponentially increasing inensity of Starbucks stores with increasing population density values when the population density is expressed as a log. The grey envelope represents the 95% confidence interval.
 
@@ -275,7 +340,7 @@ cl   <- interp.colours(c("lightyellow", "orange" ,"red"), 100) # Create color sc
 plot(pred, col=cl, las=1, main=NULL, gamma = 0.25)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-21-1.png" width="364.8" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-23-1.png" width="364.8" />
 
 The predicted intensity's spatial pattern mirrors the covariate's population distribution pattern. The predicted intensity values range from 0 to about 5 stores per square kilometer. You'll note that this maximum value does not match the maximum value of \~3 shown in the `rho` vs population density plot. This is because the plot did not show the full range of population density values (the max density value shown was 10). The population raster layer has a maximum pixel value of 11.03 (this value can be extracted via `max(pop.lg.km)`).
 
@@ -290,7 +355,7 @@ plot(K1_vs_pred$pred ~ K1_vs_pred$K1, pch=20,
      col = rgb(0,0,0,0.1))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-22-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-24-1.png" width="480" />
 
 If the modeled intensity was comparable to the observed intensity, we would expect the points to cluster along a one-to-one diagonal. An extreme example is to compare the observed intensity with itself which offers a perfect match of intensity values.
 
@@ -302,7 +367,7 @@ plot(K1_vs_K1$K1a ~ K1_vs_K1$K1b, pch=20,
      ylab = "Observed intensity")
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-23-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-25-1.png" width="480" />
 
 So going back to our predicted vs observed intensity plot, we note a strong skew in the predicted intensity values. We also note an overestimation of intensity around higher values.
 
@@ -313,12 +378,12 @@ summary(as.data.frame(K1_vs_pred))
 
 ```
        K1                 pred         
- Min.   :4.027e-05   Min.   :0.000000  
- 1st Qu.:9.564e-04   1st Qu.:0.000282  
- Median :2.317e-03   Median :0.001541  
- Mean   :6.488e-03   Mean   :0.007821  
- 3rd Qu.:7.865e-03   3rd Qu.:0.005904  
- Max.   :4.303e-02   Max.   :5.101111  
+ Min.   :8.846e-05   Min.   :0.000000  
+ 1st Qu.:1.207e-03   1st Qu.:0.000282  
+ Median :3.377e-03   Median :0.001541  
+ Mean   :8.473e-03   Mean   :0.007821  
+ 3rd Qu.:1.078e-02   3rd Qu.:0.005904  
+ Max.   :5.693e-02   Max.   :5.101763  
 ```
 
 The predicted maximum intensity value is two orders of magnitude greater than that observed.
@@ -335,7 +400,7 @@ plot(K1_vs_pred$pred ~ K1_vs_pred$K1, pch=20,
 abline(a=0, b = 1, col = "red")
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-25-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-27-1.png" width="480" />
 
 ### Modeling intensity as a function of a covariate {#pppR9 .unnumbered}
 
@@ -350,7 +415,7 @@ plot(effectfun(PPM1, "pop.lg.km", se.fit=TRUE), main=NULL,
      las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-26-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-28-1.png" width="480" />
 
 Note that this is not the same relationship as $\rho$ vs. population density shown in the previous section. Here, we're fitting a well defined model to the data whose parameters can be extracted from the `PPM1` object.
 
@@ -424,7 +489,7 @@ ANN <- apply(nndist(starbucks.km, k=1:100),2,FUN=mean)
 plot(ANN ~ eval(1:100), type="b", main=NULL, las=1)
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-30-1.png" width="384" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-32-1.png" width="384" />
 
 The bottom axis shows the neighbor order number and the left axis shows the average distance in kilometers.
 
@@ -438,7 +503,7 @@ K <- Kest(starbucks.km)
 plot(K, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-31-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-33-1.png" width="480" />
 
 The plot returns different estimates of $K$ depending on the edge correction chosen. By default, the `isotropic`, `translate` and `border` corrections are implemented. To learn more about these edge correction methods type `?Kest` at the command line. The estimated $K$ functions are listed with a hat `^`. The black line ($K_{pois}$) represents the theoretical $K$ function under the null hypothesis that the points are completely randomly distributed (CSR/IRP). Where $K$ falls under the theoretical $K_{pois}$ line the points are deemed more dispersed than expected at distance $r$. Where $K$ falls above the theoretical $K_{pois}$ line the points are deemed more clustered than expected at distance $r$.
 
@@ -450,7 +515,7 @@ L <- Lest(starbucks.km, main=NULL)
 plot(L, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-32-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-34-1.png" width="480" />
 
 To plot the L function with the L~expected~ line set horizontal:
 
@@ -459,7 +524,7 @@ To plot the L function with the L~expected~ line set horizontal:
 plot(L, . -r ~ r, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-33-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-35-1.png" width="480" />
 
 ### Pair correlation function g {#pppR13 .unnumbered}
 
@@ -471,7 +536,7 @@ g  <- pcf(starbucks.km)
 plot(g, main=NULL, las=1, legendargs=list(cex=0.8, xpd=TRUE, inset=c(1.01, 0) ))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-34-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-36-1.png" width="480" />
 
 As with the `Kest` and `Lest` functions, the `pcf` function outputs different estimates of $g$ using different edge correction methods (`Ripley` and `Translate`). The theoretical $g$-function $g_{Pois}$ under a CSR process (green dashed line) is also displayed for comparison. Where the observed $g$ is greater than $g_{Pois}$ we can expect more clustering than expected and where the observed $g$ is less than $g_{Pois}$ we can expect more dispersion than expected.
 
@@ -514,7 +579,7 @@ You can plot the last realization of the homogeneous point process to see what a
 plot(rand.p, pch=16, main=NULL, cols=rgb(0,0,0,0.5))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-37-1.png" width="288" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-39-1.png" width="288" />
 
 Our observed distribution of Starbucks stores certainly does not look like the outcome of a completely independent random process.
 
@@ -526,7 +591,7 @@ hist(ann.r, main=NULL, las=1, breaks=40, col="bisque", xlim=range(ann.p, ann.r))
 abline(v=ann.p, col="blue")
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-38-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-40-1.png" width="480" />
 
 It's obvious from the test that the observed ANN value is far smaller than the expected ANN values one could expect under the null hypothesis. A smaller observed value indicates that the stores are far more clustered than expected under the null.
 
@@ -550,7 +615,7 @@ Window(rand.p) <- ma.km  # Replace raster mask with ma.km window
 plot(rand.p, pch=16, main=NULL, cols=rgb(0,0,0,0.5))
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-40-1.png" width="288" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-42-1.png" width="288" />
 
 Note the cluster of points near the highly populated areas. This pattern is different from the one generated from a completely random process.
 
@@ -562,7 +627,7 @@ hist(ann.r, main=NULL, las=1, breaks=40, col="bisque", xlim=range(ann.p, ann.r))
 abline(v=ann.p, col="blue")
 ```
 
-<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-41-1.png" width="480" />
+<img src="A07-Point-pattern-analysis_files/figure-html/unnamed-chunk-43-1.png" width="480" />
 
 Even though the distribution of ANN values we would expect when controlled for the population density nudges closer to our observed ANN value, we still cannot say that the clustering of Starbucks stores can be explained by a completely random process when controlled for population density.
 
@@ -663,11 +728,30 @@ The models are then compared using the **likelihood ratio test** which produces 
 anova(PPM0, PPM1, test="LRT")
 ```
 
-
-| Npar| Df| Deviance| Pr(>Chi)|
-|----:|--:|--------:|--------:|
-|    5| NA|       NA|       NA|
-|    6|  1|  537.218|        0|
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Npar </th>
+   <th style="text-align:right;"> Df </th>
+   <th style="text-align:right;"> Deviance </th>
+   <th style="text-align:right;"> Pr(&gt;Chi) </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 537.218 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table>
 
 The value under the heading `PR(>Chi)` is the p-value which gives us the probability that we would be wrong in rejecting the null. Here p\~0 suggests that there is close to a 0% chance that we would be wrong in rejecting the base model in favor of the alternate model--put another way, the alternate model (that the logged population density can help explain the distribution of Starbucks stores) is a significant improvement over the null.
 

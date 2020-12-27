@@ -1,5 +1,8 @@
 # Interpolation in R {-}
 
+```{r, child="_session-info.Rmd", echo = FALSE}
+```
+
 First, let's load the data from the website. The data are stored as `SpatialPointsDataFrame` and `SpatialPointsDataFrame` objects. Most of the functions used in this exercise work off of these classes. The one exception is the `direchlet` function which requires a conversion to a `ppp` object.
 
 ```{r results='hide', fig.height=3.3}

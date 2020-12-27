@@ -1,5 +1,8 @@
 # Point pattern analysis in R {.unnumbered}
 
+```{r, child="_session-info.Rmd", echo = FALSE}
+```
+
 For a basic theoretical treatise on point pattern analysis (PPA) the reader is encouraged to review the [point pattern analysis lecture notes](https://mgimond.github.io/Spatial/point-pattern-analysis.html). This section is intended to supplement the lecture notes by implementing PPA techniques in the R programming environment.
 
 ## Sample files for this exercise {#pppR1 .unnumbered}
@@ -22,21 +25,27 @@ All layers are in a format supported by the `spatstat` [@Spatstat] package. Note
 
 The [first appendix](https://mgimond.github.io/Spatial/reading-and-writing-spatial-data-in-r.html#converting-an-sf-point-object-to-a-ppp-object) steps you through the process of loading external data into R. But in summary, if you had layers stored as shapefile and raster file formats, you could import the data using the following example:
 
-    library(rgdal)
+```{r eval=FALSE}
+    library(sf)
     library(maptools)
     library(raster)
 
     # Load an MA.shp polygon shapefile 
-    s    <- readOGR(".", "MA")  # Don't add the .shp extension
-    ma    <- as(s, "owin") 
+    s  <- st_read("MA.shp")
+    w  <- as.owin(s)
+    w.km <- rescale(w, 1000)) 
 
     # Load a starbucks.shp point feature shapefile
-    s  <- readOGR(".","starbucks")  # Don't add the .shp extension
-    starbucks    <- as(s, "ppp")
-
+    s  <- st_read("starbucks.shp")  
+    starbucks  <- as.ppp(s)
+    marks(starbucks) <- NULL
+    starbucks <- rescale(starbucks, 1000)
+    Window(starbucks) <- starbucks 
+     
     # Load a pop_sqmile.img population density raster layer
     img  <- raster("pop_sqmile.img")
     pop  <- as.im(img)
+```
 
 ## Prepping the data {#pppR3 .unnumbered}
 

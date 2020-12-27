@@ -1,9 +1,0 @@
-base
-ggplot2
-sp
-raster
-spData
-sf
-spdep
-maptools
-RColorBrewer

@@ -32,7 +32,6 @@
   
 <link rel="prev" href="mapping-data-in-r.html"/>
 <link rel="next" href="vector-operations-in-r.html"/>
-<script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -53,7 +52,7 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -73,17 +72,18 @@
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -103,7 +103,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; } /* Alert */
 code span.an { color: #008000; } /* Annotation */
@@ -145,10 +145,8 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introGIS.html"><a href="introGIS.html"><i class="fa fa-check"></i><b>1</b> Introduction to GIS</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="introGIS.html"><a href="introGIS.html#what-is-a-gis"><i class="fa fa-check"></i><b>1.1</b> What is a GIS?</a>
-<ul>
+<li class="chapter" data-level="1" data-path="introGIS.html"><a href="introGIS.html"><i class="fa fa-check"></i><b>1</b> Introduction to GIS</a><ul>
+<li class="chapter" data-level="1.1" data-path="introGIS.html"><a href="introGIS.html#what-is-a-gis"><i class="fa fa-check"></i><b>1.1</b> What is a GIS?</a><ul>
 <li class="chapter" data-level="1.1.1" data-path="introGIS.html"><a href="introGIS.html#gis-software"><i class="fa fa-check"></i><b>1.1.1</b> GIS software</a></li>
 <li class="chapter" data-level="1.1.2" data-path="introGIS.html"><a href="introGIS.html#qgis"><i class="fa fa-check"></i><b>1.1.2</b> QGIS</a></li>
 </ul></li>
@@ -156,104 +154,85 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="1.3" data-path="introGIS.html"><a href="introGIS.html#whats-in-an-acronym"><i class="fa fa-check"></i><b>1.3</b> What’s in an Acronym?</a></li>
 </ul></li>
 <li class="part"><span><b>I Working with spatial data</b></span></li>
-<li class="chapter" data-level="2" data-path="chp02-0.html"><a href="chp02-0.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="chp02-0.html"><a href="chp02-0.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a>
-<ul>
+<li class="chapter" data-level="2" data-path="chp02-0.html"><a href="chp02-0.html"><i class="fa fa-check"></i><b>2</b> Feature Representation</a><ul>
+<li class="chapter" data-level="2.1" data-path="chp02-0.html"><a href="chp02-0.html#vector-vs.-raster"><i class="fa fa-check"></i><b>2.1</b> Vector vs. Raster</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="chp02-0.html"><a href="chp02-0.html#vector"><i class="fa fa-check"></i><b>2.1.1</b> Vector</a></li>
 <li class="chapter" data-level="2.1.2" data-path="chp02-0.html"><a href="chp02-0.html#raster"><i class="fa fa-check"></i><b>2.1.2</b> Raster</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="chp02-0.html"><a href="chp02-0.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a>
-<ul>
+<li class="chapter" data-level="2.2" data-path="chp02-0.html"><a href="chp02-0.html#object-vs.-field"><i class="fa fa-check"></i><b>2.2</b> Object vs. Field</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="chp02-0.html"><a href="chp02-0.html#object-view"><i class="fa fa-check"></i><b>2.2.1</b> Object View</a></li>
 <li class="chapter" data-level="2.2.2" data-path="chp02-0.html"><a href="chp02-0.html#field-view"><i class="fa fa-check"></i><b>2.2.2</b> Field View</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="chp02-0.html"><a href="chp02-0.html#scale"><i class="fa fa-check"></i><b>2.3</b> Scale</a></li>
-<li class="chapter" data-level="2.4" data-path="chp02-0.html"><a href="chp02-0.html#attribute-tables"><i class="fa fa-check"></i><b>2.4</b> Attribute Tables</a>
-<ul>
+<li class="chapter" data-level="2.4" data-path="chp02-0.html"><a href="chp02-0.html#attribute-tables"><i class="fa fa-check"></i><b>2.4</b> Attribute Tables</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="chp02-0.html"><a href="chp02-0.html#measurement-levels"><i class="fa fa-check"></i><b>2.4.1</b> Measurement Levels</a></li>
 <li class="chapter" data-level="2.4.2" data-path="chp02-0.html"><a href="chp02-0.html#data-type"><i class="fa fa-check"></i><b>2.4.2</b> Data type</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="gis-data-management.html"><a href="gis-data-management.html"><i class="fa fa-check"></i><b>3</b> GIS Data Management</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="gis-data-management.html"><a href="gis-data-management.html#gis-file-data-formats"><i class="fa fa-check"></i><b>3.1</b> GIS File Data Formats</a>
-<ul>
+<li class="chapter" data-level="3" data-path="gis-data-management.html"><a href="gis-data-management.html"><i class="fa fa-check"></i><b>3</b> GIS Data Management</a><ul>
+<li class="chapter" data-level="3.1" data-path="gis-data-management.html"><a href="gis-data-management.html#gis-file-data-formats"><i class="fa fa-check"></i><b>3.1</b> GIS File Data Formats</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="gis-data-management.html"><a href="gis-data-management.html#vector-data-file-formats"><i class="fa fa-check"></i><b>3.1.1</b> Vector Data File Formats</a></li>
 <li class="chapter" data-level="3.1.2" data-path="gis-data-management.html"><a href="gis-data-management.html#raster-data-file-formats"><i class="fa fa-check"></i><b>3.1.2</b> Raster Data File Formats</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="gis-data-management.html"><a href="gis-data-management.html#managing-gis-files"><i class="fa fa-check"></i><b>3.2</b> Managing GIS Files</a></li>
 <li class="chapter" data-level="3.3" data-path="gis-data-management.html"><a href="gis-data-management.html#managing-a-map-project-in-arcgis"><i class="fa fa-check"></i><b>3.3</b> Managing a Map Project in ArcGIS</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="symbolizing-features.html"><a href="symbolizing-features.html"><i class="fa fa-check"></i><b>4</b> Symbolizing features</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#color"><i class="fa fa-check"></i><b>4.1</b> Color</a>
-<ul>
+<li class="chapter" data-level="4" data-path="symbolizing-features.html"><a href="symbolizing-features.html"><i class="fa fa-check"></i><b>4</b> Symbolizing features</a><ul>
+<li class="chapter" data-level="4.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#color"><i class="fa fa-check"></i><b>4.1</b> Color</a><ul>
 <li class="chapter" data-level="4.1.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#hue"><i class="fa fa-check"></i><b>4.1.1</b> Hue</a></li>
 <li class="chapter" data-level="4.1.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#lightness"><i class="fa fa-check"></i><b>4.1.2</b> Lightness</a></li>
 <li class="chapter" data-level="4.1.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#saturation"><i class="fa fa-check"></i><b>4.1.3</b> Saturation</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#color-space"><i class="fa fa-check"></i><b>4.2</b> Color Space</a></li>
-<li class="chapter" data-level="4.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification"><i class="fa fa-check"></i><b>4.3</b> Classification</a>
-<ul>
+<li class="chapter" data-level="4.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification"><i class="fa fa-check"></i><b>4.3</b> Classification</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#qualitative-color-scheme"><i class="fa fa-check"></i><b>4.3.1</b> Qualitative color scheme</a></li>
 <li class="chapter" data-level="4.3.2" data-path="symbolizing-features.html"><a href="symbolizing-features.html#sequential-color-scheme"><i class="fa fa-check"></i><b>4.3.2</b> Sequential color scheme</a></li>
 <li class="chapter" data-level="4.3.3" data-path="symbolizing-features.html"><a href="symbolizing-features.html#divergent-color-scheme"><i class="fa fa-check"></i><b>4.3.3</b> Divergent color scheme</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="symbolizing-features.html"><a href="symbolizing-features.html#so-how-do-i-find-a-proper-color-scheme-for-my-data"><i class="fa fa-check"></i><b>4.4</b> So how do I find a proper color scheme for my data?</a></li>
-<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a>
-<ul>
+<li class="chapter" data-level="4.5" data-path="symbolizing-features.html"><a href="symbolizing-features.html#classification-intervals"><i class="fa fa-check"></i><b>4.5</b> Classification Intervals</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="symbolizing-features.html"><a href="symbolizing-features.html#an-interactive-example"><i class="fa fa-check"></i><b>4.5.1</b> An Interactive Example</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html"><i class="fa fa-check"></i><b>5</b> Pitfalls to avoid</a>
-<ul>
+<li class="chapter" data-level="5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html"><i class="fa fa-check"></i><b>5</b> Pitfalls to avoid</a><ul>
 <li class="chapter" data-level="5.1" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#representing-count"><i class="fa fa-check"></i><b>5.1</b> Representing Count</a></li>
 <li class="chapter" data-level="5.2" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#maup"><i class="fa fa-check"></i><b>5.2</b> MAUP</a></li>
 <li class="chapter" data-level="5.3" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#ecological-fallacy"><i class="fa fa-check"></i><b>5.3</b> Ecological Fallacy</a></li>
 <li class="chapter" data-level="5.4" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#mapping-rates"><i class="fa fa-check"></i><b>5.4</b> Mapping rates</a></li>
 <li class="chapter" data-level="5.5" data-path="pitfalls-to-avoid.html"><a href="pitfalls-to-avoid.html#coping-with-unstable-rates"><i class="fa fa-check"></i><b>5.5</b> Coping with Unstable Rates</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html"><i class="fa fa-check"></i><b>6</b> Good Map Making Tips</a>
-<ul>
+<li class="chapter" data-level="6" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html"><i class="fa fa-check"></i><b>6</b> Good Map Making Tips</a><ul>
 <li class="chapter" data-level="6.1" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#elements-of-a-map"><i class="fa fa-check"></i><b>6.1</b> Elements of a map</a></li>
 <li class="chapter" data-level="6.2" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#how-to-create-a-good-map"><i class="fa fa-check"></i><b>6.2</b> How to create a <em>good</em> map</a></li>
 <li class="chapter" data-level="6.3" data-path="good-map-making-tips.html"><a href="good-map-making-tips.html#typefaces-and-fonts"><i class="fa fa-check"></i><b>6.3</b> Typefaces and Fonts</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html"><i class="fa fa-check"></i><b>7</b> Uncertainty in Census Data</a>
-<ul>
+<li class="chapter" data-level="7" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html"><i class="fa fa-check"></i><b>7</b> Uncertainty in Census Data</a><ul>
 <li class="chapter" data-level="7.1" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
 <li class="chapter" data-level="7.2" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#mapping-uncertainty"><i class="fa fa-check"></i><b>7.2</b> Mapping uncertainty</a></li>
 <li class="chapter" data-level="7.3" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#problems-in-mapping-uncertainty"><i class="fa fa-check"></i><b>7.3</b> Problems in mapping uncertainty</a></li>
 <li class="chapter" data-level="7.4" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#class-comparison-maps"><i class="fa fa-check"></i><b>7.4</b> Class comparison maps</a></li>
 <li class="chapter" data-level="7.5" data-path="uncertainty-in-census-data.html"><a href="uncertainty-in-census-data.html#problem-when-performing-bivariate-analysis"><i class="fa fa-check"></i><b>7.5</b> Problem when performing bivariate analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html"><i class="fa fa-check"></i><b>8</b> Spatial Operations and Vector Overlays</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#selection-by-attribute"><i class="fa fa-check"></i><b>8.1</b> Selection by Attribute</a>
-<ul>
+<li class="chapter" data-level="8" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html"><i class="fa fa-check"></i><b>8</b> Spatial Operations and Vector Overlays</a><ul>
+<li class="chapter" data-level="8.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#selection-by-attribute"><i class="fa fa-check"></i><b>8.1</b> Selection by Attribute</a><ul>
 <li class="chapter" data-level="8.1.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#set-algebra"><i class="fa fa-check"></i><b>8.1.1</b> Set Algebra</a></li>
 <li class="chapter" data-level="8.1.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#boolean-algebra"><i class="fa fa-check"></i><b>8.1.2</b> Boolean Algebra</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#selection-by-location"><i class="fa fa-check"></i><b>8.2</b> Selection by location</a></li>
-<li class="chapter" data-level="8.3" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#vector-overlay"><i class="fa fa-check"></i><b>8.3</b> Vector Overlay</a>
-<ul>
+<li class="chapter" data-level="8.3" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#vector-overlay"><i class="fa fa-check"></i><b>8.3</b> Vector Overlay</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#clip"><i class="fa fa-check"></i><b>8.3.1</b> Clip</a></li>
 <li class="chapter" data-level="8.3.2" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#intersect"><i class="fa fa-check"></i><b>8.3.2</b> Intersect</a></li>
 <li class="chapter" data-level="8.3.3" data-path="spatial-operations-and-vector-overlays.html"><a href="spatial-operations-and-vector-overlays.html#union"><i class="fa fa-check"></i><b>8.3.3</b> Union</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="chp09-0.html"><a href="chp09-0.html"><i class="fa fa-check"></i><b>9</b> Coordinate Systems</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="chp09-0.html"><a href="chp09-0.html#geographic-coordinate-systems"><i class="fa fa-check"></i><b>9.1</b> Geographic Coordinate Systems</a>
-<ul>
+<li class="chapter" data-level="9" data-path="chp09-0.html"><a href="chp09-0.html"><i class="fa fa-check"></i><b>9</b> Coordinate Systems</a><ul>
+<li class="chapter" data-level="9.1" data-path="chp09-0.html"><a href="chp09-0.html#geographic-coordinate-systems"><i class="fa fa-check"></i><b>9.1</b> Geographic Coordinate Systems</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="chp09-0.html"><a href="chp09-0.html#sphere-and-ellipsoid"><i class="fa fa-check"></i><b>9.1.1</b> Sphere and Ellipsoid</a></li>
 <li class="chapter" data-level="9.1.2" data-path="chp09-0.html"><a href="chp09-0.html#geoid"><i class="fa fa-check"></i><b>9.1.2</b> Geoid</a></li>
 <li class="chapter" data-level="9.1.3" data-path="chp09-0.html"><a href="chp09-0.html#datum"><i class="fa fa-check"></i><b>9.1.3</b> Datum</a></li>
 <li class="chapter" data-level="9.1.4" data-path="chp09-0.html"><a href="chp09-0.html#building-the-geographic-coordinate-system"><i class="fa fa-check"></i><b>9.1.4</b> Building the Geographic Coordinate System</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="chp09-0.html"><a href="chp09-0.html#projected-coordinate-systems"><i class="fa fa-check"></i><b>9.2</b> Projected Coordinate Systems</a>
-<ul>
+<li class="chapter" data-level="9.2" data-path="chp09-0.html"><a href="chp09-0.html#projected-coordinate-systems"><i class="fa fa-check"></i><b>9.2</b> Projected Coordinate Systems</a><ul>
 <li class="chapter" data-level="9.2.1" data-path="chp09-0.html"><a href="chp09-0.html#planar-projections"><i class="fa fa-check"></i><b>9.2.1</b> Planar Projections</a></li>
 <li class="chapter" data-level="9.2.2" data-path="chp09-0.html"><a href="chp09-0.html#cylindrical-projection"><i class="fa fa-check"></i><b>9.2.2</b> Cylindrical Projection</a></li>
 <li class="chapter" data-level="9.2.3" data-path="chp09-0.html"><a href="chp09-0.html#conical-projection"><i class="fa fa-check"></i><b>9.2.3</b> Conical Projection</a></li>
@@ -261,14 +240,12 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="9.3" data-path="chp09-0.html"><a href="chp09-0.html#spatial-properties"><i class="fa fa-check"></i><b>9.3</b> Spatial Properties</a></li>
 <li class="chapter" data-level="9.4" data-path="chp09-0.html"><a href="chp09-0.html#geodesic-geometries"><i class="fa fa-check"></i><b>9.4</b> Geodesic geometries</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="chp10-0.html"><a href="chp10-0.html"><i class="fa fa-check"></i><b>10</b> Map Algebra</a>
-<ul>
+<li class="chapter" data-level="10" data-path="chp10-0.html"><a href="chp10-0.html"><i class="fa fa-check"></i><b>10</b> Map Algebra</a><ul>
 <li class="chapter" data-level="10.1" data-path="chp10-0.html"><a href="chp10-0.html#local-operations-and-functions"><i class="fa fa-check"></i><b>10.1</b> Local operations and functions</a></li>
 <li class="chapter" data-level="10.2" data-path="chp10-0.html"><a href="chp10-0.html#focal-operations-and-functions"><i class="fa fa-check"></i><b>10.2</b> Focal operations and functions</a></li>
 <li class="chapter" data-level="10.3" data-path="chp10-0.html"><a href="chp10-0.html#zonal-operations-and-functions"><i class="fa fa-check"></i><b>10.3</b> Zonal operations and functions</a></li>
 <li class="chapter" data-level="10.4" data-path="chp10-0.html"><a href="chp10-0.html#global-operations-and-functions"><i class="fa fa-check"></i><b>10.4</b> Global operations and functions</a></li>
-<li class="chapter" data-level="10.5" data-path="chp10-0.html"><a href="chp10-0.html#operators-and-functions"><i class="fa fa-check"></i><b>10.5</b> Operators and functions</a>
-<ul>
+<li class="chapter" data-level="10.5" data-path="chp10-0.html"><a href="chp10-0.html#operators-and-functions"><i class="fa fa-check"></i><b>10.5</b> Operators and functions</a><ul>
 <li class="chapter" data-level="10.5.1" data-path="chp10-0.html"><a href="chp10-0.html#mathematical-operators-and-functions"><i class="fa fa-check"></i><b>10.5.1</b> Mathematical operators and functions</a></li>
 <li class="chapter" data-level="10.5.2" data-path="chp10-0.html"><a href="chp10-0.html#logical-comparison"><i class="fa fa-check"></i><b>10.5.2</b> Logical comparison</a></li>
 <li class="chapter" data-level="10.5.3" data-path="chp10-0.html"><a href="chp10-0.html#boolean-or-logical-operators"><i class="fa fa-check"></i><b>10.5.3</b> Boolean (or Logical) operators</a></li>
@@ -276,28 +253,23 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Spatial Analysis</b></span></li>
-<li class="chapter" data-level="11" data-path="chp11-0.html"><a href="chp11-0.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a>
-<ul>
+<li class="chapter" data-level="11" data-path="chp11-0.html"><a href="chp11-0.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis</a><ul>
 <li class="chapter" data-level="11.1" data-path="chp11-0.html"><a href="chp11-0.html#centrography"><i class="fa fa-check"></i><b>11.1</b> Centrography</a></li>
-<li class="chapter" data-level="11.2" data-path="chp11-0.html"><a href="chp11-0.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a>
-<ul>
+<li class="chapter" data-level="11.2" data-path="chp11-0.html"><a href="chp11-0.html#density-based-analysis"><i class="fa fa-check"></i><b>11.2</b> Density based analysis</a><ul>
 <li class="chapter" data-level="11.2.1" data-path="chp11-0.html"><a href="chp11-0.html#global-density"><i class="fa fa-check"></i><b>11.2.1</b> Global density</a></li>
 <li class="chapter" data-level="11.2.2" data-path="chp11-0.html"><a href="chp11-0.html#local-density"><i class="fa fa-check"></i><b>11.2.2</b> Local density</a></li>
 <li class="chapter" data-level="11.2.3" data-path="chp11-0.html"><a href="chp11-0.html#modeling-intensity-as-a-function-of-a-covariate"><i class="fa fa-check"></i><b>11.2.3</b> Modeling intensity as a function of a covariate</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="chp11-0.html"><a href="chp11-0.html#distance-based-analysis"><i class="fa fa-check"></i><b>11.3</b> Distance based analysis</a>
-<ul>
+<li class="chapter" data-level="11.3" data-path="chp11-0.html"><a href="chp11-0.html#distance-based-analysis"><i class="fa fa-check"></i><b>11.3</b> Distance based analysis</a><ul>
 <li class="chapter" data-level="11.3.1" data-path="chp11-0.html"><a href="chp11-0.html#average-nearest-neighbor"><i class="fa fa-check"></i><b>11.3.1</b> Average Nearest Neighbor</a></li>
 <li class="chapter" data-level="11.3.2" data-path="chp11-0.html"><a href="chp11-0.html#k-and-l-functions"><i class="fa fa-check"></i><b>11.3.2</b> K and L functions</a></li>
 <li class="chapter" data-level="11.3.3" data-path="chp11-0.html"><a href="chp11-0.html#the-pair-correlation-function-g"><i class="fa fa-check"></i><b>11.3.3</b> The Pair Correlation Function <span class="math inline">\(g\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="11.4" data-path="chp11-0.html"><a href="chp11-0.html#first-and-second-order-effects"><i class="fa fa-check"></i><b>11.4</b> First and second order effects</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>12</b> Hypothesis testing</a>
-<ul>
+<li class="chapter" data-level="12" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>12</b> Hypothesis testing</a><ul>
 <li class="chapter" data-level="12.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#irpcsr"><i class="fa fa-check"></i><b>12.1</b> IRP/CSR</a></li>
-<li class="chapter" data-level="12.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#testing-for-csr-with-the-ann-tool"><i class="fa fa-check"></i><b>12.2</b> Testing for CSR with the ANN tool</a>
-<ul>
+<li class="chapter" data-level="12.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#testing-for-csr-with-the-ann-tool"><i class="fa fa-check"></i><b>12.2</b> Testing for CSR with the ANN tool</a><ul>
 <li class="chapter" data-level="12.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#arcgis-average-nearest-neighbor-tool"><i class="fa fa-check"></i><b>12.2.1</b> ArcGIS’ Average Nearest Neighbor Tool</a></li>
 <li class="chapter" data-level="12.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#a-better-approach-a-monte-carlo-test"><i class="fa fa-check"></i><b>12.2.2</b> A better approach: a Monte Carlo test</a></li>
 </ul></li>
@@ -305,45 +277,37 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="12.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#monte-carlo-test-with-k-and-l-functions"><i class="fa fa-check"></i><b>12.4</b> Monte Carlo test with K and L functions</a></li>
 <li class="chapter" data-level="12.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#PPM"><i class="fa fa-check"></i><b>12.5</b> Testing for a covariate effect</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>13</b> Spatial Autocorrelation</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#global-morans-i"><i class="fa fa-check"></i><b>13.1</b> Global Moran’s I</a>
-<ul>
+<li class="chapter" data-level="13" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>13</b> Spatial Autocorrelation</a><ul>
+<li class="chapter" data-level="13.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#global-morans-i"><i class="fa fa-check"></i><b>13.1</b> Global Moran’s I</a><ul>
 <li class="chapter" data-level="13.1.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#computing-the-morans-i"><i class="fa fa-check"></i><b>13.1.1</b> Computing the Moran’s I</a></li>
 <li class="chapter" data-level="13.1.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#monte-carlo-approach-to-estimating-significance"><i class="fa fa-check"></i><b>13.1.2</b> Monte Carlo approach to estimating significance</a></li>
 </ul></li>
 <li class="chapter" data-level="13.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#morans-i-at-different-lags"><i class="fa fa-check"></i><b>13.2</b> Moran’s I at different lags</a></li>
 <li class="chapter" data-level="13.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-morans-i"><i class="fa fa-check"></i><b>13.3</b> Local Moran’s I</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html"><i class="fa fa-check"></i><b>14</b> Spatial Interpolation</a>
-<ul>
-<li class="chapter" data-level="14.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#deterministic-approach-to-interpolation"><i class="fa fa-check"></i><b>14.1</b> Deterministic Approach to Interpolation</a>
-<ul>
+<li class="chapter" data-level="14" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html"><i class="fa fa-check"></i><b>14</b> Spatial Interpolation</a><ul>
+<li class="chapter" data-level="14.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#deterministic-approach-to-interpolation"><i class="fa fa-check"></i><b>14.1</b> Deterministic Approach to Interpolation</a><ul>
 <li class="chapter" data-level="14.1.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#proximity-interpolation"><i class="fa fa-check"></i><b>14.1.1</b> Proximity interpolation</a></li>
 <li class="chapter" data-level="14.1.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#inverse-distance-weighted-idw"><i class="fa fa-check"></i><b>14.1.2</b> Inverse Distance Weighted (IDW)</a></li>
 <li class="chapter" data-level="14.1.3" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#fine-tuning-the-interpolation-parameters"><i class="fa fa-check"></i><b>14.1.3</b> Fine tuning the interpolation parameters</a></li>
 </ul></li>
-<li class="chapter" data-level="14.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#statistical-approach-to-interpolation"><i class="fa fa-check"></i><b>14.2</b> Statistical Approach to Interpolation</a>
-<ul>
+<li class="chapter" data-level="14.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#statistical-approach-to-interpolation"><i class="fa fa-check"></i><b>14.2</b> Statistical Approach to Interpolation</a><ul>
 <li class="chapter" data-level="14.2.1" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#trend-surfaces"><i class="fa fa-check"></i><b>14.2.1</b> Trend Surfaces</a></li>
 <li class="chapter" data-level="14.2.2" data-path="spatial-interpolation.html"><a href="spatial-interpolation.html#ordinary-kriging"><i class="fa fa-check"></i><b>14.2.2</b> Ordinary Kriging</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>III Appendix</b></span></li>
-<li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html"><i class="fa fa-check"></i>Reading and writing spatial data in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html"><i class="fa fa-check"></i>Reading and writing spatial data in R</a><ul>
 <li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_2"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_3"><i class="fa fa-check"></i>Introduction</a></li>
-<li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_4"><i class="fa fa-check"></i>Creating spatial objects</a>
-<ul>
+<li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_4"><i class="fa fa-check"></i>Creating spatial objects</a><ul>
 <li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_4_1"><i class="fa fa-check"></i>Reading a shapefile</a></li>
 <li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_4_2"><i class="fa fa-check"></i>Reading a GeoPackage</a></li>
 <li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_4_3"><i class="fa fa-check"></i>Reading a raster</a></li>
 <li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_4_5"><i class="fa fa-check"></i>Creating a spatial object from a data frame</a></li>
 <li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_4_6"><i class="fa fa-check"></i>Geocoding street addresses</a></li>
 </ul></li>
-<li><a href="app1-1.html#app1_5">Converting from an <code>sf</code> object</a>
-<ul>
+<li><a href="app1-1.html#app1_5">Converting from an <code>sf</code> object</a><ul>
 <li><a href="app1-1.html#app1_5_1">Converting an <code>sf</code> object to a <code>Spatial*</code> object (<code>spdep</code>/<code>sp</code>)</a></li>
 <li><a href="app1-1.html#app1_5_2">Converting an <code>sf</code> polygon object to an <code>owin</code> object</a></li>
 <li><a href="app1-1.html#app1_5_3">Converting an <code>sf</code> point object to a <code>ppp</code> object</a></li>
@@ -353,11 +317,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li><a href="app1-1.html#app1_7">Dissecting the <code>sf</code> file object</a></li>
 <li class="chapter" data-level="" data-path="app1-1.html"><a href="app1-1.html#app1_8"><i class="fa fa-check"></i>Exporting to different data file formats</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html"><i class="fa fa-check"></i>Mapping data in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html"><i class="fa fa-check"></i>Mapping data in R</a><ul>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#app2_1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#app2_2"><i class="fa fa-check"></i>The basics</a>
-<ul>
+<li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#app2_2"><i class="fa fa-check"></i>The basics</a><ul>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#app2_2_1"><i class="fa fa-check"></i>Combining layers</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#app2_2_2"><i class="fa fa-check"></i>Tweaking classification schemes</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#app2_2_3"><i class="fa fa-check"></i>Tweaking colors</a></li>
@@ -370,108 +332,90 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#app2_6"><i class="fa fa-check"></i>Side-by-side maps</a></li>
 <li class="chapter" data-level="" data-path="mapping-data-in-r.html"><a href="mapping-data-in-r.html#app2_7"><i class="fa fa-check"></i>Splitting data by polygons or group of polygons</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html"><i class="fa fa-check"></i>Mapping rates in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html"><i class="fa fa-check"></i>Mapping rates in R</a><ul>
 <li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#app3_1"><i class="fa fa-check"></i>Raw Rates</a></li>
 <li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#app3_2"><i class="fa fa-check"></i>Standardized mortality ratios (relative risk).</a></li>
 <li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#app3_3"><i class="fa fa-check"></i>Dykes and Unwin’s chi-square statistic</a></li>
-<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#app3_4"><i class="fa fa-check"></i>Unstable ratios</a>
-<ul>
+<li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#app3_4"><i class="fa fa-check"></i>Unstable ratios</a><ul>
 <li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#app3_4_1"><i class="fa fa-check"></i>Global Empirical Bayes (EB) rate estimate</a></li>
 <li class="chapter" data-level="" data-path="mapping-rates-in-r.html"><a href="mapping-rates-in-r.html#app3_4_2"><i class="fa fa-check"></i>Local Empirical Bayes (EB) rate estimate</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html"><i class="fa fa-check"></i>Vector operations in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html"><i class="fa fa-check"></i>Vector operations in R</a><ul>
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#app4_1"><i class="fa fa-check"></i>Dissolve by contiguous shape</a></li>
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#app4_2"><i class="fa fa-check"></i>Dissolve by attribute</a></li>
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#app4_3"><i class="fa fa-check"></i>Calculate area</a></li>
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#app4_4"><i class="fa fa-check"></i>Subsetting</a></li>
-<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#app4_5"><i class="fa fa-check"></i>Intersecting</a>
-<ul>
+<li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#app4_5"><i class="fa fa-check"></i>Intersecting</a><ul>
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#intersecting-polygons-with-line-and-point-objects"><i class="fa fa-check"></i>Intersecting polygons with line and point objects</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="vector-operations-in-r.html"><a href="vector-operations-in-r.html#app4_6"><i class="fa fa-check"></i>Unioning</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html"><i class="fa fa-check"></i>Raster operations in R</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_2"><i class="fa fa-check"></i>Local operations and functions</a>
-<ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_2"><i class="fa fa-check"></i>Local operations and functions</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_2_1"><i class="fa fa-check"></i>Unary operations and functions (applied to single rasters)</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_2_2"><i class="fa fa-check"></i>Binary operations and functions (where two rasters are used)</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_5"><i class="fa fa-check"></i>Focal operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_6"><i class="fa fa-check"></i>Zonal operations and functions</a></li>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_7"><i class="fa fa-check"></i>Global operations and functions</a></li>
-<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_8"><i class="fa fa-check"></i>Computing cumulative distances</a>
-<ul>
+<li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_8"><i class="fa fa-check"></i>Computing cumulative distances</a><ul>
 <li class="chapter" data-level="" data-path="raster-operations-in-r.html"><a href="raster-operations-in-r.html#app5_8_1"><i class="fa fa-check"></i>Working example</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
-<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#transforming-coordinate-systems"><i class="fa fa-check"></i>Transforming coordinate systems</a>
-<ul>
+<li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#transforming-coordinate-systems"><i class="fa fa-check"></i>Transforming coordinate systems</a><ul>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#example-of-a-failed-transformation"><i class="fa fa-check"></i>Example of a failed transformation</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#a-note-about-containment"><i class="fa fa-check"></i>A note about containment</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#creating-tissot-indicatrix-circles"><i class="fa fa-check"></i>Creating Tissot indicatrix circles</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html"><i class="fa fa-check"></i>Point pattern analysis in R</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li><a href="point-pattern-analysis-in-r.html#pppR2">Getting external data into a <code>spatstat</code> format</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR3"><i class="fa fa-check"></i>Prepping the data</a></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR4"><i class="fa fa-check"></i>Density based analysis</a>
-<ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR4"><i class="fa fa-check"></i>Density based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR5"><i class="fa fa-check"></i>Quadrat density</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR6"><i class="fa fa-check"></i>Quadrat density on a tessellated surface</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR7"><i class="fa fa-check"></i>Kernel density raster</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR8"><i class="fa fa-check"></i>Kernel density adjusted for covariate</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR9"><i class="fa fa-check"></i>Modeling intensity as a function of a covariate</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR10"><i class="fa fa-check"></i>Distance based analysis</a>
-<ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR10"><i class="fa fa-check"></i>Distance based analysis</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR11"><i class="fa fa-check"></i>Average nearest neighbor analysis</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR12"><i class="fa fa-check"></i>K and L functions</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR13"><i class="fa fa-check"></i>Pair correlation function g</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR14"><i class="fa fa-check"></i>Hypothesis tests</a>
-<ul>
+<li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR14"><i class="fa fa-check"></i>Hypothesis tests</a><ul>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR15"><i class="fa fa-check"></i>Test for clustering/dispersion</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR16"><i class="fa fa-check"></i>Computing a pseudo p-value from the simulation</a></li>
 <li class="chapter" data-level="" data-path="point-pattern-analysis-in-r.html"><a href="point-pattern-analysis-in-r.html#pppR17"><i class="fa fa-check"></i>Test for a poisson point process model with a covariate effect</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial autocorrelation in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html"><i class="fa fa-check"></i>Spatial autocorrelation in R</a><ul>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#app8_1"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#app8_2"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#app8_3"><i class="fa fa-check"></i>Define neighboring polygons</a></li>
-<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#app8_4"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the hard way</a>
-<ul>
+<li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#app8_4"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the hard way</a><ul>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#computing-a-pseudo-p-value-from-an-mc-simulation"><i class="fa fa-check"></i>Computing a pseudo p-value from an MC simulation</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#app8_5"><i class="fa fa-check"></i>Computing the Moran’s I statistic: the easy way</a></li>
 <li class="chapter" data-level="" data-path="spatial-autocorrelation-in-r.html"><a href="spatial-autocorrelation-in-r.html#app8_6"><i class="fa fa-check"></i>Moran’s I as a function of a distance band</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html"><i class="fa fa-check"></i>Interpolation in R</a>
-<ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html"><i class="fa fa-check"></i>Interpolation in R</a><ul>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#thiessen-polygons"><i class="fa fa-check"></i>Thiessen polygons</a></li>
-<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#idw"><i class="fa fa-check"></i>IDW</a>
-<ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#idw"><i class="fa fa-check"></i>IDW</a><ul>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#fine-tuning-the-interpolation"><i class="fa fa-check"></i>Fine-tuning the interpolation</a></li>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#cross-validation"><i class="fa fa-check"></i>Cross-validation</a></li>
 </ul></li>
 <li><a href="interpolation-in-r.html#st-order-polynomial-fit">1<sup>st</sup> order polynomial fit</a></li>
 <li><a href="interpolation-in-r.html#nd-order-polynomial">2<sup>nd</sup> order polynomial</a></li>
-<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#kriging"><i class="fa fa-check"></i>Kriging</a>
-<ul>
+<li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#kriging"><i class="fa fa-check"></i>Kriging</a><ul>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#fit-the-variogram-model"><i class="fa fa-check"></i>Fit the variogram model</a></li>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-kriged-surface"><i class="fa fa-check"></i>Generate Kriged surface</a></li>
 <li class="chapter" data-level="" data-path="interpolation-in-r.html"><a href="interpolation-in-r.html#generate-the-variance-and-confidence-interval-maps"><i class="fa fa-check"></i>Generate the variance and confidence interval maps</a></li>
@@ -495,111 +439,279 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mapping-rates-in-r" class="section level1 unnumbered" number="">
+<div id="mapping-rates-in-r" class="section level1 unnumbered">
 <h1>Mapping rates in R</h1>
+<table class="package_ver_table">
+<tbody>
+<tr>
+<td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+R
+</td>
+<td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+maptools
+</td>
+<td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+RColorBrewer
+</td>
+<td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+classInt
+</td>
+<td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+spdep
+</td>
+<td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+sf
+</td>
+<td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+spData
+</td>
+<td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+sp
+</td>
+</tr>
+<tr>
+<td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+4.0.1
+</td>
+<td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+1.0.2
+</td>
+<td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+1.1.2
+</td>
+<td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+0.4.3
+</td>
+<td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+1.1.5
+</td>
+<td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+0.9.6
+</td>
+<td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+0.3.8
+</td>
+<td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;">
+1.4.4
+</td>
+</tr>
+</tbody>
+</table>
 <p>In this exercise, we’ll make use of <code>sp</code>’s <code>plot</code> method instead of <code>tmap</code> to take advantage of <code>sp</code>’s <em>scaled</em> keys which will prove insightful when exploring rate mapping techniques that adopt none uniform classification schemes.</p>
 <p>The following libraries are used in the examples that follow.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="mapping-rates-in-r.html#cb80-1"></a><span class="kw">library</span>(spdep)</span>
-<span id="cb80-2"><a href="mapping-rates-in-r.html#cb80-2"></a><span class="kw">library</span>(classInt)</span>
-<span id="cb80-3"><a href="mapping-rates-in-r.html#cb80-3"></a><span class="kw">library</span>(RColorBrewer)</span>
-<span id="cb80-4"><a href="mapping-rates-in-r.html#cb80-4"></a><span class="kw">library</span>(maptools)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="mapping-rates-in-r.html#cb76-1"></a><span class="kw">library</span>(spdep)</span>
+<span id="cb76-2"><a href="mapping-rates-in-r.html#cb76-2"></a><span class="kw">library</span>(classInt)</span>
+<span id="cb76-3"><a href="mapping-rates-in-r.html#cb76-3"></a><span class="kw">library</span>(RColorBrewer)</span>
+<span id="cb76-4"><a href="mapping-rates-in-r.html#cb76-4"></a><span class="kw">library</span>(maptools)</span></code></pre></div>
 <p>Next, we’ll initialize some color palettes.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="mapping-rates-in-r.html#cb81-1"></a>pal1 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">6</span>,<span class="st">&quot;Greys&quot;</span>)</span>
-<span id="cb81-2"><a href="mapping-rates-in-r.html#cb81-2"></a>pal2 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">8</span>,<span class="st">&quot;RdYlGn&quot;</span>)</span>
-<span id="cb81-3"><a href="mapping-rates-in-r.html#cb81-3"></a>pal3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">brewer.pal</span>(<span class="dv">9</span>,<span class="st">&quot;Greys&quot;</span>), <span class="st">&quot;#FF0000&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="mapping-rates-in-r.html#cb77-1"></a>pal1 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">6</span>,<span class="st">&quot;Greys&quot;</span>)</span>
+<span id="cb77-2"><a href="mapping-rates-in-r.html#cb77-2"></a>pal2 &lt;-<span class="st"> </span><span class="kw">brewer.pal</span>(<span class="dv">8</span>,<span class="st">&quot;RdYlGn&quot;</span>)</span>
+<span id="cb77-3"><a href="mapping-rates-in-r.html#cb77-3"></a>pal3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">brewer.pal</span>(<span class="dv">9</span>,<span class="st">&quot;Greys&quot;</span>), <span class="st">&quot;#FF0000&quot;</span>)</span></code></pre></div>
 <p>The Auckland dataset from the <code>spdep</code> package will be used throughout this exercise. Some of the graphics that follow are R reproductions of Bailey and Gatrell’s book, <em>Interactive Spatial Data Analysis</em> <span class="citation">(Bailey and Gatrell <a href="#ref-BaileyGatrell" role="doc-biblioref">1995</a>)</span>.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="mapping-rates-in-r.html#cb82-1"></a>auckland &lt;-<span class="st"> </span><span class="kw">readShapePoly</span>(<span class="kw">system.file</span>(<span class="st">&quot;shapes/auckland.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spData&quot;</span>)[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="mapping-rates-in-r.html#cb78-1"></a>auckland &lt;-<span class="st"> </span><span class="kw">readShapePoly</span>(<span class="kw">system.file</span>(<span class="st">&quot;shapes/auckland.shp&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spData&quot;</span>)[<span class="dv">1</span>])</span></code></pre></div>
 <p>The Auckland data represents total infant deaths (under the age of five) for Auckland, New Zealand, spanning the years 1977 through 1985 for different census area units. The following block of code maps these counts by area. Both equal interval and quantile classification schemes of the same data are mapped.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="mapping-rates-in-r.html#cb83-1"></a>brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</span>
-<span id="cb83-2"><a href="mapping-rates-in-r.html#cb83-2"></a>brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
-<span id="cb83-3"><a href="mapping-rates-in-r.html#cb83-3"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</span>
-<span id="cb83-4"><a href="mapping-rates-in-r.html#cb83-4"></a>      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span>
-<span id="cb83-5"><a href="mapping-rates-in-r.html#cb83-5"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</span>
-<span id="cb83-6"><a href="mapping-rates-in-r.html#cb83-6"></a>      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span></code></pre></div>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-4-1.png" width="864" /></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="mapping-rates-in-r.html#cb79-1"></a>brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</span>
+<span id="cb79-2"><a href="mapping-rates-in-r.html#cb79-2"></a>brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
+<span id="cb79-3"><a href="mapping-rates-in-r.html#cb79-3"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</span>
+<span id="cb79-4"><a href="mapping-rates-in-r.html#cb79-4"></a>      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span>
+<span id="cb79-5"><a href="mapping-rates-in-r.html#cb79-5"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;M77_85&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</span>
+<span id="cb79-6"><a href="mapping-rates-in-r.html#cb79-6"></a>      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span></code></pre></div>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-5-1.png" width="864" /></p>
 <p>These are examples of <strong>choropleth</strong> maps (<em>choro</em> = area and <em>pleth</em> = value) where some attribute (an enumeration of child deaths in this working example) is aggregated over a defined area (e.g. census area units) and displayed using two different classification schemes.</p>
 <p>Since the area units used to map death counts are not uniform in <em>shape</em> and <em>area</em> across Auckland, there is a tendency to assign more “visual weight” to polygons having larger areas than those having smaller areas. In our example, census units in the southern end of Auckland appear to have an “abnormally” large infant death count. Another <em>perceptual</em> interpretation of the map is one that flags those southern units as being “problematic” or of “great concern”. However, as we shall see in the following sections, this perception may not reflect reality. We therefore seek to produce <strong>perceptually tenable</strong> maps. Dykes and Unwin <span class="citation">(Dykes and Unwin <a href="#ref-DykeUnwin2001" role="doc-biblioref">2001</a>)</span> define a similar concept called <strong>map stability</strong> which seeks to produce maps that convey <em>real effects</em>.</p>
-<div id="app3_1" class="section level2 unnumbered" number="">
+<div id="app3_1" class="section level2 unnumbered">
 <h2>Raw Rates</h2>
 <p>A popular approach for correcting for biased visual weights (due, for instance, to different unit area sizes) is to normalize the count data by <em>area</em> thus giving a <em>count per unit area</em>. Though this may make sense for population count data, it does not make a whole lot sense when applied to mortality counts; we are usually interested in the number of deaths per <em>population</em> count and not in the number of deaths per unit area.</p>
 <p>In the next chunk of code we extract population count under the age of 5 from the Auckland data set and assign this value to the variable <code>pop</code>. Likewise, we extract the under 5 mortality count and assign this value to the variable <code>mor</code>. Bear in mind that the mortality count spans a 9 year period. Since mortality rates are usually presented in rates <em>per year</em>, we need to multiply the population value (which is for the year 1981) by nine. This will be important in the subsequent code when we compute mortality rates.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="mapping-rates-in-r.html#cb84-1"></a>pop &lt;-<span class="st"> </span>auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span></span>
-<span id="cb84-2"><a href="mapping-rates-in-r.html#cb84-2"></a>mor &lt;-<span class="st"> </span>auckland<span class="op">$</span>M77_<span class="dv">85</span></span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="mapping-rates-in-r.html#cb80-1"></a>pop &lt;-<span class="st"> </span>auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span></span>
+<span id="cb80-2"><a href="mapping-rates-in-r.html#cb80-2"></a>mor &lt;-<span class="st"> </span>auckland<span class="op">$</span>M77_<span class="dv">85</span></span></code></pre></div>
 <p>Next, we will compute the raw rates (infant deaths per 1000 individuals per year) and map this rate by census unit area. Both quantile and equal interval classification schemes of the same data are mapped.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="mapping-rates-in-r.html#cb85-1"></a>auckland<span class="op">$</span>raw.rate &lt;-<span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>pop <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb85-2"><a href="mapping-rates-in-r.html#cb85-2"></a>brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</span>
-<span id="cb85-3"><a href="mapping-rates-in-r.html#cb85-3"></a>brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
-<span id="cb85-4"><a href="mapping-rates-in-r.html#cb85-4"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</span>
-<span id="cb85-5"><a href="mapping-rates-in-r.html#cb85-5"></a>      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span>
-<span id="cb85-6"><a href="mapping-rates-in-r.html#cb85-6"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</span>
-<span id="cb85-7"><a href="mapping-rates-in-r.html#cb85-7"></a>      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span></code></pre></div>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-6-1.png" width="864" /></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="mapping-rates-in-r.html#cb81-1"></a>auckland<span class="op">$</span>raw.rate &lt;-<span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>pop <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb81-2"><a href="mapping-rates-in-r.html#cb81-2"></a>brks1 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</span>
+<span id="cb81-3"><a href="mapping-rates-in-r.html#cb81-3"></a>brks2 &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
+<span id="cb81-4"><a href="mapping-rates-in-r.html#cb81-4"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</span>
+<span id="cb81-5"><a href="mapping-rates-in-r.html#cb81-5"></a>      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span>
+<span id="cb81-6"><a href="mapping-rates-in-r.html#cb81-6"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal1)</span>
+<span id="cb81-7"><a href="mapping-rates-in-r.html#cb81-7"></a>      ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span></code></pre></div>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-7-1.png" width="864" /></p>
 <p>Note how our perception of the distribution of infant deaths changes when looking at mapped raw rates vs. counts. A north-south trend in perceived “abnormal” infant deaths is no longer apparent in this map.</p>
 </div>
-<div id="app3_2" class="section level2 unnumbered" number="">
+<div id="app3_2" class="section level2 unnumbered">
 <h2>Standardized mortality ratios (relative risk).</h2>
 <p>Another way to re-express the data is to map the Standardized Mortality Ratios (SMR)-a very popular form of representation in the field of epidemiology. Such maps map the ratios of the number of deaths to an <em>expected</em> death count. There are many ways to define an expected death count, many of which can be externally specified. In the following example, the expected death count <span class="math inline">\(E_i\)</span> is estimated by multiplying the under 5 population count for each area by the overall death rate for Auckland:
 <span class="math display">\[E_i = {n_i}\times{mortality_{Auckland} } \]</span>
 where <span class="math inline">\(n_i\)</span> is the population count within census unit area <span class="math inline">\(i\)</span> and <span class="math inline">\(mortality_{Auckland}\)</span> is the overall death rate computed from <span class="math inline">\(mortality_{Auckland} = \sum_{i=1}^j O_i / \sum_{i=1}^j n_i\)</span> where <span class="math inline">\(O_i\)</span> is the observed death count for census unit <span class="math inline">\(i\)</span>.</p>
 <p>This chunk of code replicates Bailey and Gatrell’s figure 8.1 with the one exception that the color scheme is reversed (Bailey and Gatrell assign lighter hues to higher numbers).</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="mapping-rates-in-r.html#cb86-1"></a>auck.rate &lt;-<span class="st"> </span><span class="kw">sum</span>(mor) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pop)</span>
-<span id="cb86-2"><a href="mapping-rates-in-r.html#cb86-2"></a>mor.exp   &lt;-<span class="st"> </span>pop <span class="op">*</span><span class="st"> </span>auck.rate  <span class="co"># Expected count over a nine year period</span></span>
-<span id="cb86-3"><a href="mapping-rates-in-r.html#cb86-3"></a>auckland<span class="op">$</span>rel.rate &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>mor.exp</span>
-<span id="cb86-4"><a href="mapping-rates-in-r.html#cb86-4"></a>brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>rel.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, </span>
-<span id="cb86-5"><a href="mapping-rates-in-r.html#cb86-5"></a>                     <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">47</span>, <span class="dv">83</span>, <span class="dv">118</span>, <span class="dv">154</span>, <span class="dv">190</span>, <span class="dv">704</span>))</span>
-<span id="cb86-6"><a href="mapping-rates-in-r.html#cb86-6"></a><span class="kw">spplot</span>(auckland, <span class="st">&quot;rel.rate&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</span></code></pre></div>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="mapping-rates-in-r.html#cb82-1"></a>auck.rate &lt;-<span class="st"> </span><span class="kw">sum</span>(mor) <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pop)</span>
+<span id="cb82-2"><a href="mapping-rates-in-r.html#cb82-2"></a>mor.exp   &lt;-<span class="st"> </span>pop <span class="op">*</span><span class="st"> </span>auck.rate  <span class="co"># Expected count over a nine year period</span></span>
+<span id="cb82-3"><a href="mapping-rates-in-r.html#cb82-3"></a>auckland<span class="op">$</span>rel.rate &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>mor <span class="op">/</span><span class="st"> </span>mor.exp</span>
+<span id="cb82-4"><a href="mapping-rates-in-r.html#cb82-4"></a>brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>rel.rate, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, </span>
+<span id="cb82-5"><a href="mapping-rates-in-r.html#cb82-5"></a>                     <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">47</span>, <span class="dv">83</span>, <span class="dv">118</span>, <span class="dv">154</span>, <span class="dv">190</span>, <span class="dv">704</span>))</span>
+<span id="cb82-6"><a href="mapping-rates-in-r.html#cb82-6"></a><span class="kw">spplot</span>(auckland, <span class="st">&quot;rel.rate&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</span></code></pre></div>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
 </div>
-<div id="app3_3" class="section level2 unnumbered" number="">
+<div id="app3_3" class="section level2 unnumbered">
 <h2>Dykes and Unwin’s chi-square statistic</h2>
 <p>Dykes and Unwin <span class="citation">(Dykes and Unwin <a href="#ref-DykeUnwin2001" role="doc-biblioref">2001</a>)</span> propose a similar technique whereby the rates are standardized following:</p>
 <p><span class="math display">\[\frac{O_i - E_i}{\sqrt{E_i}} \]</span></p>
 <p>This has the effect of creating a distribution of values closer to normal (as opposed to a Poisson distribution of rates and counts encountered thus far). We can therefore apply a diverging color scheme where green hues represent less than expected rates and red hues represent greater than expected rates.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="mapping-rates-in-r.html#cb87-1"></a>auckland<span class="op">$</span>chi.squ =<span class="st"> </span>(mor <span class="op">-</span><span class="st"> </span>mor.exp) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(mor.exp)</span>
-<span id="cb87-2"><a href="mapping-rates-in-r.html#cb87-2"></a>brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>chi.squ, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, </span>
-<span id="cb87-3"><a href="mapping-rates-in-r.html#cb87-3"></a>                      <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="op">-</span><span class="dv">3</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
-<span id="cb87-4"><a href="mapping-rates-in-r.html#cb87-4"></a><span class="kw">spplot</span>(auckland, <span class="st">&quot;chi.squ&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span><span class="kw">rev</span>(pal2))</span></code></pre></div>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-8-1.png" width="384" /></p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="mapping-rates-in-r.html#cb83-1"></a>auckland<span class="op">$</span>chi.squ =<span class="st"> </span>(mor <span class="op">-</span><span class="st"> </span>mor.exp) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(mor.exp)</span>
+<span id="cb83-2"><a href="mapping-rates-in-r.html#cb83-2"></a>brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>chi.squ, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;fixed&quot;</span>, </span>
+<span id="cb83-3"><a href="mapping-rates-in-r.html#cb83-3"></a>                      <span class="dt">fixedBreaks =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>,<span class="op">-</span><span class="dv">3</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>))</span>
+<span id="cb83-4"><a href="mapping-rates-in-r.html#cb83-4"></a><span class="kw">spplot</span>(auckland, <span class="st">&quot;chi.squ&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span><span class="kw">rev</span>(pal2))</span></code></pre></div>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-9-1.png" width="384" /></p>
 </div>
-<div id="app3_4" class="section level2 unnumbered" number="">
+<div id="app3_4" class="section level2 unnumbered">
 <h2>Unstable ratios</h2>
 <p>One problem with the various techniques used thus far is their sensitivity (hence instability) to small underlying population counts (i.e. unstable ratios). This next chunk of code maps the under 5 population count by census area unit.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="mapping-rates-in-r.html#cb88-1"></a>brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>Und5_<span class="dv">81</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</span>
-<span id="cb88-2"><a href="mapping-rates-in-r.html#cb88-2"></a><span class="kw">spplot</span>(auckland, <span class="st">&quot;Und5_81&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</span></code></pre></div>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-9-1.png" width="384" /></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="mapping-rates-in-r.html#cb84-1"></a>brks &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>Und5_<span class="dv">81</span>, <span class="dt">n =</span> <span class="dv">6</span>, <span class="dt">style =</span> <span class="st">&quot;equal&quot;</span>)</span>
+<span id="cb84-2"><a href="mapping-rates-in-r.html#cb84-2"></a><span class="kw">spplot</span>(auckland, <span class="st">&quot;Und5_81&quot;</span>, <span class="dt">at =</span> brks<span class="op">$</span>brks,<span class="dt">col.regions=</span>pal1)</span></code></pre></div>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-10-1.png" width="384" /></p>
 <p>Note the variability in population count with some areas encompassing fewer than 50 infants. If there is just one death in that census unit, the death rate would be reported as <span class="math inline">\(1/50 * 1000\)</span> or 20 per thousand infants–far more than then the 2.63 per thousand rate for our Auckland data set. Interestingly, the three highest raw rates in Auckland (14.2450142, 18.5185185, 10.5820106 deaths per 1000) are associated with some of the smallest underlying population counts (39, 6, 21 infants under 5).</p>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-10-1.png" width="480" /></p>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
 <p>One approach to circumventing this issue is to generate a probability map of the data. The next section highlights such an example.</p>
-<div id="app3_4_1" class="section level3 unnumbered" number="">
+<div id="app3_4_1" class="section level3 unnumbered">
 <h3>Global Empirical Bayes (EB) rate estimate</h3>
 <p>The idea behind Bayesian approach is to compare the value in some area <span class="math inline">\(i\)</span> to some <em>a priori</em> estimate of the value and to “stabilize” the values due to unstable ratios (e.g. where area populations are small). The <em>a priori</em> estimate can be based on some global mean. An example of the use on a global EB infant mortality rate map is shown below. The EB map is shown side-by-side with the raw rates map for comparison.</p>
 <p><em>aka Global moment estimator of infant mortality per 1000 per year</em></p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="mapping-rates-in-r.html#cb89-1"></a>EB.est         &lt;-<span class="st"> </span><span class="kw">EBest</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> )</span>
-<span id="cb89-2"><a href="mapping-rates-in-r.html#cb89-2"></a>auckland<span class="op">$</span>EBest &lt;-<span class="st"> </span>EB.est<span class="op">$</span>estmm <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb89-3"><a href="mapping-rates-in-r.html#cb89-3"></a>brks1          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
-<span id="cb89-4"><a href="mapping-rates-in-r.html#cb89-4"></a>brks2          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
-<span id="cb89-5"><a href="mapping-rates-in-r.html#cb89-5"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </span>
-<span id="cb89-6"><a href="mapping-rates-in-r.html#cb89-6"></a>             <span class="dt">main=</span><span class="st">&quot;EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span>
-<span id="cb89-7"><a href="mapping-rates-in-r.html#cb89-7"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </span>
-<span id="cb89-8"><a href="mapping-rates-in-r.html#cb89-8"></a>             <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span></code></pre></div>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-11-1.png" width="864" /></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="mapping-rates-in-r.html#cb85-1"></a>EB.est         &lt;-<span class="st"> </span><span class="kw">EBest</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, auckland<span class="op">$</span>Und5_<span class="dv">81</span> <span class="op">*</span><span class="st"> </span><span class="dv">9</span> )</span>
+<span id="cb85-2"><a href="mapping-rates-in-r.html#cb85-2"></a>auckland<span class="op">$</span>EBest &lt;-<span class="st"> </span>EB.est<span class="op">$</span>estmm <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb85-3"><a href="mapping-rates-in-r.html#cb85-3"></a>brks1          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
+<span id="cb85-4"><a href="mapping-rates-in-r.html#cb85-4"></a>brks2          &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
+<span id="cb85-5"><a href="mapping-rates-in-r.html#cb85-5"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </span>
+<span id="cb85-6"><a href="mapping-rates-in-r.html#cb85-6"></a>             <span class="dt">main=</span><span class="st">&quot;EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span>
+<span id="cb85-7"><a href="mapping-rates-in-r.html#cb85-7"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </span>
+<span id="cb85-8"><a href="mapping-rates-in-r.html#cb85-8"></a>             <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span></code></pre></div>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-12-1.png" width="864" /></p>
 <p>The census units with the top 10% rates are highlighted in red.</p>
 <p>Unstable rates (i.e. those associated with smaller population counts) are assigned lower weights to reduce their “prominence” in the mapped data. Notice how the three high raw rates highlighted in the last section are reduced from 14.2450142, 18.5185185, 10.5820106 <em>counts per thousand</em> to 3.6610133, 2.8672132, 3.0283279 <em>counts per thousand</em>. The “remapping” of these values along with others can be shown on the following plot:</p>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-12-1.png" width="480" /></p>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-13-1.png" width="480" /></p>
 </div>
-<div id="app3_4_2" class="section level3 unnumbered" number="">
+<div id="app3_4_2" class="section level3 unnumbered">
 <h3>Local Empirical Bayes (EB) rate estimate</h3>
 <p>The <em>a priori</em> mean and variance need not be aspatial (i.e. the <em>prior</em> distribution being the same for the entire Auckland study area). The adjusted estimated rates can be shrunk towards a <em>local</em> mean instead. Such technique is referred to as <em>local</em> empirical Bayes rate estimates. In the following example, we define <em>local</em> as consisting of all first order adjacent census unit areas.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="mapping-rates-in-r.html#cb90-1"></a>nb      &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(auckland) </span>
-<span id="cb90-2"><a href="mapping-rates-in-r.html#cb90-2"></a>EBL.est &lt;-<span class="st"> </span><span class="kw">EBlocal</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dv">9</span><span class="op">*</span>auckland<span class="op">$</span>Und5_<span class="dv">81</span>, nb)</span>
-<span id="cb90-3"><a href="mapping-rates-in-r.html#cb90-3"></a>auckland<span class="op">$</span>EBLest &lt;-<span class="st"> </span>EBL.est<span class="op">$</span>est <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb90-4"><a href="mapping-rates-in-r.html#cb90-4"></a>brks1           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBLest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
-<span id="cb90-5"><a href="mapping-rates-in-r.html#cb90-5"></a>brks2           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
-<span id="cb90-6"><a href="mapping-rates-in-r.html#cb90-6"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBLest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </span>
-<span id="cb90-7"><a href="mapping-rates-in-r.html#cb90-7"></a>             <span class="dt">main=</span><span class="st">&quot;Local EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span>
-<span id="cb90-8"><a href="mapping-rates-in-r.html#cb90-8"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </span>
-<span id="cb90-9"><a href="mapping-rates-in-r.html#cb90-9"></a>             <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span></code></pre></div>
-<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-13-1.png" width="864" /></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="mapping-rates-in-r.html#cb86-1"></a>nb      &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(auckland) </span>
+<span id="cb86-2"><a href="mapping-rates-in-r.html#cb86-2"></a>EBL.est &lt;-<span class="st"> </span><span class="kw">EBlocal</span>(auckland<span class="op">$</span>M77_<span class="dv">85</span>, <span class="dv">9</span><span class="op">*</span>auckland<span class="op">$</span>Und5_<span class="dv">81</span>, nb)</span>
+<span id="cb86-3"><a href="mapping-rates-in-r.html#cb86-3"></a>auckland<span class="op">$</span>EBLest &lt;-<span class="st"> </span>EBL.est<span class="op">$</span>est <span class="op">*</span><span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb86-4"><a href="mapping-rates-in-r.html#cb86-4"></a>brks1           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>EBLest, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
+<span id="cb86-5"><a href="mapping-rates-in-r.html#cb86-5"></a>brks2           &lt;-<span class="st"> </span><span class="kw">classIntervals</span>(auckland<span class="op">$</span>raw.rate, <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
+<span id="cb86-6"><a href="mapping-rates-in-r.html#cb86-6"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;EBLest&quot;</span>, <span class="dt">at =</span> brks1<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </span>
+<span id="cb86-7"><a href="mapping-rates-in-r.html#cb86-7"></a>             <span class="dt">main=</span><span class="st">&quot;Local EB rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span>
+<span id="cb86-8"><a href="mapping-rates-in-r.html#cb86-8"></a><span class="kw">print</span>(<span class="kw">spplot</span>(auckland, <span class="st">&quot;raw.rate&quot;</span>, <span class="dt">at =</span> brks2<span class="op">$</span>brks, <span class="dt">col.regions =</span> pal3, </span>
+<span id="cb86-9"><a href="mapping-rates-in-r.html#cb86-9"></a>             <span class="dt">main=</span><span class="st">&quot;Raw Rates&quot;</span>) ,<span class="dt">position=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dt">more=</span>T)</span></code></pre></div>
+<p><img src="A03-Mapping-rates_files/figure-html/unnamed-chunk-14-1.png" width="864" /></p>
 <p>The census units with the top 10% rates are highlighted in red.</p>
 
 </div>

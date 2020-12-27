@@ -9,3 +9,4 @@ spatstat
 maptools
 raster
 gstat
+dplyr

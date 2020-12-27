@@ -1,5 +1,111 @@
 # Spatial autocorrelation in R {-}
 
+
+<table class="package_ver_table">
+<tbody>
+  <tr>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> R </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> tmap </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> spdep </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sf </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> spData </td>
+   <td style="text-align:left;color: black !important;background-color: #ffc178 !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> sp </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 4.0.1 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 3.2 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.1.5 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 0.9.6 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 0.3.8 </td>
+   <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
+              margin:5px; 
+              border-radius: 8px;
+              border: 2px solid white;
+              padding-top: 1px;
+              padding-bottom: 1px;
+              padding-left: 4px;
+              padding-right: 4px;"> 1.4.4 </td>
+  </tr>
+</tbody>
+</table>
+
 For a basic theoretical treatise on spatial autocorrelation the reader is encouraged to review the [lecture notes](./spatial-autocorrelation.html). This section is intended to supplement the lecture notes by implementing spatial autocorrelation techniques in the R programming environment.
 
 ## Sample files for this exercise {-#app8_1}
@@ -13,13 +119,13 @@ load(url("http://github.com/mgimond/Spatial/raw/master/Data/moransI.RData"))
 
 The data object consists of a `SpatialPolygonsDataFrame` vector layer, `s1`, representing income and education data aggregated at the county level for the state of Maine.
 
-The `spdep` package used in this exercise makes use of `sp` objects including `SpatialPoints*` and `SpatialPolygons*` classes. For more information on converting to/from this format revert back to the [Reading and writing spatial data in R](./reading-and-writing-spatial-data-in-r.html) Appendix section.
+The `spdep` [@spdep] package used in this exercise makes use of `sp` objects including `SpatialPoints*` and `SpatialPolygons*` classes. For more information on converting to/from this format revert back to the [Reading and writing spatial data in R](./reading-and-writing-spatial-data-in-r.html) Appendix section.
 
 ## Introduction {-#app8_2}
 
 The spatial object `s1` has five attributes. The one of interest for this exercise is `Income` (per capita, in units of dollars).
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-2-1.png" width="500" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="500" />
 
 
 Let's map the income distribution using a quantile classification scheme. We'll make use of the `tmap` package.
@@ -31,7 +137,7 @@ tm_shape(s1) + tm_polygons(style="quantile", col = "Income") +
   tm_legend(outside = TRUE, text.size = .8) 
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 ## Define neighboring polygons {-#app8_3}
 
@@ -110,7 +216,7 @@ Inc.lag <- lag.listw(lw, s1$Income)
 
 The following table shows the average neighboring income values (stored in the `Inc.lag` object) for each county.
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-11-1.png" width="500" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="500" />
 
 ## Computing the Moran's I statistic: the hard way {-#app8_4}
 
@@ -125,7 +231,7 @@ M <- lm(Inc.lag ~ s1$Income)
 plot( Inc.lag ~ s1$Income, pch=20, asp=1, las=1)
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="288" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-13-1.png" width="288" />
 
 The slope of the regression line is the Moran's I coefficient.
 
@@ -165,7 +271,7 @@ hist(I.r, main=NULL, xlab="Moran's I", las=1)
 abline(v=coef(M)[2], col="red")
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-15-1.png" width="288" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-16-1.png" width="288" />
 
 The simulation suggests that our observed Moran's I value is not consistent with a Moran's I value one would expect to get if the income values were not spatially autocorrelated. In the next step, we'll compute a pseudo p-value from this simulation.
 
@@ -187,10 +293,10 @@ p
 ```
 
 ```
-[1] 0.02166667
+[1] 0.01833333
 ```
 
-In our working example, the p-value suggests that there is a small chance (0.022%) of being wrong in stating that the income values are not clustered at the county level.
+In our working example, the p-value suggests that there is a small chance (0.018%) of being wrong in stating that the income values are not clustered at the county level.
 
 ## Computing the Moran's I statistic: the easy way {-#app8_5}
 
@@ -233,7 +339,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.28281, observed rank = 592, p-value = 0.01333
+statistic = 0.28281, observed rank = 579, p-value = 0.035
 alternative hypothesis: greater
 ```
 
@@ -242,7 +348,7 @@ alternative hypothesis: greater
 plot(MC, main="", las=1)
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-19-1.png" width="288" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-20-1.png" width="288" />
 
 ## Moran's I as a function of a distance band {-#app8_6}
 
@@ -290,7 +396,7 @@ Plot the results.
 plot(MI, main="", las=1) 
 ```
 
-<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-24-1.png" width="288" />
+<img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-25-1.png" width="288" />
 
 Display p-value and other summary statistics.
 
@@ -307,7 +413,7 @@ data:  s1$Income
 weights: lw  
 number of simulations + 1: 600 
 
-statistic = 0.31361, observed rank = 594, p-value = 0.01
+statistic = 0.31361, observed rank = 595, p-value = 0.008333
 alternative hypothesis: greater
 ```
 
