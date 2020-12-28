@@ -43,7 +43,7 @@ my_tbl <- tibble::tribble(
   ~`Data format`, ~`Used with...`, ~`Used in package...`,  ~`Used for...`, ~Comment,
   "\`sf\`", "vector",  "\`sf\`, others", "visualizing, manipulating, querying", "This is likely to become the new spatial standard in R. Will also read from spatially enabled databases such as postgresSQL.",
    "\`raster\`",  "raster", "\`raster\`, others", "visualizing, manipulating, spatial statistics", "This is the most versatile raster format",
-   "\`SpatialPoints*\` \n \`SpatialPolygons*\` \n \`SpatialLines*\` \n \`SpatialGrid*\`\n",  "vector and raster",  "\`sp\`, \`spdep\`",  "Visualizing, spatial statistics", "May be superseded by `sf` in the future",
+   "\`SpatialPoints*\` \n \`SpatialPolygons*\` \n \`SpatialLines*\` \n \`SpatialGrid*\`\n",  "vector and raster",  "\`sp\`, \`spdep\`",  "Visualizing, spatial statistics", "These are legacy formats. \`spdep\` now accepts  `sf` objects",
     "\`ppp\` \`owin\`",   "vector",   "\`spatstat\`", "Point pattern analysis/statistics", NA,
      "\`im\`",   "raster",   "\`spatstat\`", "Point pattern analysis/statistics", NA
   )
@@ -179,7 +179,7 @@ Packages such as `spdep` and `spatsat` currently do not support `sf` objects. Th
 
 ### Converting an `sf` object to a `Spatial*` object (`spdep`/`sp`) {-#app1_5_1}
 
-The following code will convert point, polyline or polygon features to a `spatial*` object. In this example, an `sf` polygon feature is converted to a `SpatialPolygonsDataFrame` object.
+The following code will convert point, polyline or polygon features to a `spatial*` object. While the current version of `spdep` will now accept `sf` objects, converting to `spatial*` objects will be necessary with legacy `spdep` packages. In this example, an `sf` polygon feature is converted to a `SpatialPolygonsDataFrame` object.
 
 ```{r}
 s.sp <- as(s.sf, "Spatial")
@@ -251,13 +251,28 @@ The first line of output gives us the geometry type, `MULTIPOLYGON`,  a multi-po
 
 The next few lines of output give us the layer's bounding extent in the layer's native coordinate system units. You can extract the extent via the `extent()` function as in `extent(s.sf)`.
 
-The next lines indicate the coordinate system used to define the polygon feature locations. It's offered in two formats: **epsg** code (when available) and **PROJ4** string format. You can extract the coordinate system information from an `sf` object via:
+The following code chunk can be used to extract addition coordinate information from the data. 
 
-```{r}
+```{r eval = FALSE}
 st_crs(s.sf)
 ```
 
-The output of this call is an object of class `crs`. Extracting the reference system from a spatial object can prove useful in certain workflows.
+Depending on the version of the `proj4` package used by `sf`, you can get two different outputs. If your version of `sf` is built with a version of `proj4` older than `6.0`, the output will consist of an **epsg** code (when available) and a **PROJ4** string as follows:
+
+```{r eval = FALSE}
+Coordinate Reference System:
+  EPSG: 26919 
+  proj4string: "+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs"
+```
+
+
+If your version of `sf` is built with a version of `proj4` `6.0` or greater, the output will consist of a user defined CS definition (e.g. an **epsg** code), if  available, and a *Well Known Text* (WKT) formatted coordinate definition that consists of a series of `[ ]` tags as follows:
+
+```{r echo = FALSE}
+st_crs(s.sf)
+```
+
+The WKT format will usually start with a `PROJCRS[...]` tag for a projected coordinate system, or a `GEOGCRS[...]` tag for a geographic coordinate system. More information on coordinate systems in R can be found in  [the appendix](https://mgimond.github.io/Spatial/A06-Coordinate-Systems.html).
 
 What remains of the `sf` summary output is the first few records of the attribute table. You can extract the object's table to a dedicated data frame via:
 

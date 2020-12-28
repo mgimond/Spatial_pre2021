@@ -550,29 +550,29 @@ tmap
 </tbody>
 </table>
 <p>We’ll first load spatial objects used in this exercise from a remote website: a polygon object that delineates Maine counties; another polygon object that delineates distances to Augusta (Maine) as concentric circles; and a line object that shows the highway system that runs through Maine. These data are already stored as R data objects thus eliminating the need for any data conversion.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="vector-operations-in-r.html#cb87-1"></a>z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/Income_schooling.rds&quot;</span>))</span>
-<span id="cb87-2"><a href="vector-operations-in-r.html#cb87-2"></a>s1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</span>
-<span id="cb87-3"><a href="vector-operations-in-r.html#cb87-3"></a></span>
-<span id="cb87-4"><a href="vector-operations-in-r.html#cb87-4"></a>z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/dist.rds&quot;</span>))</span>
-<span id="cb87-5"><a href="vector-operations-in-r.html#cb87-5"></a>s2 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</span>
-<span id="cb87-6"><a href="vector-operations-in-r.html#cb87-6"></a></span>
-<span id="cb87-7"><a href="vector-operations-in-r.html#cb87-7"></a>z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/highway.rds&quot;</span>))</span>
-<span id="cb87-8"><a href="vector-operations-in-r.html#cb87-8"></a>l1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="vector-operations-in-r.html#cb88-1"></a>z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/Income_schooling.rds&quot;</span>))</span>
+<span id="cb88-2"><a href="vector-operations-in-r.html#cb88-2"></a>s1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</span>
+<span id="cb88-3"><a href="vector-operations-in-r.html#cb88-3"></a></span>
+<span id="cb88-4"><a href="vector-operations-in-r.html#cb88-4"></a>z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/dist.rds&quot;</span>))</span>
+<span id="cb88-5"><a href="vector-operations-in-r.html#cb88-5"></a>s2 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</span>
+<span id="cb88-6"><a href="vector-operations-in-r.html#cb88-6"></a></span>
+<span id="cb88-7"><a href="vector-operations-in-r.html#cb88-7"></a>z &lt;-<span class="st"> </span><span class="kw">gzcon</span>(<span class="kw">url</span>(<span class="st">&quot;http://colby.edu/~mgimond/Spatial/Data/highway.rds&quot;</span>))</span>
+<span id="cb88-8"><a href="vector-operations-in-r.html#cb88-8"></a>l1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(z)</span></code></pre></div>
 <p>A map of the above layers is shown below.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="vector-operations-in-r.html#cb88-1"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb88-2"><a href="vector-operations-in-r.html#cb88-2"></a></span>
-<span id="cb88-3"><a href="vector-operations-in-r.html#cb88-3"></a><span class="co"># Get min/max bounding box for both polygon shapes</span></span>
-<span id="cb88-4"><a href="vector-operations-in-r.html#cb88-4"></a><span class="kw">library</span>(sp)</span>
-<span id="cb88-5"><a href="vector-operations-in-r.html#cb88-5"></a>b1 &lt;-<span class="st"> </span><span class="kw">bbox</span>(s1)</span>
-<span id="cb88-6"><a href="vector-operations-in-r.html#cb88-6"></a>b2 &lt;-<span class="st"> </span><span class="kw">bbox</span>(s2)</span>
-<span id="cb88-7"><a href="vector-operations-in-r.html#cb88-7"></a>b3 &lt;-<span class="st"> </span><span class="kw">pmax</span>(b1,b2)</span>
-<span id="cb88-8"><a href="vector-operations-in-r.html#cb88-8"></a>b3[,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">pmin</span>(b1[,<span class="dv">1</span>],b2[,<span class="dv">1</span>])</span>
-<span id="cb88-9"><a href="vector-operations-in-r.html#cb88-9"></a></span>
-<span id="cb88-10"><a href="vector-operations-in-r.html#cb88-10"></a><span class="co"># Plot all three features (note the bbox=b3 parameter that ensures that  </span></span>
-<span id="cb88-11"><a href="vector-operations-in-r.html#cb88-11"></a><span class="co"># the map extent encompasses all polygon extents)</span></span>
-<span id="cb88-12"><a href="vector-operations-in-r.html#cb88-12"></a><span class="kw">tm_shape</span>(s1, <span class="dt">bbox =</span> b3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
-<span id="cb88-13"><a href="vector-operations-in-r.html#cb88-13"></a><span class="st">  </span><span class="kw">tm_shape</span>(s2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb88-14"><a href="vector-operations-in-r.html#cb88-14"></a><span class="st">  </span><span class="kw">tm_shape</span>(l1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;yellow&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="vector-operations-in-r.html#cb89-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb89-2"><a href="vector-operations-in-r.html#cb89-2"></a></span>
+<span id="cb89-3"><a href="vector-operations-in-r.html#cb89-3"></a><span class="co"># Get min/max bounding box for both polygon shapes</span></span>
+<span id="cb89-4"><a href="vector-operations-in-r.html#cb89-4"></a><span class="kw">library</span>(sp)</span>
+<span id="cb89-5"><a href="vector-operations-in-r.html#cb89-5"></a>b1 &lt;-<span class="st"> </span><span class="kw">bbox</span>(s1)</span>
+<span id="cb89-6"><a href="vector-operations-in-r.html#cb89-6"></a>b2 &lt;-<span class="st"> </span><span class="kw">bbox</span>(s2)</span>
+<span id="cb89-7"><a href="vector-operations-in-r.html#cb89-7"></a>b3 &lt;-<span class="st"> </span><span class="kw">pmax</span>(b1,b2)</span>
+<span id="cb89-8"><a href="vector-operations-in-r.html#cb89-8"></a>b3[,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">pmin</span>(b1[,<span class="dv">1</span>],b2[,<span class="dv">1</span>])</span>
+<span id="cb89-9"><a href="vector-operations-in-r.html#cb89-9"></a></span>
+<span id="cb89-10"><a href="vector-operations-in-r.html#cb89-10"></a><span class="co"># Plot all three features (note the bbox=b3 parameter that ensures that  </span></span>
+<span id="cb89-11"><a href="vector-operations-in-r.html#cb89-11"></a><span class="co"># the map extent encompasses all polygon extents)</span></span>
+<span id="cb89-12"><a href="vector-operations-in-r.html#cb89-12"></a><span class="kw">tm_shape</span>(s1, <span class="dt">bbox =</span> b3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb89-13"><a href="vector-operations-in-r.html#cb89-13"></a><span class="st">  </span><span class="kw">tm_shape</span>(s2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">alpha =</span> <span class="fl">0.2</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb89-14"><a href="vector-operations-in-r.html#cb89-14"></a><span class="st">  </span><span class="kw">tm_shape</span>(l1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;yellow&quot;</span>)</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-3-1.png" width="450" /></p>
 <p>The attributes table for both polygon objects are shown next. Note that each shape object has a unique set of attributes as well as a unique number of records</p>
 <div class="figure"><span id="fig:unnamed-chunk-4"></span>
@@ -584,30 +584,30 @@ Figure 2.5: Attribute tables for the Maine spatial object, <code>s1</code>, (lef
 <div id="app4_1" class="section level2 unnumbered">
 <h2>Dissolve by contiguous shape</h2>
 <p>To dissolve all polygons that share at least one line segment, simply pass the object name to <code>raster</code>’s <code>aggregate</code> function. In this example, we dissolve all polygons to create a single outline of the state of Maine.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="vector-operations-in-r.html#cb89-1"></a><span class="kw">library</span>(raster)</span>
-<span id="cb89-2"><a href="vector-operations-in-r.html#cb89-2"></a>ME &lt;-<span class="st"> </span><span class="kw">aggregate</span>(s1)</span>
-<span id="cb89-3"><a href="vector-operations-in-r.html#cb89-3"></a><span class="kw">qtm</span>(ME)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="vector-operations-in-r.html#cb90-1"></a><span class="kw">library</span>(raster)</span>
+<span id="cb90-2"><a href="vector-operations-in-r.html#cb90-2"></a>ME &lt;-<span class="st"> </span><span class="kw">aggregate</span>(s1)</span>
+<span id="cb90-3"><a href="vector-operations-in-r.html#cb90-3"></a><span class="kw">qtm</span>(ME)</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-5-1.png" width="400" /></p>
 </div>
 <div id="app4_2" class="section level2 unnumbered">
 <h2>Dissolve by attribute</h2>
 <p>First, we’ll create a new column whose value is binary (TRUE/FALSE) depending on whether or not the county income is below the counties’ median income value.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="vector-operations-in-r.html#cb90-1"></a>s1<span class="op">$</span>med &lt;-<span class="st"> </span>s1<span class="op">$</span>Income <span class="op">&gt;</span><span class="st"> </span><span class="kw">median</span>(s1<span class="op">$</span>Income)</span>
-<span id="cb90-2"><a href="vector-operations-in-r.html#cb90-2"></a><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;med&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="vector-operations-in-r.html#cb91-1"></a>s1<span class="op">$</span>med &lt;-<span class="st"> </span>s1<span class="op">$</span>Income <span class="op">&gt;</span><span class="st"> </span><span class="kw">median</span>(s1<span class="op">$</span>Income)</span>
+<span id="cb91-2"><a href="vector-operations-in-r.html#cb91-2"></a><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;med&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>(<span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-6-1.png" width="400" /></p>
 <p>Next, we’ll dissolve all polygons by the <code>med</code> value. Any polygons sharing at least one line segment having the same <code>med</code> value will be dissolved into a single polygon.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="vector-operations-in-r.html#cb91-1"></a>ME.inc &lt;-<span class="st"> </span><span class="kw">aggregate</span>(s1, <span class="dt">by=</span> <span class="st">&quot;med&quot;</span>)</span>
-<span id="cb91-2"><a href="vector-operations-in-r.html#cb91-2"></a><span class="kw">tm_shape</span>(ME.inc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;med&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="vector-operations-in-r.html#cb92-1"></a>ME.inc &lt;-<span class="st"> </span><span class="kw">aggregate</span>(s1, <span class="dt">by=</span> <span class="st">&quot;med&quot;</span>)</span>
+<span id="cb92-2"><a href="vector-operations-in-r.html#cb92-2"></a><span class="kw">tm_shape</span>(ME.inc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;med&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-7-1.png" width="450" /></p>
 <p>The aggregation function will, by default, elliminate all other attribute values. If you wish to summarize other attribute values along with the attribute used for aggregation use <code>dplyr</code>’s piping operation. For example, to compute the median <code>Income</code> value for each of the below/above median income groups type the following:</p>
 <p>To summarize education by below/above median income</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="vector-operations-in-r.html#cb92-1"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb92-2"><a href="vector-operations-in-r.html#cb92-2"></a>ME.inc<span class="op">$</span>Income &lt;-<span class="st"> </span>s1<span class="op">@</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(med) <span class="op">%&gt;%</span></span>
-<span id="cb92-3"><a href="vector-operations-in-r.html#cb92-3"></a><span class="st">                          </span><span class="kw">summarize</span>(<span class="dt">medinc =</span> <span class="kw">median</span>(Income)) <span class="op">%&gt;%</span><span class="st"> </span>.<span class="op">$</span>medinc</span>
-<span id="cb92-4"><a href="vector-operations-in-r.html#cb92-4"></a><span class="kw">tm_shape</span>(ME.inc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="vector-operations-in-r.html#cb93-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb93-2"><a href="vector-operations-in-r.html#cb93-2"></a>ME.inc<span class="op">$</span>Income &lt;-<span class="st"> </span>s1<span class="op">@</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(med) <span class="op">%&gt;%</span></span>
+<span id="cb93-3"><a href="vector-operations-in-r.html#cb93-3"></a><span class="st">                          </span><span class="kw">summarize</span>(<span class="dt">medinc =</span> <span class="kw">median</span>(Income)) <span class="op">%&gt;%</span><span class="st"> </span>.<span class="op">$</span>medinc</span>
+<span id="cb93-4"><a href="vector-operations-in-r.html#cb93-4"></a><span class="kw">tm_shape</span>(ME.inc) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-9-1.png" width="450" /></p>
 <p>To view the attributes table with both the aggregate variable, <code>med</code>, and the median income variable, <code>Income</code>, type:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="vector-operations-in-r.html#cb93-1"></a>ME.inc<span class="op">@</span>data</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="vector-operations-in-r.html#cb94-1"></a>ME.inc<span class="op">@</span>data</span></code></pre></div>
 <pre><code>    med Income
 1 FALSE  21518
 2  TRUE  27955</code></pre>
@@ -615,10 +615,10 @@ Figure 2.5: Attribute tables for the Maine spatial object, <code>s1</code>, (lef
 <div id="app4_3" class="section level2 unnumbered">
 <h2>Calculate area</h2>
 <p>To calculate a polygon’s area, you can use <code>rgeos</code>’s <code>gArea</code> function. For example, to compute the area in km<sup>2</sup>, type the following:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="vector-operations-in-r.html#cb95-1"></a><span class="kw">library</span>(rgeos)</span>
-<span id="cb95-2"><a href="vector-operations-in-r.html#cb95-2"></a>ME.inc<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw">gArea</span>(ME.inc, <span class="dt">byid=</span><span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span></span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="vector-operations-in-r.html#cb96-1"></a><span class="kw">library</span>(rgeos)</span>
+<span id="cb96-2"><a href="vector-operations-in-r.html#cb96-2"></a>ME.inc<span class="op">$</span>Area &lt;-<span class="st"> </span><span class="kw">gArea</span>(ME.inc, <span class="dt">byid=</span><span class="ot">TRUE</span>) <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span></span></code></pre></div>
 <p>The <code>gArea</code> function computes the area in map units which happens to be in meters in our example. To convert the area from m<sup>2</sup> to km<sup>2</sup>, we simply divide by <code>1,000,000</code> in the above chunk of code. This produces the following attributes table.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="vector-operations-in-r.html#cb96-1"></a>ME.inc<span class="op">@</span>data</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="vector-operations-in-r.html#cb97-1"></a>ME.inc<span class="op">@</span>data</span></code></pre></div>
 <pre><code>    med Income     Area
 1 FALSE  21518 67743.58
 2  TRUE  27955 15503.19</code></pre>
@@ -626,20 +626,20 @@ Figure 2.5: Attribute tables for the Maine spatial object, <code>s1</code>, (lef
 <div id="app4_4" class="section level2 unnumbered">
 <h2>Subsetting</h2>
 <p>You can use conventional R dataframe manipulation operations to subset by attribute values. For example, to subset by county name (e.g. <code>Kennebec</code> county), type:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="vector-operations-in-r.html#cb98-1"></a>ME.ken &lt;-<span class="st"> </span>s1[s1<span class="op">$</span>NAME <span class="op">==</span><span class="st"> &quot;Kennebec&quot;</span>,]</span>
-<span id="cb98-2"><a href="vector-operations-in-r.html#cb98-2"></a><span class="kw">qtm</span>(ME.ken)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="vector-operations-in-r.html#cb99-1"></a>ME.ken &lt;-<span class="st"> </span>s1[s1<span class="op">$</span>NAME <span class="op">==</span><span class="st"> &quot;Kennebec&quot;</span>,]</span>
+<span id="cb99-2"><a href="vector-operations-in-r.html#cb99-2"></a><span class="kw">qtm</span>(ME.ken)</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-14-1.png" width="400" /></p>
 <p>To subset by a range of attribute values (e.g. subset by income values that are less than the median value), type:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="vector-operations-in-r.html#cb99-1"></a>ME.inc2 &lt;-<span class="st"> </span>s1[s1<span class="op">$</span>Income <span class="op">&lt;</span><span class="st"> </span><span class="kw">median</span>(s1<span class="op">$</span>Income), ]</span>
-<span id="cb99-2"><a href="vector-operations-in-r.html#cb99-2"></a><span class="kw">qtm</span>(ME.inc2)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="vector-operations-in-r.html#cb100-1"></a>ME.inc2 &lt;-<span class="st"> </span>s1[s1<span class="op">$</span>Income <span class="op">&lt;</span><span class="st"> </span><span class="kw">median</span>(s1<span class="op">$</span>Income), ]</span>
+<span id="cb100-2"><a href="vector-operations-in-r.html#cb100-2"></a><span class="kw">qtm</span>(ME.inc2)</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-15-1.png" width="400" /></p>
 </div>
 <div id="app4_5" class="section level2 unnumbered">
 <h2>Intersecting</h2>
 <p>To intersect two polygon objects, you can use <code>raster</code>’s <code>intersect</code> function.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="vector-operations-in-r.html#cb100-1"></a><span class="kw">library</span>(raster)</span>
-<span id="cb100-2"><a href="vector-operations-in-r.html#cb100-2"></a>clp1 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,s2)</span>
-<span id="cb100-3"><a href="vector-operations-in-r.html#cb100-3"></a><span class="kw">tm_shape</span>(clp1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="vector-operations-in-r.html#cb101-1"></a><span class="kw">library</span>(raster)</span>
+<span id="cb101-2"><a href="vector-operations-in-r.html#cb101-2"></a>clp1 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,s2)</span>
+<span id="cb101-3"><a href="vector-operations-in-r.html#cb101-3"></a><span class="kw">tm_shape</span>(clp1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>()</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-16-1.png" width="400" /></p>
 <p><code>intersect</code> keeps all features that overlap along with their combined attributes. Note that new polygons are created which can increase the size of the attributes table beyond the size of the combined input attributes table.</p>
 <p><img src="A04-Vector-Operations_files/figure-html/tblgrb2-1.png" width="500" /></p>
@@ -647,16 +647,16 @@ Figure 2.5: Attribute tables for the Maine spatial object, <code>s1</code>, (lef
 <h3>Intersecting polygons with line and point objects</h3>
 <p>This method will also intersect line and point objects with a polygon object, but the output will be either a line/point or a polygon depending on the order in which the objects are passed to <code>intersect</code>. If the line object is passed first, the output will be a line object that falls within the polygons of the input polygon object. If the polygon object is passed first, then all polygons that have a line segment within their boundaries will be returned. For example:</p>
 <p>To output all counties having at least one segment of the line feature running through them, type:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="vector-operations-in-r.html#cb101-1"></a><span class="kw">library</span>(raster)</span>
-<span id="cb101-2"><a href="vector-operations-in-r.html#cb101-2"></a>clp2 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,l1)</span>
-<span id="cb101-3"><a href="vector-operations-in-r.html#cb101-3"></a><span class="kw">tm_shape</span>(clp2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb101-4"><a href="vector-operations-in-r.html#cb101-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(l1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="vector-operations-in-r.html#cb102-1"></a><span class="kw">library</span>(raster)</span>
+<span id="cb102-2"><a href="vector-operations-in-r.html#cb102-2"></a>clp2 &lt;-<span class="st"> </span><span class="kw">intersect</span>(s1,l1)</span>
+<span id="cb102-3"><a href="vector-operations-in-r.html#cb102-3"></a><span class="kw">tm_shape</span>(clp2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb102-4"><a href="vector-operations-in-r.html#cb102-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(l1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-17-1.png" width="450" /></p>
 <p>To output all line segments that fall within the concentric distance circles of <code>s2</code>, type:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="vector-operations-in-r.html#cb102-1"></a><span class="kw">library</span>(raster)</span>
-<span id="cb102-2"><a href="vector-operations-in-r.html#cb102-2"></a>clp3 &lt;-<span class="st"> </span><span class="kw">intersect</span>(l1,s2)</span>
-<span id="cb102-3"><a href="vector-operations-in-r.html#cb102-3"></a><span class="kw">tm_shape</span>(s2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb102-4"><a href="vector-operations-in-r.html#cb102-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(clp3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="vector-operations-in-r.html#cb103-1"></a><span class="kw">library</span>(raster)</span>
+<span id="cb103-2"><a href="vector-operations-in-r.html#cb103-2"></a>clp3 &lt;-<span class="st"> </span><span class="kw">intersect</span>(l1,s2)</span>
+<span id="cb103-3"><a href="vector-operations-in-r.html#cb103-3"></a><span class="kw">tm_shape</span>(s2) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="kw">tm_borders</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb103-4"><a href="vector-operations-in-r.html#cb103-4"></a><span class="st">  </span><span class="kw">tm_shape</span>(clp3) <span class="op">+</span><span class="st"> </span><span class="kw">tm_lines</span>(<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-18-1.png" width="450" /></p>
 <p>In both cases, the output shape objects inherit both the original attribute values as well as the attributes from the intersecting object.</p>
 </div>
@@ -664,9 +664,9 @@ Figure 2.5: Attribute tables for the Maine spatial object, <code>s1</code>, (lef
 <div id="app4_6" class="section level2 unnumbered">
 <h2>Unioning</h2>
 <p>To union two polygon objects, use <code>raster</code>’s <code>union</code> function. For example,</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="vector-operations-in-r.html#cb103-1"></a><span class="kw">library</span>(raster)</span>
-<span id="cb103-2"><a href="vector-operations-in-r.html#cb103-2"></a>un1  &lt;-<span class="st"> </span><span class="kw">union</span>(s1,s2)</span>
-<span id="cb103-3"><a href="vector-operations-in-r.html#cb103-3"></a><span class="kw">tm_shape</span>(un1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="vector-operations-in-r.html#cb104-1"></a><span class="kw">library</span>(raster)</span>
+<span id="cb104-2"><a href="vector-operations-in-r.html#cb104-2"></a>un1  &lt;-<span class="st"> </span><span class="kw">union</span>(s1,s2)</span>
+<span id="cb104-3"><a href="vector-operations-in-r.html#cb104-3"></a><span class="kw">tm_shape</span>(un1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_fill</span>(<span class="dt">col=</span><span class="st">&quot;Income&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">tm_borders</span>()</span></code></pre></div>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-19-1.png" width="450" /></p>
 <p>This produces the following attributes table.</p>
 <p><img src="A04-Vector-Operations_files/figure-html/unnamed-chunk-20-1.png" width="500" /></p>

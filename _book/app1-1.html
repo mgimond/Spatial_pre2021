@@ -504,7 +504,7 @@ sf
               padding-bottom: 1px;
               padding-left: 4px;
               padding-right: 4px;">
-4.0.1
+4.0.3
 </td>
 <td style="text-align:left;color: white !important;background-color: #AAAAAA !important;text-align: center;font-size: 12px !important; 
               margin:5px; 
@@ -636,7 +636,7 @@ vector and raster
 Visualizing, spatial statistics
 </td>
 <td style="text-align:left;">
-May be superseded by <code>sf</code> in the future
+These are legacy formats. <code>spdep</code> now accepts <code>sf</code> objects
 </td>
 </tr>
 <tr>
@@ -785,7 +785,7 @@ geographic CRS: WGS 84
 <p>Packages such as <code>spdep</code> and <code>spatsat</code> currently do not support <code>sf</code> objects. The following sections demonstrate methods to convert from <code>sf</code> to other formats.</p>
 <div id="app1_5_1" class="section level3 unnumbered">
 <h3>Converting an <code>sf</code> object to a <code>Spatial*</code> object (<code>spdep</code>/<code>sp</code>)</h3>
-<p>The following code will convert point, polyline or polygon features to a <code>spatial*</code> object. In this example, an <code>sf</code> polygon feature is converted to a <code>SpatialPolygonsDataFrame</code> object.</p>
+<p>The following code will convert point, polyline or polygon features to a <code>spatial*</code> object. While the current version of <code>spdep</code> will now accept <code>sf</code> objects, converting to <code>spatial*</code> objects will be necessary with legacy <code>spdep</code> packages. In this example, an <code>sf</code> polygon feature is converted to a <code>SpatialPolygonsDataFrame</code> object.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="app1-1.html#cb24-1"></a>s.sp &lt;-<span class="st"> </span><span class="kw">as</span>(s.sf, <span class="st">&quot;Spatial&quot;</span>)</span>
 <span id="cb24-2"><a href="app1-1.html#cb24-2"></a><span class="kw">class</span>(s.sp)</span></code></pre></div>
 <pre><code>[1] &quot;SpatialPolygonsDataFrame&quot;
@@ -845,8 +845,13 @@ projected CRS:  NAD83 / UTM zone 19N
 3 Piscataquis  21292 0.00633830 0.00212896  724.242 MULTIPOLYGON (((445039.5 51...</code></pre>
 <p>The first line of output gives us the geometry type, <code>MULTIPOLYGON</code>, a multi-polygon data type. This is also referred to as a multipart polygon. A single-part <code>sf</code> polygon object will adopt the <code>POLYGON</code> geometry.</p>
 <p>The next few lines of output give us the layer’s bounding extent in the layer’s native coordinate system units. You can extract the extent via the <code>extent()</code> function as in <code>extent(s.sf)</code>.</p>
-<p>The next lines indicate the coordinate system used to define the polygon feature locations. It’s offered in two formats: <strong>epsg</strong> code (when available) and <strong>PROJ4</strong> string format. You can extract the coordinate system information from an <code>sf</code> object via:</p>
+<p>The following code chunk can be used to extract addition coordinate information from the data.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="app1-1.html#cb37-1"></a><span class="kw">st_crs</span>(s.sf)</span></code></pre></div>
+<p>Depending on the version of the <code>proj4</code> package used by <code>sf</code>, you can get two different outputs. If your version of <code>sf</code> is built with a version of <code>proj4</code> older than <code>6.0</code>, the output will consist of an <strong>epsg</strong> code (when available) and a <strong>PROJ4</strong> string as follows:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="app1-1.html#cb38-1"></a>Coordinate Reference System<span class="op">:</span></span>
+<span id="cb38-2"><a href="app1-1.html#cb38-2"></a><span class="st">  </span>EPSG<span class="op">:</span><span class="st"> </span><span class="dv">26919</span> </span>
+<span id="cb38-3"><a href="app1-1.html#cb38-3"></a>  proj4string<span class="op">:</span><span class="st"> &quot;+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs&quot;</span></span></code></pre></div>
+<p>If your version of <code>sf</code> is built with a version of <code>proj4</code> <code>6.0</code> or greater, the output will consist of a user defined CS definition (e.g. an <strong>epsg</strong> code), if available, and a <em>Well Known Text</em> (WKT) formatted coordinate definition that consists of a series of <code>[ ]</code> tags as follows:</p>
 <pre><code>Coordinate Reference System:
   User input: NAD83 / UTM zone 19N 
   wkt:
@@ -884,12 +889,12 @@ PROJCRS[&quot;NAD83 / UTM zone 19N&quot;,
             ORDER[2],
             LENGTHUNIT[&quot;metre&quot;,1]],
     ID[&quot;EPSG&quot;,26919]]</code></pre>
-<p>The output of this call is an object of class <code>crs</code>. Extracting the reference system from a spatial object can prove useful in certain workflows.</p>
+<p>The WKT format will usually start with a <code>PROJCRS[...]</code> tag for a projected coordinate system, or a <code>GEOGCRS[...]</code> tag for a geographic coordinate system. More information on coordinate systems in R can be found in <a href="https://mgimond.github.io/Spatial/A06-Coordinate-Systems.html">the appendix</a>.</p>
 <p>What remains of the <code>sf</code> summary output is the first few records of the attribute table. You can extract the object’s table to a dedicated data frame via:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="app1-1.html#cb39-1"></a>s.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(s.sf)</span>
-<span id="cb39-2"><a href="app1-1.html#cb39-2"></a><span class="kw">class</span>(s.df)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="app1-1.html#cb40-1"></a>s.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(s.sf)</span>
+<span id="cb40-2"><a href="app1-1.html#cb40-2"></a><span class="kw">class</span>(s.df)</span></code></pre></div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="app1-1.html#cb41-1"></a><span class="kw">head</span>(s.df, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="app1-1.html#cb42-1"></a><span class="kw">head</span>(s.df, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>         NAME Income   NoSchool  NoSchoolSE IncomeSE                       geometry
 1   Aroostook  21024 0.01338720 0.001406960  250.909 MULTIPOLYGON (((513821.1 51...
 2    Somerset  21025 0.00521153 0.001150020  390.909 MULTIPOLYGON (((379071.8 50...
@@ -897,7 +902,7 @@ PROJCRS[&quot;NAD83 / UTM zone 19N&quot;,
 4   Penobscot  23307 0.00684534 0.001025450  242.424 MULTIPOLYGON (((472271.3 49...
 5  Washington  20015 0.00478188 0.000966036  327.273 MULTIPOLYGON (((645446.5 49...</code></pre>
 <p>The above chunk will also create a geometry column. This column is somewhat unique in that it stores its contents as a <strong>list</strong> of geometry coordinate pairs (polygon vertex coordinate values in this example).</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="app1-1.html#cb43-1"></a><span class="kw">str</span>(s.df)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="app1-1.html#cb44-1"></a><span class="kw">str</span>(s.df)</span></code></pre></div>
 <pre><code>&#39;data.frame&#39;:   16 obs. of  6 variables:
  $ NAME      : chr  &quot;Aroostook&quot; &quot;Somerset&quot; &quot;Piscataquis&quot; &quot;Penobscot&quot; ...
  $ Income    : int  21024 21025 21292 23307 20015 21744 21885 23020 25652 24268 ...
@@ -909,10 +914,10 @@ PROJCRS[&quot;NAD83 / UTM zone 19N&quot;,
   .. ..$ : num [1:32, 1:2] 513821 513806 445039 422284 424687 ...
   ..- attr(*, &quot;class&quot;)= chr [1:3] &quot;XY&quot; &quot;MULTIPOLYGON&quot; &quot;sfg&quot;</code></pre>
 <p>You can also opt to remove this column prior to creating the dataframe as follows:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="app1-1.html#cb45-1"></a>s.nogeom.df &lt;-<span class="st"> </span><span class="kw">st_set_geometry</span>(s.sf, <span class="ot">NULL</span>) </span>
-<span id="cb45-2"><a href="app1-1.html#cb45-2"></a><span class="kw">class</span>(s.nogeom.df)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="app1-1.html#cb46-1"></a>s.nogeom.df &lt;-<span class="st"> </span><span class="kw">st_set_geometry</span>(s.sf, <span class="ot">NULL</span>) </span>
+<span id="cb46-2"><a href="app1-1.html#cb46-2"></a><span class="kw">class</span>(s.nogeom.df)</span></code></pre></div>
 <pre><code>[1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="app1-1.html#cb47-1"></a><span class="kw">head</span>(s.nogeom.df, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="app1-1.html#cb48-1"></a><span class="kw">head</span>(s.nogeom.df, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>         NAME Income   NoSchool  NoSchoolSE IncomeSE
 1   Aroostook  21024 0.01338720 0.001406960  250.909
 2    Somerset  21025 0.00521153 0.001150020  390.909
@@ -923,8 +928,8 @@ PROJCRS[&quot;NAD83 / UTM zone 19N&quot;,
 <div id="app1_8" class="section level2 unnumbered">
 <h2>Exporting to different data file formats</h2>
 <p>You can export an <code>sf</code> object to many different spatial file formats such as a shapefile or a geopackage.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="app1-1.html#cb49-1"></a><span class="kw">st_write</span>(s.sf, <span class="st">&quot;shapefile_out.shp&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>)  <span class="co"># create to a shapefile </span></span>
-<span id="cb49-2"><a href="app1-1.html#cb49-2"></a><span class="kw">st_write</span>(s.sf, <span class="st">&quot; s.gpkg&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;GPKG&quot;</span>)  <span class="co"># Create a geopackage file</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="app1-1.html#cb50-1"></a><span class="kw">st_write</span>(s.sf, <span class="st">&quot;shapefile_out.shp&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;ESRI Shapefile&quot;</span>)  <span class="co"># create to a shapefile </span></span>
+<span id="cb50-2"><a href="app1-1.html#cb50-2"></a><span class="kw">st_write</span>(s.sf, <span class="st">&quot; s.gpkg&quot;</span>, <span class="dt">driver=</span><span class="st">&quot;GPKG&quot;</span>)  <span class="co"># Create a geopackage file</span></span></code></pre></div>
 <p>You can see a list of writable vector formats via a call to <code>subset(rgdal::ogrDrivers(), write == TRUE)</code>. Only as subset of the output is shown in the following example. Note that supported file formats will differ from platform to platform.</p>
 <pre><code>             name                       long_name write  copy isVector
 18 ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     TRUE
@@ -936,8 +941,8 @@ PROJCRS[&quot;NAD83 / UTM zone 19N&quot;,
 26            GML Geography Markup Language (GML)  TRUE FALSE     TRUE</code></pre>
 <p>The value in the <code>name</code> column is the driver name used in the <code>st_write()</code> function.</p>
 <p>To export a raster to a data file, use <code>writeRaster()</code> from the <code>raster</code> package.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="app1-1.html#cb51-1"></a><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.tif&quot;</span>, <span class="dt">format=</span><span class="st">&quot;GTiff&quot;</span> ) <span class="co"># Create a geoTiff file</span></span>
-<span id="cb51-2"><a href="app1-1.html#cb51-2"></a><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.img&quot;</span>, <span class="dt">format=</span><span class="st">&quot;HFA&quot;</span> )  <span class="co"># Create an Imagine raster file</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="app1-1.html#cb52-1"></a><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.tif&quot;</span>, <span class="dt">format=</span><span class="st">&quot;GTiff&quot;</span> ) <span class="co"># Create a geoTiff file</span></span>
+<span id="cb52-2"><a href="app1-1.html#cb52-2"></a><span class="kw">writeRaster</span>(elev.r, <span class="st">&quot;elev_out.img&quot;</span>, <span class="dt">format=</span><span class="st">&quot;HFA&quot;</span> )  <span class="co"># Create an Imagine raster file</span></span></code></pre></div>
 <p>You can see a list of writable raster formats via a call to <code>subset(rgdal::gdalDrivers(), create == TRUE)</code>.</p>
 <pre><code>        name                            long_name create  copy isRaster
 40      FITS      Flexible Image Transport System   TRUE FALSE     TRUE
