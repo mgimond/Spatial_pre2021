@@ -482,7 +482,7 @@ The following code chunk can be used to extract addition coordinate information 
 st_crs(s.sf)
 ```
 
-Depending on the version of the `proj4` package used by `sf`, you can get two different outputs. If your version of `sf` is built with a version of `proj4` older than `6.0`, the output will consist of an **epsg** code (when available) and a **PROJ4** string as follows:
+Depending on the version of the `PROJ` library used by `sf`, you can get two different outputs. If your version of `sf` is built with a version of `PROJ` older than `6.0`, the output will consist of an **epsg** code (when available) and a **proj4** string as follows:
 
 
 ```r
@@ -492,7 +492,7 @@ Coordinate Reference System:
 ```
 
 
-If your version of `sf` is built with a version of `proj4` `6.0` or greater, the output will consist of a user defined CS definition (e.g. an **epsg** code), if  available, and a *Well Known Text* (WKT) formatted coordinate definition that consists of a series of `[ ]` tags as follows:
+If your version of `sf` is built with a version of `PROJ` `6.0` or greater, the output will consist of a user defined CS definition (e.g. an **epsg** code), if  available, and a *Well Known Text* (WKT) formatted coordinate definition that consists of a series of `[ ]` tags as follows:
 
 
 ```

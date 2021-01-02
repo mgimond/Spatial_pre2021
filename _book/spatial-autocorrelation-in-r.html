@@ -365,7 +365,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
+<li><a href="coordinate-systems-in-r.html#a-note-about-the-changes-to-the-proj-environment">A note about the changes to the <code>PROJ</code> environment</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li><a href="coordinate-systems-in-r.html#loading-the-sf-package">Loading the <code>sf</code> package</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
@@ -573,7 +575,7 @@ sp
 <div id="app8_1" class="section level2 unnumbered">
 <h2>Sample files for this exercise</h2>
 <p>Data used in the following exercises can be loaded into your current R session by running the following chunk of code.</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="spatial-autocorrelation-in-r.html#cb261-1"></a><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/moransI.RData&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="spatial-autocorrelation-in-r.html#cb281-1"></a><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;http://github.com/mgimond/Spatial/raw/master/Data/moransI.RData&quot;</span>))</span></code></pre></div>
 <p>The data object consists of a <code>SpatialPolygonsDataFrame</code> vector layer, <code>s1</code>, representing income and education data aggregated at the county level for the state of Maine.</p>
 <p>The <code>spdep</code> <span class="citation">(Roger S. Bivand <a href="#ref-spdep" role="doc-biblioref">2013</a>)</span> package used in this exercise makes use of <code>sp</code> objects including <code>SpatialPoints*</code> and <code>SpatialPolygons*</code> classes. For more information on converting to/from this format revert back to the <a href="./reading-and-writing-spatial-data-in-r.html">Reading and writing spatial data in R</a> Appendix section.</p>
 </div>
@@ -582,80 +584,80 @@ sp
 <p>The spatial object <code>s1</code> has five attributes. The one of interest for this exercise is <code>Income</code> (per capita, in units of dollars).</p>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-3-1.png" width="500" /></p>
 <p>Let’s map the income distribution using a quantile classification scheme. We’ll make use of the <code>tmap</code> package.</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="spatial-autocorrelation-in-r.html#cb262-1"></a><span class="kw">library</span>(tmap)</span>
-<span id="cb262-2"><a href="spatial-autocorrelation-in-r.html#cb262-2"></a><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;Income&quot;</span>) <span class="op">+</span></span>
-<span id="cb262-3"><a href="spatial-autocorrelation-in-r.html#cb262-3"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="spatial-autocorrelation-in-r.html#cb282-1"></a><span class="kw">library</span>(tmap)</span>
+<span id="cb282-2"><a href="spatial-autocorrelation-in-r.html#cb282-2"></a><span class="kw">tm_shape</span>(s1) <span class="op">+</span><span class="st"> </span><span class="kw">tm_polygons</span>(<span class="dt">style=</span><span class="st">&quot;quantile&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;Income&quot;</span>) <span class="op">+</span></span>
+<span id="cb282-3"><a href="spatial-autocorrelation-in-r.html#cb282-3"></a><span class="st">  </span><span class="kw">tm_legend</span>(<span class="dt">outside =</span> <span class="ot">TRUE</span>, <span class="dt">text.size =</span> <span class="fl">.8</span>) </span></code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="app8_3" class="section level2 unnumbered">
 <h2>Define neighboring polygons</h2>
 <p>The first step requires that we define “neighboring” polygons. This could refer to contiguous polygons, polygons within a certain distance band, or it could be non-spatial in nature and defined by social, political or cultural “neighbors”.</p>
 <p>Here, we’ll adopt a contiguous neighbor definition where we’ll accept any contiguous polygon that shares at least on vertex (this is the “queen” case and is defined by setting the parameter <code>queen=TRUE</code>). If we required that at least one <em>edge</em> be shared between polygons then we would set <code>queen=FALSE</code>.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="spatial-autocorrelation-in-r.html#cb263-1"></a><span class="kw">library</span>(spdep)</span>
-<span id="cb263-2"><a href="spatial-autocorrelation-in-r.html#cb263-2"></a>nb &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(s1, <span class="dt">queen=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="spatial-autocorrelation-in-r.html#cb283-1"></a><span class="kw">library</span>(spdep)</span>
+<span id="cb283-2"><a href="spatial-autocorrelation-in-r.html#cb283-2"></a>nb &lt;-<span class="st"> </span><span class="kw">poly2nb</span>(s1, <span class="dt">queen=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <p>For each polygon in our polygon object, <code>nb</code> lists all neighboring polygons. For example, to see the neighbors for the first polygon in the object, type:</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="spatial-autocorrelation-in-r.html#cb264-1"></a>nb[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="spatial-autocorrelation-in-r.html#cb284-1"></a>nb[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>[1] 2 3 4 5</code></pre>
 <p>Polygon <code>1</code> has 4 neighbors. The numbers represent the polygon IDs as stored in the spatial object <code>s1</code>. Polygon <code>1</code> is associated with the County attribute name <code>Aroostook</code>:</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="spatial-autocorrelation-in-r.html#cb266-1"></a>s1<span class="op">$</span>NAME[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="spatial-autocorrelation-in-r.html#cb286-1"></a>s1<span class="op">$</span>NAME[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>[1] Aroostook
 16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock Kennebec ... York</code></pre>
 <p>Its four neighboring polygons are associated with the counties:</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="spatial-autocorrelation-in-r.html#cb268-1"></a>s1<span class="op">$</span>NAME[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="spatial-autocorrelation-in-r.html#cb288-1"></a>s1<span class="op">$</span>NAME[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)]</span></code></pre></div>
 <pre><code>[1] Somerset    Piscataquis Penobscot   Washington 
 16 Levels: Androscoggin Aroostook Cumberland Franklin Hancock Kennebec ... York</code></pre>
 <p>Next, we need to assign weights to each neighboring polygon. In our case, each neighboring polygon will be assigned equal weight (<code>style="W"</code>). This is accomplished by assigning the fraction <span class="math inline">\(1/ (\# of neighbors)\)</span> to each neighboring county then summing the weighted income values. While this is the most intuitive way to summaries the neighbors’ values it has one drawback in that polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data. For this example, we’ll stick with the <code>style="W"</code> option for simplicity’s sake but note that other more robust options are available, notably <code>style="B"</code>.</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="spatial-autocorrelation-in-r.html#cb270-1"></a>lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(nb, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>, <span class="dt">zero.policy=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="spatial-autocorrelation-in-r.html#cb290-1"></a>lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(nb, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>, <span class="dt">zero.policy=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <p>The <code>zero.policy=TRUE</code> option allows for lists of non-neighbors. This should be used with caution since the user may not be aware of missing neighbors in their dataset however, a <code>zero.policy</code> of <code>FALSE</code> would return an <code>error</code>.</p>
 <p>To see the weight of the first polygon’s four neighbors type:</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="spatial-autocorrelation-in-r.html#cb271-1"></a>lw<span class="op">$</span>weights[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="spatial-autocorrelation-in-r.html#cb291-1"></a>lw<span class="op">$</span>weights[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>[[1]]
 [1] 0.25 0.25 0.25 0.25</code></pre>
 <p>Each neighbor is assigned a quarter of the total weight. This means that when R computes the average neighboring income values, each neighbor’s income will be multiplied by <code>0.25</code> before being tallied.</p>
 <p>Finally, we’ll compute the average neighbor income value for each polygon. These values are often referred to as <strong>spatially lagged</strong> values.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="spatial-autocorrelation-in-r.html#cb273-1"></a>Inc.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, s1<span class="op">$</span>Income)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="spatial-autocorrelation-in-r.html#cb293-1"></a>Inc.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, s1<span class="op">$</span>Income)</span></code></pre></div>
 <p>The following table shows the average neighboring income values (stored in the <code>Inc.lag</code> object) for each county.</p>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-12-1.png" width="500" /></p>
 </div>
 <div id="app8_4" class="section level2 unnumbered">
 <h2>Computing the Moran’s I statistic: the hard way</h2>
 <p>We can plot <em>lagged income</em> vs. <em>income</em> and fit a linear regression model to the data.</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="spatial-autocorrelation-in-r.html#cb274-1"></a><span class="co"># Create a regression model</span></span>
-<span id="cb274-2"><a href="spatial-autocorrelation-in-r.html#cb274-2"></a>M &lt;-<span class="st"> </span><span class="kw">lm</span>(Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income)</span>
-<span id="cb274-3"><a href="spatial-autocorrelation-in-r.html#cb274-3"></a></span>
-<span id="cb274-4"><a href="spatial-autocorrelation-in-r.html#cb274-4"></a><span class="co"># Plot the data</span></span>
-<span id="cb274-5"><a href="spatial-autocorrelation-in-r.html#cb274-5"></a><span class="kw">plot</span>( Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="spatial-autocorrelation-in-r.html#cb294-1"></a><span class="co"># Create a regression model</span></span>
+<span id="cb294-2"><a href="spatial-autocorrelation-in-r.html#cb294-2"></a>M &lt;-<span class="st"> </span><span class="kw">lm</span>(Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income)</span>
+<span id="cb294-3"><a href="spatial-autocorrelation-in-r.html#cb294-3"></a></span>
+<span id="cb294-4"><a href="spatial-autocorrelation-in-r.html#cb294-4"></a><span class="co"># Plot the data</span></span>
+<span id="cb294-5"><a href="spatial-autocorrelation-in-r.html#cb294-5"></a><span class="kw">plot</span>( Inc.lag <span class="op">~</span><span class="st"> </span>s1<span class="op">$</span>Income, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-13-1.png" width="288" /></p>
 <p>The slope of the regression line is the Moran’s I coefficient.</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="spatial-autocorrelation-in-r.html#cb275-1"></a><span class="kw">coef</span>(M)[<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="spatial-autocorrelation-in-r.html#cb295-1"></a><span class="kw">coef</span>(M)[<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>s1$Income 
 0.2828111 </code></pre>
 <p>To assess if the slope is significantly different from zero, we can <em>randomly</em> permute the income values across all counties (i.e. we are not imposing any spatial autocorrelation structure), then fit a regression model to each permuted set of values. The slope values from the regression give us the distribution of Moran’s I values we could expect to get under the null hypothesis that the income values are randomly distributed across the counties. We then compare the observed Moran’s I value to this distribution.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="spatial-autocorrelation-in-r.html#cb277-1"></a>n &lt;-<span class="st"> </span>599L   <span class="co"># Define the number of simulations</span></span>
-<span id="cb277-2"><a href="spatial-autocorrelation-in-r.html#cb277-2"></a>I.r &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length=</span>n)  <span class="co"># Create an empty vector</span></span>
-<span id="cb277-3"><a href="spatial-autocorrelation-in-r.html#cb277-3"></a></span>
-<span id="cb277-4"><a href="spatial-autocorrelation-in-r.html#cb277-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</span>
-<span id="cb277-5"><a href="spatial-autocorrelation-in-r.html#cb277-5"></a>  <span class="co"># Randomly shuffle income values</span></span>
-<span id="cb277-6"><a href="spatial-autocorrelation-in-r.html#cb277-6"></a>  x &lt;-<span class="st"> </span><span class="kw">sample</span>(s1<span class="op">$</span>Income, <span class="dt">replace=</span><span class="ot">FALSE</span>)</span>
-<span id="cb277-7"><a href="spatial-autocorrelation-in-r.html#cb277-7"></a>  <span class="co"># Compute new set of lagged values</span></span>
-<span id="cb277-8"><a href="spatial-autocorrelation-in-r.html#cb277-8"></a>  x.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, x)</span>
-<span id="cb277-9"><a href="spatial-autocorrelation-in-r.html#cb277-9"></a>  <span class="co"># Compute the regression slope and store its value</span></span>
-<span id="cb277-10"><a href="spatial-autocorrelation-in-r.html#cb277-10"></a>  M.r    &lt;-<span class="st"> </span><span class="kw">lm</span>(x.lag <span class="op">~</span><span class="st"> </span>x)</span>
-<span id="cb277-11"><a href="spatial-autocorrelation-in-r.html#cb277-11"></a>  I.r[i] &lt;-<span class="st"> </span><span class="kw">coef</span>(M.r)[<span class="dv">2</span>]</span>
-<span id="cb277-12"><a href="spatial-autocorrelation-in-r.html#cb277-12"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="spatial-autocorrelation-in-r.html#cb278-1"></a><span class="co"># Plot the histogram of simulated Moran&#39;s I values</span></span>
-<span id="cb278-2"><a href="spatial-autocorrelation-in-r.html#cb278-2"></a><span class="co"># then add our observed Moran&#39;s I value to the plot</span></span>
-<span id="cb278-3"><a href="spatial-autocorrelation-in-r.html#cb278-3"></a><span class="kw">hist</span>(I.r, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">xlab=</span><span class="st">&quot;Moran&#39;s I&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</span>
-<span id="cb278-4"><a href="spatial-autocorrelation-in-r.html#cb278-4"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">coef</span>(M)[<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="spatial-autocorrelation-in-r.html#cb297-1"></a>n &lt;-<span class="st"> </span>599L   <span class="co"># Define the number of simulations</span></span>
+<span id="cb297-2"><a href="spatial-autocorrelation-in-r.html#cb297-2"></a>I.r &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">length=</span>n)  <span class="co"># Create an empty vector</span></span>
+<span id="cb297-3"><a href="spatial-autocorrelation-in-r.html#cb297-3"></a></span>
+<span id="cb297-4"><a href="spatial-autocorrelation-in-r.html#cb297-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</span>
+<span id="cb297-5"><a href="spatial-autocorrelation-in-r.html#cb297-5"></a>  <span class="co"># Randomly shuffle income values</span></span>
+<span id="cb297-6"><a href="spatial-autocorrelation-in-r.html#cb297-6"></a>  x &lt;-<span class="st"> </span><span class="kw">sample</span>(s1<span class="op">$</span>Income, <span class="dt">replace=</span><span class="ot">FALSE</span>)</span>
+<span id="cb297-7"><a href="spatial-autocorrelation-in-r.html#cb297-7"></a>  <span class="co"># Compute new set of lagged values</span></span>
+<span id="cb297-8"><a href="spatial-autocorrelation-in-r.html#cb297-8"></a>  x.lag &lt;-<span class="st"> </span><span class="kw">lag.listw</span>(lw, x)</span>
+<span id="cb297-9"><a href="spatial-autocorrelation-in-r.html#cb297-9"></a>  <span class="co"># Compute the regression slope and store its value</span></span>
+<span id="cb297-10"><a href="spatial-autocorrelation-in-r.html#cb297-10"></a>  M.r    &lt;-<span class="st"> </span><span class="kw">lm</span>(x.lag <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb297-11"><a href="spatial-autocorrelation-in-r.html#cb297-11"></a>  I.r[i] &lt;-<span class="st"> </span><span class="kw">coef</span>(M.r)[<span class="dv">2</span>]</span>
+<span id="cb297-12"><a href="spatial-autocorrelation-in-r.html#cb297-12"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="spatial-autocorrelation-in-r.html#cb298-1"></a><span class="co"># Plot the histogram of simulated Moran&#39;s I values</span></span>
+<span id="cb298-2"><a href="spatial-autocorrelation-in-r.html#cb298-2"></a><span class="co"># then add our observed Moran&#39;s I value to the plot</span></span>
+<span id="cb298-3"><a href="spatial-autocorrelation-in-r.html#cb298-3"></a><span class="kw">hist</span>(I.r, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">xlab=</span><span class="st">&quot;Moran&#39;s I&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</span>
+<span id="cb298-4"><a href="spatial-autocorrelation-in-r.html#cb298-4"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">coef</span>(M)[<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-16-1.png" width="288" /></p>
 <p>The simulation suggests that our observed Moran’s I value is not consistent with a Moran’s I value one would expect to get if the income values were not spatially autocorrelated. In the next step, we’ll compute a pseudo p-value from this simulation.</p>
 <div id="computing-a-pseudo-p-value-from-an-mc-simulation" class="section level3 unnumbered">
 <h3>Computing a pseudo p-value from an MC simulation</h3>
 <p>First, we need to find the number of simulated Moran’s I values values greater than our observed Moran’s I value.</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="spatial-autocorrelation-in-r.html#cb279-1"></a>N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">coef</span>(M)[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>I.r)</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="spatial-autocorrelation-in-r.html#cb299-1"></a>N.greater &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">coef</span>(M)[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>I.r)</span></code></pre></div>
 <p>To compute the p-value, find the end of the distribution closest to the observed Moran’s I value, then divide that count by the total count. Note that this is a so-called one-sided P-value. See lecture notes for more information.</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="spatial-autocorrelation-in-r.html#cb280-1"></a>p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb280-2"><a href="spatial-autocorrelation-in-r.html#cb280-2"></a>p</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="spatial-autocorrelation-in-r.html#cb300-1"></a>p &lt;-<span class="st"> </span><span class="kw">min</span>(N.greater <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, n <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>N.greater) <span class="op">/</span><span class="st"> </span>(n <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb300-2"><a href="spatial-autocorrelation-in-r.html#cb300-2"></a>p</span></code></pre></div>
 <pre><code>[1] 0.01833333</code></pre>
 <p>In our working example, the p-value suggests that there is a small chance (0.018%) of being wrong in stating that the income values are not clustered at the county level.</p>
 </div>
@@ -663,7 +665,7 @@ sp
 <div id="app8_5" class="section level2 unnumbered">
 <h2>Computing the Moran’s I statistic: the easy way</h2>
 <p>To get the Moran’s I value, simply use the <code>moran.test</code> function.</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="spatial-autocorrelation-in-r.html#cb282-1"></a><span class="kw">moran.test</span>(s1<span class="op">$</span>Income,lw)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="spatial-autocorrelation-in-r.html#cb302-1"></a><span class="kw">moran.test</span>(s1<span class="op">$</span>Income,lw)</span></code></pre></div>
 <pre><code>
     Moran I test under randomisation
 
@@ -676,10 +678,10 @@ sample estimates:
 Moran I statistic       Expectation          Variance 
        0.28281108       -0.06666667        0.02418480 </code></pre>
 <p>Note that the p-value computed from the <code>moran.test</code> function is not computed from an MC simulation but <em>analytically</em> instead. This may not always prove to be the most accurate measure of significance. To test for significance using the <em>MC simulation</em> method instead, use the <code>moran.mc</code> function.</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="spatial-autocorrelation-in-r.html#cb284-1"></a>MC&lt;-<span class="st"> </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>)</span>
-<span id="cb284-2"><a href="spatial-autocorrelation-in-r.html#cb284-2"></a></span>
-<span id="cb284-3"><a href="spatial-autocorrelation-in-r.html#cb284-3"></a><span class="co"># View results (including p-value)</span></span>
-<span id="cb284-4"><a href="spatial-autocorrelation-in-r.html#cb284-4"></a>MC</span></code></pre></div>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="spatial-autocorrelation-in-r.html#cb304-1"></a>MC&lt;-<span class="st"> </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>)</span>
+<span id="cb304-2"><a href="spatial-autocorrelation-in-r.html#cb304-2"></a></span>
+<span id="cb304-3"><a href="spatial-autocorrelation-in-r.html#cb304-3"></a><span class="co"># View results (including p-value)</span></span>
+<span id="cb304-4"><a href="spatial-autocorrelation-in-r.html#cb304-4"></a>MC</span></code></pre></div>
 <pre><code>
     Monte-Carlo simulation of Moran I
 
@@ -689,29 +691,29 @@ number of simulations + 1: 600
 
 statistic = 0.28281, observed rank = 579, p-value = 0.035
 alternative hypothesis: greater</code></pre>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="spatial-autocorrelation-in-r.html#cb286-1"></a><span class="co"># Plot the distribution (note that this is a density plot instead of a histogram)</span></span>
-<span id="cb286-2"><a href="spatial-autocorrelation-in-r.html#cb286-2"></a><span class="kw">plot</span>(MC, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="spatial-autocorrelation-in-r.html#cb306-1"></a><span class="co"># Plot the distribution (note that this is a density plot instead of a histogram)</span></span>
+<span id="cb306-2"><a href="spatial-autocorrelation-in-r.html#cb306-2"></a><span class="kw">plot</span>(MC, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-20-1.png" width="288" /></p>
 </div>
 <div id="app8_6" class="section level2 unnumbered">
 <h2>Moran’s I as a function of a distance band</h2>
 <p>In this section, we will explore spatial autocorrelation as a function of distance bands.</p>
 <p>Instead of defining neighbors as contiguous polygons, we will define neighbors based on distances to polygon centers. We therefore need to extract the center of each polygon.</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="spatial-autocorrelation-in-r.html#cb287-1"></a>coo &lt;-<span class="st"> </span><span class="kw">coordinates</span>(s1)</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="spatial-autocorrelation-in-r.html#cb307-1"></a>coo &lt;-<span class="st"> </span><span class="kw">coordinates</span>(s1)</span></code></pre></div>
 <p>The object <code>coo</code> stores all sixteen pairs of coordinate values.</p>
 <p>Next, we will define the search radius to include all neighboring polygon centers within 50 km (or 50,000 meters)</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="spatial-autocorrelation-in-r.html#cb288-1"></a>S.dist  &lt;-<span class="st">  </span><span class="kw">dnearneigh</span>(coo, <span class="dv">0</span>, <span class="dv">50000</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="spatial-autocorrelation-in-r.html#cb308-1"></a>S.dist  &lt;-<span class="st">  </span><span class="kw">dnearneigh</span>(coo, <span class="dv">0</span>, <span class="dv">50000</span>)  </span></code></pre></div>
 <p>The <code>dnearneigh</code> function takes on three parameters: the coordinate values <code>coo</code>, the radius for the inner radius of the annulus band, and the radius for the outer annulus band. In our example, the inner annulus radius is <code>0</code> which implies that <strong>all</strong> polygon centers <strong>up to</strong> 50km are considered neighbors.</p>
 <p>Note that if we chose to restrict the neighbors to all polygon centers between 50 km and 100 km, for example, then we would define a search annulus (instead of a circle) as <code>dnearneigh(coo, 50000, 100000)</code>.</p>
 <p>Now that we defined our search circle, we need to identify all neighboring polygons for each polygon in the dataset.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="spatial-autocorrelation-in-r.html#cb289-1"></a>lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(S.dist, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>,<span class="dt">zero.policy=</span>T) </span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="spatial-autocorrelation-in-r.html#cb309-1"></a>lw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(S.dist, <span class="dt">style=</span><span class="st">&quot;W&quot;</span>,<span class="dt">zero.policy=</span>T) </span></code></pre></div>
 <p>Run the MC simulation.</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="spatial-autocorrelation-in-r.html#cb290-1"></a>MI  &lt;-<span class="st">  </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>,<span class="dt">zero.policy=</span>T) </span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="spatial-autocorrelation-in-r.html#cb310-1"></a>MI  &lt;-<span class="st">  </span><span class="kw">moran.mc</span>(s1<span class="op">$</span>Income, lw, <span class="dt">nsim=</span><span class="dv">599</span>,<span class="dt">zero.policy=</span>T) </span></code></pre></div>
 <p>Plot the results.</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="spatial-autocorrelation-in-r.html#cb291-1"></a><span class="kw">plot</span>(MI, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="spatial-autocorrelation-in-r.html#cb311-1"></a><span class="kw">plot</span>(MI, <span class="dt">main=</span><span class="st">&quot;&quot;</span>, <span class="dt">las=</span><span class="dv">1</span>) </span></code></pre></div>
 <p><img src="A08-Spatial-Autocorrelation_files/figure-html/unnamed-chunk-25-1.png" width="288" /></p>
 <p>Display p-value and other summary statistics.</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="spatial-autocorrelation-in-r.html#cb292-1"></a>MI</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="spatial-autocorrelation-in-r.html#cb312-1"></a>MI</span></code></pre></div>
 <pre><code>
     Monte-Carlo simulation of Moran I
 

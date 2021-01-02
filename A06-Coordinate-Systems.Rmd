@@ -1,7 +1,19 @@
 # Coordinate Systems in R {-}
 
+```{r, include=FALSE}
+# Code chunk used to add scrollbar to lengthy WKT output
+options(width = 60)
+```
+
+
 ```{r, child="_session-info.Rmd", echo = FALSE}
 ```
+
+## A note about the changes to the `PROJ` environment {-}
+
+Newer versions of `sf` make use of the `PROJ 6.0` C library or greater. Note that the version of `PROJ` is not to be confused with the version of the `proj4` R package--the `proj4` and `sf` packages make use of the `PROJ` C library that is developed independent of R. You can learn more about the `PROJ` development at [proj.org](https://proj.org/). 
+
+There has been a significant change in the `PROJ` library since the introduction of version `6.0`. This has had serious implications in the development of the R spatial ecosystem. As such, if you are using an older version of `sf` or `proj4` that was developed with a version of `PROJ` older than 6.0, some of the input/output presented in this appendix may differ from yours.
 
 ## Sample files for this exercise{-}
 
@@ -17,25 +29,50 @@ Only two data layers will be used in this exercise: a Maine counties polygon lay
 rm(list=c("inter.sf", "p.sf", "rail.sf"))
 ```
 
+## Loading the `sf` package {-}
+
+```{r}
+library(sf)   
+```
+
+Note the versions of `GEOS`, `GDAL` and `PROJ` the package `sf` is linked to. Different versions of these libraries may result in different outcomes than those shown in this appendix. You can check the linked library versions as follows:
+
+```{r}
+sf_extSoftVersion()[1:3]
+```
+
 
 ## Checking for a coordinate system {-}
 
-To extract coordinate system (CS) information from an `sf` object use `st_crs` from the *sf* package; for a `raster` object use the `crs` function from the *raster* package. 
+To extract coordinate system (CS) information from an `sf` object use the `st_crs` function.
+
 
 ```{r}
-library(sf)
 st_crs(s.sf)
 ```
+
+
+
+With the newer version of the `PROJ` C library, the coordinate system is defined using the *Well Known Text* (**WTK**/**WTK2**) format which consists of a series of `[...]` tags. The WKT format will usually start with a `PROJCRS[...]` tag for a projected coordinate system, or a `GEOGCRS[...]` tag for a geographic coordinate system.
+
+The CRS output will also consist of a user defined CS definition which can be an **EPSG** code (as is the case in this example), or a string defining the datum and projection type.
+
+To extract CS information from a `raster` object use the `crs` function from the *raster* package. 
+
 ```{r}
 library(raster)
 crs(elev.r)
 ```
 
-There are two ways of defining a coordinate system: via the **EPSG** numeric [code](http://spatialreference.org/ref/epsg/) or via the **PROJ4** [formatted string](https://proj4.org/apps/proj.html). The EPSG code may not always be available for a particular coordinate system, but if a spatial object has a defined coordinate system, it will always have a PROJ4 projection string. Its multi-parameter syntax is briefly discussed next.
+Notice that the `crs` function does not output a formatted WKT string in this version of the `raster` package.
+
+Up until recently, there has been two ways of defining a coordinate system: via the **EPSG** numeric [code](http://spatialreference.org/ref/epsg/) or via the **PROJ4** [formatted string](https://proj4.org/apps/proj.html). Both can be used with the `sf` and `raster` objects.
+
+With the newer version of the `PROJ` C library, you can also define an `sf` object's  coordinate system using the *Well Known Text* (**WTK**/**WTK2**) format. This format has a more elaborate syntax (as can be seen in the  `st_crs` output) and may not necessarily be the easiest way to manually define a CS. When possible, adopt an **EPSG** code which comes from a well established authority. However, if customizing a CS, it may be easiest to adopt a **PROJ4** syntax. 
 
 ## Understanding the Proj4 coordinate syntax {-}
 
-The [PROJ4](http://proj4.org/) syntax consists of a list of parameters, each prefixed with the `+` character. For example, `elev.r`'s CS is in a UTM projection (`+proj=utm`) for zone 19 (`+zone=19`) and in an NAD 1983 datum (`+datum=NAD83`). Other bits of information that can be gleaned from the projection string are the units (meters) and the underlying ellipsoid (GRS80).
+The [PROJ4](http://proj4.org/) syntax consists of a list of parameters, each prefixed with the `+` character. For example, `elev.r`'s CS is in a UTM projection (`+proj=utm`) for zone 19 (`+zone=19`) and in an NAD 1983 datum (`+datum=NAD83`).
 
 A list of a few of the PROJ4 parameters used in defining a coordinate system follows. Click [here](https://proj4.org/usage/projections.html) for a full list of parameters.
 
@@ -62,23 +99,64 @@ You can view the list of available projections `+proj=` [here](https://proj4.org
 
 ## Assigning a coordinate system {-}
 
-A coordinate system definition can be passed to a spatial object. It can either fill a spatial object's empty CS definition or it can overwrite and existing definition (the latter should only be executed if there is good reason to believe that the original definition is erroneous). Note that this step **does not** change an objects underlying coordinate system (this option will be discussed in the next section).
+A coordinate system definition can be passed to a spatial object. It can either fill a spatial object's empty CS definition or it can overwrite and existing definition (the latter should only be executed if there is good reason to believe that the original definition is erroneous). Note that this step **does not** change an object's underlying coordinate system (this process will be discussed in the next section).
 
-We'll pretend that a CS definition was not assigned to `s.sf` and assign one manually using the `st_set_crs()` function.
+We'll pretend that a CS definition was not assigned to `s.sf` and assign one manually using the `st_set_crs()` function. In the following example, we will define the CS using the proj4 syntax.
 
 ```{r}
 s.sf <- st_set_crs(s.sf, "+proj=utm +zone=19 +ellps=GRS80 +datum=NAD83") 
 ```
 
-To do the same with a raster object simply assign the PROJ4 string to the `crs()` function as follows (here too we'll assume that the spatial object had a missing reference system or an incorrectly defined one).
+Let's now check the object's CS. (A scrollbar is added to the output box to reduce output box length).
+
+```{r attr.output = 'style="max-height: 100px;direction: rtl;"'}
+st_crs(s.sf)
+```
+
+You'll note that the `User input:` field now shows the `proj4` string as defined in the call to the `st_set_crs()` function. But you'll also note that some of the parameters in the WKT string such as the `PROJCRS[...]` and `BASEGEOGCRS[...]` tags are not defined (`unknown`). This is not necessarily a problem given that key datum and projection information are present in that WKT string (make sure to scroll down in the output box to see the other WKT parameters). Nonetheless, it's not a bad idea to define the CS using EPSG code when applicable.
+
+The UTM NAD83 Zone 19N EPSG code equivalent is `26919`.
+
+```{r}
+s.sf <- st_set_crs(s.sf, 26919)
+```
+
+Let's now check the object's CS.
+
+```{r attr.output = 'style="max-height: 100px;direction: rtl;"'}
+st_crs(s.sf)  
+```
+
+Key projection parameters remain the same. But additional information is added to the WKT header.
+
+You can use the PROJ4 string defined earlier for `s.sf` to define a raster's CRS using the `crs()` function as follows (here too we'll assume that the spatial object had a missing reference system or an incorrectly defined one).
 
 ```{r}
 crs(elev.r) <- "+proj=utm +zone=19 +ellps=GRS80 +datum=NAD83"
 ```
 
-Note that we do not need to define all of the parameters so long as we know that the default values for these unused parameters are correct. Also note that we do not need to designate a hemisphere since the NAD83 datum applies only to North America.
+Note that we do not need to define all of the parameters so long as we know that the default values for these undefined parameters are correct. Also note that we do not need to designate a hemisphere since the NAD83 datum applies only to North America.
 
-To recreate a CS defined in a software such as ArcGIS, it is best to extract the CS' **WKID/EPSG** code then use that number to look up the PROJ4 syntax on [http://spatialreference.org/ref/](http://spatialreference.org/ref/). For example, in ArcGIS, the WKID number can be extracted from the coordinate system properties output. 
+Let's check the raster's CS:
+
+```{r}
+crs(elev.r)
+```
+
+To define a raster's CS using an EPSG code, use the following PROJ4 syntax:
+
+```{r}
+crs(elev.r) <- "+init=EPSG:26919"
+```
+
+```{r}
+crs(elev.r) 
+```
+
+Notice how the EPSG code is converted back to a proj4 string.
+
+
+To recreate a CS defined in a software such as ArcGIS, it is best to extract the CS' **WKID/EPSG** code, then use that number to look up the PROJ4 syntax on [http://spatialreference.org/ref/](http://spatialreference.org/ref/). For example, in ArcGIS, the WKID number can be extracted from the coordinate system properties output. 
 
 ```{r fA2-arcgis, echo=FALSE, fig.cap = "An ArcGIS dataframe coordinate system properties window. Note the WKID/EPSG code of 26919 (highlighted in red) associated with the NAD 1983 UTM Zone 19 N CS.", fig.align='center', out.width=471}
 
@@ -104,21 +182,37 @@ World Robinson                      54030    ESRI        `+proj=robin +lon_0=0 +
 
 ## Transforming coordinate systems {-}
 
-The last step showed you how to _define_ or _modify_ the coordinate system _definition_. This section shows you how to **transform** the coordinate values associated with the spatial object to a *different* coordinate system. For example, to transform  the `s.sf`  vector object to a geographic (lat/long) coordinate system, we'll use `sf`'s `st_transform` function.
+The last section showed you how to _define_ or _modify_ the coordinate system _definition_. This section shows you how to **transform** the coordinate values associated with the spatial object to a *different* coordinate system. This process calculates new coordinate pair values for the points or vertices defining the spatial object.
 
-```{r}
+For example, to transform  the `s.sf`  vector object to a WGS 1984 geographic (long/lat) coordinate system, we'll use the `st_transform` function.
+
+```{r attr.output = 'style="max-height: 100px;direction: rtl;"'}
 s.sf.gcs <- st_transform(s.sf, "+proj=longlat +datum=WGS84")
 st_crs(s.sf.gcs)
 ```
 
-The raster object equivalent is:
+Using the EPSG code equivalent (`4326`) instead of the proj4 string yields:
+
+```{r attr.output = 'style="max-height: 100px;direction: rtl;"'}
+s.sf.gcs <- st_transform(s.sf, 4326)
+st_crs(s.sf.gcs)
+```
+
+To transform a raster object, use the `projectRaster()` function. 
 
 ```{r}
 elev.r.gcs <- projectRaster(elev.r, crs="+proj=longlat +datum=WGS84")
 crs(elev.r.gcs)
 ```
 
-A geographic coordinate system is often desired when overlapping a web based mapping service such as Google, Bing or OpenStreetMap. To check that `s.sf.gcs` was properly transformed, we'll overlay it on top of an OpenStreetMap using the `leaflet` package.
+If an EPSG code is to be used, adopt the `"+init=EPSG: ..."` syntax used earlier in this tutorial.
+
+```{r}
+elev.r.gcs <- projectRaster(elev.r, crs="+init=EPSG:4326")
+crs(elev.r.gcs)
+```
+
+A geographic coordinate system is often desired when overlapping a layer with a web based mapping service such as Google, Bing or OpenStreetMap (even though these web based services end up projecting to a projected coordinate system--most likely a Web Mercator projection). To check that `s.sf.gcs` was properly transformed, we'll overlay it on top of an OpenStreetMap using the `leaflet` package.
 
 ```{r fig.height=3}
 library(leaflet)
@@ -127,28 +221,40 @@ leaflet(s.sf.gcs) %>%
   addTiles()
 ```
 
+<p>
+
 Next, we'll explore other transformations using a `tmap` dataset of the world
 
-```{r, out.width=500}
+```{r attr.output = 'style="max-height: 100px;direction: rtl;"'}
 library(tmap)
-data(World)  # The data is stored as an sf object
+data(World)  # The dataset is stored as an sf object
  
 # Let's check its current coordinate system
 st_crs(World)
 ```
 
 
-The following chunk transforms the world map to an Azimuthal equidistant projection centered on latitude `0` and longitude `0`.
+The following chunk transforms the world map to a custom azimuthal equidistant projection centered on latitude `0` and longitude `0`. Here, we'll use the proj4 syntax.
+
+```{r white-space: pre-wrap;  , }
+World.ae <- st_transform(World, "+proj=aeqd +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+```
+
+Let's check the CRS of the newly created vector layer
+
+```{r attr.output = 'style="max-height: 100px;direction: rtl;"'}
+st_crs(World.ae) 
+```
+
+Here's the mapped output:
 
 ```{r fig.height=2.5, fig.width=2.5}
-World.ae <- st_transform(World, "+proj=aeqd +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
-
 tm_shape(World.ae) + tm_fill() 
 ```
 
-The following chunk transforms the world map to an Azimuthal equidistant projection centered on Maine.
+The following chunk transforms the world map to an Azimuthal equidistant projection centered on Maine, USA (69.8&deg; West, 44.5&deg; North) .
  
-```{r fig.height=2.5, , fig.width=2.5}
+```{r fig.height=2.5, fig.width=2.5}
 World.aemaine <- st_transform(World, "+proj=aeqd +lat_0=44.5 +lon_0=-69.8 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
 
 tm_shape(World.aemaine) + tm_fill()  
@@ -180,7 +286,7 @@ tm_shape(World.mercator) + tm_fill()
 
 An issue that can come up when transforming spatial data is when the location of the tangent line(s) or points in the CS definition forces polygon features to be split across the 180&deg; meridian. For example, re-centering the mercator projection to -69&deg; will create the following map.
 
-```{r fig.height=2.5, , fig.width=3}
+```{r fig.height=2.5, fig.width=3}
 World.mercator2 <- st_transform(World, "+proj=merc +lon_0=-69 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
 
 tm_shape(World.mercator2) + tm_borders()
@@ -189,9 +295,9 @@ tm_shape(World.mercator2) + tm_borders()
 
 The polygons are split and R does not know how to piece them together.
 
-One solution is to make use of `maptools`' `nowrapSpatialPolygons()` function. This function will split the polygon at a given longitude however, it requires that the object be of `Spatial*` type and that it be in a geographic (lat/long) reference system. The following chunk is a sample workflow. 
+One solution is to make use of `maptools`' `nowrapSpatialPolygons()` function. This function will split the polygon at a given longitude however, it requires that the object be of `Spatial*` type and that it be in a geographic (long/lat) reference system. The following chunk is a sample workflow. 
 
-```{r fig.height=2.5, , fig.width=3}
+```{r fig.height=2.5, fig.width=3}
 library(maptools)
 
 # Convert to lat/long reference system
@@ -208,14 +314,14 @@ tm_shape(wld.merc2.sf) + tm_borders()
 ```
 
 
-You'll note that the Antarctica polygon is deformed in this transformation. In such a case, you might need to remove the Antarctica polygon before proceeding with the `nowrapSpatialPolygons` or you can adopt another projection. In the following example, a Robinson projection is used _in lieu of_ a Mercator.
+You'll note that the Antarctica polygon is deformed in this transformation. In such a case, you might need to remove the Antarctica polygon before proceeding with the `nowrapSpatialPolygons` or you can adopt another projection. In the following example, a Robinson projection is used _in lieu of_ a Mercator projection.
 
 ```{r fig.height = 2.5, fig.width=4}
 wld.rob.sf <- st_transform(wld.sf,"+proj=robin +lon_0=-69 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
 tm_shape(wld.rob.sf) + tm_borders()
 ```
 
-One downside to the the `nowwrapSpatialPolygons` solution is the loss of the attribute table.
+One downside to the the `nowwrapSpatialPolygons` solution is the loss of  attribute table data.
 
 ```{r}
 head(data.frame(wld.rob.sf), 4)
@@ -224,7 +330,7 @@ head(data.frame(wld.rob.sf), 4)
 A (not so perfect) solution is to create a centroid from the polygons prior to projecting them, then performing a spatial join of the transformed points to the transformed polygons.
 
 ```{r fig.height=2.5, fig.width=6}
-# Create centroid from polygons
+# Create centroids from polygons
 pt <- st_centroid(World, of_largest_polygon = TRUE)
 
 # Transform points to the recentered Robinson projection
@@ -271,7 +377,7 @@ tm_shape(wld.rob.df.sf) + tm_polygons(col="pop_est_dens", style="quantile") +
 While in theory, a point completely enclosed by a bounded area should always remain bounded by that area in any projection, this is not always the case in practice. This is because the transformation applies to the vertices that define the line segments and not the lines themselves. So if a point is inside of a polygon and very close to one of its boundaries in its native projection, it may find itself on the other side of that line segment in another projection hence outside of that polygon. In the following example, a polygon layer and point layer are created in a Miller coordinate system where the points are enclosed in the polygons.
 
 ```{r fig.height=2.5,fig.width=4}
-# Define a dew projections
+# Define a few projections
 miller <- "+proj=mill +lat_0=0 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
 lambert <- "+proj=lcc +lat_1=20 +lat_2=60 +lat_0=40 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
 
@@ -329,7 +435,7 @@ Only three of the points are contained. We can confirm this using the `st_contai
 st_contains(sf1.lam, pt1.lam)
 ```
 
-To resolve this problem, one should _densify_ the the polygon by adding more vertices along the line segment. The vertices density will be dictated by the resolution needed to preserve the map's containment properties and is best determined experimentally.
+To resolve this problem, one should _densify_ the polygon by adding more vertices along the line segment. The vertices density will be dictated by the resolution needed to preserve the map's containment properties and is best determined experimentally.
 
 We'll use the `st_segmentize` function to create vertices at 1 km (1000 m) intervals.
 

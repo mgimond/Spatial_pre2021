@@ -365,7 +365,9 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html"><i class="fa fa-check"></i>Coordinate Systems in R</a><ul>
+<li><a href="coordinate-systems-in-r.html#a-note-about-the-changes-to-the-proj-environment">A note about the changes to the <code>PROJ</code> environment</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#sample-files-for-this-exercise"><i class="fa fa-check"></i>Sample files for this exercise</a></li>
+<li><a href="coordinate-systems-in-r.html#loading-the-sf-package">Loading the <code>sf</code> package</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#checking-for-a-coordinate-system"><i class="fa fa-check"></i>Checking for a coordinate system</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax"><i class="fa fa-check"></i>Understanding the Proj4 coordinate syntax</a></li>
 <li class="chapter" data-level="" data-path="coordinate-systems-in-r.html"><a href="coordinate-systems-in-r.html#assigning-a-coordinate-system"><i class="fa fa-check"></i>Assigning a coordinate system</a></li>
@@ -847,11 +849,11 @@ projected CRS:  NAD83 / UTM zone 19N
 <p>The next few lines of output give us the layer’s bounding extent in the layer’s native coordinate system units. You can extract the extent via the <code>extent()</code> function as in <code>extent(s.sf)</code>.</p>
 <p>The following code chunk can be used to extract addition coordinate information from the data.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="app1-1.html#cb37-1"></a><span class="kw">st_crs</span>(s.sf)</span></code></pre></div>
-<p>Depending on the version of the <code>proj4</code> package used by <code>sf</code>, you can get two different outputs. If your version of <code>sf</code> is built with a version of <code>proj4</code> older than <code>6.0</code>, the output will consist of an <strong>epsg</strong> code (when available) and a <strong>PROJ4</strong> string as follows:</p>
+<p>Depending on the version of the <code>PROJ</code> library used by <code>sf</code>, you can get two different outputs. If your version of <code>sf</code> is built with a version of <code>PROJ</code> older than <code>6.0</code>, the output will consist of an <strong>epsg</strong> code (when available) and a <strong>proj4</strong> string as follows:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="app1-1.html#cb38-1"></a>Coordinate Reference System<span class="op">:</span></span>
 <span id="cb38-2"><a href="app1-1.html#cb38-2"></a><span class="st">  </span>EPSG<span class="op">:</span><span class="st"> </span><span class="dv">26919</span> </span>
 <span id="cb38-3"><a href="app1-1.html#cb38-3"></a>  proj4string<span class="op">:</span><span class="st"> &quot;+proj=utm +zone=19 +datum=NAD83 +units=m +no_defs&quot;</span></span></code></pre></div>
-<p>If your version of <code>sf</code> is built with a version of <code>proj4</code> <code>6.0</code> or greater, the output will consist of a user defined CS definition (e.g. an <strong>epsg</strong> code), if available, and a <em>Well Known Text</em> (WKT) formatted coordinate definition that consists of a series of <code>[ ]</code> tags as follows:</p>
+<p>If your version of <code>sf</code> is built with a version of <code>PROJ</code> <code>6.0</code> or greater, the output will consist of a user defined CS definition (e.g. an <strong>epsg</strong> code), if available, and a <em>Well Known Text</em> (WKT) formatted coordinate definition that consists of a series of <code>[ ]</code> tags as follows:</p>
 <pre><code>Coordinate Reference System:
   User input: NAD83 / UTM zone 19N 
   wkt:
